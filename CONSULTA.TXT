@@ -1,0 +1,3 @@
+select cen_nombre NOMBRE, cen_codigo CODIGO 
+from centrocostos 
+where emp_codigo = 1

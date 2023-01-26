@@ -1,0 +1,24 @@
+update montos_ticket set itbis = (select ((a.grabado*16)/100)
+from
+(select
+m.caja, m.fecha, m.usu_codigo, m.ticket, m.total, m.itbis as total_header,
+sum(((t.precio)/((t.itbis/100)+1))*t.cantidad) as grabado
+from 
+montos_ticket m, ticket t
+where 
+m.caja = t.caja
+and m.usu_codigo = t.usu_codigo
+and m.fecha = t.fecha
+and m.ticket = t.ticket
+and m.fecha between '2008-03-09' and '2008-03-31'
+and t.itbis > 0
+group by 
+m.caja, m.fecha, m.usu_codigo, m.ticket, m.total, m.itbis) a
+where a.fecha = montos_ticket.fecha
+and a.caja = montos_ticket.caja
+and a.usu_codigo = montos_ticket.usu_codigo
+and a.ticket = montos_ticket.ticket)
+where fecha between '2008-03-09' and '2008-03-31'
+
+update montos_ticket set itbis = 0 where itbis is null
+and fecha between '2008-03-09' and '2008-03-31'

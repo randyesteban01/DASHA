@@ -1,0 +1,374 @@
+Inventario
+	Productos
+	Almacenes
+	Boletos
+	Familia de productos
+	Departamentos
+	Marcas
+	Colores
+	Unidades de medida
+	Ajustar inventario
+	Conduces
+	Entradas de almacén
+	Gerentes de producto
+	Pasillos
+	Inventario físico
+	Liquidaciones
+	Transferencias
+	Vencimiento
+	Digitación abierta
+	Eliminar productos
+Ventas
+	Tipos de factura
+	Alquiler
+	Boletos
+	Cotizaciones
+	Facturas
+	Devoluciones en venta
+	Ofertas
+	Pedidos de clientes
+	Facturación automática
+	Clientes de puntos
+	Cajeros
+CxC
+	Clientes
+	Recibos
+	NC a clientes
+	ND a clientes
+CxP
+	Proveedores
+	Ordenes de compra
+	Facturas de compra y servicio
+	Devoluciones en compras
+	NC de proveedores
+	Cotización múltiples
+Banco
+	Cuentas de banco
+	Conceptos
+	Conciliación bancaria
+	Depósitos
+		Crear depósito
+		Anular depósito
+		Eliminar depósito
+	Cheques
+		Crear cheque
+		Anular cheque
+		Imprimir cheque
+		Eliminar cheque
+		Configurar impresión
+	Cargos bancarios
+		Crear cargo
+		Anular cargo
+		Eliminar cargo
+	Solicitudes de cheque
+		Crear solicitud
+		Aprobar solicitud
+		Imprimir solicitud
+		Eliminar solicitud
+		Generar cheques
+	Transferencias
+		Crear transferencia
+		Anular transferencia
+		Eliminar transferencia
+		Imprimir transferencia
+	Libro de banco
+Caja
+	Cajas IP
+	Cuadre cajas contables
+		Cuadre general
+		Desgloce efectivo
+	Cuadre cajas IP
+	Cuadre cajas IP definitivo
+	Desembolsos
+	Resumen de ingresos
+	Supervisores de caja
+Contabilidad
+	Catálogo de cuentas
+	Anexos
+	Cajas contables
+	Centros de costo
+	Tipos de documento
+	Tipo de bienes y servicios
+	Entradas de diario
+	Movimientos x cuenta
+	Reportes
+		Diario general
+		Mayor general
+		Balance comprobación
+		Resumen de entradas
+		Imprimir anexos
+	Estados
+		Resultado x mes
+		Resultado anual
+		Situación x mes
+		Situación anual
+		Costos de producción
+	Configurar estado de situación
+	Configurar bce. de comprobación comparativo
+	Cashflow
+		Grupos
+		Subgrupos
+		Conceptos
+		Cashflow
+Activos
+	Activos fijos
+	Categorias
+	Familia de activos
+	Marcas
+	Movimientos de activos
+	Tipos de movimientos
+	Impresión código de barra
+	Generar depreciación
+Recursos Humanos
+	Maestros
+		Categoria de empleados
+		Categoria de licencia de conducir
+		Clasificacion de niveles
+		Dias feriados
+		Estados civil
+		Grupos de trabajo
+		Habilidades
+		Idiomas
+		Instituciones academicas
+		Motivos de ausencias
+		Niveles jerárquicos
+		Nivel salarial
+		Paises
+		Posiciones
+		Posiciones por clasificacion
+		Tipos de empleado
+		Tipos de evaluación
+	Reclutamiento
+		Elegibles
+		Entrevistas
+		Evaluacion
+		Requerimiento personal
+		Solicitud de empleo
+	Empleados
+		Autorización de credito
+		Carta de certificacion
+		Evaluaciones a empleados
+		Maestro de empleados
+		Mensajes Individuales
+		Reporte general
+		Reportes (S.E.T).
+			Reporte DGT-3
+			Reporte DGT-3 Anexo
+			Reporte DGT-4
+	Vacaciones
+		Cartel de vacaciones
+		Vacaciones empleados
+	Seguros
+		AFP
+		SFS
+		Inclusión y exclusión Seguros médicos
+		Planes de seguros médicos
+		Tipos de seguros médicos
+	Accion de personal
+		Acciones de personal
+		Aumento de sueltos en bloque
+		Tipos de acción
+	Nomina
+		Consultas / Reportes
+			Bonificacion y regalia
+			Nominas
+			Novedades de la nómina
+		Descuentos
+		Horas trabajadas
+		Ingresos
+		Maestros
+			Grupo de descuentos
+			Tabla calculo prestaciones
+			Tipo de descuentos
+			Tipo de horas trabajadas
+			Tipo de ingresos
+			Tabla de ISR
+			Tipos de nomina
+			Tabla seguro social
+			Tabla Semana x mes
+		Prestaciones
+			Regalia pascual
+			Pago bonificacion
+			Pago liquidacion
+			Vacaciones
+		Procesos
+			Generar / Reversar Nomina
+Orden de Servicio
+	Anular orden
+	Entrada de equios
+	Dar salida a equipos
+	Listado general
+	Tipo de equipos
+	Tecnicos
+Consultas
+	Conciliación
+		Cargos bancarios
+		Cheques
+		Depositos
+		Solicitudes de cheque
+	Contabilidad
+		Balances de una cuenta
+		Entradas de diario
+		Comprobantes fiscales de venta
+		Comprobantes de gastos menores
+		Movimientos por Centro de Costo
+	Inventario
+		Productos
+		Entradas de almacén
+		Conduces / Salida de almacen
+		Liquidaciones
+		Transferencias entre almacenes
+		Por # de Serie
+	Ventas
+		Listado de facturas
+		Listado de Envio
+		Listado de boletos
+		Tickets de caja
+		Beneficios
+		Productos / cliente
+		Por marca
+		Por producto
+		Por provincia
+		Devoluciones en venta
+		Pedidos de clientes
+		Actividad de las Cajas
+	Compras
+		Ordenes de Compra
+		Devoluciones en compra
+	Cuentas por cobrar
+		Listado de cuentas por cobrar
+		Notas de crédito clientes
+		Notas de débito clientes
+		Recibos
+	Cuentas por pagar
+		Listado de cuentas por pagar
+		Notas de crédito proveedores
+		Facturas de proveedores
+	Bonos
+	Cotizaciones
+	Desembolsos
+	Resumen ejecutivo
+Reportes
+	Análisis
+		Comparativo Compra y Venta
+		Margen de beneficio bruto
+		Resumen de ventas por producto
+	Clientes
+		Listado de clientes
+		Reporte de cumpleaños
+		Reporte de Venc. Licencia / Seguro
+	Cuentas por cobrar
+		Antiguedad de facturas
+		Estados de cuentas
+		Facturas vencidas
+		Historial de clientes
+		Listado general de CxC
+		Por vendedor y provincia
+		CxC a una fecha
+		Reporte buró de crédito
+	Cuentas por pagar
+		Antiguedad de facturas
+		Estados de cuentas
+		Facturas vencidas
+		Historial de un proveedor
+		Listado general de CxP
+	Inventario
+		En punto de reorden
+		En vencimiento
+		Impresión de codigos de barra
+		Movimientos por producto
+		Entradas del inventario
+		Transferencias
+		Inventario físico
+		Costos
+			Por familia
+			Por familia y departamento
+			Valor del inventario
+			Rentabilidad (Costo / Precio)
+		Precios
+			Listado general de precios
+			Por departamento
+			Por marca
+			Por proveedor
+			Cambio de precios
+		Productos en oferta
+		Orden de pedido a proveedor
+		Para preparar carga al transporte
+		Pedidos -> Despachados
+		Productos solicitados o vendidos sin existencias
+		Productos sin existencia
+		Productos despachados
+	Ventas
+		Agrupado por cliente
+		Agrupado por vendedor
+		Ofertas otorgadas
+		Por departamentos
+		Por familia de productos
+		Por familia y departamento
+		Por producto
+		Variación
+		Por marca
+		Por tipo de factura
+		Por tipo de cliente
+		Productos por rotación
+	Activos
+	Comisiones por vendedor
+	Por formas de pago
+	Proveedores
+	Servicios
+	Reimpresión de documentos
+Procesos
+	Anular
+		Conduce
+		Desembolso
+		Devolución en compra
+		Devolución en venta
+		Entrada de almacén
+		Factura
+		Factura de proveedor
+		Liquidación
+		Nota de crédito a cliente
+		Nota de crédito a proveedor
+		Nota de débito
+		Orden de compra
+		Recibo
+	Contabilidad
+		Cierre de mes
+		Cierre de año
+		Copiar catálogo entre compañías
+		Pasar documentos a contabilidad
+		Generar depreciación
+	Inventario
+		Colector de inventario
+		Colocar existencia en cero
+		Definir escalas
+		Modificación de precios
+		Procesar conteo físico
+		Postear transferencia al inventario
+		Procesar transferencia desde dispositivo
+		Conteo físico desde dispositivo
+	NCF
+		Generar NCF gastos menores
+		Generar NCF único ingreso
+		Generar Formato envio compras de bienes y servicios
+		Generar Formato de envio 607
+		Generar Formato de envio 608
+		Notificación de comprobantes fiscales
+		Números de RNC
+	Asignar cliente a factura
+	Cambiar límite del cliente
+	Cambiar status
+	Cierre del día
+	Estadísticas
+	Clave supervisor de caja
+	Generar facturas automáticas
+Seguridad
+	Usuarios
+	Cambiar clave
+Parametros
+	Parámetros generales
+	Empresas
+	Sucursales
+	Tablas generales
+	Actualizar balances
+	Limpiar tablas tmp

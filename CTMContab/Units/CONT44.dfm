@@ -1,0 +1,321 @@
+object frmEliminaDeposito: TfrmEliminaDeposito
+  Left = 212
+  Top = 159
+  ActiveControl = edBanco
+  BorderIcons = [biSystemMenu, biMinimize]
+  BorderStyle = bsSingle
+  Caption = 'Eliminar Dep'#243'sito'
+  ClientHeight = 135
+  ClientWidth = 465
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  Font.Style = []
+  FormStyle = fsMDIChild
+  KeyPreview = True
+  OldCreateOrder = False
+  Position = poScreenCenter
+  Visible = True
+  OnActivate = FormActivate
+  OnClose = FormClose
+  OnCreate = FormCreate
+  OnKeyPress = FormKeyPress
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Label3: TLabel
+    Left = 4
+    Top = 32
+    Width = 31
+    Height = 13
+    Caption = 'Banco'
+  end
+  object btBanco: TSpeedButton
+    Left = 108
+    Top = 32
+    Width = 23
+    Height = 22
+    Flat = True
+    Glyph.Data = {
+      42010000424D4201000000000000760000002800000011000000110000000100
+      040000000000CC00000000000000000000001000000010000000000000000000
+      BF0000BF000000BFBF00BF000000BF00BF00BFBF0000C0C0C000808080000000
+      FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00777777777777
+      77777000000077777777777777777000000070000077777000007000000070B0
+      00777770F0007000000070F000777770B0007000000070000000700000007000
+      0000700B000000B0000070000000700F000700F0000070000000700B000700B0
+      0000700000007700000000000007700000007770B00070B00077700000007770
+      0000700000777000000077770007770007777000000077770B07770B07777000
+      0000777700077700077770000000777777777777777770000000777777777777
+      777770000000}
+    OnClick = btBancoClick
+  end
+  object Label1: TLabel
+    Left = 4
+    Top = 56
+    Width = 19
+    Height = 13
+    Caption = 'A'#241'o'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label4: TLabel
+    Left = 111
+    Top = 56
+    Width = 20
+    Height = 13
+    Caption = 'Mes'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label2: TLabel
+    Left = 4
+    Top = 80
+    Width = 32
+    Height = 13
+    Caption = 'Rango'
+  end
+  object Label14: TLabel
+    Left = 4
+    Top = 8
+    Width = 41
+    Height = 13
+    Caption = 'Sucursal'
+  end
+  object edBanco: TEdit
+    Left = 56
+    Top = 32
+    Width = 49
+    Height = 21
+    BevelKind = bkFlat
+    BorderStyle = bsNone
+    CharCase = ecUpperCase
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 1
+    OnChange = edBancoChange
+    OnKeyDown = edBancoKeyDown
+  end
+  object tBanco: TEdit
+    Left = 133
+    Top = 32
+    Width = 324
+    Height = 21
+    BevelKind = bkFlat
+    BorderStyle = bsNone
+    Color = clInfoBk
+    Enabled = False
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 5
+  end
+  object btClose: TBitBtn
+    Left = 376
+    Top = 104
+    Width = 75
+    Height = 25
+    Caption = '&Salir'
+    TabOrder = 7
+    OnClick = btCloseClick
+    Glyph.Data = {
+      76010000424D7601000000000000760000002800000020000000100000000100
+      04000000000000010000120B0000120B00001000000000000000000000000000
+      800000800000008080008000000080008000808000007F7F7F00BFBFBF000000
+      FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00330000000000
+      03333377777777777F333301BBBBBBBB033333773F3333337F3333011BBBBBBB
+      0333337F73F333337F33330111BBBBBB0333337F373F33337F333301110BBBBB
+      0333337F337F33337F333301110BBBBB0333337F337F33337F333301110BBBBB
+      0333337F337F33337F333301110BBBBB0333337F337F33337F333301110BBBBB
+      0333337F337F33337F333301110BBBBB0333337F337FF3337F33330111B0BBBB
+      0333337F337733337F333301110BBBBB0333337F337F33337F333301110BBBBB
+      0333337F3F7F33337F333301E10BBBBB0333337F7F7F33337F333301EE0BBBBB
+      0333337F777FFFFF7F3333000000000003333377777777777333}
+    NumGlyphs = 2
+  end
+  object btAnula: TBitBtn
+    Left = 296
+    Top = 104
+    Width = 75
+    Height = 25
+    Caption = 'Eliminar'
+    Enabled = False
+    TabOrder = 6
+    OnClick = btAnulaClick
+    Glyph.Data = {
+      66010000424D6601000000000000760000002800000014000000140000000100
+      040000000000F000000000000000000000001000000010000000000000000000
+      BF0000BF000000BFBF00BF000000BF00BF00BFBF0000C0C0C000808080000000
+      FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00777888877777
+      8877777700007770888777778887777700007911088877910888777700007911
+      0088879100888777000079111008891110087777000079911108911111007777
+      0000779111101111110777770000777911111111077777770000777991111111
+      8777777700007777991111108877777700007777791111108887777700007777
+      7911111088877777000077777911111108887777000077779111991100888777
+      0000777911108991100888770000777911187799110088870000777111187779
+      1110888700007771110777779111087700007779997777777991777700007777
+      77777777779977770000}
+  end
+  object spAno: TSpinEdit
+    Left = 56
+    Top = 56
+    Width = 49
+    Height = 22
+    TabStop = False
+    EditorEnabled = False
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    MaxValue = 3000
+    MinValue = 1900
+    ParentFont = False
+    TabOrder = 2
+    Value = 1900
+  end
+  object cbMes: TComboBox
+    Left = 133
+    Top = 56
+    Width = 153
+    Height = 21
+    BevelKind = bkSoft
+    Style = csDropDownList
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ItemHeight = 13
+    ParentFont = False
+    TabOrder = 3
+    TabStop = False
+    Items.Strings = (
+      'Enero'
+      'Febrero'
+      'Marzo'
+      'Abril'
+      'Mayo'
+      'Junio'
+      'Julio'
+      'Agosto'
+      'Septiembre'
+      'Octubre'
+      'Noviembre'
+      'Diciembre')
+  end
+  object edNumero1: TEdit
+    Left = 56
+    Top = 80
+    Width = 73
+    Height = 21
+    BevelKind = bkFlat
+    BorderStyle = bsNone
+    CharCase = ecUpperCase
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 4
+    OnChange = edNumero1Change
+  end
+  object DBLookupComboBox2: TDBLookupComboBox
+    Left = 56
+    Top = 8
+    Width = 401
+    Height = 21
+    DropDownRows = 20
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    KeyField = 'suc_codigo'
+    ListField = 'suc_nombre'
+    ListSource = dsSuc
+    ParentFont = False
+    TabOrder = 0
+  end
+  object Search: TQrySearchDlgADO
+    AliasName = DM.ADOSigma
+    Left = 376
+    Top = 48
+  end
+  object Query1: TADOQuery
+    Connection = DM.ADOSigma
+    Parameters = <>
+    Left = 408
+    Top = 48
+  end
+  object QSucursal: TADOQuery
+    Connection = DM.ADOSigma
+    LockType = ltReadOnly
+    DataSource = DM.dsEmpresas
+    Parameters = <
+      item
+        Name = 'emp_codigo'
+        Attributes = [paSigned]
+        DataType = ftInteger
+        Precision = 10
+        Size = 4
+        Value = Null
+      end
+      item
+        Name = 'usu'
+        Attributes = [paSigned]
+        DataType = ftInteger
+        Precision = 10
+        Size = 4
+        Value = Null
+      end>
+    SQL.Strings = (
+      'select'
+      's.suc_codigo, s.suc_nombre, s.alm_codigo, s.emp_codigo'
+      'from'
+      'sucursales s, sucursal_acceso a'
+      'where'
+      's.emp_codigo = a.emp_codigo'
+      'and s.suc_codigo = a.suc_codigo'
+      'and a.emp_codigo = :emp_codigo'
+      'and a.usu_codigo = :usu'
+      'order by s.suc_codigo')
+    Left = 304
+    Top = 64
+    object QSucursalsuc_codigo: TIntegerField
+      FieldName = 'suc_codigo'
+    end
+    object QSucursalsuc_nombre: TStringField
+      FieldName = 'suc_nombre'
+      Size = 60
+    end
+    object QSucursalalm_codigo: TIntegerField
+      FieldName = 'alm_codigo'
+    end
+    object QSucursalemp_codigo: TIntegerField
+      FieldName = 'emp_codigo'
+    end
+  end
+  object dsSuc: TDataSource
+    DataSet = QSucursal
+    Left = 336
+    Top = 64
+  end
+end

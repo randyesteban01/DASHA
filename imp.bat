@@ -1,0 +1,1 @@
+type t.txt > prn

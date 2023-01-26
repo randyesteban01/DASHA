@@ -1,0 +1,946 @@
+var
+formapago:array[0..13] of string = ('Efectivo','Cheque','Tarjeta',
+                                      'Tarjeta Debito','Tarjeta Propia','Cupon','Otros 1','Otros 2',
+                                      'Otros 3','Otros 4','Nota de Credito','Exoneracion ITBIS',
+                                      'Comprobante Cancelados','Exoneracion ITBIS en NC');
+
+procedure TfrmFactura.ImpTicketFiscal(aCopia:byte = 0);
+var
+
+
+  arch, puertopeq : textfile;
+  s, s1, s2, s3, s4, s5 : array [0..20] of char;
+  Tfac, Saldo : double;
+  puerto, lbitbis, impcodigo, pro_codigo, Unidad : string;
+  a : integer;
+   copias: integer;
+  DriverFiscal1 : TDriverFiscal;
+  s_SubTotal:String;
+  v_subtotal,v_diferencia:Double;
+  v_TotalPagado :double;
+  v_DescItems:Double;
+  s_TotalFacturado,s_Devuelta:String;
+  s_NIF : String;
+  v_TAMANO_MAX_DESCRIP: Word;
+  tmpDescripcion:String;
+  vLogo:Word;
+  v_descripItem,v_descripItem1,v_descripItem2,v_descripItem3 :String;
+
+
+    xCopias : byte;
+  stringTMP,stringTMP2,stringTipoITBIS:String;
+  x:byte;
+  NIF:String;
+   s_TotalItbis_From_Printer:String;
+   v_TotalItbis_From_Printer:double;
+  ///---reimpresion
+
+procedure re_ImprimirTicketEpson();
+var
+  arch, ptocaja : textfile;
+  s, s1, s2, s3, s4 : array[0..100] of char;
+  TFac, MontoItbis, Venta, tCambio,subTotal,tItbis : double;
+  PuntosPrinc, FactorPrin, TotalPuntos, CalcDesc, NumItbis, TotalDescuento : Double;
+  Puntos, pg, cantpg : integer;
+  Msg1, Msg2, Msg3, Msg4, Puerto, Forma, ImpItbis, lbItbis, codigoabre, pregunta : String;
+  Devuelta:String;
+  StatusFiscal:String;
+  vTotalgral,v_ItbisDescGral:Double;
+
+begin
+  vTotalgral:=0;
+  SetLength(arrayMultiUso, 17);
+
+    //Obtiene los datos de fiscalización
+    err := DriverFiscal1.IF_WRITE('@GetInitData');
+    arrayMultiUso[0] := DriverFiscal1.IF_READ(1);
+    arrayMultiUso[1] := DriverFiscal1.IF_READ(2);
+    arrayMultiUso[2] := DriverFiscal1.IF_READ(3);
+    arrayMultiUso[3] := DriverFiscal1.IF_READ(4);
+    //Obtiene las características fiscales
+    err := DriverFiscal1.IF_WRITE('@GetFiscalFeatures');
+    arrayMultiUso[4] := DriverFiscal1.IF_READ(1); //--Tauru
+    arrayMultiUso[5] := DriverFiscal1.IF_READ(2); //
+    arrayMultiUso[6] := DriverFiscal1.IF_READ(3); //3
+    arrayMultiUso[7] := DriverFiscal1.IF_READ(4); //0
+    arrayMultiUso[8] := DriverFiscal1.IF_READ(5); //0
+    arrayMultiUso[9] := DriverFiscal1.IF_READ(6);
+    arrayMultiUso[10] := DriverFiscal1.IF_READ(7);
+    arrayMultiUso[11] := DriverFiscal1.IF_READ(8);
+    arrayMultiUso[12] := DriverFiscal1.IF_READ(9);
+    //Obtiene los datos de serialización
+    err := DriverFiscal1.IF_WRITE('@GetPrinterVersion');
+    arrayMultiUso[13] := DriverFiscal1.IF_READ(1);  //Serie
+    arrayMultiUso[14] := DriverFiscal1.IF_READ(2);  //id
+
+   //Retorna los valores de respuesta del último comprobante cerrado
+    err := DriverFiscal1.IF_WRITE('@GetLastTicketStatus');
+    arrayMultiUso[15] := DriverFiscal1.IF_READ(1);  //NIF
+    //arrayMultiUso[17]
+     Devuelta :=  DriverFiscal1.IF_READ(3);  //DEVUELTA
+    NIF :=arrayMultiUso[15];
+
+    err := DriverFiscal1.IF_WRITE('@OpenNonFiscalReceipt');
+    if (err <> 0) then
+      begin
+        err := DriverFiscal1.IF_ERROR1(0);  //verifica Mecanismo
+        err := DriverFiscal1.IF_ERROR2(0);  //Verifica Controlador Fiscal
+
+        StatusFiscal:=IntToBinRec(err,16);    //207
+        if StatusFiscal[5] = '1' then
+          Application.MessageBox('Se requiere un Cierre Z','Error',MB_OK+MB_ICONERROR);
+      end
+    else
+      begin
+        dm.Query1.Close;
+        dm.Query1.SQL.Clear;
+        dm.Query1.SQL.Add('select par_ticket_itbis from parametros');
+        dm.Query1.SQL.Add('where emp_codigo = :emp');
+        dm.Query1.Parameters.ParamByName('emp').Value := dm.QParametrosPAR_INVEMPRESA.Value;
+        dm.Query1.Open;
+        ImpItbis := dm.Query1.FieldByName('par_ticket_itbis').AsString;
+
+        err := DriverFiscal1.IF_WRITE('@PrintNonFiscalText|'+'            *** COPIA DE DOCUMENTO FISCAL ***');
+        err := DriverFiscal1.IF_WRITE('@PrintNonFiscalText|'+arrayMultiUso[0]);
+        err := DriverFiscal1.IF_WRITE('@PrintNonFiscalText|'+'RNC '+arrayMultiUso[1]);
+        err := DriverFiscal1.IF_WRITE('@PrintNonFiscalText|'+arrayMultiUso[2]);
+        err := DriverFiscal1.IF_WRITE('@PrintNonFiscalText|'+'            COMPROBANTE AUTORIZADO POR DGII');
+        err := DriverFiscal1.IF_WRITE('@PrintNonFiscalText|'+FormatDateTime('dd/mm/yyyy hh:mm:ss', RFactura.QFacturaFAC_FECHA.value)+' '+RFactura.QFacturaFAC_HORA.AsString);
+        err := DriverFiscal1.IF_WRITE('@PrintNonFiscalText|'+'NIF: '+NIF);
+        err := DriverFiscal1.IF_WRITE('@PrintNonFiscalText|'+'NCF: '+RFactura.QFacturaNumeroCF.value);
+        err := DriverFiscal1.IF_WRITE('@PrintNonFiscalText|'+'-------------------------------------------------------');
+
+        case RFactura.QFacturatip_codigo.Value of
+          1:err := DriverFiscal1.IF_WRITE('@PrintNonFiscalText|'+'              FACTURA PARA CONSUMIDOR FINAL');
+          2:err := DriverFiscal1.IF_WRITE('@PrintNonFiscalText|'+'              FACTURA PARA CREDITO FISCAL');
+          3:err := DriverFiscal1.IF_WRITE('@PrintNonFiscalText|'+'              FACTURA PARA CREDITO FISCAL');
+          4:err := DriverFiscal1.IF_WRITE('@PrintNonFiscalText|'+'              FACTURA PARA CREDITO FISCAL');
+        end;
+
+
+        err := DriverFiscal1.IF_WRITE('@PrintNonFiscalText|'+'-------------------------------------------------------');
+        err := DriverFiscal1.IF_WRITE('@PrintNonFiscalText|'+'DESCRIPCION                 ITBIS           VALOR');
+        err := DriverFiscal1.IF_WRITE('@PrintNonFiscalText|'+'-------------------------------------------------------');
+        tItbis :=0;
+        v_subtotal:=0;
+        //----IMPRIME iNICIO CUERPO
+        RFactura.QDetalle.DisableControls;
+        RFactura.QDetalle.First;
+        while not RFactura.QDetalle.eof do
+        begin //--[0]--
+          v_DescItems:=0;
+          v_descripItem1 :='';  v_descripItem2 :=''; v_descripItem3 := '';
+          tmpDescripcion:='';  v_descripItem :='';
+
+          MontoItbis := RFactura.QDetalleDET_ITBIS.value ;
+
+
+          if MontoItbis >= 18 then
+            stringTipoITBIS :='  I2'
+          else
+            if MontoItbis >= 16 then
+              stringTipoITBIS :='  I1'
+            else
+              if MontoItbis >= 13 then
+                stringTipoITBIS :='  I5'
+              else
+                if MontoItbis >= 11 then
+                  stringTipoITBIS :='  I4'
+                else
+                  if MontoItbis >= 8 then
+                    stringTipoITBIS :='  I3'
+                  else
+                    stringTipoITBIS :='  E';
+
+
+
+          //--[000]--
+          //--------------------------------------------------------------------------
+          {--El objetivo de este bloque de codidog es resolver el sigte. problema
+            la impresora epson solo admite 22 carateres, pero si una descripcion
+            es muy grande y pasa de los 22, entonces no se imprime el resto de la
+            informacion, entonces lo que hacesmo es dividir la descripcion en
+            3 grupos para poder imprimir la descripcion completa de manera parcial
+            en la definicion de la ayuda podra notar que las descripciones van desde
+            Descripcion hasta Descripción extra #9, pero el titulo de descripcion
+            se imprime ultimo a las descripciones extra . Aqui capturamo el valor
+            de la descripcion del producto en base de datos, y lo asignamos a una
+            variable y a esta la dividimos.  Manuel Titin Abril/2018}
+
+          v_descripItem1 := EmptyStr;
+          v_descripItem2 := EmptyStr;
+          v_descripItem3 := EmptyStr;
+          tmpDescripcion:= TrimLeft(TrimRight(RFactura.QDetallePRO_NOMBRE.value));
+
+          if Length( tmpDescripcion ) <= v_TAMANO_MAX_DESCRIP then
+            v_descripItem := tmpDescripcion
+          else
+            begin //-[*]--
+              if Length( tmpDescripcion ) > v_TAMANO_MAX_DESCRIP then
+                begin  //-[*1]--
+                  v_descripItem1 := copy(tmpDescripcion,1,v_TAMANO_MAX_DESCRIP);
+                  v_descripItem2 := copy(tmpDescripcion,23,Length( tmpDescripcion ));
+
+                  if Length( v_descripItem2 ) > v_TAMANO_MAX_DESCRIP then
+                    begin     //-[*1.1]--
+                      v_descripItem3 := copy(v_descripItem2,23,Length(v_descripItem2)) ;
+                      v_descripItem2 := copy(v_descripItem2,1,v_TAMANO_MAX_DESCRIP) ;
+                      v_descripItem := v_descripItem3;
+                      v_descripItem3 :='';
+                    end //-[*1.1]--
+                  else
+                    begin  //-[*1.2]--
+                      v_descripItem := v_descripItem2;
+                      v_descripItem2 :='';
+                    end;  //-[*1.2]--
+                end //-[*1]--
+
+            end; //-[*]--
+          //--------------------------------------------------------------------------
+
+
+          if dm.QParametrospar_itbisincluido.Value = 'True' then
+          begin //--[1]--
+
+            if ( RFactura.QFacturatip_codigo.Value < 4 ) then
+            begin
+              stringTMP := FormatFloat(',,,0.00',RFactura.QDetalleDET_CANTIDAD.value) + ' x '+
+                           FormatFloat(',,,0.00',RFactura.QDetalleDET_PRECIO.value);
+              err := DriverFiscal1.IF_WRITE('@PrintNonFiscalText|'+stringTMP);
+
+              if not (RFactura.QDetallePRO_RORIGINAL.IsNull) then
+                err := DriverFiscal1.IF_WRITE('@PrintNonFiscalText|'+RFactura.QDetallePRO_RORIGINAL.VALUE);
+              if trim(v_descripItem1) <> EmptyStr then
+                err := DriverFiscal1.IF_WRITE('@PrintNonFiscalText|'+v_descripItem1);
+              if trim(v_descripItem2) <> EmptyStr then
+                err := DriverFiscal1.IF_WRITE('@PrintNonFiscalText|'+v_descripItem2);
+              if trim(v_descripItem3) <> EmptyStr then
+                err := DriverFiscal1.IF_WRITE('@PrintNonFiscalText|'+v_descripItem3);
+
+              subtotal := (RFactura.QDetalleDET_PRECIO.value - (RFactura.QDetalleDET_PRECIO.value /(1+(MontoItbis/100)))) * RFactura.QDetalleDET_CANTIDAD.value;
+              tItbis := tItbis + subtotal;
+              v_subtotal := v_subtotal + (RFactura.QDetalleDET_PRECIO.value * RFactura.QDetalleDET_CANTIDAD.value);
+              Msg1 :=FormatFloat(',,,0.00',subtotal);
+              Msg1:= dm.PAD(' ','L',15,Msg1);
+
+              Msg2 :=FormatFloat(',,,0.00', (RFactura.QDetalleDET_PRECIO.value * RFactura.QDetalleDET_CANTIDAD.value));
+              Msg2:= dm.PAD(' ','L',15,Msg2);
+
+
+             Msg3:=dm.PAD(' ','R',22,v_descripItem);
+              stringTMP2 := Msg3+Msg1+Msg2+stringTipoITBIS;
+              err := DriverFiscal1.IF_WRITE('@PrintNonFiscalText|'+stringTMP2);
+
+
+            end
+            else if RFactura.QFacturatip_codigo.Value = 4 then
+            begin
+
+              stringTMP := FormatFloat(',,,0.00', RFactura.QDetalleDET_CANTIDAD.value) + ' x '+
+                           FormatFloat(',,,0.00', RFactura.QDetalleDET_PRECIO.value);
+
+              err := DriverFiscal1.IF_WRITE('@PrintNonFiscalText|'+stringTMP);
+              if not (RFactura.QDetallePRO_RORIGINAL.IsNull) then
+                err := DriverFiscal1.IF_WRITE('@PrintNonFiscalText|'+RFactura.QDetallePRO_RORIGINAL.VALUE);
+              if trim(v_descripItem1) <> EmptyStr then
+                err := DriverFiscal1.IF_WRITE('@PrintNonFiscalText|'+v_descripItem1);
+              if trim(v_descripItem2) <> EmptyStr then
+                err := DriverFiscal1.IF_WRITE('@PrintNonFiscalText|'+v_descripItem2);
+              if trim(v_descripItem3) <> EmptyStr then
+                err := DriverFiscal1.IF_WRITE('@PrintNonFiscalText|'+v_descripItem3);
+
+              Msg1 :=FormatFloat(',,,0.00', RFactura.QDetalleDET_ITBIS.value);
+              Msg1:=dm.PAD(' ','L',15,Msg1);
+              tItbis := tItbis + RFactura.QDetalleDET_ITBIS.value ;
+              v_subtotal := v_subtotal + (RFactura.QDetalledet_Precio.value + ((RFactura.QDetalledet_Precio.value*MontoItbis)/100) * RFactura.QDetalleDET_CANTIDAD.value);
+              Msg2 :=FormatFloat(',,,0.00', (RFactura.QDetalledet_Precio.value + ((RFactura.QDetalledet_Precio.value*MontoItbis)/100) * RFactura.QDetalleDET_CANTIDAD.value));
+              Msg2:=dm.PAD(' ','L',15,Msg2);
+              ////Msg3:=dm.PAD(' ','R',22,copy(trim(RFactura.QDetallePRO_NOMBRE.value),1,22));
+
+              ////err := DriverFiscal1.IF_WRITE('@PrintNonFiscalText|'+Msg3+Msg1+Msg2+' '+stringTipoITBIS);
+
+              Msg3:=dm.PAD(' ','R',22,v_descripItem);
+              stringTMP2 := Msg3+Msg1+Msg2+stringTipoITBIS;
+              err := DriverFiscal1.IF_WRITE('@PrintNonFiscalText|'+stringTMP2);
+            end;
+
+            if RFactura.QDetalleDET_DESCUENTO.Value > 0 then
+            begin
+              v_DescItems:= RFactura.QDetalleTotalDescuento.Value * ((RFactura.QDetalleDET_ITBIS.Value /100)+1) ;
+              stringTMP := FormatFloat(',,,0.00', RFactura.QDetalleDET_CANTIDAD.value) + ' x '+
+                           FormatFloat(',,,0.00', v_DescItems);
+
+              err := DriverFiscal1.IF_WRITE('@PrintNonFiscalText|'+stringTMP);
+              v_DescItems := v_DescItems * RFactura.QDetalleDET_CANTIDAD.value;
+              tItbis := tItbis +(-(v_DescItems - (v_DescItems / (1+(RFactura.QDetalleDET_ITBIS.Value/100)))));
+              v_subtotal := v_subtotal + ( - v_DescItems);
+
+              Msg1 :=FormatFloat(',,,0.00', (v_DescItems - (v_DescItems / (1+(RFactura.QDetalleDET_ITBIS.Value/100))))) + '-';
+              Msg1:= dm.PAD(' ','L',15,Msg1);
+
+              Msg2 :=FormatFloat(',,,0.00', v_DescItems)+'-';
+              Msg2:=dm.PAD(' ','L',15,Msg2);
+              Msg3:=dm.PAD(' ','R',22,'DESC. '+FormatFloat(',,,0.00',RFactura.QDetalleDET_DESCUENTO.Value)+'%');
+
+              stringTMP2 := Msg3+ Msg1+Msg2+ stringTipoITBIS;
+              err := DriverFiscal1.IF_WRITE('@PrintNonFiscalText|'+stringTMP2);
+            end;
+          end  //--[1]--
+          else
+          begin //--[2]-- itbis no incluido.
+            err := DriverFiscal1.IF_WRITE('@TicketItem|'+copy(trim(RFactura.QDetallePRO_NOMBRE.value),1,v_TAMANO_MAX_DESCRIP)+'|'+RFactura.QDetalleDET_CANTIDAD.AsString+'|'+
+                   floattostr(RFactura.QDetalleDET_PRECIO.value + ((RFactura.QDetalleDET_PRECIO.value * RFactura.QDetalleDET_ITBIS.Value)/100) )+'|'+FloatToStr(RFactura.QDetalleDET_ITBIS.Value));
+
+            if RFactura.QDetalleDET_DESCUENTO.Value > 0 then
+            begin
+              err := DriverFiscal1.IF_WRITE('@TicketItem|'+copy(trim(RFactura.QDetallePRO_NOMBRE.value),1,v_TAMANO_MAX_DESCRIP)+'|'+RFactura.QDetalleDET_CANTIDAD.AsString+'|'+
+              floattostr(RFactura.QDetalleTotalDescuento.Value + ((RFactura.QDetalleTotalDescuento.value * RFactura.QDetalleDET_ITBIS.Value)/100) )+'|'+FloatToStr(RFactura.QDetalleDET_ITBIS.Value)+'|D');
+            end;
+          end; //--[2]--
+          RFactura.QDetalle.next;
+        end;  //--[0]--
+        RFactura.QDetalle.First;
+        RFactura.QDetalle.EnableControls;
+
+        //----IMPRIME fIN CUERPO
+        err := DriverFiscal1.IF_WRITE('@PrintNonFiscalText|'+'-------------------------------------------------------');
+        ///Msg1:=dm.PAD(' ','L',15,FormatFloat(',,,0.00', RFactura.QFacturaFAC_ITBIS.value));
+        Msg1:=dm.PAD(' ','L',15,FormatFloat(',,,0.00',tItbis));
+        Msg2 :=dm.PAD(' ','L',15,FormatFloat(',,,0.00',v_subtotal));
+
+        Msg3:= dm.PAD(' ','R',22,'Subtotal')+Msg1+Msg2;
+        err := DriverFiscal1.IF_WRITE('@PrintNonFiscalText|'+Msg3);
+
+        vTotalgral:= RFactura.QFacturaFAC_TOTAL.value;
+        if (v_subtotal <> vTotalgral) and
+           (RFactura.QFacturaTdesc_gral.AsFloat = 0) then
+            vTotalgral:= v_subtotal;
+
+        Msg2 :=dm.PAD(' ','L',15,FormatFloat(',,,0.00', vTotalgral));
+
+        v_ItbisDescGral :=tItbis;
+        if RFactura.QFacturaTdesc_gral.AsFloat > 0 then
+          begin
+               Msg3 :=FormatFloat(',,,0.00',RFactura.QFacturaTdesc_gral.AsFloat);
+               Msg3:=dm.PAD(' ','R',37,'Desc. Global : '+FormatFloat(',,,0.00',RFactura.QFacturaporc_desc_gral.value)+'%') +dm.PAD(' ','L',15,Msg3)+'-';
+               err := DriverFiscal1.IF_WRITE('@PrintNonFiscalText|'+Msg3);
+
+               v_ItbisDescGral := tItbis / ((RFactura.QFacturaporc_desc_gral.value / 100) + 1);
+          end;
+
+
+        //Msg1:=dm.PAD(' ','L',15,FormatFloat(',,,0.00', RFactura.QFacturaFAC_ITBIS.value));
+        if v_TotalItbis_From_Printer > 0 then
+          Msg1:=dm.PAD(' ','L',15,FormatFloat(',,,0.00',v_TotalItbis_From_Printer))
+        else Msg1:=dm.PAD(' ','L',15,FormatFloat(',,,0.00',v_ItbisDescGral));
+
+        Msg3:=dm.PAD(' ','R',22,'TOTAL')+Msg1+Msg2;
+        err := DriverFiscal1.IF_WRITE('@PrintNonFiscalText|'+Msg3);
+
+
+        Query1.close;
+        Query1.SQL.clear;
+        Query1.SQL.add('select PAR_TKMENSAJE1,PAR_TKMENSAJE2,PAR_TKMENSAJE3,');
+        Query1.SQL.add('PAR_TKMENSAJE4,PAR_TKCLAVEDELETE,PAR_TKCLAVEMODIFICA');
+        Query1.SQL.add('from parametros where emp_codigo = :emp');
+        Query1.Parameters.ParamByName('emp').Value := dm.QParametrosPAR_INVEMPRESA.AsInteger;
+        Query1.open;
+        err := DriverFiscal1.IF_WRITE('@PrintNonFiscalText|'+ ' ');
+
+        dm.Query1.Close;
+        dm.Query1.SQL.Clear;
+        dm.Query1.SQL.Add('select f.fpa_codigo, upper(f.fpa_nombre) nombre, sum(p.for_monto) as monto');
+        dm.Query1.SQL.Add('from formaspago f, facformapago p');
+        dm.Query1.SQL.Add('where f.emp_codigo = p.emp_codigo');
+        dm.Query1.SQL.Add('and f.fpa_codigo = p.fpa_codigo');
+        dm.Query1.SQL.Add('and p.emp_codigo = :emp');
+        dm.Query1.SQL.Add('and p.tfa_Codigo = :tfa');
+        dm.Query1.SQL.Add('and p.fac_forma  = :for');
+        dm.Query1.SQL.Add('and p.fac_numero = :num');
+        dm.Query1.SQL.Add('and p.suc_codigo = :suc');
+        dm.Query1.SQL.Add('group by f.fpa_codigo, f.fpa_nombre');
+        dm.Query1.Parameters.ParamByName('emp').Value := dm.QEmpresasEMP_CODIGO.Value;
+        dm.Query1.Parameters.ParamByName('tfa').Value := RFactura.QFacturaTFA_CODIGO.Value;
+        dm.Query1.Parameters.ParamByName('for').Value  := RFactura.QFacturaFAC_FORMA.Value;
+        dm.Query1.Parameters.ParamByName('num').Value := RFactura.QFacturaFAC_NUMERO.Value;
+        dm.Query1.Parameters.ParamByName('suc').Value := RFactura.QFacturaSUC_CODIGO.Value;
+        dm.Query1.Open;
+
+        v_TotalPagado :=0;
+        //--[busca todos los pagos]--
+        dm.Query1.DisableControls;
+        dm.Query1.First;
+        while not dm.Query1.Eof do
+        begin
+          v_TotalPagado := v_TotalPagado + dm.Query1.FieldByName('monto').Value;
+          x:= dm.Query1.FieldByName('fpa_codigo').value -1;
+          if x > 14 then x := 7;  // = a Otros 1
+            Msg2:= formapago[x];
+
+          Msg1:=dm.PAD(' ','L',15,FormatFloat(',,,0.00',dm.Query1.FieldByName('monto').asfloat)) ;
+          Msg2:=dm.PAD(' ','R',37,Msg2);
+          err := DriverFiscal1.IF_WRITE('@PrintNonFiscalText|'+Msg2+Msg1);
+
+          dm.Query1.Next;
+        end;
+
+        Devuelta:= copy(devuelta, 1,Length(Devuelta)-2)+'.'+copy(devuelta, Length(Devuelta)-1,2) ;
+
+        if ((Devuelta = '') or ( Devuelta = '.0') or (Devuelta = '0')) then
+          Devuelta := '0.00';
+
+        Devuelta:=dm.PAD(' ','L',15,Devuelta);
+       /// err := DriverFiscal1.IF_WRITE('@PrintNonFiscalText|'+ ' ');
+        err := DriverFiscal1.IF_WRITE('@PrintNonFiscalText|'+dm.PAD(' ','R',37,'CAMBIO')+Devuelta);
+        err := DriverFiscal1.IF_WRITE('@PaperFeed|1');
+
+        err := DriverFiscal1.IF_WRITE('@PrintNonFiscalText|Factura #: '+RFactura.QFacturaFAC_NUMERO.AsString);
+        err := DriverFiscal1.IF_WRITE('@PrintNonFiscalText|Cliente  : '+RFactura.QFacturaFAC_NOMBRE.AsString);
+        err := DriverFiscal1.IF_WRITE('@PrintNonFiscalText|Vendedor : '+tVendedor.text);
+        err := DriverFiscal1.IF_WRITE('@PrintNonFiscalText|Caja     : '+RFactura.QFacturafac_caja.AsString);
+
+        if (actbalance = 'True') then
+        begin
+           err := DriverFiscal1.IF_WRITE('@PrintNonFiscalText|'+ ' ');
+           err := DriverFiscal1.IF_WRITE('@PrintNonFiscalText|'+ ' ');
+           err := DriverFiscal1.IF_WRITE('@PrintNonFiscalText|     -------------------------');
+           err := DriverFiscal1.IF_WRITE('@PrintNonFiscalText|            Firma Clte.');
+        end;
+
+        err := DriverFiscal1.IF_WRITE('@PaperFeed|1');
+        err := DriverFiscal1.IF_WRITE('@PrintNonFiscalText|'+copy(RFactura.QFacturaFAC_MENSAJE1.AsString,1,42));
+        err := DriverFiscal1.IF_WRITE('@PrintNonFiscalText|'+copy(RFactura.QFacturaFAC_MENSAJE2.AsString,1,42));
+        err := DriverFiscal1.IF_WRITE('@PrintNonFiscalText|'+copy(RFactura.QFacturaFAC_MENSAJE3.AsString,1,42));
+        err := DriverFiscal1.IF_WRITE('@PrintNonFiscalText|'+'-------------------------------------------------------');
+        err := DriverFiscal1.IF_WRITE('@PrintNonFiscalText|'+'NIF: '+NIF);
+        err := DriverFiscal1.IF_WRITE('@PrintNonFiscalText|'+arrayMultiUso[13]+'               '+
+                                       arrayMultiUso[14] +'          '+
+                                       'V: '+arrayMultiUso[6]+'.'+arrayMultiUso[7]+arrayMultiUso[8]+'  '+arrayMultiUso[4]);
+        ////err := DriverFiscal1.IF_WRITE('@PrintNonFiscalText|'+'            *** FIN DOCUMENTO NO VENTA ***');
+        err := DriverFiscal1.IF_WRITE('@CloseNonFiscalReceipt|C');
+    end;
+
+ end;
+
+  ///--fin re-impresion
+
+begin
+  v_TAMANO_MAX_DESCRIP:=22;
+  v_TotalItbis_From_Printer :=0;
+  if ((aCopia > 0 ) and ( Impresora.SustituirCopia = true)) then
+    copias := 0
+  else
+    copias := aCopia;
+
+///  copias := aCopia;
+ //// if ckcopia.Checked then copias := 1;
+
+  if dm.QParametrospar_imprime_logo.Value = 'True' then
+    vLogo :=1
+  else
+    vLogo :=0;
+
+  if FileExists('puerto.ini') then
+  begin
+    assignfile(puertopeq, 'puerto.ini');
+    reset(puertopeq);
+    readln(puertopeq, puerto);
+  end
+  else
+    puerto := 'COM1';
+
+
+
+  application.CreateForm(tRFactura, RFactura);
+  RFactura.QFactura.Parameters.ParamByName('emp').Value    := dm.QEmpresasEMP_CODIGO.value;
+  RFactura.QFactura.Parameters.ParamByName('tipo').Value   := QFacturaTFA_CODIGO.value;
+  RFactura.QFactura.Parameters.ParamByName('forma').Value   := QFacturaFAC_FORMA.value;
+  RFactura.QFactura.Parameters.ParamByName('numero').Value := QFacturaFAC_NUMERO.value;
+  RFactura.QFactura.Parameters.ParamByName('suc').Value := QFacturaSUC_CODIGO.value;
+  RFactura.QFactura.open;
+  RFactura.QDetalle.Parameters.ParamByName('par_invempresa').Value := dm.QParametrosPAR_INVEMPRESA.Value;
+  RFactura.QDetalle.open;
+  RFactura.QFormasPago.Open;
+
+  DriverFiscal1 := TDriverFiscal.Create(Self);
+  DriverFiscal1.SerialNumber := '27-0163848-435';
+
+  try
+    err := DriverFiscal1.IF_OPEN(puerto, 9600);
+
+    if (err < 0 ) then
+      begin
+        ShowMessage('Error : No hay comunicacion con el printer'+#13+#10+
+        'Impresion cancelada');
+        exit;
+      end;
+
+    //  DriverFiscal1.IF_TRACE(1) ; //esta linea es para ver un log con lo que hace el printer
+  {
+  'Habilitar la depuración y captura de comandos enviados al archivo debug.log
+  IF_TRACE(1)
+  'Deshabilitar el debugging
+  IF_TRACE(0)
+
+  }
+  if RFactura.QFacturatip_codigo.Value = 1 then //consumidor final
+   begin
+     err := DriverFiscal1.IF_WRITE('@TicketOpen|a|0001|'+FormatFloat('000', RFactura.QFacturafac_caja.Value)+'|'+
+           RFactura.QFacturaNumeroCF.AsString+'||||P|'+inttostr(copias)+'|'+IntToStr(vLogo));
+   end
+  else if RFactura.QFacturatip_codigo.Value = 2 then //con Valor Fiscal
+  begin
+
+
+    err := DriverFiscal1.IF_WRITE('@TicketOpen|b|0001|'+FormatFloat('000', RFactura.QFacturafac_caja.Value)+'|'+
+           RFactura.QFacturaNumeroCF.AsString+'|'+ Copy(Trim(RFactura.QFacturaFAC_NOMBRE.AsString),1,40) +'|'+RFactura.QFacturafac_rnc.AsString+
+           '||P|'+inttostr(copias)+'|'+IntToStr(vLogo));
+  end
+  else if RFactura.QFacturatip_codigo.Value = 3 then //Gubernamental
+  begin
+    err := DriverFiscal1.IF_WRITE('@TicketOpen|b|0001|'+FormatFloat('000', RFactura.QFacturafac_caja.Value)+'|'+
+           RFactura.QFacturaNumeroCF.AsString+'|'+Copy(Trim(RFactura.QFacturaFAC_NOMBRE.AsString),1,40)+'|'+RFactura.QFacturafac_rnc.AsString+
+           '||P|'+inttostr(copias)+'|'+IntToStr(vLogo));
+  end
+  else if RFactura.QFacturatip_codigo.Value = 4 then //Regimen Especial
+  begin
+    err := DriverFiscal1.IF_WRITE('@TicketOpen|f|0001|'+FormatFloat('000', RFactura.QFacturafac_caja.Value)+'|'+
+           RFactura.QFacturaNumeroCF.AsString+'|'+Copy(Trim(RFactura.QFacturaFAC_NOMBRE.AsString),1,40)+'|'+RFactura.QFacturafac_rnc.AsString+
+           '||P|'+inttostr(copias)+'|'+IntToStr(vLogo));
+  end;
+
+  if err <> 0 then
+  begin
+    err:=DriverFiscal1.IF_ERROR2(12);
+
+    if  ( err > 0) then begin
+      ShowMessage('Se requiere un cierre Z'+#13+#10+
+                  'Impresion cancelada');
+      exit;
+    end;
+  end;
+
+
+  RFactura.QDetalle.DisableControls;
+  RFactura.QDetalle.First;
+  while not RFactura.QDetalle.eof do
+  begin //--[0]--
+    v_DescItems:=0;
+    v_descripItem1 :='';  v_descripItem2 :=''; v_descripItem3 := '';
+    tmpDescripcion:='';  v_descripItem :='';
+
+
+    //--[000]--
+    //--------------------------------------------------------------------------
+    {--El objetivo de este bloque de codidog es resolver el sigte. problema
+      la impresora epson solo admite 22 carateres, pero si una descripcion
+      es muy grande y pasa de los 22, entonces no se imprime el resto de la
+      informacion, entonces lo que hacesmo es dividir la descripcion en
+      3 grupos para poder imprimir la descripcion completa de manera parcial
+      en la definicion de la ayuda podra notar que las descripciones van desde
+      Descripcion hasta Descripción extra #9, pero el titulo de descripcion
+      se imprime ultimo a las descripciones extra . Aqui capturamo el valor
+      de la descripcion del producto en base de datos, y lo asignamos a una
+      variable y a esta la dividimos.  Manuel Titin Abril/2018}
+
+    tmpDescripcion:= TrimLeft(TrimRight(RFactura.QDetallePRO_NOMBRE.value));
+
+    if Length( tmpDescripcion ) <= v_TAMANO_MAX_DESCRIP then
+      v_descripItem := tmpDescripcion
+    else
+      begin //-[*]--
+        if Length( tmpDescripcion ) > v_TAMANO_MAX_DESCRIP then
+          begin  //-[*1]--
+            v_descripItem1 := copy(tmpDescripcion,1,v_TAMANO_MAX_DESCRIP);
+            v_descripItem2 := copy(tmpDescripcion,23,Length( tmpDescripcion ));
+
+            if Length( v_descripItem2 ) > v_TAMANO_MAX_DESCRIP then
+              begin     //-[*1.1]--
+                v_descripItem3 := copy(v_descripItem2,23,Length(v_descripItem2)) ;
+                v_descripItem2 := copy(v_descripItem2,1,v_TAMANO_MAX_DESCRIP) ;
+                v_descripItem := v_descripItem3;
+                v_descripItem3 :='';
+              end //-[*1.1]--
+            else
+              begin  //-[*1.2]--
+                v_descripItem := v_descripItem2;
+                v_descripItem2 :='';
+              end;  //-[*1.2]--
+          end //-[*1]--
+
+      end; //-[*]--
+    //--------------------------------------------------------------------------
+
+   { v_descripItem1 :='Linea 1 - Impresora epson de carro ancho';
+    v_descripItem2 :='Linea 2 - Impresora epson de carro ancho';
+    v_descripItem3 :='Linea 3 - Impresora epson de carro ancho';
+    v_descripItem  :='Linea 0 - Impresora epson de carro ancho';   }
+
+   { v_descripItem1 :='Linea 1 - Impresora 22';
+    v_descripItem2 :='Linea 2 - Impresora 22';
+    v_descripItem3 :='Linea 3 - Impresora 22';
+    v_descripItem  :='Linea 0 - Impresora 22';
+    }
+
+    if dm.QParametrospar_itbisincluido.Value = 'True' then
+    begin //--[1]--
+
+      if ( RFactura.QFacturatip_codigo.Value < 4 ) then
+      begin
+
+
+        {err := DriverFiscal1.IF_WRITE('@TicketItem|'+
+                 copy(trim(RFactura.QDetallePRO_NOMBRE.value),1,v_TAMANO_MAX_DESCRIP)+'|'+
+                 RFactura.QDetalleDET_CANTIDAD.AsString+'|'+
+                 floattostr(RFactura.QDetalleDET_PRECIO.value)+'|'+
+                 FloatToStr(RFactura.QDetalleDET_ITBIS.Value)+'|||'+
+                 RFactura.QDetallePRO_RORIGINAL.VALUE+'|'+
+                 aqui); }
+
+         err := DriverFiscal1.IF_WRITE('@TicketItem|'+
+                 v_descripItem+'|'+
+                 RFactura.QDetalleDET_CANTIDAD.AsString+'|'+
+                 floattostr(RFactura.QDetalleDET_PRECIO.value)+'|'+
+                 FloatToStr(RFactura.QDetalleDET_ITBIS.Value)+'|||'+
+                 RFactura.QDetallePRO_RORIGINAL.VALUE+'|'+
+                 v_descripItem1+'|'+
+                 v_descripItem2+'|'+
+                 v_descripItem3);
+
+      end
+      else if RFactura.QFacturatip_codigo.Value = 4 then
+      begin
+        err := DriverFiscal1.IF_WRITE('@TicketItem|'+
+                 v_descripItem+'|'+
+                 RFactura.QDetalleDET_CANTIDAD.AsString+'|'+
+                 floattostr(RoundTo(RFactura.QDetalleDET_PRECIO.value,-2))+'|'+
+                 FloatToStr(RFactura.QDetalleDET_ITBIS.Value)+'|||'+
+                 RFactura.QDetallePRO_RORIGINAL.VALUE +'|'+
+                 v_descripItem1+'|'+
+                 v_descripItem2+'|'+
+                 v_descripItem3);
+      end;
+
+      if RFactura.QDetalleDET_DESCUENTO.Value > 0 then
+      begin
+        if dm.QParametrospar_itbisincluido.Value = 'True' then
+        v_DescItems:= QDetalleCalcDesc.Value else
+        v_DescItems:= QDetalleCalcDesc.Value*((RFactura.QDetalleDET_ITBIS.Value /100)+1);
+                      //RFactura.QDetalleTotalDescuento.Value * ((RFactura.QDetalleDET_ITBIS.Value /100)+1) ;
+        err := DriverFiscal1.IF_WRITE('@TicketItem|'+
+               copy(trim(RFactura.QDetallePRO_NOMBRE.value),1,v_TAMANO_MAX_DESCRIP)+'|'+RFactura.QDetalleDET_CANTIDAD.AsString+'|'+
+               floattostr(v_descItems)+'|'+FloatToStr(RFactura.QDetalleDET_ITBIS.Value)+'|D');
+      end;
+    end  //--[1]--
+    else
+    begin //--[2]-- itbis no incluido.
+      err := DriverFiscal1.IF_WRITE('@TicketItem|'+
+                 v_descripItem+'|'+
+                 RFactura.QDetalleDET_CANTIDAD.AsString+'|'+
+                 floattostr(RFactura.QDetalleDET_PRECIO.value + ((RFactura.QDetalleDET_PRECIO.value * RFactura.QDetalleDET_ITBIS.Value)/100) )+'|'+
+                 FloatToStr(RFactura.QDetalleDET_ITBIS.Value)+'|||'+
+                 RFactura.QDetallePRO_RORIGINAL.VALUE+'|'+
+                 v_descripItem1+'|'+
+                 v_descripItem2+'|'+
+                 v_descripItem3);
+
+
+    { err := DriverFiscal1.IF_WRITE('@TicketItem|'+copy(trim(RFactura.QDetallePRO_NOMBRE.value),1,v_TAMANO_MAX_DESCRIP)+'|'+
+                     RFactura.QDetalleDET_CANTIDAD.AsString+'|'+
+                     floattostr(RFactura.QDetalleDET_PRECIO.value + ((RFactura.QDetalleDET_PRECIO.value * RFactura.QDetalleDET_ITBIS.Value)/100) )+'|'+
+                     FloatToStr(RFactura.QDetalleDET_ITBIS.Value));   }
+
+      if RFactura.QDetalleDET_DESCUENTO.Value > 0 then
+      begin
+        err := DriverFiscal1.IF_WRITE('@TicketItem|'+copy(trim(RFactura.QDetallePRO_NOMBRE.value),1,v_TAMANO_MAX_DESCRIP)+'|'+RFactura.QDetalleDET_CANTIDAD.AsString+'|'+
+        floattostr(RFactura.QDetalleCalcDesc.Value + ((RFactura.QDetalleCalcDesc.value * RFactura.QDetalleDET_ITBIS.Value)/100) )+'|'+FloatToStr(RFactura.QDetalleDET_ITBIS.Value)+'|D');
+      end;
+    end; //--[2]--
+    RFactura.QDetalle.next;
+  end;  //--[0]--
+  RFactura.QDetalle.First;
+  RFactura.QDetalle.EnableControls;
+
+  //Busca el sub-Total
+
+ { if err <> 0 then
+  begin
+    ShowMessage('Se produjo un error  con el printer'+#13+#10+
+                'Impresion cancelada');
+    exit;
+  end;}
+
+    if (err <> 0) then
+      begin
+        err := DriverFiscal1.IF_ERROR1(0);  //verifica Mecanismo
+        //err := DriverFiscal1.IF_ERROR2(0);  //Verifica Controlador Fiscal
+
+        statusMPrinter:=IntToBinRec(err,16);    //207
+        if ((statusMPrinter[4] = '1') or
+            (statusMPrinter[6] = '1') or
+            (statusMPrinter[12] = '1') or
+            (statusMPrinter[15] = '1') ) then
+         begin
+            Application.MessageBox(pchar('Impresora fuera de Linea'+#13+#12+
+                                 'Favor Vericar Papel'),'Error',MB_OK+MB_ICONERROR);
+                                 exit;
+         end
+         else
+           begin
+    ShowMessage('Se produjo un error  con el printer'+#13+#10+
+                'Impresion cancelada');
+    exit;
+  end;
+      end;
+
+
+  err := DriverFiscal1.IF_WRITE('@TicketSubtotal|P');
+  s_subtotal :=DriverFiscal1.IF_READ(1) ;
+  v_subtotal := (StrToFloat(s_SubTotal) * 0.01);
+
+  if RFactura.QFacturaTdesc_gral.Value > 0 then
+    begin
+      err := DriverFiscal1.IF_WRITE('@TicketReturnRecharge|Desc. Global : '+
+             floattostr(RFactura.QFacturaporc_desc_gral.value)+'%|'+
+             floattostr(RFactura.QFacturaTdesc_gral.Value)+'|D');
+    end;
+
+
+
+
+
+  ///----------------------------------------------------------
+  if (actbalance = 'True') then
+  begin
+     v_diferencia :=0;
+
+
+    if (v_subtotal > RFactura.QFacturaFAC_TOTAL.value) then
+      begin
+        v_diferencia := v_subtotal - RFactura.QFacturaFAC_TOTAL.value;
+        if (v_diferencia <= 0.99) then
+          err := DriverFiscal1.IF_WRITE('@TicketPayment|7|'+floattostr(v_subtotal)+'|Credito')
+        else
+          begin
+
+            Application.MessageBox(pchar('Existe diferencia entre el Monto de la factura y la impresora de : '+ FormatFloat(',,,0.00',v_diferencia)) ,'Error',MB_OK+MB_ICONERROR);
+
+          end;
+
+      end
+    else
+      err := DriverFiscal1.IF_WRITE('@TicketPayment|7|'+floattostr(RFactura.QFacturaFAC_TOTAL.value));
+
+    s := '';
+    fillchar(s, 14-length(format('%n',[RFactura.QFacturaFAC_ABONO.value])),' ');
+    Saldo := (RFactura.QFacturaFAC_TOTAL.value+v_diferencia) - RFactura.QFacturaFAC_ABONO.value;
+    s1 := '';
+    fillchar(s1, 14-length(format('%n',[Saldo])),' ');
+    err := DriverFiscal1.IF_WRITE('@TicketFiscalText|'+ 'Abonado :'+s+format('%n',[RFactura.QFacturaFAC_ABONO.value]));
+    err := DriverFiscal1.IF_WRITE('@TicketFiscalText|'+ 'Balance :'+s1+format('%n',[Saldo]));
+
+    dm.Query1.Close;
+    dm.Query1.SQL.Clear;
+    dm.Query1.SQL.Add('select cli_balance from clientes');
+    dm.Query1.SQL.Add('where emp_codigo = :emp');
+    dm.Query1.SQL.Add('and cli_codigo = :cli');
+    dm.Query1.Parameters.ParamByName('emp').Value := dm.QEmpresasEMP_CODIGO.Value;
+    dm.Query1.Parameters.ParamByName('cli').Value := RFactura.QFacturaCLI_CODIGO.Value;
+    dm.Query1.Open;
+
+    err := DriverFiscal1.IF_WRITE('@TicketFiscalText|'+ ' ');
+    err := DriverFiscal1.IF_WRITE('@TicketFiscalText|'+ dm.Centro('SU CUENTA REFLEJA UN BALANCE'));
+    err := DriverFiscal1.IF_WRITE('@TicketFiscalText|'+ dm.Centro('A LA FECHA DE '+Format('%n',[dm.Query1.FieldByName('cli_balance').AsFloat])));
+
+    dm.Query1.Close;
+    dm.Query1.SQL.Clear;
+    dm.Query1.SQL.Add('select * from pr_Estadistica_cli (:emp, :cli, :fec)');
+    dm.Query1.Parameters.ParamByName('emp').Value := dm.QEmpresasEMP_CODIGO.Value;
+    dm.Query1.Parameters.ParamByName('cli').Value := RFactura.QFacturaCLI_CODIGO.Value;
+    dm.Query1.Parameters.ParamByName('fec').Value    := Date;
+    dm.Query1.Open;
+    err := DriverFiscal1.IF_WRITE('@TicketFiscalText|'+ dm.Centro('Y UN MONTO VENCIDO DE '+Format('%n',[dm.Query1.FieldByName('mtovencido').AsFloat])));
+  end
+  else
+  begin
+    dm.Query1.Close;
+    dm.Query1.SQL.Clear;
+    dm.Query1.SQL.Add('select f.fpa_codigo, f.fpa_nombre, sum(p.for_monto) as monto');
+    dm.Query1.SQL.Add('from formaspago f, facformapago p');
+    dm.Query1.SQL.Add('where f.emp_codigo = p.emp_codigo');
+    dm.Query1.SQL.Add('and f.fpa_codigo = p.fpa_codigo');
+    dm.Query1.SQL.Add('and p.emp_codigo = :emp');
+    dm.Query1.SQL.Add('and p.tfa_Codigo = :tfa');
+    dm.Query1.SQL.Add('and p.fac_forma  = :for');
+    dm.Query1.SQL.Add('and p.fac_numero = :num');
+    dm.Query1.SQL.Add('and p.suc_codigo = :suc');
+    dm.Query1.SQL.Add('group by f.fpa_codigo, f.fpa_nombre');
+    dm.Query1.Parameters.ParamByName('emp').Value := dm.QEmpresasEMP_CODIGO.Value;
+    dm.Query1.Parameters.ParamByName('tfa').Value := RFactura.QFacturaTFA_CODIGO.Value;
+    dm.Query1.Parameters.ParamByName('for').Value  := RFactura.QFacturaFAC_FORMA.Value;
+    dm.Query1.Parameters.ParamByName('num').Value := RFactura.QFacturaFAC_NUMERO.Value;
+    dm.Query1.Parameters.ParamByName('suc').Value := RFactura.QFacturaSUC_CODIGO.Value;
+    dm.Query1.Open;
+
+    v_TotalPagado :=0;
+    //--[busca todos los pagos]--
+    dm.Query1.DisableControls;
+    dm.Query1.First;
+    while not dm.Query1.Eof do
+    begin
+      v_TotalPagado := v_TotalPagado + dm.Query1.FieldByName('monto').Value;
+      s:= '';
+      fillchar(s, 14-length(dm.Query1.FieldByName('fpa_nombre').asstring),' ');
+      s1 := '';
+      fillchar(s1, 10-length(format('%n',[dm.Query1.FieldByName('monto').asfloat])),' ');
+
+      err := DriverFiscal1.IF_WRITE('@TicketPayment|'+dm.Query1.FieldByName('fpa_codigo').AsString+'|'+
+      floattostr(dm.Query1.FieldByName('monto').asfloat));
+
+      dm.Query1.Next;
+
+
+
+    end;
+
+    v_diferencia :=0;
+
+    v_TotalPagado:=v_TotalPagado+RFactura.QFacturaTdesc_gral.Value;
+
+
+    //--[Verifica si falta monto por pagar]
+    if (v_subtotal > (v_TotalPagado)) then
+      begin
+        v_diferencia := v_subtotal - v_TotalPagado;
+
+        if (v_diferencia <= 0.99) then
+          err := DriverFiscal1.IF_WRITE('@TicketPayment|7|'+floattostr(v_diferencia));
+      end;
+
+    dm.Query1.EnableControls;
+  end;
+
+    dm.Query1.Close;
+    dm.Query1.SQL.Clear;
+    dm.Query1.SQL.Add('select ven_nombre from vendedores where emp_codigo = :emp and ven_codigo = :ven');
+    dm.Query1.Parameters.ParamByName('emp').Value := dm.QEmpresasEMP_CODIGO.Value;
+    dm.Query1.Parameters.ParamByName('ven').Value := RFactura.QFacturaVEN_CODIGO.Value;
+    dm.Query1.Open;
+
+    err := DriverFiscal1.IF_WRITE('@TicketFiscalText|Factura #: '+RFactura.QFacturaFAC_NUMERO.AsString);
+    err := DriverFiscal1.IF_WRITE('@TicketFiscalText|Cliente  : '+RFactura.QFacturaFAC_NOMBRE.AsString);
+    err := DriverFiscal1.IF_WRITE('@TicketFiscalText|Vendedor : '+dm.Query1.FieldByName('ven_nombre').AsString);
+    err := DriverFiscal1.IF_WRITE('@TicketFiscalText|Caja     : '+RFactura.QFacturafac_caja.AsString);
+
+    if (actbalance = 'True') then
+    begin
+      err := DriverFiscal1.IF_WRITE('@TicketFiscalText|'+ ' ');
+      err := DriverFiscal1.IF_WRITE('@TicketFiscalText|'+ ' ');
+      err := DriverFiscal1.IF_WRITE('@TicketFiscalText|     -------------------------');
+      err := DriverFiscal1.IF_WRITE('@TicketFiscalText|            Firma Clte.');
+    end;
+
+
+    err := DriverFiscal1.IF_WRITE('@TicketFiscalText|'+' ');
+    err := DriverFiscal1.IF_WRITE('@TicketFiscalText|'+copy(RFactura.QFacturaFAC_MENSAJE1.AsString,1,42));
+    err := DriverFiscal1.IF_WRITE('@TicketFiscalText|'+copy(RFactura.QFacturaFAC_MENSAJE2.AsString,1,42));
+    err := DriverFiscal1.IF_WRITE('@TicketFiscalText|'+copy(RFactura.QFacturaFAC_MENSAJE3.AsString,1,42));
+
+    // err := DriverFiscal1.IF_WRITE('@TicketFiscalText|[F3x;Texto Fiscal II');
+
+
+    //err := DriverFiscal1.IF_WRITE('@TicketFiscalText|[E2x;*1234567*');
+
+    //Busca el total de itbis pagado.
+    err := DriverFiscal1.IF_WRITE('@GetTicketVatInfo');
+    if (err = 0) then
+      s_TotalItbis_From_Printer :=DriverFiscal1.IF_READ(1)
+    else s_TotalItbis_From_Printer := '';
+
+    if s_TotalItbis_From_Printer <> '' then
+      v_TotalItbis_From_Printer := (StrToFloat(s_TotalItbis_From_Printer) * 0.01);
+
+    err := DriverFiscal1.IF_WRITE('@TicketClose');
+
+    //--busca el NIF y otros datos
+    err := DriverFiscal1.IF_WRITE('@GetLastTicketStatus');
+    if (err = 0) then
+      begin
+        s_NIF :=DriverFiscal1.IF_READ(1);  //s_NIF : Long;
+        s_TotalFacturado :=DriverFiscal1.IF_READ(2);  //s_TotalFacturado :Double;
+        s_Devuelta :=DriverFiscal1.IF_READ(3);    //s_Devuelta:Double;
+        if s_NIF <> EmptyStr then
+          begin
+          {  QFactura.edit;
+            QFacturaNIF.value := s_NIF;     }
+          with DM.adoMultiUso do begin
+          Close;
+          SQL.Clear;
+          SQL.Add('UPDATE FACTURAS');
+          SQL.Add('SET NIF = :NIC');
+          SQL.Add('WHERE EMP_CODIGO = :EMP AND SUC_CODIGO = :SUC');
+          SQL.Add('AND FAC_NUMERO = :FAC AND TFA_CODIGO = :TFA AND FAC_FORMA = :FOR');
+          Parameters.ParamByName('NIC').Value := s_NIF;
+          Parameters.ParamByName('EMP').Value := QFacturaEMP_CODIGO.Value;
+          Parameters.ParamByName('SUC').Value := QFacturaSUC_CODIGO.Value;
+          Parameters.ParamByName('FAC').Value := QFacturaFAC_NUMERO.Value;
+          Parameters.ParamByName('TFA').Value := QFacturaTFA_CODIGO.Value;
+          Parameters.ParamByName('FOR').Value := QFacturaFAC_FORMA.Value;
+          ExecSQL;
+          end;
+
+          if v_TotalItbis_From_Printer > 0 then BEGIN
+          //QFacturaFAC_ITBIS.value :=v_TotalItbis_From_Printer;
+          with DM.adoMultiUso do begin
+          Close;
+          SQL.Clear;
+          SQL.Add('UPDATE FACTURAS');
+          SQL.Add('SET FAC_ITBIS = :ITBIS');
+          SQL.Add('WHERE EMP_CODIGO = :EMP AND SUC_CODIGO = :SUC');
+          SQL.Add('AND FAC_NUMERO = :FAC AND TFA_CODIGO = :TFA AND FAC_FORMA = :FOR');
+          Parameters.ParamByName('ITBIS').Value := v_TotalItbis_From_Printer;
+          Parameters.ParamByName('EMP').Value := QFacturaEMP_CODIGO.Value;
+          Parameters.ParamByName('SUC').Value := QFacturaSUC_CODIGO.Value;
+          Parameters.ParamByName('FAC').Value := QFacturaFAC_NUMERO.Value;
+          Parameters.ParamByName('TFA').Value := QFacturaTFA_CODIGO.Value;
+          Parameters.ParamByName('FOR').Value := QFacturaFAC_FORMA.Value;
+          ExecSQL;
+          end;
+          end;
+
+           // QFactura.post;
+           // QFactura.UpdateBatch;
+          end;
+      end;
+
+    err := DriverFiscal1.IF_WRITE('@PaperFeed|1');
+    err := DriverFiscal1.IF_WRITE('@PaperCut|P');
+    /// DriverFiscal1.IF_TRACE(0) ;
+
+    if ((aCopia > 0 ) and ( Impresora.SustituirCopia = true)) then
+      for x:=1 to aCopia do
+        re_ImprimirTicketEpson();
+
+    err := DriverFiscal1.IF_CLOSE;
+  finally
+    DriverFiscal1.Destroy;
+    RFactura.Destroy;
+  //Limpiar pantalla
+  QDetalle.DisableControls;
+    QDetalle.close;
+    QFactura.DisableControls;
+    QFactura.close;
+    QFactura.Parameters.ParamByName('emp').Value    := dm.QEmpresasEMP_CODIGO.value;
+    QFactura.Parameters.ParamByName('tipo').Value   := -1;
+    QFactura.Parameters.ParamByName('forma').Value   := 'A';
+    QFactura.Parameters.ParamByName('numero').Value := -1;
+    QFactura.Parameters.ParamByName('suc').Value := -1;
+    QFactura.open;
+    QFactura.EnableControls;
+    QFactura.insert;
+    QDetalle.EnableControls;
+    if dm.QParametrosPAR_FACBAJARLINEA.Value <> 'True' then
+       edTipo.setfocus;
+    
+  end;
+end;

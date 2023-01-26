@@ -1,0 +1,1 @@
+write(ar,Chr(27),'p',chr(0),chr(25),chr(250))

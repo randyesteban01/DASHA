@@ -1,0 +1,2 @@
+emp_codigo|dep_codigo|dep_nombre|
+1|38|ARTICULOS DEL HOGAR|

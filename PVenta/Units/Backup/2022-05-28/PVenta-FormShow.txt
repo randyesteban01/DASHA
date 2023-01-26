@@ -1,0 +1,221 @@
+procedure TfrmFactura.FormShow(Sender: TObject);
+begin
+IF DM.QParametrospar_fac_preimpresa.Value = 'False'  then BEGIN
+  chkTipoFacHotel.Visible := False;
+  LbPropinaLegal.Visible := False;
+  LbPropinaLegal.Top := 69;
+  dbedtFAC_PROPINA.Visible := False;
+  dbedtFAC_PROPINA.Top := 66;
+  Panel2.Height := 100;
+  LBReserva.Visible := False;
+  lbHasta.Visible := False;
+  lbHasta.Caption := 'Hasta:';
+  DEdt_Desde.Visible := False;
+  DEdt_Hasta.Visible := False;
+  dbedtNumReserva.Visible := False;
+  btnReserva.Visible := False;
+  edtNoReserva.Visible := False;
+  LBReserva.Visible := False;
+  dbedtNumReserva.Visible := False;
+  btnReserva.Visible := False;
+  edtNoReserva.Visible := False;
+  lblRecargos.Visible := False;
+  lblRecargos.Top := 69;
+  dbedt_RECARGOS.Visible := False;
+  dbedt_RECARGOS.Enabled := False;
+  DBEdit19.ReadOnly                 := True;
+  DBEdit19.Enabled                  := False;
+
+  //dbedt_RECARGOS.Top := 66;
+  //DBEdit7.Visible            := True;
+  Label16.Visible            := True;
+  //DBEdit7.Top                := 24;
+  Label16.Top                := 27;
+  Label23.Visible            := False;
+  dbedtFAC_SERVICIOS.Visible := False;
+ // dbedtFAC_SERVICIOS.Top     := 115;
+  //Label23.Top                := 112;
+  QDetalleSubPedido.Visible         := False;
+  QDetalleOrden.Visible             := QDetalleSubPedido.Visible;
+  QDetalleDET_MEDIDA.Visible        := True;
+  QDetalleValor.Visible             := True;
+  IF DM.QParametrospar_visualizar_cant_empaque.Value = 'True' THEN
+  QDetalledet_cantempaque.Visible   := True else
+  QDetalledet_cantempaque.Visible   := False;
+  IF DM.QParametrosPAR_FACMEDIDA.Value = 'True' THEN
+  QDetalleDET_MEDIDA.Visible   := True else
+  QDetalleDET_MEDIDA.Visible   := False;
+  IF DM.QParametrospar_inv_unidad_medida.Value = 'True' THEN
+  QDetallepro_unidad_medida.Visible   := True else
+  QDetallepro_unidad_medida.Visible   := False;
+  IF DM.QParametrospar_fac_oferta.Value = 'True' THEN
+  QDetalledet_cant_oferta.Visible   := True else
+  QDetalledet_cant_oferta.Visible   := False;
+  IF DM.QParametrosPAR_FACESCALA.Value = 'True' THEN
+  QDetalleDET_ESCALA.Visible        := True;
+  QDetalleOrden.Visible             := False;
+  lblRecargos.Visible               := False;
+  Grid.Columns.Items[0].Width       := 70;
+  Grid.Columns.Items[1].Width       := 250;
+  Grid.Columns.Items[2].Width       := 60;
+  Grid.Columns.Items[8].Width       := 90;
+  Grid.Columns.Items[7].Width       := 90;
+  Grid.Columns.Items[6].Width       := 90;
+  //if Grid.Columns.Items[9].Title.Caption  = 'SubPedido' then
+  //Grid.Columns.Items[9].Visible     := False ELSE
+  //Grid.Columns.Items[9].Visible     := True;
+  lbReferencia.Visible              := False;
+  lbPedido.Visible                  := lbReferencia.Visible;
+  dbedtPedidoNo.Visible             := lbReferencia.Visible;
+  dbedtReferencia.Visible           := lbReferencia.Visible;
+  dbedt_RECARGOS.Visible            := lbReferencia.Visible;
+  lblRecargos.Visible               := lbReferencia.Visible;
+  frmFactura.Width                  := 760;
+  DBEdit6.ReadOnly                  := True;
+  //DBEdit7.ReadOnly                  := True;
+  DBEdit8.ReadOnly                  := True;
+  dbedt_RECARGOS.ReadOnly           := True;
+
+  Exit;
+end
+else
+if ((dm.QParametrospar_formato_preimpreso.Text = 'Sarita & Asociados') AND
+          (DM.QParametrospar_fac_preimpresa.Value = 'True') ) then begin
+QDetalleSubPedido.Visible         := True;
+QDetalleOrden.Visible             := QDetalleSubPedido.Visible;
+QDetalleDET_MEDIDA.Visible        := False;
+QDetalledet_cantempaque.Visible   := QDetalleDET_MEDIDA.Visible;
+QDetallepro_unidad_medida.Visible := QDetalleDET_MEDIDA.Visible;
+QDetalledet_cant_oferta.Visible   := QDetalleDET_MEDIDA.Visible;
+QDetalleDET_ESCALA.Visible        := QDetalleDET_MEDIDA.Visible;
+dbedt_RECARGOS.Visible            := QDetalleSubPedido.Visible;
+lblRecargos.Visible               := QDetalleSubPedido.Visible;
+Grid.Columns.Items[7].Visible     := QDetalleSubPedido.Visible;
+Grid.Columns.Items[8].Visible     := QDetalleSubPedido.Visible;
+Grid.Columns.Items[9].Visible     := QDetalleSubPedido.Visible;
+//Grid.Columns.Items[10].Visible     := QDetalleSubPedido.Visible;
+//Grid.Columns.Items[11].Visible     := QDetalleSubPedido.Visible;
+Grid.Columns.Items[0].Width       := 50;
+Grid.Columns.Items[1].Width       := 160;
+Grid.Columns.Items[2].Width       := 30;
+frmFactura.Width                  := 938;
+lblRecargos.Visible := True;
+lblRecargos.Top := 8;
+dbedt_RECARGOS.Visible := True;
+dbedt_RECARGOS.Enabled := True;
+DBEdit19.ReadOnly                 := False;
+DBEdit19.Enabled                  := True;
+
+//dbedt_RECARGOS.Top := 66;
+
+lbReferencia.Visible              := QDetalleSubPedido.Visible;
+lbPedido.Visible                  := QDetalleSubPedido.Visible;
+dbedtPedidoNo.Visible             := QDetalleSubPedido.Visible;
+dbedtReferencia.Visible           := QDetalleSubPedido.Visible;
+dbedt_RECARGOS.Visible            := QDetalleSubPedido.Visible;
+
+DBEdit7.ReadOnly                  := False;
+DBEdit7.Enabled                   := True;
+DBEdit7.Width                     := DBEdit8.Width;
+DBEdit7.Left                      := DBEdit8.Left;
+DBEdit7.Top                      := DBEdit8.Top;
+DBEdit7.DataField                 := 'fac_descuento';
+
+
+Label21.Visible                   := False;
+DBEdit8.Visible                   := False;
+Label6.Visible                    := False;
+DBEdit6.Visible                   := False;
+Label16.Visible                   := False;
+Label11.Top                       := Label21.Top;
+Label11.Caption                   := 'Descuento';
+frmFactura.Width                  := 935;
+DBEdit6.ReadOnly                  := False;
+dbedt_RECARGOS.ReadOnly           := False;
+Grid.Columns.Items[3].Visible     := True;
+Grid.Columns.Items[4].Visible     := False;
+Label23.Visible            := False;
+dbedtFAC_SERVICIOS.Visible := False;
+
+lblRecargos.Visible               := QDetalleSubPedido.Visible;
+lblRecargos.Left                  := 740;
+lblRecargos.Top                   := 74;
+
+dbedt_RECARGOS.Visible            := QDetalleSubPedido.Visible;
+dbedt_RECARGOS.Left               := DBEdit8.Left;;
+dbedt_RECARGOS.Width              := DBEdit8.Width;
+dbedt_RECARGOS.Top                := 70;
+
+DBEdit19.Top                      := 48;
+lbItbis.Top                       := 52;
+ckItbis.Top                       := 52;
+
+
+
+Exit;
+end
+else
+ if ((dm.QParametrospar_formato_preimpreso.Text = 'SteelTec') AND
+          (DM.QParametrospar_fac_preimpresa.Value = 'True')) then begin
+  //DBEdit7.Visible            := False;
+  Label16.Visible            := False;
+  //DBEdit7.Top                := 115;
+  Label16.Top                := 112;
+  Label23.Visible            := True;
+  dbedtFAC_SERVICIOS.Visible := True;
+//  dbedtFAC_SERVICIOS.Top     := 24;
+//  Label23.Top                := 27;
+Exit;
+end
+else
+if (DM.QParametrospar_fac_preimpresa.Value = 'True') then begin
+if (dm.QParametrospar_formato_preimpreso.Text = 'Hotel') or
+   (dm.QParametrospar_formato_preimpreso.Text = 'Cepinta') then begin
+  chkTipoFacHotel.Visible := True;
+  LbPropinaLegal.Visible := True;
+  LbPropinaLegal.Top := 69;
+  dbedtFAC_PROPINA.Visible := True;
+  dbedtFAC_PROPINA.Top := 66;
+  Panel2.Height := 133;
+  LBReserva.Visible := True;
+  LBReserva.Visible := True;
+  LBReserva.Caption := 'Reserva:';
+  lbHasta.Visible := False;
+  lbHasta.Caption := 'Hasta:';
+  DEdt_Desde.Visible := False;
+  DEdt_Hasta.Visible := False;
+  dbedtNumReserva.Visible := True;
+  btnReserva.Visible := True;
+  edtNoReserva.Visible := True;
+end;
+end;
+
+if FileExists('.\Transporte.Txt') then begin
+  chkTipoFacHotel.Visible := False;
+  LbPropinaLegal.Visible := False;
+  LbPropinaLegal.Top := 69;
+  dbedtFAC_PROPINA.Visible := False;
+  dbedtFAC_PROPINA.Top := 66;
+  Panel2.Height := 133;
+  LBReserva.Visible := True;
+  LBReserva.Caption := 'Desde:';
+  lbHasta.Visible := True;
+  lbHasta.Caption := 'Hasta:';
+  DEdt_Desde.Visible := True;
+  DEdt_Hasta.Visible := True;
+  dbedtNumReserva.Visible := False;
+  btnReserva.Visible := False;
+  edtNoReserva.Visible := False;
+end;
+
+
+
+dm.Query1.Close;
+dm.Query1.SQL.Clear;
+dm.Query1.SQL.Add('select cast(cast(DATEADD(day,(day(getdate())-1)*-1,getdate()) as char(11)) as datetime) Desde');
+dm.Query1.SQL.Add(',cast(cast(getdate() as char(11)) as datetime) Hasta');
+dm.Query1.Open;
+DEdt_Desde.Date := DM.Query1.fieldbyname('Desde').AsDateTime;
+DEdt_Hasta.Date := DM.Query1.fieldbyname('Hasta').AsDateTime;
+dm.Query1.Close;
+end;

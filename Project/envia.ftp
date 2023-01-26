@@ -1,0 +1,6 @@
+open ftp.p6.webhosting.yahoo.com
+penaramon2000@magycorp.com
+@Michael02
+cd /penaramon2000/tracking/documents/xml/
+put C:\Delphi\Softwares\Sigma\SQL\Project\5.xml 5.xml
+bye

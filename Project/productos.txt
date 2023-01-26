@@ -1,0 +1,2 @@
+emp_codigo|pro_codigo|pro_roriginal|pro_nombre|fam_codigo|pro_descmax|pro_ultcosto|pro_costo|pro_precio1|pro_precio2|pro_precio3|pro_precio4|pro_status|pro_ctainvent|pro_ctacosto|dep_codigo|pro_itbis|pro_beneficio|pro_servicio|mar_codigo|sup_codigo|pro_comision|pro_beneficio2|pro_beneficio3|pro_beneficio4|pro_costous|pro_preciomenor|pro_combo|pro_comisiondescuento|pro_detallado|pro_controlado|
+1|28036|7460020208115| BOMBILLO MEGA SPIRAL JR|164|0|0|99.13|154.95|6324.49|0|117.29|ACT|1151|5001|38|S|34.74|False|275|||10|0|2|0|0|False||False|False|

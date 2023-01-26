@@ -1,0 +1,2 @@
+emp_codigo|fam_codigo|fam_nombre|
+1|164|BOMBILLOS EN GRAL|

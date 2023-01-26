@@ -1,0 +1,1 @@
+emp_codigo|sup_codigo|sup_nombre|sup_rnc|sup_direccion|sup_localidad|sup_telefono|sup_fax|sup_status|sup_ctacompra|sup_cuenta|sup_tipo|

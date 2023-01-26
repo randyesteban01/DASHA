@@ -1,0 +1,2075 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{7BA5CC1A-BB70-44A9-9C8D-0960E0ED5A71}</ProjectGuid>
+        <MainSource>DASHA.dpr</MainSource>
+        <Base>True</Base>
+        <Config Condition="'$(Config)'==''">Debug</Config>
+        <TargetedPlatforms>1153</TargetedPlatforms>
+        <AppType>Application</AppType>
+        <FrameworkType>VCL</FrameworkType>
+        <ProjectVersion>18.7</ProjectVersion>
+        <Platform Condition="'$(Platform)'==''">Win32</Platform>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Base)'=='true') or '$(Base_Win32)'!=''">
+        <Base_Win32>true</Base_Win32>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win64' and '$(Base)'=='true') or '$(Base_Win64)'!=''">
+        <Base_Win64>true</Base_Win64>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Release' or '$(Cfg_1)'!=''">
+        <Cfg_1>true</Cfg_1>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Cfg_1)'=='true') or '$(Cfg_1_Win32)'!=''">
+        <Cfg_1_Win32>true</Cfg_1_Win32>
+        <CfgParent>Cfg_1</CfgParent>
+        <Cfg_1>true</Cfg_1>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Debug' or '$(Cfg_2)'!=''">
+        <Cfg_2>true</Cfg_2>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Cfg_2)'=='true') or '$(Cfg_2_Win32)'!=''">
+        <Cfg_2_Win32>true</Cfg_2_Win32>
+        <CfgParent>Cfg_2</CfgParent>
+        <Cfg_2>true</Cfg_2>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base)'!=''">
+        <DCC_E>false</DCC_E>
+        <DCC_F>false</DCC_F>
+        <DCC_K>false</DCC_K>
+        <DCC_N>true</DCC_N>
+        <DCC_S>false</DCC_S>
+        <DCC_ImageBase>00400000</DCC_ImageBase>
+        <DCC_DebugInformation>1</DCC_DebugInformation>
+        <DCC_SymbolReferenceInfo>1</DCC_SymbolReferenceInfo>
+        <DCC_ExeOutput>F:\Ejecutables</DCC_ExeOutput>
+        <DCC_UsePackage>vcl;rtl;vclx;indy;inet;xmlrtl;vclie;inetdbbde;inetdbxpress;dbrtl;dsnap;dsnapcon;vcldb;soaprtl;VclSmp;dbexpress;dbxcds;inetdb;bdertl;vcldbx;webdsnap;websnap;adortl;ibxpress;teeui;teedb;tee;dss;visualclx;visualdbclx;vclactnband;vclshlctrls;IntrawebDB_50_70;Intraweb_50_70;dclOffice2k;RxCtl7;RxDB7;RxBDE7;cxPageControlVCLD7;$(DCC_UsePackage)</DCC_UsePackage>
+        <SanitizedProjectName>DASHA</SanitizedProjectName>
+        <DCC_Namespace>Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;System;Xml;Data;Datasnap;Web;Soap;IBX;Winapi;Data.Win;System.Win;VCLTee;$(DCC_Namespace)</DCC_Namespace>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <VerInfo_Build>3</VerInfo_Build>
+        <VerInfo_Locale>1033</VerInfo_Locale>
+        <VerInfo_Keys>CompanyName=D&amp;R Technology;FileDescription=;FileVersion=1.0.0.3;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=DASHA;ProductName=DASHA ADMINISTRATIVO;ProductVersion=1.0.0.1;Comments=</VerInfo_Keys>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base_Win32)'!=''">
+        <DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
+        <BT_BuildType>Debug</BT_BuildType>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
+        <VerInfo_Locale>1033</VerInfo_Locale>
+        <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
+        <Icon_MainIcon>DASHA_Icon.ico</Icon_MainIcon>
+        <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
+        <UWP_DelphiLogo44>$(BDS)\bin\Artwork\Windows\UWP\delphi_UwpDefault_44.png</UWP_DelphiLogo44>
+        <UWP_DelphiLogo150>$(BDS)\bin\Artwork\Windows\UWP\delphi_UwpDefault_150.png</UWP_DelphiLogo150>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base_Win64)'!=''">
+        <Icon_MainIcon>DASHA_Icon.ico</Icon_MainIcon>
+        <UWP_DelphiLogo44>$(BDS)\bin\Artwork\Windows\UWP\delphi_UwpDefault_44.png</UWP_DelphiLogo44>
+        <UWP_DelphiLogo150>$(BDS)\bin\Artwork\Windows\UWP\delphi_UwpDefault_150.png</UWP_DelphiLogo150>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_1)'!=''">
+        <DCC_Define>RELEASE;$(DCC_Define)</DCC_Define>
+        <DCC_DebugInformation>0</DCC_DebugInformation>
+        <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
+        <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
+        <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
+        <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_2)'!=''">
+        <DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
+        <DCC_Optimize>false</DCC_Optimize>
+        <DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
+        <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
+        <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
+    </PropertyGroup>
+    <ItemGroup>
+        <DelphiCompile Include="$(MainSource)">
+            <MainSource>MainSource</MainSource>
+        </DelphiCompile>
+        <DCCReference Include="Units\SIGMA00.pas">
+            <Form>frmMain</Form>
+        </DCCReference>
+        <DCCReference Include="Units\SIGMA01.pas">
+            <Form>DM</Form>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA02.pas">
+            <Form>frmAcceso</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA03.pas">
+            <Form>frmEmpresas</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA04.pas">
+            <Form>frmTipoClientes</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA05.pas">
+            <Form>frmCajeros</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA06.pas">
+            <Form>frmAlmacenes</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA07.pas">
+            <Form>frmCondiciones</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA08.pas">
+            <Form>frmFormasPago</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA09.pas">
+            <Form>frmTipoFacturas</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA10.pas">
+            <Form>frmDeptos</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA11.pas">
+            <Form>frmFamilias</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA12.pas">
+            <Form>frmUsuarios</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA13.pas">
+            <Form>frmProveedores</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA14.pas">
+            <Form>frmClientes</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA15.pas">
+            <Form>frmProductos</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA16.pas">
+            <Form>frmColores</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA17.pas">
+            <Form>frmOfertas</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA232.pas">
+            <Form>frmFacturaRenta</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA19.pas">
+            <Form>frmPedidosCli</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA20.pas">
+            <Form>frmPedidosProv</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA21.pas">
+            <Form>frmNotasCR</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA22.pas">
+            <Form>frmNotasDB</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA23.pas">
+            <Form>frmDevolucion</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA24.pas">
+            <Form>frmRecibos</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA25.pas">
+            <Form>frmDesembolsos</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PRENTA02.pas">
+            <Form>frmAlquiler</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA27.pas">
+            <Form>frmEntradas</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA28.pas">
+            <Form>frmConduce</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA29.pas">
+            <Form>frmInvFisico</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA30.pas">
+            <Form>frmTransferencia</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA31.pas">
+            <Form>frmAcerca</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA32.pas">
+            <Form>frmVendedor</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA33.pas">
+            <Form>frmBuscaProducto</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA34.pas">
+            <Form>frmPrecios</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA35.pas">
+            <Form>frmCargos</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA36.pas">
+            <Form>frmNota</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA239.pas">
+            <Form>frmPideAutorizacion</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA38.pas">
+            <Form>frmPVenta</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA39.pas">
+            <Form>frmModificaPrecio</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA40.pas">
+            <Form>frmOtrosFac</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA41.pas">
+            <Form>frmSerieFactura</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA42.pas">
+            <Form>frmBuscaFactura</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA43.pas">
+            <Form>frmFormaPagoFac</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA230.pas">
+            <Form>frmConsFTEnvios</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA45.pas">
+            <Form>frmFacProvee</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA46.pas">
+            <Form>frmConsSerie</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA47.pas">
+            <Form>frmCuadre</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA48.pas">
+            <Form>frmConsRecibos</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA49.pas">
+            <Form>frmConsDesem</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA50.pas">
+            <Form>frmConsDev</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA51.pas">
+            <Form>frmConsNC</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA52.pas">
+            <Form>frmConsDB</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA53.pas">
+            <Form>frmConsEntrada</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA54.pas">
+            <Form>frmConsConduce</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA55.pas">
+            <Form>frmConsBeneficio</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA56.pas">
+            <Form>frmConsProdCliente</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA57.pas">
+            <Form>frmConsFacturasProd</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA58.pas">
+            <Form>frmConsCxP</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA59.pas">
+            <Form>frmTipoMov</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA60.pas">
+            <Form>frmConsCxC</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA62.pas">
+            <Form>frmConsFacProvee</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA63.pas">
+            <Form>frmConsPedidosCli</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA64.pas">
+            <Form>frmConsPedidosProv</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA65.pas">
+            <Form>frmRepClientes</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA66.pas">
+            <Form>frmRepProveedores</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA67.pas">
+            <Form>frmRepMovDia</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA68.pas">
+            <Form>frmRepPrecios</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA69.pas">
+            <Form>frmReimpresion</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA70.pas">
+            <Form>frmAnulaFac</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA71.pas">
+            <Form>frmAnulaNC</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA72.pas">
+            <Form>frmGeneraRec</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA73.pas">
+            <Form>frmEstadoCtaCli</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA74.pas">
+            <Form>RAntigSaldo</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA77.pas">
+            <Form>frmExistProducto</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA78.pas">
+            <Form>frmLimite</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA79.pas">
+            <Form>frmRepFPago</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA99.pas">
+            <Form>frmAnulaCond</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA81.pas">
+            <Form>frmMontoFPago</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA82.pas">
+            <Form>frmConsBalance</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA83.pas">
+            <Form>frmImpPantalla</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA84.pas">
+            <Form>frmEstadoCtaProv</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA85.pas">
+            <Form>frmRepProdVendidos</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA86.pas">
+            <Form>frmRepVentaCliente</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA87.pas">
+            <Form>frmConsComision</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA88.pas">
+            <Form>frmConsTransferencia</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA89.pas">
+            <Form>frmAsignaCliente</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA90.pas">
+            <Form>frmCierreDia</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA91.pas">
+            <Form>frmActBalance</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA92.pas">
+            <Form>frmAnulaND</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA93.pas">
+            <Form>frmAnulaDev</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA94.pas">
+            <Form>frmRepVentaTipoFac</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA95.pas">
+            <Form>frmAnulaREC</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA96.pas">
+            <Form>frmAnulaDesem</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA97.pas">
+            <Form>frmDevDinero</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA98.pas">
+            <Form>frmAnulaEnt</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA80.pas">
+            <Form>frmParametros</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA100.pas">
+            <Form>frmAnulaProvFact</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA110.pas">
+            <Form>frmCambiaStatus</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA101.pas">
+            <Form>frmDevSinFactura</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA102.pas">
+            <Form>frmMarcas</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA103.pas">
+            <Form>RRepServicios</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA104.pas">
+            <Form>frmRepVentaFamilia</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA105.pas">
+            <Form>frmRepVentaDepto</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA106.pas">
+            <Form>frmRepVentaMarca</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA107.pas">
+            <Form>frmAnulaPago</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA109.pas">
+            <Form>frmRepProdVencidos</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA114.pas">
+            <Form>frmGeneraCuotas</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA113.pas">
+            <Form>frmConsOperaciones</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA111.pas">
+            <Form>frmRepCodigoBarra</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA112.pas">
+            <Form>frmVencimiento</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA115.pas">
+            <Form>frmRepFisico</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA116.pas">
+            <Form>frmEscala</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA117.pas">
+            <Form>frmSelEscala</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA118.pas">
+            <Form>frmAccesoEmp</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA119.pas">
+            <Form>frmSeleccionEmp</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA120.pas">
+            <Form>frmEstadisticas</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA121.pas">
+            <Form>frmConsCombo</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA122.pas">
+            <Form>frmDevolucionCompra</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA123.pas">
+            <Form>frmChequeDevol</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA124.pas">
+            <Form>frmCentroCosto</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA125.pas">
+            <Form>frmDevueltaEfectivo</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA126.pas">
+            <Form>frmCantidadCombo</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA127.pas">
+            <Form>frmConsDevCompra</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA128.pas">
+            <Form>frmMovProductoFactura</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA129.pas">
+            <Form>frmConsEquivalencias</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA130.pas">
+            <Form>frmCotMultiple</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA131.pas">
+            <Form>frmRepValorInventario</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA132.pas">
+            <Form>frmActividadCaja</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA133.pas">
+            <Form>frmMoneda</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA134.pas">
+            <Form>frmDescuentoGeneral</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA135.pas">
+            <Form>frmConsCentroCosto</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA136.pas">
+            <Form>frmLiquidacion</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA137.pas">
+            <Form>frmSucursales</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA138.pas">
+            <Form>frmAjusteInventario</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA139.pas">
+            <Form>frmRepSolicitados</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA140.pas">
+            <Form>frmOrdenPedido</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA141.pas">
+            <Form>frmImprimeBarraCompra</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA142.pas">
+            <Form>frmDevolucionCxpProductos</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA143.pas">
+            <Form>frmRecetaOptica</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA144.pas">
+            <Form>frmNotaCreditoCompra</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA146.pas">
+            <Form>frmClientesClub</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA147.pas">
+            <Form>frmBono</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA148.pas">
+            <Form>frmConsBonos</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA149.pas">
+            <Form>frmProvincias</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA150.pas">
+            <Form>frmMesas</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA151.pas">
+            <Form>frmConsTicket</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA152.pas">
+            <Form>frmConsVentaProvincia</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA153.pas">
+            <Form>frmRepConciliacion</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA154.pas">
+            <Form>frmProcesoColector</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA157.pas">
+            <Form>frmClaveSupervisor</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA158.pas">
+            <Form>frmSupervisoresCaja</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA159.pas">
+            <Form>frmConsNCProveedores</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA155.pas">
+            <Form>frmRepHistorialCliente</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA156.pas">
+            <Form>frmRepHistorialSuplidor</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA162.pas">
+            <Form>frmDigitacionAbierta</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA164.pas">
+            <Form>frmRepVentaTipoCliente</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA165.pas">
+            <Form>frmRepCumpleanos</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA166.pas">
+            <Form>frmConsVentasMarca</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA167.pas">
+            <Form>frmRepProdRotacion</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA168.pas">
+            <Form>frmReprentabilidad</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA169.pas">
+            <Form>frmGastosAduanales</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA170.pas">
+            <Form>frmCuadreDesgloce</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA171.pas">
+            <Form>frmRepOfertasOtorgadas</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA172.pas">
+            <Form>frmEliminarProducto</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA173.pas">
+            <Form>frmAnulaDevCompra</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA174.pas">
+            <Form>frmAnulaNCCompra</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA175.pas">
+            <Form>frmPronosticoCobro</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA176.pas">
+            <Form>frmOperaciones</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA177.pas">
+            <Form>frmPreventas</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA178.pas">
+            <Form>frmProductosDespachados</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA179.pas">
+            <Form>frmCourriers</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA180.pas">
+            <Form>frmAnulaOrden</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA181.pas">
+            <Form>frmConsCotizaciones</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA182.pas">
+            <Form>frmCajasIP</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA183.pas">
+            <Form>frmCuadreCajasIP</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA92.pas">
+            <Form>RExistProdGeneral</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA184.pas">
+            <Form>frmConsResumenEjecutivo</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA185.pas">
+            <Form>frmBuscaRNC</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA186.pas">
+            <Form>frmConsProdClienteFac</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA187.pas">
+            <Form>frnAmalisisCompraVenta</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA188.pas">
+            <Form>frmMotivoDevolucion</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA189.pas">
+            <Form>frmAnalisisCompra_Venta</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA190.pas">
+            <Form>frmConsLiquidaciones</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA191.pas">
+            <Form>frmRepInvFamilia</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA192.pas">
+            <Form>frmRepInvFamiliaDepto</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA193.pas">
+            <Form>frmRepVentaFamiliaDepto</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA194.pas">
+            <Form>frmRepCxCVendedorProvincia</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA195.pas">
+            <Form>frmAnulaLiq</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA196.pas">
+            <Form>frmMargenBruto</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA197.pas">
+            <Form>frmGerentes</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA198.pas">
+            <Form>frmGondoleros</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA199.pas">
+            <Form>frmRepProdOferta</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA200.pas">
+            <Form>frmAntiguedadCxC</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA201.pas">
+            <Form>frmAntiguedadCxP</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA202.pas">
+            <Form>frmConsMovimientoInventario</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA203.pas">
+            <Form>frmCuadreCajasIPDefinitivo</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA204.pas">
+            <Form>frmRepVentaGerenteProveedor</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA205.pas">
+            <Form>frmRepIngresos</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA207.pas">
+            <Form>frmCamiones</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA208.pas">
+            <Form>frmDetalleMargen</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA209.pas">
+            <Form>frmPideClave</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA210.pas">
+            <Form>frmResumenVentaProducto</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA211.pas">
+            <Form>frmChartResumenVentaProducto</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA212.pas">
+            <Form>frmRepVentaProducto</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA206.pas">
+            <Form>frmRepInvTransferencia</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA213.pas">
+            <Form>frmUnidades</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA214.pas">
+            <Form>frmPreciosUnidadMedida</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA215.pas">
+            <Form>frmRepCxcGeneral</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA129.pas">
+            <Form>frmRepFacVencCxP</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA217.pas">
+            <Form>frmRepProductosDespachados</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA218.pas">
+            <Form>frmFormaPagoTicket</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA219.pas">
+            <Form>frmTipoProveedor</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA220.pas">
+            <Form>frmRepCambioPrecios</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA221.pas">
+            <Form>frmMedidores</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA222.pas">
+            <Form>frmDatosMedidor</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA238.pas">
+            <Form>frmOrdenesFactura</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA226.pas">
+            <Form>frmFacturaAutomatica</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA227.pas">
+            <Form>frmPreciosUnidadMedidaFacProvee</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA228.pas">
+            <Form>frmRepCxCFecha</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA229.pas">
+            <Form>frmVerPagos</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA62.pas">
+            <Form>RRepProdVencidos</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA00.pas">
+            <Form>RPedido</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA01.pas">
+            <Form>RPedidoSup</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA03.pas">
+            <Form>RDevolucion</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA04.pas">
+            <Form>RConsFacturas</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA05.pas">
+            <Form>RConsBeneficio</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA06.pas">
+            <Form>RConsProdCliente</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA07.pas">
+            <Form>RConsFacturasProd</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA08.pas">
+            <Form>RConsDev</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA09.pas">
+            <Form>RConsNC</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA10.pas">
+            <Form>RConsDB</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA11.pas">
+            <Form>RConsCxC</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA12.pas">
+            <Form>RConsRecibos</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA13.pas">
+            <Form>RConsFacProvee</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA14.pas">
+            <Form>RConsCxP</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA15.pas">
+            <Form>RMovCentroCostos</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA16.pas">
+            <Form>RConsDesem</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA17.pas">
+            <Form>RConsEntrada</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA18.pas">
+            <Form>RConsConduce</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA19.pas">
+            <Form>RConsPedidosCli</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA20.pas">
+            <Form>RConsPedidosProv</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA21.pas">
+            <Form>RRepClientes</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA22.pas">
+            <Form>RRepProveedores</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA23.pas">
+            <Form>RRepMovDia</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA24.pas">
+            <Form>RFacVencidas</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA25.pas">
+            <Form>RRepPrecios</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA125.pas">
+            <Form>RReOrden</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA27.pas">
+            <Form>RProdFamilia</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA28.pas">
+            <Form>RRepProdProveedor</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA29.pas">
+            <Form>RInvFisico</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA30.pas">
+            <Form>RProdDepto</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA31.pas">
+            <Form>RCxC</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA32.pas">
+            <Form>RRecibo</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA33.pas">
+            <Form>RNotaCredito</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA34.pas">
+            <Form>RNotaDebito</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA35.pas">
+            <Form>RDesembolso</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA36.pas">
+            <Form>RCotizacion</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA37.pas">
+            <Form>REntradaAlm</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA127.pas">
+            <Form>RConduceSarita</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA39.pas">
+            <Form>RTransferencia</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA40.pas">
+            <Form>RCxP</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA41.pas">
+            <Form>REstadoCtaCli</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA42.pas">
+            <Form>RExistProd</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA43.pas">
+            <Form>frmAbono</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA44.pas">
+            <Form>RLimites</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA45.pas">
+            <Form>RepVentaFPago</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA46.pas">
+            <Form>RepRecFPago</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA47.pas">
+            <Form>RepDesemFPago</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA48.pas">
+            <Form>REstadoCtaProv</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA49.pas">
+            <Form>RAntigSaldoProv</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA51.pas">
+            <Form>RRepProdVendidos</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA52.pas">
+            <Form>RRepVentaCliente</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA53.pas">
+            <Form>RRepEtiqClientes</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA54.pas">
+            <Form>RConsComision</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA55.pas">
+            <Form>RConsTransferencia</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA56.pas">
+            <Form>RCuadre</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA57.pas">
+            <Form>RepVentaTipoFac</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA58.pas">
+            <Form>RepVentaFamilia</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA59.pas">
+            <Form>RepVentaDepto</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA60.pas">
+            <Form>RepVentaMarca</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA61.pas">
+            <Form>RProdMarca</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT51.pas">
+            <Form>frmPasarDocumentos</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT12.pas">
+            <Form>frmTiposDoc</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT13.pas">
+            <Form>frmNumEntradas</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT14.pas">
+            <Form>frmAnexos</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT16.pas">
+            <Form>frmConsEntradas</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT17.pas">
+            <Form>frmConsMovimiento</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT18.pas">
+            <Form>frmRepEntrada</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT19.pas">
+            <Form>frmRepDiario</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT20.pas">
+            <Form>frmRepResultado</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT21.pas">
+            <Form>frmRepBalComprobacion</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT22.pas">
+            <Form>frmCierreMes</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT23.pas">
+            <Form>frmRepMayorGeneral</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT24.pas">
+            <Form>frmRepAnexos</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT25.pas">
+            <Form>frmRepSituacion</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT26.pas">
+            <Form>frmConsBalances</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT27.pas">
+            <Form>frmCheque</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT28.pas">
+            <Form>frmConsCheques</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT29.pas">
+            <Form>frmConfigCK</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT30.pas">
+            <Form>frmAnulaCK</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT31.pas">
+            <Form>frmEliminaCK</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT32.pas">
+            <Form>frmSolicitud</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT33.pas">
+            <Form>frmConsSolicitud</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT34.pas">
+            <Form>frmApruebaSol</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT35.pas">
+            <Form>frmRepSolicitud</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT36.pas">
+            <Form>RepListaSolicitudes</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT37.pas">
+            <Form>frmEliminaSOL</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT38.pas">
+            <Form>frmDepositos</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT39.pas">
+            <Form>frmConsDepositos</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT40.pas">
+            <Form>frmRepCheque</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT41.pas">
+            <Form>frmCargosBanco</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT42.pas">
+            <Form>frmConsCargosBanco</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT43.pas">
+            <Form>frmAnulaDeposito</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT44.pas">
+            <Form>frmEliminaDeposito</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT45.pas">
+            <Form>frmAnulaCargoBanco</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT46.pas">
+            <Form>frmEliminaCargoBanco</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT47.pas">
+            <Form>frmLibroBanco</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT48.pas">
+            <Form>frmCopiaCatalogo</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT49.pas">
+            <Form>RepLibroBanco</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT50.pas">
+            <Form>frmCierreAno</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Reports\RCONT19.pas">
+            <Form>RepListaCargosBanco</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Reports\RCONT03.pas">
+            <Form>RepCatalogo</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Reports\RCONT04.pas">
+            <Form>RepConsEntradas</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Reports\RCONT05.pas">
+            <Form>RepDocumento</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Reports\RCONT06.pas">
+            <Form>RepMovimiento</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Reports\RCONT07.pas">
+            <Form>RepEntradaDiario</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Reports\RCONT08.pas">
+            <Form>RepDiarioGeneral</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Reports\RCONT09.pas">
+            <Form>RepEstResultado</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Reports\RCONT10.pas">
+            <Form>RepMayorGeneral</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Reports\RCONT11.pas">
+            <Form>RepBalanceComp</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Reports\RCONT12.pas">
+            <Form>RepAnexos</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Reports\RCONT13.pas">
+            <Form>RepVistaSituacion</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Reports\RCONT14.pas">
+            <Form>RepEstadoSituacion</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Reports\RCONT15.pas">
+            <Form>RepListaCheques</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Reports\RCONT16.pas">
+            <Form>RepSolicitud</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Reports\RCONT18.pas">
+            <Form>RepListaDepositos</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT15.pas">
+            <Form>frmEntradasDiario</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT11.pas">
+            <Form>frmCatalogo</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT09.pas">
+            <Form>frmBancos</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Reports\RCONT20.pas">
+            <Form>RepCostoProduccion</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT52.pas">
+            <Form>frmRepCosto</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Reports\RCONT22.pas">
+            <Form>RepCostoVenta</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Reports\RCONT23.pas">
+            <Form>RepBceComparativo</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT53.pas">
+            <Form>frmCFGBceComparativo</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Reports\RCONT24.pas">
+            <Form>RepBalanceCta</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA63.pas">
+            <Form>RConteoFisico</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA64.pas">
+            <Form>RFacturaElegante</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA65.pas">
+            <Form>RCotizacionElegante</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA66.pas">
+            <Form>RepMovProductoFactura</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA67.pas">
+            <Form>RCotMultiple</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT54.pas">
+            <Form>frmCajas</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT55.pas">
+            <Form>frmGenerarCheques</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT56.pas">
+            <Form>frmRetenciones</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA68.pas">
+            <Form>RLiquidacion</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Units\SIGMA02.pas">
+            <Form>frmadhoc</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT57.pas">
+            <Form>frmCategorias</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT58.pas">
+            <Form>frmMarcaActivos</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT59.pas">
+            <Form>frmFamiliaActivos</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT60.pas">
+            <Form>frmActivos</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT61.pas">
+            <Form>frmTipoMovActivos</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT62.pas">
+            <Form>frmRepActivos</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT63.pas">
+            <Form>frmMovActivos</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA69.pas">
+            <Form>RepSolicitados</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA70.pas">
+            <Form>RepOrdenPedido</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA71.pas">
+            <Form>RFacturaPreImpresa</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA72.pas">
+            <Form>RDevolucionPreImpresa</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH00.pas">
+            <Form>frmCategoriaEmp</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH01.pas">
+            <Form>frmInstitucion</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH02.pas">
+            <Form>frmTipoSeguros</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH03.pas">
+            <Form>frmCategoriasLic</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH04.pas">
+            <Form>frmTipoEmpleados</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH05.pas">
+            <Form>frmGrupoTrabajo</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH06.pas">
+            <Form>frmGrupoDescuentos</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH07.pas">
+            <Form>frmDiasFeriados</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH08.pas">
+            <Form>frmPosiciones</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH09.pas">
+            <Form>frmNiveles</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH10.pas">
+            <Form>frmPaises</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH11.pas">
+            <Form>frmEstadoCivil</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH12.pas">
+            <Form>frmIdiomas</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH13.pas">
+            <Form>frmMotivos</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH14.pas">
+            <Form>frmNivelSalarial</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH15.pas">
+            <Form>frmTipoEvaluacion</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH16.pas">
+            <Form>frmTipoHora</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH17.pas">
+            <Form>frmTipoIngresos</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA77.pas">
+            <Form>RRepHistorialCli</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA78.pas">
+            <Form>RRepHistorialSup</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA73.pas">
+            <Form>RepListaTickets</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA74.pas">
+            <Form>RepTicketsCR</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA75.pas">
+            <Form>RepListaBonos</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA76.pas">
+            <Form>RFacturaProvee</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Servicio\Units\SERV00.pas">
+            <Form>frmTecnicos</Form>
+        </DCCReference>
+        <DCCReference Include="Servicio\Units\SERV01.pas">
+            <Form>frmTipoEquipos</Form>
+        </DCCReference>
+        <DCCReference Include="Servicio\Units\SERV02.pas">
+            <Form>frmOrdenServicio</Form>
+        </DCCReference>
+        <DCCReference Include="Servicio\Units\SERV06.pas">
+            <Form>frmDetalleTecnico</Form>
+        </DCCReference>
+        <DCCReference Include="Servicio\Reports\RSERV00.pas">
+            <Form>ROrdenServicio</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Servicio\Units\SERV04.pas">
+            <Form>frmSalidaEquipos</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH18.pas">
+            <Form>frmClasificacionNiveles</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH19.pas">
+            <Form>frmHabilidades</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH20.pas">
+            <Form>frmPosicionClasificacion</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH21.pas">
+            <Form>frmPlanesSeguro</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH22.pas">
+            <Form>frmSolicitudEmpleo</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH23.pas">
+            <Form>frmHabilidadEmpleado</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA79.pas">
+            <Form>RFactura2Columnas</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA160.pas">
+            <Form>frmConsProductos</Form>
+        </DCCReference>
+        <DCCReference Include="Units\SIGMA03.pas">
+            <Form>frmCambioClave</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT64.pas">
+            <Form>frmNCF</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA161.pas">
+            <Form>frmverfoto</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT65.pas">
+            <Form>frmNCFUnico</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Reports\RCONT25.pas">
+            <Form>RNCF_Unico</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\CAJA12.pas">
+            <Form>RTicketFormal</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT66.pas">
+            <Form>frmNCFGastosMenores</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Reports\RCONT26.pas">
+            <Form>RNCF_Gastos_Menores</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA80.pas">
+            <Form>RRepProductos</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA81.pas">
+            <Form>RepVentaTipoCliente</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA82.pas">
+            <Form>RepCumpleanos</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH24.pas">
+            <Form>frmPosicionesEmpleados</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH25.pas">
+            <Form>frmEstudiosRealizados</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH26.pas">
+            <Form>frmEntrevistas</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH27.pas">
+            <Form>frmRequerimientoPersonal</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH28.pas">
+            <Form>frmElegibles</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH29.pas">
+            <Form>frmElegiblesEmpleados</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH30.pas">
+            <Form>frmEvaluacionSolicitud</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH31.pas">
+            <Form>frmEmpleados</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH32.pas">
+            <Form>frmEmpleadosEstudios</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH33.pas">
+            <Form>frmEmpleadosExperiencia</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH34.pas">
+            <Form>frmEmpleadosDependientes</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH35.pas">
+            <Form>frmEmpleadosPermisos</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH36.pas">
+            <Form>frmEmpleadosLicencias</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH37.pas">
+            <Form>frmEmpleadosAusencias</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH38.pas">
+            <Form>frmEmpleadosHabilidades</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH39.pas">
+            <Form>frmTipoNomina</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH40.pas">
+            <Form>frmEmpleadosMensajes</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH41.pas">
+            <Form>frmVacaciones</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH42.pas">
+            <Form>frmEmpleadosEvaluacion</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH43.pas">
+            <Form>frmPreguntasRespuestas</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH44.pas">
+            <Form>frmInclusionSeguro</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH45.pas">
+            <Form>frmTipoAccionPersonal</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH46.pas">
+            <Form>frmAccionPersonal</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH47.pas">
+            <Form>frmIngresos</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH48.pas">
+            <Form>frmHorasTrabajadas</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH49.pas">
+            <Form>frmDescuentos</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH50.pas">
+            <Form>frmTipoDescuentos</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH51.pas">
+            <Form>frmNomina</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH52.pas">
+            <Form>frmTablaISR</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH53.pas">
+            <Form>frmSemanasSS</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH54.pas">
+            <Form>frmTablaSS</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH55.pas">
+            <Form>frmCalculoPrestaciones</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH56.pas">
+            <Form>frmAFP</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH57.pas">
+            <Form>frmAutorizar</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Reports\RHR00.pas">
+            <Form>RepDGT3</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA83.pas">
+            <Form>RepRecetas</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA84.pas">
+            <Form>RepRentabilidad</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA85.pas">
+            <Form>RCotizacionPreimpresa</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Reports\RHR01.pas">
+            <Form>RVolantePago</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA86.pas">
+            <Form>frmRepPuntoReorden</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA87.pas">
+            <Form>RRepOfertasOtorgadas</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH58.pas">
+            <Form>frmSFS</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH59.pas">
+            <Form>frmRepEmpleados</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Reports\RHR03.pas">
+            <Form>RepEmpleados</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Reports\RHR04.pas">
+            <Form>RepEmpleadoSueldos</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Reports\RHR05.pas">
+            <Form>RepEmpleadosDirecciones</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Units\SIGMA04.pas">
+            <Form>frmSeleccionConexion</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT67.pas">
+            <Form>frmGeneraComprasDGII</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT68.pas">
+            <Form>frmConceptos</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT69.pas">
+            <Form>frmTipoBienesServicios</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH60.pas">
+            <Form>frmCartaCertificacionIngreso</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH61.pas">
+            <Form>frmAutorizacionCredito</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH62.pas">
+            <Form>frmConsNomina</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Reports\RCONT27.pas">
+            <Form>RepActivos</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA88.pas">
+            <Form>RPedidoSup_Preimpreso</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA89.pas">
+            <Form>RepProductosDespachados</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Reports\RHR06.pas">
+            <Form>RepNominaFormaPago</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA90.pas">
+            <Form>RepCotizaciones</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA91.pas">
+            <Form>RepResumenTicket</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Reports\RCONT28.pas">
+            <Form>RNCF_Unico_Resumen</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA93.pas">
+            <Form>RepCuadreCajasIp</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA94.pas">
+            <Form>RepResumenEjecutivo</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA95.pas">
+            <Form>RConsBeneficioFamilia</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA96.pas">
+            <Form>RConsBeneficioTickets</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA97.pas">
+            <Form>RConsBeneficioProductos</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT70.pas">
+            <Form>frmConfigSituacion</Form>
+        </DCCReference>
+        <DCCReference Include="Units\SIGMA05.pas">
+            <Form>frmWeb</Form>
+        </DCCReference>
+        <DCCReference Include="Units\SIGMA06.pas">
+            <Form>frmSeleccionFecha</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT71.pas">
+            <Form>frmGenera607</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA98.pas">
+            <Form>RProdFamiliaDepto</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA99.pas">
+            <Form>RepVentaFamiliaDepto</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA100.pas">
+            <Form>RDevolucionCompra</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT72.pas">
+            <Form>frmRepSituacionAnual</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA101.pas">
+            <Form>RepListaTicketsxHora</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA102.pas">
+            <Form>RepListaTicketsxCajera</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT73.pas">
+            <Form>frmCuentasAcumulan</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT74.pas">
+            <Form>frmRepResultadoAnual</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA103.pas">
+            <Form>RCxCVendedorProvincia</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA104.pas">
+            <Form>RConsNCProv</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA105.pas">
+            <Form>RCxCGeneral</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA106.pas">
+            <Form>RepProdOferta</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT75.pas">
+            <Form>frmConsComprobantes</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Reports\RCONT29.pas">
+            <Form>RComprobantes</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT76.pas">
+            <Form>frmSeleccionNCF</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Reports\RCONT30.pas">
+            <Form>RComprobantesDetalle</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH63.pas">
+            <Form>frmConsNovedadesNomina</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT77.pas">
+            <Form>frmInformacionNCF</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA107.pas">
+            <Form>RMovimientoInventario</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA108.pas">
+            <Form>RRepHistorialCliTipo</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA109.pas">
+            <Form>RepCuadreCajasIpDefinitivo</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA110.pas">
+            <Form>RepIngresos</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT78.pas">
+            <Form>frmNotificacionComprobantes</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT79.pas">
+            <Form>frmNumerosRNC</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT80.pas">
+            <Form>frmActNumeroRNC</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA111.pas">
+            <Form>RInvTransferencia</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA112.pas">
+            <Form>RepVentaGerenteProveedor</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT81.pas">
+            <Form>frmGenera608</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA113.pas">
+            <Form>RBeneficioBruto</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA114.pas">
+            <Form>RepVentaProducto</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA115.pas">
+            <Form>RFacturaGrabadoExento</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Units\RH64.pas">
+            <Form>frmConsNovedades</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Reports\RHR07.pas">
+            <Form>RConsNovedades</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA116.pas">
+            <Form>RCxPGeneral</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA117.pas">
+            <Form>RRepProdDespachados</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA118.pas">
+            <Form>RTicketsAgregados</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA119.pas">
+            <Form>RProductosDespachados</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA120.pas">
+            <Form>RCambioPrecios</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT82.pas">
+            <Form>frmConsGastosMenores</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT83.pas">
+            <Form>frmCashflowGrupos</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT84.pas">
+            <Form>frmCashflowSubgrupos</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT85.pas">
+            <Form>frmCashflowConceptos</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT86.pas">
+            <Form>frmCashflow</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT87.pas">
+            <Form>frmCashflowTransaccion</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT88.pas">
+            <Form>frmCashflowActTransaccion</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA224.pas">
+            <Form>frmBuscaTemporal</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Reports\RHR08.pas">
+            <Form>RepNominaDescuento</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT89.pas">
+            <Form>frmCashFlow_ImprimeMes</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Reports\RCONT31.pas">
+            <Form>RCashflow_Mes</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA121.pas">
+            <Form>RConsTicketsProd</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA122.pas">
+            <Form>RFacturaClinico</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT90.pas">
+            <Form>frmCashflow_Mensajes</Form>
+        </DCCReference>
+        <DCCReference Include="Units\SIGMA07.pas">
+            <Form>frmAdministracion</Form>
+        </DCCReference>
+        <DCCReference Include="Units\SIGMA08.pas">
+            <Form>frmCentrosXCuenta</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Units\CONT91.pas">
+            <Form>frmTransferenciaBanco</Form>
+        </DCCReference>
+        <DCCReference Include="RHumanos\Reports\RHR09.pas">
+            <Form>RConsNovedadesDetalle</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTAANULAPEDIDO.pas">
+            <Form>frmAnulaPedido</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTAPRODUCTOSXALMACEN.pas">
+            <Form>frmProductosXAlmacen</Form>
+        </DCCReference>
+        <DCCReference Include="Project\uEnvios.pas">
+            <Form>frmEnvio</Form>
+        </DCCReference>
+        <DCCReference Include="UsbKey\magsubs1.pas"/>
+        <DCCReference Include="UsbKey\magwmi.pas"/>
+        <DCCReference Include="UsbKey\WbemScripting_TLB.pas"/>
+        <DCCReference Include="UsbKey\smartapi.pas"/>
+        <DCCReference Include="PVenta\Reports\RVENTA123.pas">
+            <Form>RAnalisisCompra_Venta</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Servicio\Units\SERV05.pas">
+            <Form>frmConsServicios</Form>
+        </DCCReference>
+        <DCCReference Include="Servicio\Units\SERV08.pas">
+            <Form>frmAccesoTec2</Form>
+        </DCCReference>
+        <DCCReference Include="Servicio\Units\SERV03.pas">
+            <Form>frmDetalleOrdenServicio</Form>
+        </DCCReference>
+        <DCCReference Include="Servicio\Units\SERV09.pas">
+            <Form>frmMemo</Form>
+        </DCCReference>
+        <DCCReference Include="Servicio\Reports\RSERV01.pas">
+            <Form>RConsServicios</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA124.pas">
+            <Form>REstadoCtaCliConsolidado</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Reports\RCONT32.pas">
+            <Form>RNCF_Gastos_Menores_lista</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA44.pas">
+            <Form>frmConsFacturas</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA231.pas">
+            <Form>frmEnvioMant</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\RENVIO01.pas">
+            <Form>RENVIO</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\RLISTADOENVIO01.pas">
+            <Form>RListadoEnvio</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PENVIO02.pas">
+            <Form>frmEnvioM2</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PTIKET001.pas">
+            <Form>frmBoleteria</Form>
+        </DCCReference>
+        <DCCReference Include="Units\Barcode.pas"/>
+        <DCCReference Include="Units\bcchksum.pas"/>
+        <DCCReference Include="Units\Barcode2.pas"/>
+        <DCCReference Include="RHumanos\Units\RH65.pas">
+            <Form>frmNominaBanco</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PTIKET002.pas">
+            <Form>frmBoletoPrecio</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PTIKET003.pas">
+            <Form>frmConsBoletos</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PTIKET004.pas">
+            <Form>RListadoBoletos</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PTIKET005.pas">
+            <Form>frmBoletoPago</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PRENTA001.pas">
+            <Form>frmRentaOld</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA18.pas">
+            <Form>frmFactura</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA26.pas">
+            <Form>frmCotizacion</Form>
+        </DCCReference>
+        <DCCReference Include="UFrm_Consulta.pas">
+            <Form>Frm_Consulta</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTAREPVENC.pas">
+            <Form>frmRepVencimiento</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTAASEG.pas">
+            <Form>frmAseguradoras</Form>
+        </DCCReference>
+        <DCCReference Include="CTMContab\Reports\RCONT17.pas">
+            <Form>RepCheque</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\USerial.pas">
+            <Form>FSerial</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA26.pas">
+            <Form>RValorInv</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVenta233.pas">
+            <Form>frmListadoProdFalt</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA128.pas">
+            <Form>RFacturaSteelTec</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA38.pas">
+            <Form>RConduce</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA02.pas">
+            <Form>RFactura</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA216.pas">
+            <Form>frmRepCxPGeneral</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA50.pas">
+            <Form>RFacVencidasProv</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVenta234.pas">
+            <Form>FrmFecha</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVenta235.pas">
+            <Form>FrmSelFecha</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Reports\RVENTA126.pas">
+            <Form>RFacturaSarita</Form>
+            <DesignClass>TQuickRep</DesignClass>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA237.pas">
+            <Form>frmConsTicketTransp</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVenta236.pas">
+            <Form>FrmLiquidacionTickets</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA223.pas">
+            <Form>frmPedidosFactura</Form>
+        </DCCReference>
+        <DCCReference Include="PVenta\Units\PVENTA37.pas">
+            <Form>frmPideCajero</Form>
+        </DCCReference>
+        <BuildConfiguration Include="Debug">
+            <Key>Cfg_2</Key>
+            <CfgParent>Base</CfgParent>
+        </BuildConfiguration>
+        <BuildConfiguration Include="Base">
+            <Key>Base</Key>
+        </BuildConfiguration>
+        <BuildConfiguration Include="Release">
+            <Key>Cfg_1</Key>
+            <CfgParent>Base</CfgParent>
+        </BuildConfiguration>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Delphi.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Delphi.Personality>
+                <Source>
+                    <Source Name="MainSource">DASHA.dpr</Source>
+                </Source>
+                <Language>
+                    <Language Name="RootDir">F:\DyRTechnology\Fuentes\Dasha\</Language>
+                </Language>
+            </Delphi.Personality>
+            <Platforms>
+                <Platform value="iOSDevice64">True</Platform>
+                <Platform value="Linux64">True</Platform>
+                <Platform value="Win32">True</Platform>
+                <Platform value="Win64">False</Platform>
+            </Platforms>
+        </BorlandProject>
+        <ProjectFileVersion>12</ProjectFileVersion>
+    </ProjectExtensions>
+    <Import Project="$(BDS)\Bin\CodeGear.Delphi.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')"/>
+    <Import Project="$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj" Condition="Exists('$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj')"/>
+</Project>

@@ -1,0 +1,2 @@
+emp_codigo|mar_codigo|mar_nombre|
+1|275|MEGA|

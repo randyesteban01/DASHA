@@ -1,0 +1,2 @@
+select Empresa, Rnc, Direccion1, Direccion2, Direccion3, Telefono,
+Url, Correo from UsbKey where SN = 'MjYyODhBRjg='
