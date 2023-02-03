@@ -1148,6 +1148,9 @@ type
     cli_facturas, cli_records,idFacturaTmp, vl_suc, vl_ncr_numero, vl_fact, vl_tfa, vl_empfact  : integer;
     vp_verifone:Boolean;
     vl_dest, vl_tipoclie, vl_clienteN, vl_asunto, vl_factnum, vl_adjunto1, vl_adjunto2, vl_cuerpo, vl_forma :String;
+
+    NumFacturaTemporal:Integer;
+
     procedure Totalizar;
     Procedure TotalizarCuentas;
     procedure CodificarCuentas;
@@ -6827,6 +6830,17 @@ end;
               dm.Query1.Parameters.parambyname('tipo').Value   := QFacturaTFA_CODIGO.Value;
               dm.Query1.Parameters.parambyname('numero').Value := QFacturaFAC_NUMERO.value;
               dm.Query1.ExecSQL;
+
+              //Procedimiento que elimina la factura temporal
+              dm.Query1.close;
+              dm.Query1.sql.clear;
+              dm.Query1.sql.add('exec pr_eliminar_facturatemporal :emp, :suc, :tipo, :numero');
+              dm.Query1.Parameters.parambyname('emp').Value    := QFacturaEMP_CODIGO.value;
+              dm.Query1.Parameters.parambyname('suc').Value    := QFacturaSUC_CODIGO.Value; 
+              dm.Query1.Parameters.parambyname('tipo').Value   := QFacturaTFA_CODIGO.Value;
+              dm.Query1.Parameters.parambyname('numero').Value := NumFacturaTemporal;
+              dm.Query1.ExecSQL;
+
               end;
 
               if vl_accion = 2 then begin
@@ -10121,11 +10135,11 @@ if Trim(edTipo.Text)='' then begin
     dm.Query1.SQL.Add('select fac_numero from facturastmp');
     dm.Query1.SQL.Add('where emp_codigo = :emp');
     dm.Query1.SQL.Add('and suc_codigo = :suc');
-    dm.Query1.SQL.Add('and tfa_codigo = :tfa');
+    //dm.Query1.SQL.Add('and tfa_codigo = :tfa');
     dm.Query1.SQL.Add('and fac_nombre = :cli');
     dm.Query1.Parameters.ParamByName('emp').Value := dm.vp_cia;
     dm.Query1.Parameters.ParamByName('suc').Value := DBLookupComboBox2.KeyValue;
-    dm.Query1.Parameters.ParamByName('tfa').Value := strtoint(edtipo.Text);
+    //dm.Query1.Parameters.ParamByName('tfa').Value := strtoint(edtipo.Text);
     dm.Query1.Parameters.ParamByName('cli').Value := DBEdit11.Text;
     dm.Query1.Open;
     if dm.Query1.RecordCount > 0 then begin
@@ -10139,12 +10153,12 @@ if Trim(edTipo.Text)='' then begin
     dm.Query1.SQL.Add('delete from facturastmp');
     dm.Query1.SQL.Add('where emp_codigo = :emp');
     dm.Query1.SQL.Add('and suc_codigo = :suc');
-    dm.Query1.SQL.Add('and tfa_codigo = :tfa');
+    //dm.Query1.SQL.Add('and tfa_codigo = :tfa');
     dm.Query1.SQL.Add('and fac_forma = '+QuotedStr('A'));
     dm.Query1.SQL.Add('and fac_nombre = :cli');
     dm.Query1.Parameters.ParamByName('emp').Value := dm.vp_cia;
     dm.Query1.Parameters.ParamByName('suc').Value := DBLookupComboBox2.KeyValue;
-    dm.Query1.Parameters.ParamByName('tfa').Value := strtoint(edtipo.Text);
+   // dm.Query1.Parameters.ParamByName('tfa').Value := strtoint(edtipo.Text);
     dm.Query1.Parameters.ParamByName('cli').Value := QFacturaFAC_NOMBRE.Value;
     dm.Query1.ExecSQL;
 
@@ -10153,11 +10167,11 @@ if Trim(edTipo.Text)='' then begin
     dm.Query1.SQL.Add('delete from det_facturatmp');
     dm.Query1.SQL.Add('where emp_codigo = :emp');
     dm.Query1.SQL.Add('and suc_codigo = :suc');
-    dm.Query1.SQL.Add('and tfa_codigo = :tfa');
+   // dm.Query1.SQL.Add('and tfa_codigo = :tfa');
     dm.Query1.SQL.Add('and fac_numero = :num');
     dm.Query1.Parameters.ParamByName('emp').Value := dm.vp_cia;
     dm.Query1.Parameters.ParamByName('suc').Value := DBLookupComboBox2.KeyValue;
-    dm.Query1.Parameters.ParamByName('tfa').Value := strtoint(edtipo.Text);
+    //dm.Query1.Parameters.ParamByName('tfa').Value := strtoint(edtipo.Text);
     dm.Query1.Parameters.ParamByName('num').Value := factmp;
     dm.Query1.ExecSQL;
     end;
@@ -10344,7 +10358,7 @@ begin
     QFacTMP.Parameters.ParamByName('suc').Value    := DBLookupComboBox2.KeyValue;
     QFacTMP.Open;
 
-
+    NumFacturaTemporal :=  frmBuscaTemporal.QFacturasfac_numero.Value;
 
     if not QFacTMPCLI_CODIGO.IsNull then
       if dm.QParametrosPAR_CODIGOCLIENTE.value = 'I' then

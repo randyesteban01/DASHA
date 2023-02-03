@@ -785,8 +785,8 @@ begin
       end;
       QFormasPago.GotoBookmark(punt);
       QFormasPago.EnableControls;
-         total := totalpositivo + QRecibosREC_RETENCION.value - totalnegativo -
-      QRecibosREC_INTERES.value;
+         //total := totalpositivo + QRecibosREC_RETENCION.value - totalnegativo - QRecibosREC_INTERES.value;
+         total := totalpositivo - totalnegativo -  QRecibosREC_INTERES.value;
       balance := total;
       QDoc.disablecontrols;
       QDoc.first;
@@ -1159,14 +1159,15 @@ var
   TotRecibo : Double;
 begin
   continua := true;
-  if Aplicar <> (QRecibosREC_MONTO.Value+QRecibosrec_retencion.Value) then
+  if Aplicar <> (QRecibosREC_MONTO.Value)//+QRecibosrec_retencion.Value)
+  then
   begin
     if MessageDlg('EL BALANCE DEL CLIENTE ES DIFERENTE AL MONTO PAGADO'+#13+
                'DESEA CONTINUAR?',mtConfirmation,[mbyes,mbno],0) = mrno then
                continua := false;
   end;
 
-  TotRecibo := totalpositivo + QRecibosREC_RETENCION.value - totalnegativo; //QRecibosREC_MONTO.Value; 
+  TotRecibo := totalpositivo - totalnegativo;// + QRecibosREC_RETENCION.value - totalnegativo; //QRecibosREC_MONTO.Value;
 
   if continua then
   begin
@@ -1186,7 +1187,9 @@ begin
       GridForma.setfocus;
     end
     //else if ((TotRecibo <> TotalDetalle) and (ckCobro.Checked))
-    else if ((FormatCurr('#,0.00',aplicar) <> FormatCurr('#,0.00',QRecibosREC_MONTO.Value+QRecibosrec_retencion.Value)) and (ckCobro.Checked))
+    else if ((FormatCurr('#,0.00',aplicar) <> FormatCurr('#,0.00',QRecibosREC_MONTO.Value
+    //+QRecibosrec_retencion.Value
+    )) and (ckCobro.Checked))
     and (dm.qparametrospar_pago_mayor_balance.Value = 'False') then
     begin
       messagedlg('NO SE PUEDE GRABAR EL RECIBO, DEBIDO A'+#13+

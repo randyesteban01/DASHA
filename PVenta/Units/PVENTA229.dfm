@@ -1,6 +1,6 @@
 object frmVerPagos: TfrmVerPagos
-  Left = 521
-  Top = 420
+  Left = 481
+  Top = 396
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'Consulta de Pagos'

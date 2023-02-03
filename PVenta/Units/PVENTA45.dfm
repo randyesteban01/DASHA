@@ -1,6 +1,6 @@
 object frmFacProvee: TfrmFacProvee
-  Left = 542
-  Top = 81
+  Left = 429
+  Top = 138
   ActiveControl = edProveedor
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
@@ -672,7 +672,7 @@ object frmFacProvee: TfrmFacProvee
       Height = 21
       BevelKind = bkFlat
       BorderStyle = bsNone
-      DataField = 'fac_retencion'
+      DataField = 'fac_retencion_isr'
       DataSource = dsFactura
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText

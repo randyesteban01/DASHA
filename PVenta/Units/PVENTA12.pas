@@ -568,6 +568,8 @@ type
     QUsuariosusu_solo_conduce: TBooleanField;
     dbchkusu_modifica_nombreprod: TDBCheckBox;
     QUsuariosusu_modifica_nombreprod: TBooleanField;
+    DBCheckBox16: TDBCheckBox;
+    QUsuariosusu_elimina_factura_temporal: TBooleanField;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btCloseClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
@@ -819,6 +821,7 @@ begin
   QUsuariosusu_supervisor.Value       := False;
   QUsuariosusu_camarero.Value         := False;
   QUsuariosusu_vendedor.Value         := False;
+  QUsuariosusu_modifica_nombreprod.Value  := False;
 
 end;
 
@@ -1416,5 +1419,6 @@ begin
 if QUsuariosusu_vendedor.Value = True then
 QUsuariosusu_Cajero.Value := False;
 end;
+
 
 end.

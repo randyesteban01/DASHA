@@ -72,7 +72,6 @@ type
     QPedidoPED_TIPO: TIBStringField;
     QPedidoPED_NUMERO: TIntegerField;
     QPedidoPED_FECHA: TDateTimeField;
-    QPedidoPED_COTIZACION: TIntegerField;
     QPedidoCLI_CODIGO: TIntegerField;
     QPedidoCLI_REFERENCIA: TIBStringField;
     QPedidoPED_DIRECCION: TIBStringField;
@@ -155,6 +154,7 @@ type
     StringField12: TStringField;
     BlobField1: TBlobField;
     dsSucursal: TDataSource;
+    QPedidoPED_COTIZACION: TStringField;
     procedure QDetalleCalcFields(DataSet: TDataSet);
     procedure QuickRepBeforePrint(Sender: TCustomQuickRep;
       var PrintReport: Boolean);

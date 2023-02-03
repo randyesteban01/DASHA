@@ -1,6 +1,6 @@
 object frmFormasPago: TfrmFormasPago
-  Left = 413
-  Top = 403
+  Left = 427
+  Top = 341
   BorderIcons = [biSystemMenu, biMinimize, biHelp]
   BorderStyle = bsSingle
   Caption = 'Formas de Pago'

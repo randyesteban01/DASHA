@@ -1,6 +1,6 @@
 object frmClaveSupervisor: TfrmClaveSupervisor
-  Left = 306
-  Top = 518
+  Left = 307
+  Top = 519
   ActiveControl = edUsuario
   BorderStyle = bsSingle
   Caption = 'Cambio de Clave a Supervisores de caja'

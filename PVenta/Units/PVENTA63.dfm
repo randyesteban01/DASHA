@@ -863,10 +863,6 @@ object frmConsPedidosCli: TfrmConsPedidosCli
       Origin = 'PEDIDOS.EMP_CODIGO'
       Required = True
     end
-    object QPedidosPED_COTIZACION: TIntegerField
-      FieldName = 'PED_COTIZACION'
-      Origin = 'PEDIDOS.PED_COTIZACION'
-    end
     object QPedidosPED_DESCUENTO: TFloatField
       FieldName = 'PED_DESCUENTO'
       Origin = 'PEDIDOS.PED_DESCUENTO'
@@ -956,6 +952,9 @@ object frmConsPedidosCli: TfrmConsPedidosCli
     end
     object QPedidossuc_codigo: TIntegerField
       FieldName = 'suc_codigo'
+    end
+    object QPedidosPED_COTIZACION: TStringField
+      FieldName = 'PED_COTIZACION'
     end
   end
   object dsPedidos: TDataSource

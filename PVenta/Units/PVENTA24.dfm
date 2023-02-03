@@ -1,11 +1,11 @@
 object frmRecibos: TfrmRecibos
-  Left = 375
-  Top = 110
+  Left = 379
+  Top = 115
   ActiveControl = edCliente
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Recibos'
-  ClientHeight = 531
+  ClientHeight = 551
   ClientWidth = 820
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -26,12 +26,12 @@ object frmRecibos: TfrmRecibos
   OnPaint = FormPaint
   DesignSize = (
     820
-    531)
+    551)
   PixelsPerInch = 96
   TextHeight = 13
   object btGrabar: TSpeedButton
     Left = 218
-    Top = 500
+    Top = 520
     Width = 148
     Height = 25
     Anchors = [akRight, akBottom]
@@ -46,7 +46,7 @@ object frmRecibos: TfrmRecibos
   end
   object btLimpiar: TSpeedButton
     Left = 371
-    Top = 500
+    Top = 520
     Width = 142
     Height = 25
     Anchors = [akRight, akBottom]
@@ -61,7 +61,7 @@ object frmRecibos: TfrmRecibos
   end
   object btClose: TSpeedButton
     Left = 665
-    Top = 500
+    Top = 520
     Width = 150
     Height = 25
     Anchors = [akRight, akBottom]
@@ -77,7 +77,7 @@ object frmRecibos: TfrmRecibos
   end
   object btBuscaCli: TSpeedButton
     Left = 520
-    Top = 500
+    Top = 520
     Width = 142
     Height = 25
     Anchors = [akRight, akBottom]
@@ -310,7 +310,7 @@ object frmRecibos: TfrmRecibos
     Left = 0
     Top = 41
     Width = 820
-    Height = 459
+    Height = 479
     Align = alTop
     Anchors = [akLeft, akTop, akRight, akBottom]
     Ctl3D = True
@@ -318,7 +318,7 @@ object frmRecibos: TfrmRecibos
     TabOrder = 1
     DesignSize = (
       820
-      459)
+      479)
     object SpeedButton2: TSpeedButton
       Left = 116
       Top = 62
@@ -696,7 +696,7 @@ object frmRecibos: TfrmRecibos
       Left = 1
       Top = 251
       Width = 818
-      Height = 207
+      Height = 227
       ActivePage = TabSheet1
       Align = alBottom
       Anchors = [akLeft, akTop, akRight, akBottom]
@@ -705,7 +705,7 @@ object frmRecibos: TfrmRecibos
         Caption = 'Documentos adeudados'
         object Panel4: TPanel
           Left = 0
-          Top = 155
+          Top = 175
           Width = 810
           Height = 24
           Align = alBottom
@@ -802,7 +802,7 @@ object frmRecibos: TfrmRecibos
           Left = 0
           Top = 0
           Width = 810
-          Height = 155
+          Height = 175
           Align = alClient
           Ctl3D = False
           DataSource = dsDoc
@@ -940,10 +940,10 @@ object frmRecibos: TfrmRecibos
         ImageIndex = 1
         DesignSize = (
           810
-          179)
+          199)
         object Label8: TLabel
           Left = 638
-          Top = 132
+          Top = 152
           Width = 54
           Height = 13
           Anchors = [akRight, akBottom]
@@ -957,7 +957,7 @@ object frmRecibos: TfrmRecibos
         end
         object Label10: TLabel
           Left = 638
-          Top = 148
+          Top = 168
           Width = 49
           Height = 13
           Anchors = [akRight, akBottom]
@@ -971,7 +971,7 @@ object frmRecibos: TfrmRecibos
         end
         object Label11: TLabel
           Left = 638
-          Top = 164
+          Top = 184
           Width = 51
           Height = 13
           Anchors = [akRight, akBottom]
@@ -985,7 +985,7 @@ object frmRecibos: TfrmRecibos
         end
         object btBuscaCta: TSpeedButton
           Left = 0
-          Top = 152
+          Top = 172
           Width = 153
           Height = 25
           Anchors = [akLeft, akBottom]
@@ -1000,7 +1000,7 @@ object frmRecibos: TfrmRecibos
         end
         object btElimina: TSpeedButton
           Left = 160
-          Top = 152
+          Top = 172
           Width = 153
           Height = 25
           Anchors = [akLeft, akBottom]
@@ -1015,7 +1015,7 @@ object frmRecibos: TfrmRecibos
         end
         object lbCR: TStaticText
           Left = 702
-          Top = 128
+          Top = 148
           Width = 103
           Height = 17
           Alignment = taRightJustify
@@ -1033,7 +1033,7 @@ object frmRecibos: TfrmRecibos
         end
         object lbDB: TStaticText
           Left = 702
-          Top = 144
+          Top = 164
           Width = 103
           Height = 17
           Alignment = taRightJustify
@@ -1051,7 +1051,7 @@ object frmRecibos: TfrmRecibos
         end
         object lbBAL: TStaticText
           Left = 702
-          Top = 160
+          Top = 180
           Width = 103
           Height = 17
           Alignment = taRightJustify
@@ -1563,8 +1563,8 @@ object frmRecibos: TfrmRecibos
     end
   end
   object DBCheckBox1: TDBCheckBox
-    Left = 2
-    Top = 482
+    Left = 10
+    Top = 522
     Width = 80
     Height = 17
     Caption = 'Sin Detalle'

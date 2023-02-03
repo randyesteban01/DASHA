@@ -991,7 +991,7 @@ begin
   vRetencion := QFacturaFAC_retencion.value;
   vRetencionISR := QFacturafac_retencion_isr.value;
   vSubtotal := (vGrabado + vExento + vFlete + vSelectivo_ad + vSelectivo + vServicios+ vPropinaLegal);
-  QfacturaTotal.Value := (vSubtotal- vDescuento) + vItbis + vOtrosImp- (vRetencion + vRetencionISR);
+  QfacturaTotal.Value := (vSubtotal- vDescuento);// + vItbis + vOtrosImp - (vRetencion + vRetencionISR);
   lbdiferencia.Caption := format('%n',[Creditos-Debitos-vDescuento]);
 end;
 
@@ -4815,7 +4815,8 @@ begin
       QCuentasDET_ORIGEN.Value := 'Credito';
       QCuentasDET_MONTO.Value  := (QFacturaFAC_EXENTO.Value + QFacturaFAC_GRABADO.Value +
       QFacturafac_flete.Value + QFacturafac_selectivo.Value + QFacturafac_servicios.Value+
-      QFacturaFAC_ITBIS.Value + QFacturafac_proplegal.Value + QFacturafac_otrosimpuestos.Value)-
+      QFacturaFAC_ITBIS.Value +
+      QFacturafac_proplegal.Value + QFacturafac_otrosimpuestos.Value)-
       (QFacturaFAC_DESCUENTO.Value + QFacturafac_retencion.Value + QFacturafac_retencion_isr.Value);
       QCuentas.Post;
     End;

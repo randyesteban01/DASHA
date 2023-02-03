@@ -616,7 +616,8 @@ uses
   RVENTA26 in 'PVenta\Reports\RVENTA26.pas' {RValorInv: TQuickRep},
   RVENTA73 in 'PVenta\Reports\RVENTA73.pas' {RepListaTickets: TQuickRep},
   RVENTA02 in 'PVenta\Reports\RVENTA02.pas' {RFactura: TQuickRep},
-  RVENTA36 in 'PVenta\Reports\RVENTA36.pas' {RCotizacion: TQuickRep};
+  RVENTA36 in 'PVenta\Reports\RVENTA36.pas' {RCotizacion: TQuickRep},
+  PVENTA249 in 'PVenta\Units\PVENTA249.pas' {frmDigitarClave};
 
 {$R *.res}
 

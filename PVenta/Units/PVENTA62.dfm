@@ -1,6 +1,6 @@
 object frmConsFacProvee: TfrmConsFacProvee
-  Left = 495
-  Top = 261
+  Left = 289
+  Top = 108
   ActiveControl = Fecha1
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle

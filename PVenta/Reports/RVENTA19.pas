@@ -57,7 +57,6 @@ type
     QPedidosCLI_REFERENCIA: TIBStringField;
     QPedidosCPA_CODIGO: TIntegerField;
     QPedidosEMP_CODIGO: TIntegerField;
-    QPedidosPED_COTIZACION: TIntegerField;
     QPedidosPED_DESCUENTO: TFloatField;
     QPedidosPED_DIRECCION: TIBStringField;
     QPedidosPED_FAX: TIBStringField;
@@ -87,6 +86,7 @@ type
     QRLabel45: TQRLabel;
     QRDBText4: TQRDBText;
     QRDBText5: TQRDBText;
+    QPedidosPED_COTIZACION: TStringField;
   private
 
   public

@@ -1,6 +1,6 @@
 object frmUsuarios: TfrmUsuarios
-  Left = 756
-  Top = 196
+  Left = 433
+  Top = 150
   BorderIcons = [biSystemMenu, biMinimize, biHelp]
   BorderStyle = bsSingle
   Caption = 'Usuarios y Claves'
@@ -109,9 +109,9 @@ object frmUsuarios: TfrmUsuarios
       end
       object PageControl2: TPageControl
         Left = 304
-        Top = 56
+        Top = 64
         Width = 401
-        Height = 261
+        Height = 289
         ActivePage = TabSheet6
         TabOrder = 3
         object TabSheet4: TTabSheet
@@ -540,6 +540,18 @@ object frmUsuarios: TfrmUsuarios
             ValueChecked = 'True'
             ValueUnchecked = 'False'
           end
+          object DBCheckBox16: TDBCheckBox
+            Left = 8
+            Top = 232
+            Width = 247
+            Height = 21
+            Caption = 'Eliminar facturas temporales'
+            DataField = 'usu_elimina_factura_temporal'
+            DataSource = dsUsuarios
+            TabOrder = 17
+            ValueChecked = 'True'
+            ValueUnchecked = 'False'
+          end
         end
         object tsParRestBar: TTabSheet
           Caption = 'RestBar'
@@ -848,7 +860,8 @@ object frmUsuarios: TfrmUsuarios
       
         'usu_supervisor, usu_Cajero, usu_camarero, usu_vendedor, usu_solo' +
         '_conduce'
-      ',usu_modifica_nombreprod'
+      ',usu_modifica_nombreprod,'
+      'usu_elimina_factura_temporal'
       'from'
       'USUARIOS '
       'WHERE USU_STATUS <> '#39'INA'#39
@@ -970,6 +983,9 @@ object frmUsuarios: TfrmUsuarios
     end
     object QUsuariosusu_modifica_nombreprod: TBooleanField
       FieldName = 'usu_modifica_nombreprod'
+    end
+    object QUsuariosusu_elimina_factura_temporal: TBooleanField
+      FieldName = 'usu_elimina_factura_temporal'
     end
   end
   object dsUsuarios: TDataSource

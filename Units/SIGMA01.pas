@@ -388,6 +388,7 @@ type
     QParametrospar_puerto_Printer: TStringField;
     QParametrospar_velocidad_Printer: TIntegerField;
     QUsuariosusu_vendedor: TBooleanField;
+  
     QParametrospar_puerto_envios: TStringField;
     QContabpar_ctadevventas: TStringField;
     DBCia: TfrxDBDataset;
@@ -395,6 +396,7 @@ type
     QUsuariosusu_solo_conduce: TBooleanField;
     qRevisarAlmDupliExist: TADOQuery;
     QUsuariosusu_modifica_nombreprod: TBooleanField;
+    QUsuariosusu_elimina_factura_temporal: TBooleanField;
     procedure IBDatabaseAfterConnect(Sender: TObject);
     procedure QEmpresasCalcFields(DataSet: TDataSet);
     procedure DataModuleCreate(Sender: TObject);

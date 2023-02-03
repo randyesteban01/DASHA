@@ -1,6 +1,6 @@
 object frmBuscaTemporal: TfrmBuscaTemporal
-  Left = 360
-  Top = 256
+  Left = 361
+  Top = 258
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'Buscar Factura Temporal'
@@ -24,6 +24,7 @@ object frmBuscaTemporal: TfrmBuscaTemporal
     Align = alTop
     DataSource = dsFacturas
     Options = [dgTitles, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit]
+    PopupMenu = PopupMenu2
     TabOrder = 0
     TitleFont.Charset = ANSI_CHARSET
     TitleFont.Color = clWindowText
@@ -201,7 +202,15 @@ object frmBuscaTemporal: TfrmBuscaTemporal
   end
   object dsFacturas: TDataSource
     DataSet = QFacturas
-    Left = 192
-    Top = 152
+    Left = 240
+    Top = 136
+  end
+  object PopupMenu2: TPopupMenu
+    Left = 400
+    Top = 137
+    object MenuItem2: TMenuItem
+      Caption = 'Eliminar Factura temporal'
+      OnClick = MenuItem2Click
+    end
   end
 end
