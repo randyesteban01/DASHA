@@ -1,6 +1,6 @@
 object frmConduce: TfrmConduce
-  Left = 563
-  Top = 64
+  Left = 316
+  Top = 71
   ActiveControl = DBEdit5
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
@@ -451,9 +451,9 @@ object frmConduce: TfrmConduce
     object PageControl1: TPageControl
       Left = 276
       Top = 4
-      Width = 409
+      Width = 500
       Height = 117
-      ActivePage = TabSheet2
+      ActivePage = TabSheet1
       TabOrder = 9
       object TabSheet2: TTabSheet
         Caption = 'Proveedor'
@@ -526,7 +526,7 @@ object frmConduce: TfrmConduce
         object DBEdit4: TDBEdit
           Left = 64
           Top = 32
-          Width = 337
+          Width = 420
           Height = 21
           BevelKind = bkFlat
           BorderStyle = bsNone
@@ -580,7 +580,7 @@ object frmConduce: TfrmConduce
         object DBEdit15: TDBEdit
           Left = 136
           Top = 8
-          Width = 265
+          Width = 345
           Height = 21
           BevelKind = bkFlat
           BorderStyle = bsNone
@@ -668,7 +668,7 @@ object frmConduce: TfrmConduce
         object DBEdit1: TDBEdit
           Left = 64
           Top = 32
-          Width = 337
+          Width = 420
           Height = 21
           BevelKind = bkFlat
           BorderStyle = bsNone
@@ -722,7 +722,7 @@ object frmConduce: TfrmConduce
         object DBEdit6: TDBEdit
           Left = 136
           Top = 8
-          Width = 265
+          Width = 347
           Height = 21
           BevelKind = bkFlat
           BorderStyle = bsNone
@@ -1768,9 +1768,10 @@ object frmConduce: TfrmConduce
       Size = 10
     end
     object QConduceCON_DIRECCION: TIBStringField
+      DisplayWidth = 200
       FieldName = 'CON_DIRECCION'
       Origin = 'CONDUCE.CON_DIRECCION'
-      Size = 60
+      Size = 200
     end
     object QConduceCON_FAX: TIBStringField
       FieldName = 'CON_FAX'

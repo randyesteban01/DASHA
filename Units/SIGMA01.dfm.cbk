@@ -1,8 +1,8 @@
 object DM: TDM
   OldCreateOrder = False
   OnCreate = DataModuleCreate
-  Left = 505
-  Top = 464
+  Left = 486
+  Top = 374
   Height = 356
   Width = 619
   object dsEmpresas: TDataSource
@@ -1769,7 +1769,7 @@ object DM: TDM
       
         'par_mailservidor, par_mailcorreo, par_mailusuario, par_mailpuert' +
         'o, par_mailclave, par_mailOK, usu_vendedor, usu_solo_conduce'
-      ',usu_modifica_nombreprod'
+      ',usu_modifica_nombreprod, usu_elimina_factura_temporal'
       'from'
       'USUARIOS'
       'where'
@@ -1885,6 +1885,9 @@ object DM: TDM
     end
     object QUsuariosusu_modifica_nombreprod: TBooleanField
       FieldName = 'usu_modifica_nombreprod'
+    end
+    object QUsuariosusu_elimina_factura_temporal: TBooleanField
+      FieldName = 'usu_elimina_factura_temporal'
     end
   end
   object QParamRH: TADOQuery

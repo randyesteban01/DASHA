@@ -1,6 +1,6 @@
 object frmUsuarios: TfrmUsuarios
-  Left = 433
-  Top = 150
+  Left = 355
+  Top = 42
   BorderIcons = [biSystemMenu, biMinimize, biHelp]
   BorderStyle = bsSingle
   Caption = 'Usuarios y Claves'
@@ -112,7 +112,7 @@ object frmUsuarios: TfrmUsuarios
         Top = 64
         Width = 401
         Height = 289
-        ActivePage = TabSheet6
+        ActivePage = TabSheet4
         TabOrder = 3
         object TabSheet4: TTabSheet
           Caption = 'Opci'#243'nes'

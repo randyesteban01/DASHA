@@ -24,6 +24,7 @@ type
     QFacturasproducto: TStringField;
     PopupMenu2: TPopupMenu;
     MenuItem2: TMenuItem;
+    QFacturasid_facturatemporal: TIntegerField;
     procedure BitBtn1Click(Sender: TObject);
     procedure BitBtn2Click(Sender: TObject);
     procedure DBGrid1KeyPress(Sender: TObject; var Key: Char);
@@ -86,6 +87,7 @@ begin
       dm.Query1.Parameters.parambyname('suc').Value    := QFacturas.Parameters.ParamByName('suc_codigo').Value;
       dm.Query1.Parameters.parambyname('tipo').Value   := QFacturastfa_codigo.Value;
       dm.Query1.Parameters.parambyname('numero').Value := QFacturasfac_numero.Value;
+     // dm.Query1.Parameters.parambyname('numero').Value := QFacturasfac_numero.Value;
       dm.Query1.ExecSQL;
 
       messagedlg('SE HA ELIMINADO LA FACTURA TEMPORAL NO. '+IntToStr(QFacturasfac_numero.Value),

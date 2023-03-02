@@ -25,6 +25,1030 @@ object frmParametros: TfrmParametros
   OnPaint = FormPaint
   PixelsPerInch = 96
   TextHeight = 13
+  object pnInvent: TPanel
+    Left = 200
+    Top = 8
+    Width = 417
+    Height = 417
+    TabOrder = 2
+    Visible = False
+    object PageControl1: TPageControl
+      Left = 4
+      Top = 3
+      Width = 415
+      Height = 433
+      ActivePage = TabSheet1
+      TabOrder = 0
+      object TabSheet1: TTabSheet
+        Caption = 'Generales'
+        object ScrollBox2: TScrollBox
+          Left = 0
+          Top = 0
+          Width = 407
+          Height = 405
+          Align = alClient
+          TabOrder = 0
+          object Label17: TLabel
+            Left = 216
+            Top = 1
+            Width = 112
+            Height = 13
+            Caption = 'Digitos para el # de lote'
+            FocusControl = DBEdit4
+          end
+          object Label53: TLabel
+            Left = 8
+            Top = 228
+            Width = 276
+            Height = 13
+            Caption = 'Cuando el producto se crea, igualar el codigo para la Ref.'
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+          end
+          object Label69: TLabel
+            Left = 8
+            Top = 274
+            Width = 174
+            Height = 13
+            Caption = 'Combinar Referencia Fabricante con'
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+          end
+          object Label72: TLabel
+            Left = 8
+            Top = 296
+            Width = 128
+            Height = 13
+            Caption = 'Empresa para el inventario'
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+          end
+          object Label73: TLabel
+            Left = 8
+            Top = 318
+            Width = 127
+            Height = 13
+            Caption = 'Almacen para el inventario'
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+          end
+          object SpeedButton11: TSpeedButton
+            Left = 232
+            Top = 296
+            Width = 23
+            Height = 22
+            Flat = True
+            Glyph.Data = {
+              42010000424D4201000000000000760000002800000011000000110000000100
+              040000000000CC00000000000000000000001000000010000000000000000000
+              BF0000BF000000BFBF00BF000000BF00BF00BFBF0000C0C0C000808080000000
+              FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00777777777777
+              77777000000077777777777777777000000070000077777000007000000070B0
+              00777770F0007000000070F000777770B0007000000070000000700000007000
+              0000700B000000B0000070000000700F000700F0000070000000700B000700B0
+              0000700000007700000000000007700000007770B00070B00077700000007770
+              0000700000777000000077770007770007777000000077770B07770B07777000
+              0000777700077700077770000000777777777777777770000000777777777777
+              777770000000}
+            OnClick = SpeedButton11Click
+          end
+          object SpeedButton12: TSpeedButton
+            Left = 232
+            Top = 318
+            Width = 23
+            Height = 22
+            Flat = True
+            Glyph.Data = {
+              42010000424D4201000000000000760000002800000011000000110000000100
+              040000000000CC00000000000000000000001000000010000000000000000000
+              BF0000BF000000BFBF00BF000000BF00BF00BFBF0000C0C0C000808080000000
+              FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00777777777777
+              77777000000077777777777777777000000070000077777000007000000070B0
+              00777770F0007000000070F000777770B0007000000070000000700000007000
+              0000700B000000B0000070000000700F000700F0000070000000700B000700B0
+              0000700000007700000000000007700000007770B00070B00077700000007770
+              0000700000777000000077770007770007777000000077770B07770B07777000
+              0000777700077700077770000000777777777777777770000000777777777777
+              777770000000}
+            OnClick = SpeedButton12Click
+          end
+          object Label1: TLabel
+            Left = 8
+            Top = 340
+            Width = 86
+            Height = 13
+            Caption = 'Almacen de venta'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            Visible = False
+          end
+          object btTipo: TSpeedButton
+            Left = 232
+            Top = 340
+            Width = 23
+            Height = 22
+            Flat = True
+            Glyph.Data = {
+              42010000424D4201000000000000760000002800000011000000110000000100
+              040000000000CC00000000000000000000001000000010000000000000000000
+              BF0000BF000000BFBF00BF000000BF00BF00BFBF0000C0C0C000808080000000
+              FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00777777777777
+              77777000000077777777777777777000000070000077777000007000000070B0
+              00777770F0007000000070F000777770B0007000000070000000700000007000
+              0000700B000000B0000070000000700F000700F0000070000000700B000700B0
+              0000700000007700000000000007700000007770B00070B00077700000007770
+              0000700000777000000077770007770007777000000077770B07770B07777000
+              0000777700077700077770000000777777777777777770000000777777777777
+              777770000000}
+            Visible = False
+            OnClick = btTipoClick
+          end
+          object Label4: TLabel
+            Left = 8
+            Top = 252
+            Width = 159
+            Height = 13
+            Caption = 'Combinar Referencia Original con'
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+          end
+          object Label84: TLabel
+            Left = 200
+            Top = 206
+            Width = 84
+            Height = 13
+            Caption = '% Beneficio inicial'
+            FocusControl = DBEdit75
+          end
+          object DBCheckBox27: TDBCheckBox
+            Left = 5
+            Top = 48
+            Width = 179
+            Height = 17
+            Caption = 'Visualizar escalas en los detalles'
+            DataField = 'PAR_FACESCALA'
+            DataSource = dsParametros
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 0
+            ValueChecked = 'True'
+            ValueUnchecked = 'False'
+          end
+          object DBCheckBox28: TDBCheckBox
+            Left = 5
+            Top = 144
+            Width = 179
+            Height = 17
+            Caption = 'Visualizar medida en los detalles'
+            DataField = 'PAR_FACMEDIDA'
+            DataSource = dsParametros
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 1
+            ValueChecked = 'True'
+            ValueUnchecked = 'False'
+          end
+          object DBCheckBox1: TDBCheckBox
+            Left = 5
+            Top = 64
+            Width = 179
+            Height = 17
+            Caption = 'No exceder existencia m'#225'xima'
+            DataField = 'PAR_CONTROLAMAXIMO'
+            DataSource = dsParametros
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 2
+            ValueChecked = 'True'
+            ValueUnchecked = 'False'
+          end
+          object DBCheckBox2: TDBCheckBox
+            Left = 192
+            Top = 64
+            Width = 201
+            Height = 17
+            Caption = 'No exceder la existencia m'#237'nima'
+            DataField = 'PAR_CONTROLAMINIMO'
+            DataSource = dsParametros
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 3
+            ValueChecked = 'True'
+            ValueUnchecked = 'False'
+          end
+          object DBCheckBox25: TDBCheckBox
+            Left = 5
+            Top = 80
+            Width = 179
+            Height = 17
+            Caption = 'No facturar debajo precio m'#237'nimo'
+            DataField = 'PAR_DEBAJOPRECIO'
+            DataSource = dsParametros
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 4
+            ValueChecked = 'True'
+            ValueUnchecked = 'False'
+          end
+          object DBCheckBox3: TDBCheckBox
+            Left = 192
+            Top = 80
+            Width = 201
+            Height = 17
+            Caption = 'Permitir facturar debajo del costo'
+            DataField = 'PAR_DEBAJOCOSTO'
+            DataSource = dsParametros
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 5
+            ValueChecked = 'True'
+            ValueUnchecked = 'False'
+          end
+          object DBCheckBox5: TDBCheckBox
+            Left = 5
+            Top = 96
+            Width = 179
+            Height = 17
+            Caption = 'Obligar que sea usada o nueva'
+            DataField = 'PAR_NUEVOUSADO'
+            DataSource = dsParametros
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 6
+            ValueChecked = 'True'
+            ValueUnchecked = 'False'
+          end
+          object DBCheckBox29: TDBCheckBox
+            Left = 192
+            Top = 96
+            Width = 201
+            Height = 17
+            Caption = 'Visualizar vencimiento en los detalles'
+            DataField = 'PAR_INVMOSTRARVENCE'
+            DataSource = dsParametros
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 7
+            ValueChecked = 'True'
+            ValueUnchecked = 'False'
+          end
+          object DBRadioGroup1: TDBRadioGroup
+            Left = 8
+            Top = 0
+            Width = 185
+            Height = 49
+            Caption = 'C'#243'digo que se va autilizar'
+            Columns = 2
+            DataField = 'PAR_CODIGOPRODUCTO'
+            DataSource = dsParametros
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            Items.Strings = (
+              'Interno'
+              'Ref. original'
+              'Ref. Fabrican')
+            ParentFont = False
+            TabOrder = 8
+            Values.Strings = (
+              'I'
+              'O'
+              'F')
+          end
+          object DBEdit4: TDBEdit
+            Left = 340
+            Top = 1
+            Width = 41
+            Height = 21
+            BevelKind = bkFlat
+            BorderStyle = bsNone
+            DataField = 'PAR_VENDIGITOSLOTE'
+            DataSource = dsParametros
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 9
+          end
+          object DBRadioGroup16: TDBRadioGroup
+            Left = 196
+            Top = 22
+            Width = 185
+            Height = 43
+            Caption = 'Forma de verificar vencimiento'
+            DataField = 'PAR_VENVERIFICA'
+            DataSource = dsParametros
+            Items.Strings = (
+              'El Lote incluido en en c'#243'digo'
+              'Revajar de la fecha mas pr'#243'xima')
+            TabOrder = 10
+            Values.Strings = (
+              '1'
+              '2')
+          end
+          object DBRadioGroup17: TDBRadioGroup
+            Left = 4
+            Top = 196
+            Width = 83
+            Height = 30
+            Caption = 'Inicar con Itbis'
+            Columns = 2
+            DataField = 'PAR_ITBISDEFECTO'
+            DataSource = dsParametros
+            Items.Strings = (
+              'Si'
+              'No')
+            TabOrder = 11
+            Values.Strings = (
+              'S'
+              'N')
+          end
+          object DBEdit46: TDBEdit
+            Left = 296
+            Top = 228
+            Width = 52
+            Height = 21
+            BevelKind = bkFlat
+            BorderStyle = bsNone
+            CharCase = ecUpperCase
+            DataField = 'PAR_IGUALAREF'
+            DataSource = dsParametros
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 13
+          end
+          object DBComboBox5: TDBComboBox
+            Left = 192
+            Top = 252
+            Width = 201
+            Height = 21
+            Style = csDropDownList
+            BevelKind = bkFlat
+            Ctl3D = True
+            DataField = 'PAR_COMBINAORIGINAL'
+            DataSource = dsParametros
+            ItemHeight = 13
+            Items.Strings = (
+              'Familia'
+              'Departamento'
+              'Color'
+              'Marca'
+              'Ninguno')
+            ParentCtl3D = False
+            TabOrder = 14
+          end
+          object DBComboBox6: TDBComboBox
+            Left = 192
+            Top = 274
+            Width = 201
+            Height = 21
+            Style = csDropDownList
+            BevelKind = bkFlat
+            DataField = 'PAR_COMBINAFABRIC'
+            DataSource = dsParametros
+            ItemHeight = 13
+            Items.Strings = (
+              'Familia'
+              'Departamento'
+              'Color'
+              'Marca'
+              'Ninguno')
+            TabOrder = 15
+          end
+          object DBEdit63: TDBEdit
+            Left = 192
+            Top = 296
+            Width = 33
+            Height = 21
+            BevelKind = bkFlat
+            BorderStyle = bsNone
+            DataField = 'PAR_INVEMPRESA'
+            DataSource = dsParametros
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 16
+          end
+          object tempresa: TEdit
+            Left = 256
+            Top = 296
+            Width = 140
+            Height = 21
+            BevelKind = bkFlat
+            BorderStyle = bsNone
+            Color = clInfoBk
+            Enabled = False
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+            TabOrder = 17
+          end
+          object DBEdit64: TDBEdit
+            Left = 192
+            Top = 318
+            Width = 33
+            Height = 21
+            BevelKind = bkFlat
+            BorderStyle = bsNone
+            DataField = 'PAR_INVALMACEN'
+            DataSource = dsParametros
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 18
+          end
+          object talmacenemp: TEdit
+            Left = 256
+            Top = 318
+            Width = 140
+            Height = 21
+            BevelKind = bkFlat
+            BorderStyle = bsNone
+            Color = clInfoBk
+            Enabled = False
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+            TabOrder = 19
+          end
+          object tAlmacen: TEdit
+            Left = 256
+            Top = 340
+            Width = 140
+            Height = 21
+            BevelKind = bkFlat
+            BorderStyle = bsNone
+            Color = clInfoBk
+            Enabled = False
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+            TabOrder = 20
+            Visible = False
+          end
+          object DBEdit1: TDBEdit
+            Left = 192
+            Top = 340
+            Width = 33
+            Height = 21
+            BevelKind = bkFlat
+            BorderStyle = bsNone
+            DataField = 'PAR_ALMACENVENTA'
+            DataSource = dsParametros
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 21
+            Visible = False
+          end
+          object DBCheckBox30: TDBCheckBox
+            Left = 192
+            Top = 112
+            Width = 201
+            Height = 17
+            Caption = 'Imprimir Precios en Conduce/Salida'
+            DataField = 'par_invprecioconduce'
+            DataSource = dsParametros
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 22
+            ValueChecked = 'True'
+            ValueUnchecked = 'False'
+          end
+          object DBEdit75: TDBEdit
+            Left = 296
+            Top = 206
+            Width = 52
+            Height = 21
+            BevelKind = bkFlat
+            BorderStyle = bsNone
+            DataField = 'par_beneficio'
+            DataSource = dsParametros
+            TabOrder = 12
+          end
+          object DBCheckBox36: TDBCheckBox
+            Left = 192
+            Top = 128
+            Width = 201
+            Height = 17
+            Caption = 'En compras digitar centros de costo'
+            DataField = 'par_inv_compra_centro_costo'
+            DataSource = dsParametros
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 23
+            ValueChecked = 'True'
+            ValueUnchecked = 'False'
+          end
+          object DBCheckBox41: TDBCheckBox
+            Left = 5
+            Top = 112
+            Width = 179
+            Height = 17
+            Caption = 'Entradas modifica precio'
+            DataField = 'par_inv_entrada_modifica_precio'
+            DataSource = dsParametros
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 24
+            ValueChecked = 'True'
+            ValueUnchecked = 'False'
+          end
+          object DBCheckBox48: TDBCheckBox
+            Left = 5
+            Top = 128
+            Width = 179
+            Height = 17
+            Caption = 'Compras modifica precio Aut.'
+            DataField = 'par_modifica_precio_automatico'
+            DataSource = dsParametros
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 25
+            ValueChecked = 'True'
+            ValueUnchecked = 'False'
+          end
+          object DBCheckBox51: TDBCheckBox
+            Left = 192
+            Top = 144
+            Width = 153
+            Height = 17
+            Caption = 'Aplicar transferencias aut.'
+            DataField = 'par_inv_transferencia_auto'
+            DataSource = dsParametros
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 26
+            ValueChecked = 'True'
+            ValueUnchecked = 'False'
+          end
+          object DBCheckBox53: TDBCheckBox
+            Left = 192
+            Top = 160
+            Width = 201
+            Height = 17
+            Caption = 'Visualizar diferencia en factura cxp'
+            DataField = 'par_compras_visualiza_diferencia'
+            DataSource = dsParametros
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 27
+            ValueChecked = 'True'
+            ValueUnchecked = 'False'
+          end
+          object DBCheckBox60: TDBCheckBox
+            Left = 192
+            Top = 176
+            Width = 201
+            Height = 17
+            Caption = 'Calcular aut. los valores en compras'
+            DataField = 'par_compras_valores_aut'
+            DataSource = dsParametros
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 28
+            ValueChecked = 'True'
+            ValueUnchecked = 'False'
+          end
+          object DBCheckBox61: TDBCheckBox
+            Left = 5
+            Top = 160
+            Width = 179
+            Height = 17
+            Caption = 'Imprimir comentario de producto'
+            DataField = 'par_inv_imprime_comentario'
+            DataSource = dsParametros
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 29
+            ValueChecked = 'True'
+            ValueUnchecked = 'False'
+          end
+          object DBCheckBox62: TDBCheckBox
+            Left = 192
+            Top = 191
+            Width = 201
+            Height = 17
+            Caption = 'Validar serie en el inventario'
+            DataField = 'par_validar_serie_en_inventario'
+            DataSource = dsParametros
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 30
+            ValueChecked = 'True'
+            ValueUnchecked = 'False'
+          end
+          object dbchkPar_Envio_Conduce_Correo: TDBCheckBox
+            Left = 5
+            Top = 177
+            Width = 156
+            Height = 17
+            Caption = 'Enviar Correo Conduce'
+            DataField = 'Par_Envio_Conduce_Correo'
+            DataSource = dsParametros
+            TabOrder = 31
+            ValueChecked = 'True'
+            ValueUnchecked = 'False'
+          end
+          object dbrgrpPAR_INV_VENTAS: TDBRadioGroup
+            Left = 88
+            Top = 195
+            Width = 100
+            Height = 30
+            Caption = 'Inv Ventas'
+            Columns = 2
+            DataField = 'PAR_INV_VENTAS'
+            DataSource = dsParametros
+            Items.Strings = (
+              'Sucu'
+              'Caja')
+            TabOrder = 32
+            Values.Strings = (
+              '0'
+              '1')
+          end
+        end
+      end
+      object TabSheet2: TTabSheet
+        Caption = 'Reportes'
+        ImageIndex = 1
+        object sgInventario: TStringGrid
+          Left = 0
+          Top = 4
+          Width = 407
+          Height = 341
+          Color = clSilver
+          ColCount = 2
+          DefaultColWidth = 150
+          DefaultRowHeight = 21
+          FixedCols = 0
+          RowCount = 6
+          FixedRows = 0
+          Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goDrawFocusSelected]
+          TabOrder = 2
+          OnDrawCell = sgInventarioDrawCell
+          OnSelectCell = sgInventarioSelectCell
+        end
+        object cbsgInvent: TComboBox
+          Left = 153
+          Top = 6
+          Width = 152
+          Height = 21
+          BevelKind = bkSoft
+          Style = csDropDownList
+          ItemHeight = 13
+          TabOrder = 1
+          TabStop = False
+          OnExit = cbsgInventExit
+        end
+        object pnsgInvent: TPanel
+          Left = 3
+          Top = 6
+          Width = 148
+          Height = 21
+          Alignment = taLeftJustify
+          BevelInner = bvLowered
+          BevelOuter = bvLowered
+          TabOrder = 0
+        end
+      end
+      object TabSheet3: TTabSheet
+        Caption = 'Clasificaciones'
+        ImageIndex = 2
+        object Label92: TLabel
+          Left = 16
+          Top = 16
+          Width = 120
+          Height = 13
+          Caption = 'Descripcion para Familias'
+        end
+        object Label93: TLabel
+          Left = 16
+          Top = 40
+          Width = 155
+          Height = 13
+          Caption = 'Descripcion para Departamentos'
+        end
+        object Label94: TLabel
+          Left = 16
+          Top = 64
+          Width = 118
+          Height = 13
+          Caption = 'Descripcion para Marcas'
+        end
+        object Label95: TLabel
+          Left = 16
+          Top = 88
+          Width = 118
+          Height = 13
+          Caption = 'Descripcion para Colores'
+        end
+        object DBEdit80: TDBEdit
+          Left = 184
+          Top = 16
+          Width = 199
+          Height = 21
+          BevelKind = bkFlat
+          BorderStyle = bsNone
+          DataField = 'par_nombre_familia'
+          DataSource = dsParametros
+          TabOrder = 0
+        end
+        object DBEdit81: TDBEdit
+          Left = 184
+          Top = 40
+          Width = 199
+          Height = 21
+          BevelKind = bkFlat
+          BorderStyle = bsNone
+          DataField = 'par_nombre_depto'
+          DataSource = dsParametros
+          TabOrder = 1
+        end
+        object DBEdit82: TDBEdit
+          Left = 184
+          Top = 64
+          Width = 199
+          Height = 21
+          BevelKind = bkFlat
+          BorderStyle = bsNone
+          DataField = 'par_nombre_marca'
+          DataSource = dsParametros
+          TabOrder = 2
+        end
+        object DBEdit83: TDBEdit
+          Left = 184
+          Top = 88
+          Width = 199
+          Height = 21
+          BevelKind = bkFlat
+          BorderStyle = bsNone
+          DataField = 'par_nombre_color'
+          DataSource = dsParametros
+          TabOrder = 3
+        end
+      end
+      object TabSheet4: TTabSheet
+        Caption = 'Colector'
+        ImageIndex = 3
+        object GroupBox11: TGroupBox
+          Left = 8
+          Top = 4
+          Width = 393
+          Height = 197
+          Caption = 'Archivo de inventario para copiar en el colector'
+          TabOrder = 0
+          object Label96: TLabel
+            Left = 8
+            Top = 24
+            Width = 90
+            Height = 13
+            Caption = 'Nombre de archivo'
+          end
+          object Label97: TLabel
+            Left = 8
+            Top = 48
+            Width = 52
+            Height = 13
+            Caption = 'Delimitador'
+          end
+          object Label98: TLabel
+            Left = 8
+            Top = 72
+            Width = 38
+            Height = 13
+            Caption = 'Campos'
+          end
+          object DBEdit84: TDBEdit
+            Left = 104
+            Top = 24
+            Width = 281
+            Height = 21
+            BevelKind = bkFlat
+            BorderStyle = bsNone
+            DataField = 'par_arch_copiar_colector'
+            DataSource = dsParametros
+            TabOrder = 0
+          end
+          object DBEdit85: TDBEdit
+            Left = 104
+            Top = 48
+            Width = 33
+            Height = 21
+            BevelKind = bkFlat
+            BorderStyle = bsNone
+            DataField = 'par_delimitador_envia'
+            DataSource = dsParametros
+            TabOrder = 1
+          end
+          object ListaEnvia: TCheckListBox
+            Left = 104
+            Top = 72
+            Width = 281
+            Height = 124
+            BevelKind = bkFlat
+            BorderStyle = bsNone
+            ItemHeight = 13
+            Items.Strings = (
+              'Codigo'
+              'Ref. Original'
+              'Nombre del Producto'
+              'Costo Und'
+              'Costo Emp'
+              'Precio1'
+              'Precio2'
+              'Precio3'
+              'Precio4')
+            TabOrder = 2
+          end
+        end
+        object GroupBox12: TGroupBox
+          Left = 8
+          Top = 204
+          Width = 393
+          Height = 146
+          Caption = 'Archivo recibido desde el colector'
+          TabOrder = 1
+          object Label99: TLabel
+            Left = 8
+            Top = 24
+            Width = 90
+            Height = 13
+            Caption = 'Nombre de archivo'
+          end
+          object Label100: TLabel
+            Left = 8
+            Top = 48
+            Width = 52
+            Height = 13
+            Caption = 'Delimitador'
+          end
+          object Label101: TLabel
+            Left = 8
+            Top = 72
+            Width = 38
+            Height = 13
+            Caption = 'Campos'
+          end
+          object DBEdit86: TDBEdit
+            Left = 104
+            Top = 24
+            Width = 281
+            Height = 21
+            BevelKind = bkFlat
+            BorderStyle = bsNone
+            DataField = 'par_arch_recibe_colector'
+            DataSource = dsParametros
+            TabOrder = 0
+          end
+          object DBEdit87: TDBEdit
+            Left = 104
+            Top = 48
+            Width = 33
+            Height = 21
+            BevelKind = bkFlat
+            BorderStyle = bsNone
+            DataField = 'par_delimitador_recibe'
+            DataSource = dsParametros
+            TabOrder = 1
+          end
+          object ListaRecibe: TCheckListBox
+            Left = 104
+            Top = 72
+            Width = 281
+            Height = 73
+            BevelKind = bkFlat
+            BorderStyle = bsNone
+            ItemHeight = 13
+            Items.Strings = (
+              'Codigo'
+              'Ref. Original'
+              'Cantidad Und'
+              'Cantidad Emp')
+            TabOrder = 2
+          end
+        end
+      end
+    end
+  end
   object pnCotizacion: TPanel
     Left = 1500
     Top = 540
@@ -397,17 +1421,17 @@ object frmParametros: TfrmParametros
     end
   end
   object pntickets: TPanel
-    Left = 1393
+    Left = 500
     Top = 2
     Width = 417
-    Height = 385
+    Height = 393
     TabOrder = 13
     object PageControl2: TPageControl
       Left = 1
       Top = 1
       Width = 415
-      Height = 383
-      ActivePage = TabSheet6
+      Height = 391
+      ActivePage = tsRestBar
       Align = alClient
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -773,6 +1797,24 @@ object frmParametros: TfrmParametros
           Font.Style = []
           ParentFont = False
           TabOrder = 0
+        end
+        object DBCheckBox65: TDBCheckBox
+          Left = 9
+          Top = 30
+          Width = 179
+          Height = 16
+          Caption = 'Facturacion con Itbis'
+          DataField = 'RestBar_FactConItbis'
+          DataSource = dsParametros
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 1
+          ValueChecked = 'True'
+          ValueUnchecked = 'False'
         end
       end
       object tsBalanza: TTabSheet
@@ -2576,7 +3618,7 @@ object frmParametros: TfrmParametros
   end
   object btPost: TBitBtn
     Left = 430
-    Top = 385
+    Top = 401
     Width = 75
     Height = 25
     Caption = '&Grabar'
@@ -2594,7 +3636,7 @@ object frmParametros: TfrmParametros
   end
   object btClose: TBitBtn
     Left = 506
-    Top = 385
+    Top = 401
     Width = 74
     Height = 25
     Caption = '&Salir'
@@ -2918,1030 +3960,6 @@ object frmParametros: TfrmParametros
         Caption = 'Eliminar NCF'
         TabOrder = 2
         OnClick = BitBtn6Click
-      end
-    end
-  end
-  object pnInvent: TPanel
-    Left = 200
-    Top = 8
-    Width = 417
-    Height = 417
-    TabOrder = 2
-    Visible = False
-    object PageControl1: TPageControl
-      Left = 4
-      Top = 3
-      Width = 415
-      Height = 433
-      ActivePage = TabSheet1
-      TabOrder = 0
-      object TabSheet1: TTabSheet
-        Caption = 'Generales'
-        object ScrollBox2: TScrollBox
-          Left = 0
-          Top = 0
-          Width = 407
-          Height = 405
-          Align = alClient
-          TabOrder = 0
-          object Label17: TLabel
-            Left = 216
-            Top = 1
-            Width = 112
-            Height = 13
-            Caption = 'Digitos para el # de lote'
-            FocusControl = DBEdit4
-          end
-          object Label53: TLabel
-            Left = 8
-            Top = 228
-            Width = 276
-            Height = 13
-            Caption = 'Cuando el producto se crea, igualar el codigo para la Ref.'
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-          end
-          object Label69: TLabel
-            Left = 8
-            Top = 274
-            Width = 174
-            Height = 13
-            Caption = 'Combinar Referencia Fabricante con'
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-          end
-          object Label72: TLabel
-            Left = 8
-            Top = 296
-            Width = 128
-            Height = 13
-            Caption = 'Empresa para el inventario'
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-          end
-          object Label73: TLabel
-            Left = 8
-            Top = 318
-            Width = 127
-            Height = 13
-            Caption = 'Almacen para el inventario'
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-          end
-          object SpeedButton11: TSpeedButton
-            Left = 232
-            Top = 296
-            Width = 23
-            Height = 22
-            Flat = True
-            Glyph.Data = {
-              42010000424D4201000000000000760000002800000011000000110000000100
-              040000000000CC00000000000000000000001000000010000000000000000000
-              BF0000BF000000BFBF00BF000000BF00BF00BFBF0000C0C0C000808080000000
-              FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00777777777777
-              77777000000077777777777777777000000070000077777000007000000070B0
-              00777770F0007000000070F000777770B0007000000070000000700000007000
-              0000700B000000B0000070000000700F000700F0000070000000700B000700B0
-              0000700000007700000000000007700000007770B00070B00077700000007770
-              0000700000777000000077770007770007777000000077770B07770B07777000
-              0000777700077700077770000000777777777777777770000000777777777777
-              777770000000}
-            OnClick = SpeedButton11Click
-          end
-          object SpeedButton12: TSpeedButton
-            Left = 232
-            Top = 318
-            Width = 23
-            Height = 22
-            Flat = True
-            Glyph.Data = {
-              42010000424D4201000000000000760000002800000011000000110000000100
-              040000000000CC00000000000000000000001000000010000000000000000000
-              BF0000BF000000BFBF00BF000000BF00BF00BFBF0000C0C0C000808080000000
-              FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00777777777777
-              77777000000077777777777777777000000070000077777000007000000070B0
-              00777770F0007000000070F000777770B0007000000070000000700000007000
-              0000700B000000B0000070000000700F000700F0000070000000700B000700B0
-              0000700000007700000000000007700000007770B00070B00077700000007770
-              0000700000777000000077770007770007777000000077770B07770B07777000
-              0000777700077700077770000000777777777777777770000000777777777777
-              777770000000}
-            OnClick = SpeedButton12Click
-          end
-          object Label1: TLabel
-            Left = 8
-            Top = 340
-            Width = 86
-            Height = 13
-            Caption = 'Almacen de venta'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-            Visible = False
-          end
-          object btTipo: TSpeedButton
-            Left = 232
-            Top = 340
-            Width = 23
-            Height = 22
-            Flat = True
-            Glyph.Data = {
-              42010000424D4201000000000000760000002800000011000000110000000100
-              040000000000CC00000000000000000000001000000010000000000000000000
-              BF0000BF000000BFBF00BF000000BF00BF00BFBF0000C0C0C000808080000000
-              FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00777777777777
-              77777000000077777777777777777000000070000077777000007000000070B0
-              00777770F0007000000070F000777770B0007000000070000000700000007000
-              0000700B000000B0000070000000700F000700F0000070000000700B000700B0
-              0000700000007700000000000007700000007770B00070B00077700000007770
-              0000700000777000000077770007770007777000000077770B07770B07777000
-              0000777700077700077770000000777777777777777770000000777777777777
-              777770000000}
-            Visible = False
-            OnClick = btTipoClick
-          end
-          object Label4: TLabel
-            Left = 8
-            Top = 252
-            Width = 159
-            Height = 13
-            Caption = 'Combinar Referencia Original con'
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-          end
-          object Label84: TLabel
-            Left = 200
-            Top = 206
-            Width = 84
-            Height = 13
-            Caption = '% Beneficio inicial'
-            FocusControl = DBEdit75
-          end
-          object DBCheckBox27: TDBCheckBox
-            Left = 5
-            Top = 48
-            Width = 179
-            Height = 17
-            Caption = 'Visualizar escalas en los detalles'
-            DataField = 'PAR_FACESCALA'
-            DataSource = dsParametros
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-            TabOrder = 0
-            ValueChecked = 'True'
-            ValueUnchecked = 'False'
-          end
-          object DBCheckBox28: TDBCheckBox
-            Left = 5
-            Top = 144
-            Width = 179
-            Height = 17
-            Caption = 'Visualizar medida en los detalles'
-            DataField = 'PAR_FACMEDIDA'
-            DataSource = dsParametros
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-            TabOrder = 1
-            ValueChecked = 'True'
-            ValueUnchecked = 'False'
-          end
-          object DBCheckBox1: TDBCheckBox
-            Left = 5
-            Top = 64
-            Width = 179
-            Height = 17
-            Caption = 'No exceder existencia m'#225'xima'
-            DataField = 'PAR_CONTROLAMAXIMO'
-            DataSource = dsParametros
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-            TabOrder = 2
-            ValueChecked = 'True'
-            ValueUnchecked = 'False'
-          end
-          object DBCheckBox2: TDBCheckBox
-            Left = 192
-            Top = 64
-            Width = 201
-            Height = 17
-            Caption = 'No exceder la existencia m'#237'nima'
-            DataField = 'PAR_CONTROLAMINIMO'
-            DataSource = dsParametros
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-            TabOrder = 3
-            ValueChecked = 'True'
-            ValueUnchecked = 'False'
-          end
-          object DBCheckBox25: TDBCheckBox
-            Left = 5
-            Top = 80
-            Width = 179
-            Height = 17
-            Caption = 'No facturar debajo precio m'#237'nimo'
-            DataField = 'PAR_DEBAJOPRECIO'
-            DataSource = dsParametros
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-            TabOrder = 4
-            ValueChecked = 'True'
-            ValueUnchecked = 'False'
-          end
-          object DBCheckBox3: TDBCheckBox
-            Left = 192
-            Top = 80
-            Width = 201
-            Height = 17
-            Caption = 'Permitir facturar debajo del costo'
-            DataField = 'PAR_DEBAJOCOSTO'
-            DataSource = dsParametros
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-            TabOrder = 5
-            ValueChecked = 'True'
-            ValueUnchecked = 'False'
-          end
-          object DBCheckBox5: TDBCheckBox
-            Left = 5
-            Top = 96
-            Width = 179
-            Height = 17
-            Caption = 'Obligar que sea usada o nueva'
-            DataField = 'PAR_NUEVOUSADO'
-            DataSource = dsParametros
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-            TabOrder = 6
-            ValueChecked = 'True'
-            ValueUnchecked = 'False'
-          end
-          object DBCheckBox29: TDBCheckBox
-            Left = 192
-            Top = 96
-            Width = 201
-            Height = 17
-            Caption = 'Visualizar vencimiento en los detalles'
-            DataField = 'PAR_INVMOSTRARVENCE'
-            DataSource = dsParametros
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-            TabOrder = 7
-            ValueChecked = 'True'
-            ValueUnchecked = 'False'
-          end
-          object DBRadioGroup1: TDBRadioGroup
-            Left = 8
-            Top = 0
-            Width = 185
-            Height = 49
-            Caption = 'C'#243'digo que se va autilizar'
-            Columns = 2
-            DataField = 'PAR_CODIGOPRODUCTO'
-            DataSource = dsParametros
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            Items.Strings = (
-              'Interno'
-              'Ref. original'
-              'Ref. Fabrican')
-            ParentFont = False
-            TabOrder = 8
-            Values.Strings = (
-              'I'
-              'O'
-              'F')
-          end
-          object DBEdit4: TDBEdit
-            Left = 340
-            Top = 1
-            Width = 41
-            Height = 21
-            BevelKind = bkFlat
-            BorderStyle = bsNone
-            DataField = 'PAR_VENDIGITOSLOTE'
-            DataSource = dsParametros
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-            TabOrder = 9
-          end
-          object DBRadioGroup16: TDBRadioGroup
-            Left = 196
-            Top = 22
-            Width = 185
-            Height = 43
-            Caption = 'Forma de verificar vencimiento'
-            DataField = 'PAR_VENVERIFICA'
-            DataSource = dsParametros
-            Items.Strings = (
-              'El Lote incluido en en c'#243'digo'
-              'Revajar de la fecha mas pr'#243'xima')
-            TabOrder = 10
-            Values.Strings = (
-              '1'
-              '2')
-          end
-          object DBRadioGroup17: TDBRadioGroup
-            Left = 4
-            Top = 196
-            Width = 83
-            Height = 30
-            Caption = 'Inicar con Itbis'
-            Columns = 2
-            DataField = 'PAR_ITBISDEFECTO'
-            DataSource = dsParametros
-            Items.Strings = (
-              'Si'
-              'No')
-            TabOrder = 11
-            Values.Strings = (
-              'S'
-              'N')
-          end
-          object DBEdit46: TDBEdit
-            Left = 296
-            Top = 228
-            Width = 52
-            Height = 21
-            BevelKind = bkFlat
-            BorderStyle = bsNone
-            CharCase = ecUpperCase
-            DataField = 'PAR_IGUALAREF'
-            DataSource = dsParametros
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-            TabOrder = 13
-          end
-          object DBComboBox5: TDBComboBox
-            Left = 192
-            Top = 252
-            Width = 201
-            Height = 21
-            Style = csDropDownList
-            BevelKind = bkFlat
-            Ctl3D = True
-            DataField = 'PAR_COMBINAORIGINAL'
-            DataSource = dsParametros
-            ItemHeight = 13
-            Items.Strings = (
-              'Familia'
-              'Departamento'
-              'Color'
-              'Marca'
-              'Ninguno')
-            ParentCtl3D = False
-            TabOrder = 14
-          end
-          object DBComboBox6: TDBComboBox
-            Left = 192
-            Top = 274
-            Width = 201
-            Height = 21
-            Style = csDropDownList
-            BevelKind = bkFlat
-            DataField = 'PAR_COMBINAFABRIC'
-            DataSource = dsParametros
-            ItemHeight = 13
-            Items.Strings = (
-              'Familia'
-              'Departamento'
-              'Color'
-              'Marca'
-              'Ninguno')
-            TabOrder = 15
-          end
-          object DBEdit63: TDBEdit
-            Left = 192
-            Top = 296
-            Width = 33
-            Height = 21
-            BevelKind = bkFlat
-            BorderStyle = bsNone
-            DataField = 'PAR_INVEMPRESA'
-            DataSource = dsParametros
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-            TabOrder = 16
-          end
-          object tempresa: TEdit
-            Left = 256
-            Top = 296
-            Width = 140
-            Height = 21
-            BevelKind = bkFlat
-            BorderStyle = bsNone
-            Color = clInfoBk
-            Enabled = False
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'Tahoma'
-            Font.Style = [fsBold]
-            ParentFont = False
-            TabOrder = 17
-          end
-          object DBEdit64: TDBEdit
-            Left = 192
-            Top = 318
-            Width = 33
-            Height = 21
-            BevelKind = bkFlat
-            BorderStyle = bsNone
-            DataField = 'PAR_INVALMACEN'
-            DataSource = dsParametros
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-            TabOrder = 18
-          end
-          object talmacenemp: TEdit
-            Left = 256
-            Top = 318
-            Width = 140
-            Height = 21
-            BevelKind = bkFlat
-            BorderStyle = bsNone
-            Color = clInfoBk
-            Enabled = False
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'Tahoma'
-            Font.Style = [fsBold]
-            ParentFont = False
-            TabOrder = 19
-          end
-          object tAlmacen: TEdit
-            Left = 256
-            Top = 340
-            Width = 140
-            Height = 21
-            BevelKind = bkFlat
-            BorderStyle = bsNone
-            Color = clInfoBk
-            Enabled = False
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'Tahoma'
-            Font.Style = [fsBold]
-            ParentFont = False
-            TabOrder = 20
-            Visible = False
-          end
-          object DBEdit1: TDBEdit
-            Left = 192
-            Top = 340
-            Width = 33
-            Height = 21
-            BevelKind = bkFlat
-            BorderStyle = bsNone
-            DataField = 'PAR_ALMACENVENTA'
-            DataSource = dsParametros
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-            TabOrder = 21
-            Visible = False
-          end
-          object DBCheckBox30: TDBCheckBox
-            Left = 192
-            Top = 112
-            Width = 201
-            Height = 17
-            Caption = 'Imprimir Precios en Conduce/Salida'
-            DataField = 'par_invprecioconduce'
-            DataSource = dsParametros
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-            TabOrder = 22
-            ValueChecked = 'True'
-            ValueUnchecked = 'False'
-          end
-          object DBEdit75: TDBEdit
-            Left = 296
-            Top = 206
-            Width = 52
-            Height = 21
-            BevelKind = bkFlat
-            BorderStyle = bsNone
-            DataField = 'par_beneficio'
-            DataSource = dsParametros
-            TabOrder = 12
-          end
-          object DBCheckBox36: TDBCheckBox
-            Left = 192
-            Top = 128
-            Width = 201
-            Height = 17
-            Caption = 'En compras digitar centros de costo'
-            DataField = 'par_inv_compra_centro_costo'
-            DataSource = dsParametros
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-            TabOrder = 23
-            ValueChecked = 'True'
-            ValueUnchecked = 'False'
-          end
-          object DBCheckBox41: TDBCheckBox
-            Left = 5
-            Top = 112
-            Width = 179
-            Height = 17
-            Caption = 'Entradas modifica precio'
-            DataField = 'par_inv_entrada_modifica_precio'
-            DataSource = dsParametros
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-            TabOrder = 24
-            ValueChecked = 'True'
-            ValueUnchecked = 'False'
-          end
-          object DBCheckBox48: TDBCheckBox
-            Left = 5
-            Top = 128
-            Width = 179
-            Height = 17
-            Caption = 'Compras modifica precio Aut.'
-            DataField = 'par_modifica_precio_automatico'
-            DataSource = dsParametros
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-            TabOrder = 25
-            ValueChecked = 'True'
-            ValueUnchecked = 'False'
-          end
-          object DBCheckBox51: TDBCheckBox
-            Left = 192
-            Top = 144
-            Width = 153
-            Height = 17
-            Caption = 'Aplicar transferencias aut.'
-            DataField = 'par_inv_transferencia_auto'
-            DataSource = dsParametros
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-            TabOrder = 26
-            ValueChecked = 'True'
-            ValueUnchecked = 'False'
-          end
-          object DBCheckBox53: TDBCheckBox
-            Left = 192
-            Top = 160
-            Width = 201
-            Height = 17
-            Caption = 'Visualizar diferencia en factura cxp'
-            DataField = 'par_compras_visualiza_diferencia'
-            DataSource = dsParametros
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-            TabOrder = 27
-            ValueChecked = 'True'
-            ValueUnchecked = 'False'
-          end
-          object DBCheckBox60: TDBCheckBox
-            Left = 192
-            Top = 176
-            Width = 201
-            Height = 17
-            Caption = 'Calcular aut. los valores en compras'
-            DataField = 'par_compras_valores_aut'
-            DataSource = dsParametros
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-            TabOrder = 28
-            ValueChecked = 'True'
-            ValueUnchecked = 'False'
-          end
-          object DBCheckBox61: TDBCheckBox
-            Left = 5
-            Top = 160
-            Width = 179
-            Height = 17
-            Caption = 'Imprimir comentario de producto'
-            DataField = 'par_inv_imprime_comentario'
-            DataSource = dsParametros
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-            TabOrder = 29
-            ValueChecked = 'True'
-            ValueUnchecked = 'False'
-          end
-          object DBCheckBox62: TDBCheckBox
-            Left = 192
-            Top = 191
-            Width = 201
-            Height = 17
-            Caption = 'Validar serie en el inventario'
-            DataField = 'par_validar_serie_en_inventario'
-            DataSource = dsParametros
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-            TabOrder = 30
-            ValueChecked = 'True'
-            ValueUnchecked = 'False'
-          end
-          object dbchkPar_Envio_Conduce_Correo: TDBCheckBox
-            Left = 5
-            Top = 177
-            Width = 156
-            Height = 17
-            Caption = 'Enviar Correo Conduce'
-            DataField = 'Par_Envio_Conduce_Correo'
-            DataSource = dsParametros
-            TabOrder = 31
-            ValueChecked = 'True'
-            ValueUnchecked = 'False'
-          end
-          object dbrgrpPAR_INV_VENTAS: TDBRadioGroup
-            Left = 88
-            Top = 195
-            Width = 100
-            Height = 30
-            Caption = 'Inv Ventas'
-            Columns = 2
-            DataField = 'PAR_INV_VENTAS'
-            DataSource = dsParametros
-            Items.Strings = (
-              'Sucu'
-              'Caja')
-            TabOrder = 32
-            Values.Strings = (
-              '0'
-              '1')
-          end
-        end
-      end
-      object TabSheet2: TTabSheet
-        Caption = 'Reportes'
-        ImageIndex = 1
-        object sgInventario: TStringGrid
-          Left = 0
-          Top = 4
-          Width = 407
-          Height = 341
-          Color = clSilver
-          ColCount = 2
-          DefaultColWidth = 150
-          DefaultRowHeight = 21
-          FixedCols = 0
-          RowCount = 6
-          FixedRows = 0
-          Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goDrawFocusSelected]
-          TabOrder = 2
-          OnDrawCell = sgInventarioDrawCell
-          OnSelectCell = sgInventarioSelectCell
-        end
-        object cbsgInvent: TComboBox
-          Left = 153
-          Top = 6
-          Width = 152
-          Height = 21
-          BevelKind = bkSoft
-          Style = csDropDownList
-          ItemHeight = 0
-          TabOrder = 1
-          TabStop = False
-          OnExit = cbsgInventExit
-        end
-        object pnsgInvent: TPanel
-          Left = 3
-          Top = 6
-          Width = 148
-          Height = 21
-          Alignment = taLeftJustify
-          BevelInner = bvLowered
-          BevelOuter = bvLowered
-          TabOrder = 0
-        end
-      end
-      object TabSheet3: TTabSheet
-        Caption = 'Clasificaciones'
-        ImageIndex = 2
-        object Label92: TLabel
-          Left = 16
-          Top = 16
-          Width = 120
-          Height = 13
-          Caption = 'Descripcion para Familias'
-        end
-        object Label93: TLabel
-          Left = 16
-          Top = 40
-          Width = 155
-          Height = 13
-          Caption = 'Descripcion para Departamentos'
-        end
-        object Label94: TLabel
-          Left = 16
-          Top = 64
-          Width = 118
-          Height = 13
-          Caption = 'Descripcion para Marcas'
-        end
-        object Label95: TLabel
-          Left = 16
-          Top = 88
-          Width = 118
-          Height = 13
-          Caption = 'Descripcion para Colores'
-        end
-        object DBEdit80: TDBEdit
-          Left = 184
-          Top = 16
-          Width = 199
-          Height = 21
-          BevelKind = bkFlat
-          BorderStyle = bsNone
-          DataField = 'par_nombre_familia'
-          DataSource = dsParametros
-          TabOrder = 0
-        end
-        object DBEdit81: TDBEdit
-          Left = 184
-          Top = 40
-          Width = 199
-          Height = 21
-          BevelKind = bkFlat
-          BorderStyle = bsNone
-          DataField = 'par_nombre_depto'
-          DataSource = dsParametros
-          TabOrder = 1
-        end
-        object DBEdit82: TDBEdit
-          Left = 184
-          Top = 64
-          Width = 199
-          Height = 21
-          BevelKind = bkFlat
-          BorderStyle = bsNone
-          DataField = 'par_nombre_marca'
-          DataSource = dsParametros
-          TabOrder = 2
-        end
-        object DBEdit83: TDBEdit
-          Left = 184
-          Top = 88
-          Width = 199
-          Height = 21
-          BevelKind = bkFlat
-          BorderStyle = bsNone
-          DataField = 'par_nombre_color'
-          DataSource = dsParametros
-          TabOrder = 3
-        end
-      end
-      object TabSheet4: TTabSheet
-        Caption = 'Colector'
-        ImageIndex = 3
-        object GroupBox11: TGroupBox
-          Left = 8
-          Top = 4
-          Width = 393
-          Height = 197
-          Caption = 'Archivo de inventario para copiar en el colector'
-          TabOrder = 0
-          object Label96: TLabel
-            Left = 8
-            Top = 24
-            Width = 90
-            Height = 13
-            Caption = 'Nombre de archivo'
-          end
-          object Label97: TLabel
-            Left = 8
-            Top = 48
-            Width = 52
-            Height = 13
-            Caption = 'Delimitador'
-          end
-          object Label98: TLabel
-            Left = 8
-            Top = 72
-            Width = 38
-            Height = 13
-            Caption = 'Campos'
-          end
-          object DBEdit84: TDBEdit
-            Left = 104
-            Top = 24
-            Width = 281
-            Height = 21
-            BevelKind = bkFlat
-            BorderStyle = bsNone
-            DataField = 'par_arch_copiar_colector'
-            DataSource = dsParametros
-            TabOrder = 0
-          end
-          object DBEdit85: TDBEdit
-            Left = 104
-            Top = 48
-            Width = 33
-            Height = 21
-            BevelKind = bkFlat
-            BorderStyle = bsNone
-            DataField = 'par_delimitador_envia'
-            DataSource = dsParametros
-            TabOrder = 1
-          end
-          object ListaEnvia: TCheckListBox
-            Left = 104
-            Top = 72
-            Width = 281
-            Height = 124
-            BevelKind = bkFlat
-            BorderStyle = bsNone
-            ItemHeight = 13
-            Items.Strings = (
-              'Codigo'
-              'Ref. Original'
-              'Nombre del Producto'
-              'Costo Und'
-              'Costo Emp'
-              'Precio1'
-              'Precio2'
-              'Precio3'
-              'Precio4')
-            TabOrder = 2
-          end
-        end
-        object GroupBox12: TGroupBox
-          Left = 8
-          Top = 204
-          Width = 393
-          Height = 146
-          Caption = 'Archivo recibido desde el colector'
-          TabOrder = 1
-          object Label99: TLabel
-            Left = 8
-            Top = 24
-            Width = 90
-            Height = 13
-            Caption = 'Nombre de archivo'
-          end
-          object Label100: TLabel
-            Left = 8
-            Top = 48
-            Width = 52
-            Height = 13
-            Caption = 'Delimitador'
-          end
-          object Label101: TLabel
-            Left = 8
-            Top = 72
-            Width = 38
-            Height = 13
-            Caption = 'Campos'
-          end
-          object DBEdit86: TDBEdit
-            Left = 104
-            Top = 24
-            Width = 281
-            Height = 21
-            BevelKind = bkFlat
-            BorderStyle = bsNone
-            DataField = 'par_arch_recibe_colector'
-            DataSource = dsParametros
-            TabOrder = 0
-          end
-          object DBEdit87: TDBEdit
-            Left = 104
-            Top = 48
-            Width = 33
-            Height = 21
-            BevelKind = bkFlat
-            BorderStyle = bsNone
-            DataField = 'par_delimitador_recibe'
-            DataSource = dsParametros
-            TabOrder = 1
-          end
-          object ListaRecibe: TCheckListBox
-            Left = 104
-            Top = 72
-            Width = 281
-            Height = 73
-            BevelKind = bkFlat
-            BorderStyle = bsNone
-            ItemHeight = 13
-            Items.Strings = (
-              'Codigo'
-              'Ref. Original'
-              'Cantidad Und'
-              'Cantidad Emp')
-            TabOrder = 2
-          end
-        end
       end
     end
   end
@@ -11764,6 +11782,9 @@ object frmParametros: TfrmParametros
     end
     object QParametrospar_tlector_balanza: TIntegerField
       FieldName = 'par_tlector_balanza'
+    end
+    object QParametrosRestBar_FactConItbis: TBooleanField
+      FieldName = 'RestBar_FactConItbis'
     end
   end
   object dsParametros: TDataSource

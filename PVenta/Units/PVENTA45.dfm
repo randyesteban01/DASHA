@@ -1,6 +1,6 @@
 object frmFacProvee: TfrmFacProvee
-  Left = 429
-  Top = 138
+  Left = 387
+  Top = 81
   ActiveControl = edProveedor
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle

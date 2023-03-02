@@ -90,7 +90,7 @@ MaxStackSize=1048576
 ImageBase=4194304
 ExeDescription=
 [Directories]
-OutputDir=F:\D&RTecnologic\Ejecutables
+OutputDir=C:\Users\randy\Desktop\Ejecutables
 UnitOutputDir=
 PackageDLLOutputDir=
 PackageDCPOutputDir=
@@ -150,8 +150,9 @@ Item0=WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;
 Count=1
 Item0=$(DELPHI)\Lib\Debug
 [HistoryLists\hlOutputDirectorry]
-Count=4
-Item0=F:\D&RTecnologic\Ejecutables
-Item1=D:\Ejecutables
-Item2=D:\Ejecutables\PruebaDasha
-Item3=E:\Ejecutables
+Count=5
+Item0=C:\Users\randy\Desktop\Ejecutables
+Item1=F:\D&RTecnologic\Ejecutables
+Item2=D:\Ejecutables
+Item3=D:\Ejecutables\PruebaDasha
+Item4=E:\Ejecutables

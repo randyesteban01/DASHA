@@ -1315,6 +1315,8 @@ type
     QParametrosPAR_INV_VENTAS: TIntegerField;
     dbrgrppar_tlector_balanza: TDBRadioGroup;
     QParametrospar_tlector_balanza: TIntegerField;
+    DBCheckBox65: TDBCheckBox;
+    QParametrosRestBar_FactConItbis: TBooleanField;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormPaint(Sender: TObject);
     procedure tvOpcionesChange(Sender: TObject; Node: TTreeNode);

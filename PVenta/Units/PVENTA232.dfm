@@ -1,6 +1,6 @@
 object frmFacturaRenta: TfrmFacturaRenta
-  Left = 538
-  Top = 103
+  Left = 541
+  Top = 107
   ActiveControl = edTipo
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle

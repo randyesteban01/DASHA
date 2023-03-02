@@ -1,6 +1,6 @@
 object frmMain: TfrmMain
-  Left = 376
-  Top = 236
+  Left = 356
+  Top = 231
   Width = 939
   Height = 445
   HelpContext = 1
@@ -3416,99 +3416,140 @@ object frmMain: TfrmMain
     Height = 334
     Align = alLeft
     Constraints.MinWidth = 10
+    Locked = True
     ActiveGroupIndex = 0
-    TabOrder = 1
+    DragCopyCursor = -1119
+    DragCursor = -1120
+    DragDropFlags = [fAllowDragLink, fAllowDropLink, fAllowDragGroup, fAllowDropGroup]
+    HotTrackedGroupCursor = crDefault
+    HotTrackedLinkCursor = -1118
+    SmallImages = ImageList2
     View = 13
-    OptionsImage.SmallImages = ImageList2
     OnGroupClick = dxNavMenuGroupClick
     object navInventario: TdxNavBarGroup
       Caption = 'Inventario'
       LargeImageIndex = 12
+      LinksUseSmallImages = True
       SelectedLinkIndex = -1
+      ShowAsIconView = False
+      ShowControl = True
       SmallImageIndex = 12
       TopVisibleLinkIndex = 0
-      OptionsGroupControl.ShowControl = True
-      OptionsGroupControl.UseControl = True
+      UseControl = True
+      UseSmallImages = True
+      Visible = True
       Links = <>
     end
     object navVentas: TdxNavBarGroup
       Caption = 'Ventas'
       LargeImageIndex = 14
+      LinksUseSmallImages = True
       SelectedLinkIndex = -1
+      ShowAsIconView = False
+      ShowControl = True
       SmallImageIndex = 14
       TopVisibleLinkIndex = 0
-      OptionsGroupControl.ShowControl = True
-      OptionsGroupControl.UseControl = True
+      UseControl = True
+      UseSmallImages = True
+      Visible = True
       Links = <>
     end
     object navCxC: TdxNavBarGroup
       Caption = 'Cuentas x Cobrar'
       LargeImageIndex = 21
+      LinksUseSmallImages = True
       SelectedLinkIndex = -1
+      ShowAsIconView = False
+      ShowControl = True
       SmallImageIndex = 21
       TopVisibleLinkIndex = 0
-      OptionsGroupControl.ShowControl = True
-      OptionsGroupControl.UseControl = True
+      UseControl = True
+      UseSmallImages = True
+      Visible = True
       Links = <>
     end
     object navCxP: TdxNavBarGroup
       Caption = 'Cuentas x Pagar'
       LargeImageIndex = 20
+      LinksUseSmallImages = True
       SelectedLinkIndex = -1
+      ShowAsIconView = False
+      ShowControl = True
       SmallImageIndex = 20
       TopVisibleLinkIndex = 0
-      OptionsGroupControl.ShowControl = True
-      OptionsGroupControl.UseControl = True
+      UseControl = True
+      UseSmallImages = True
+      Visible = True
       Links = <>
     end
     object navBanco: TdxNavBarGroup
       Caption = 'Banco'
       LargeImageIndex = 19
+      LinksUseSmallImages = True
       SelectedLinkIndex = -1
+      ShowAsIconView = False
+      ShowControl = True
       SmallImageIndex = 19
       TopVisibleLinkIndex = 0
-      OptionsGroupControl.ShowControl = True
-      OptionsGroupControl.UseControl = True
+      UseControl = True
+      UseSmallImages = True
+      Visible = True
       Links = <>
     end
     object navContab: TdxNavBarGroup
       Caption = 'Contabilidad'
       LargeImageIndex = 13
+      LinksUseSmallImages = True
       SelectedLinkIndex = -1
+      ShowAsIconView = False
+      ShowControl = True
       SmallImageIndex = 13
       TopVisibleLinkIndex = 0
-      OptionsGroupControl.ShowControl = True
-      OptionsGroupControl.UseControl = True
+      UseControl = True
+      UseSmallImages = True
+      Visible = True
       Links = <>
     end
     object navRH: TdxNavBarGroup
       Caption = 'RRHH y N'#243'mina'
       LargeImageIndex = 18
+      LinksUseSmallImages = True
       SelectedLinkIndex = -1
+      ShowAsIconView = False
+      ShowControl = True
       SmallImageIndex = 18
       TopVisibleLinkIndex = 0
-      OptionsGroupControl.ShowControl = True
-      OptionsGroupControl.UseControl = True
+      UseControl = True
+      UseSmallImages = True
+      Visible = True
       Links = <>
     end
     object navSeguridad: TdxNavBarGroup
       Caption = 'Seguridad'
       LargeImageIndex = 16
+      LinksUseSmallImages = True
       SelectedLinkIndex = -1
+      ShowAsIconView = False
+      ShowControl = True
       SmallImageIndex = 16
       TopVisibleLinkIndex = 0
-      OptionsGroupControl.ShowControl = True
-      OptionsGroupControl.UseControl = True
+      UseControl = True
+      UseSmallImages = True
+      Visible = True
       Links = <>
     end
     object navParam: TdxNavBarGroup
       Caption = 'Par'#225'metros'
       LargeImageIndex = 4
+      LinksUseSmallImages = True
       SelectedLinkIndex = -1
+      ShowAsIconView = False
+      ShowControl = True
       SmallImageIndex = 4
       TopVisibleLinkIndex = 0
-      OptionsGroupControl.ShowControl = True
-      OptionsGroupControl.UseControl = True
+      UseControl = True
+      UseSmallImages = True
+      Visible = True
       Links = <>
     end
     object navInventarioControl: TdxNavBarGroupControl
@@ -6455,8 +6496,8 @@ object frmMain: TfrmMain
     ConcatCount = 1
     LinkFontSize = 12
     LinkFontName = 'Arial'
-    Left = 336
-    Top = 80
+    Left = 328
+    Top = 48
   end
   object QRExcelFilter1: TQRExcelFilter
     UseXLColumns = False

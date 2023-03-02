@@ -1,6 +1,6 @@
 object frmMain: TfrmMain
-  Left = 305
-  Top = 192
+  Left = 355
+  Top = 230
   Width = 939
   Height = 445
   HelpContext = 1
@@ -6496,8 +6496,8 @@ object frmMain: TfrmMain
     ConcatCount = 1
     LinkFontSize = 12
     LinkFontName = 'Arial'
-    Left = 336
-    Top = 80
+    Left = 328
+    Top = 48
   end
   object QRExcelFilter1: TQRExcelFilter
     UseXLColumns = False

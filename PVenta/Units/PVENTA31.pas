@@ -29,6 +29,7 @@ type
     Image1: TImage;
     Label10: TLabel;
     Label11: TLabel;
+    Label5: TLabel;
     procedure BitBtn1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private

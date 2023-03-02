@@ -1536,7 +1536,7 @@ begin
   QLibro.Parameters.ParamByName('sucloc').Value    := edtSucLoc.Text;
   QLibro.Open;
   QLibro.Last;
-  if QLibroBALANCE.AsFloat = 0 then
+  if QLibroBALANCE.AsFloat = 0  then
     MessageDlg('NO HAY DISPONIBILIDAD EN EL BANCO PARA REALIZAR LA NOMINA', mtError, [mbok], 0)
   else
   begin

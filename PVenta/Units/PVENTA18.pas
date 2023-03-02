@@ -955,6 +955,7 @@ type
     lblLbTotalUS: TLabel;
     QFacturaFAC_TOTALUS: TCurrencyField;
     EDT_FAC_TOTALUS: TDBEdit;
+    QDetalleTMPfac_nombre: TStringField;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormPaint(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
@@ -1969,9 +1970,9 @@ begin
   if FieldByName('tipo').Value > 0 then begin
   edTipo.Text := IntToStr(FieldByName('tipo').Value);
   edTipoExit(Self);
-  edTipo.Enabled := False;
-  btTipo.Enabled := edTipo.Enabled;
-  tTipo.Enabled := edTipo.Enabled;
+  //edTipo.Enabled := False;
+ // btTipo.Enabled := edTipo.Enabled;
+ // tTipo.Enabled := edTipo.Enabled;
   end;
   if FieldByName('tipo').Value = 0 then begin
   edTipo.Enabled := True;
@@ -1994,14 +1995,14 @@ begin
 
   if vCajVendedor = True then begin
   btPedido.Enabled := False;
-  btCotiza.Enabled := btPedido.Enabled;
+  btCotiza.Enabled := true;
   btBusca.Enabled := btPedido.Enabled;
   btGrabar.Enabled := btPedido.Enabled;
   end;
 
   if vCajVendedor = False then begin
   btPedido.Enabled := True;
-  btCotiza.Enabled := btPedido.Enabled;
+  //btCotiza.Enabled := btPedido.Enabled;
   btBusca.Enabled := btPedido.Enabled;
   btGrabar.Enabled := btPedido.Enabled;
   end;
@@ -2200,8 +2201,8 @@ begin
       end
       else
       begin
-        edTipo.Enabled := False;
-        btTipo.Enabled := False;
+        //edTipo.Enabled := False;
+        //btTipo.Enabled := False;
         if Precio = '' then
         begin
           if not Query1.fieldbyname('cli_Precio').IsNull then
@@ -2444,8 +2445,8 @@ begin
     end
     else
     begin
-      edTipo.Enabled := False;
-      btTipo.Enabled := False;
+      //edTipo.Enabled := False;
+      //btTipo.Enabled := False;
       if Precio = '' then
       begin
         if not Query1.fieldbyname('cli_Precio').IsNull then
@@ -4728,7 +4729,7 @@ begin
   PageControl1.ActivePageIndex := 0;
   Grid.SelectedIndex := 0;
   Grid.setfocus;
-
+   QDetalle.Delete;
 end;
 
 procedure TfrmFactura.btSalirClick(Sender: TObject);
@@ -9861,8 +9862,8 @@ begin
     end
     else
     begin
-      edTipo.Enabled := False;
-      btTipo.Enabled := False;
+      //edTipo.Enabled := False;
+      //btTipo.Enabled := False;
       end;
 
       FactPendiente                := Query1.fieldbyname('cli_facturarbce').asstring;
@@ -10103,7 +10104,7 @@ end;
 
 procedure TfrmFactura.btnGuardaTemporalClick(Sender: TObject);
 var
-  a, b, factmp : integer;
+  a, b, factmp, id : integer;
 begin
   if QDetalleDET_CANTIDAD.Value = 0 then begin
     ShowMessage('NO PUEDE GUARDAR ESTA FACTURA PRODUCTO EN CERO');
@@ -10132,7 +10133,7 @@ if Trim(edTipo.Text)='' then begin
     factmp := 0;
     dm.Query1.Close;
     dm.Query1.SQL.Clear;
-    dm.Query1.SQL.Add('select fac_numero from facturastmp');
+    dm.Query1.SQL.Add('select fac_numero, id_facturatemporal from facturastmp');
     dm.Query1.SQL.Add('where emp_codigo = :emp');
     dm.Query1.SQL.Add('and suc_codigo = :suc');
     //dm.Query1.SQL.Add('and tfa_codigo = :tfa');
@@ -10147,6 +10148,7 @@ if Trim(edTipo.Text)='' then begin
     DBEdit11.Text+char(13)+
     'Desea reemplazar esta factura por esta?',mtConfirmation,[mbYes,mbNo],0) = mryes then begin
     factmp := dm.Query1.FieldByName('fac_numero').Value;
+    id := dm.Query1.FieldByName('id_facturatemporal').Value;
 
     dm.Query1.Close;
     dm.Query1.SQL.Clear;
@@ -10158,21 +10160,27 @@ if Trim(edTipo.Text)='' then begin
     dm.Query1.SQL.Add('and fac_nombre = :cli');
     dm.Query1.Parameters.ParamByName('emp').Value := dm.vp_cia;
     dm.Query1.Parameters.ParamByName('suc').Value := DBLookupComboBox2.KeyValue;
-   // dm.Query1.Parameters.ParamByName('tfa').Value := strtoint(edtipo.Text);
-    dm.Query1.Parameters.ParamByName('cli').Value := QFacturaFAC_NOMBRE.Value;
+    // dm.Query1.Parameters.ParamByName('tfa').Value := strtoint(edtipo.Text);
+    dm.Query1.Parameters.ParamByName('cli').Value := DBEdit11.Text;
     dm.Query1.ExecSQL;
 
     dm.Query1.Close;
     dm.Query1.SQL.Clear;
     dm.Query1.SQL.Add('delete from det_facturatmp');
-    dm.Query1.SQL.Add('where emp_codigo = :emp');
-    dm.Query1.SQL.Add('and suc_codigo = :suc');
+    dm.Query1.SQL.Add('where id_facturatemporal = :id');  
+   // dm.Query1.SQL.Add('where emp_codigo = :emp');
+   // dm.Query1.SQL.Add('and suc_codigo = :suc');
    // dm.Query1.SQL.Add('and tfa_codigo = :tfa');
-    dm.Query1.SQL.Add('and fac_numero = :num');
-    dm.Query1.Parameters.ParamByName('emp').Value := dm.vp_cia;
-    dm.Query1.Parameters.ParamByName('suc').Value := DBLookupComboBox2.KeyValue;
+   // dm.Query1.SQL.Add('and fac_numero = :num');
+   // dm.Query1.SQL.Add('and fac_nombre = :fac_nombre');
+    dm.Query1.Parameters.ParamByName('id').Value := id;
+
+   // dm.Query1.Parameters.ParamByName('emp').Value := dm.vp_cia;
+   // dm.Query1.Parameters.ParamByName('suc').Value := DBLookupComboBox2.KeyValue;
     //dm.Query1.Parameters.ParamByName('tfa').Value := strtoint(edtipo.Text);
-    dm.Query1.Parameters.ParamByName('num').Value := factmp;
+  //  dm.Query1.Parameters.ParamByName('num').Value := factmp;
+   // dm.Query1.Parameters.ParamByName('fac_nombre').Value :=DBEdit11.Text;
+
     dm.Query1.ExecSQL;
     end;
     end;
@@ -10183,6 +10191,7 @@ if Trim(edTipo.Text)='' then begin
     QFacTMP.Parameters.ParamByName('for').Value := 'A';
     QFacTMP.Parameters.ParamByName('tfa').Value := -1;
     QFacTMP.Parameters.ParamByName('suc').Value := DBLookupComboBox2.KeyValue;
+    QFacTMP.Parameters.ParamByName('id_facturatemporal').Value := -1;
     QFacTMP.Open;
     QFacTMP.Insert;
 
@@ -10192,6 +10201,7 @@ if Trim(edTipo.Text)='' then begin
     QDetalleTMP.Parameters.ParamByName('for').Value := 'A';
     QDetalleTMP.Parameters.ParamByName('tfa').Value := -1;
     QDetalleTMP.Parameters.ParamByName('suc').Value := DBLookupComboBox2.KeyValue;
+    QDetalleTMP.Parameters.ParamByName('id_facturatemporal').Value := -1;
     QDetalleTMP.Open;
 
 
@@ -10277,6 +10287,7 @@ if Trim(edTipo.Text)='' then begin
         QDetalleTMPFAC_NUMERO.Value               := QFacTMPFAC_NUMERO.Value;
         QDetalleTMPTFA_CODIGO.Value               := QFacTMPTFA_CODIGO.Value;
         QDetalleTMPFAC_FORMA.Value                := QFacTMPFAC_FORMA.Value;
+        QDetalleTMPfac_nombre.value               := DBEdit11.Text;
         QDetalleTMP.post;
       end;
       QDetalle.Next;
@@ -10356,6 +10367,8 @@ begin
     QFacTMP.Parameters.ParamByName('for').Value    := frmBuscaTemporal.QFacturasfac_forma.Value;
     QFacTMP.Parameters.ParamByName('tfa').Value    := frmBuscaTemporal.QFacturastfa_codigo.Value;
     QFacTMP.Parameters.ParamByName('suc').Value    := DBLookupComboBox2.KeyValue;
+    QFacTMP.Parameters.ParamByName('id_facturatemporal').Value    := frmBuscaTemporal.QFacturasid_facturatemporal.Value;
+
     QFacTMP.Open;
 
     NumFacturaTemporal :=  frmBuscaTemporal.QFacturasfac_numero.Value;
@@ -10423,6 +10436,8 @@ ckItbis.Checked := True;
     QDetalleTMP.Parameters.ParamByName('for').Value    := frmBuscaTemporal.QFacturasfac_forma.Value;
     QDetalleTMP.Parameters.ParamByName('tfa').Value    := frmBuscaTemporal.QFacturastfa_codigo.Value;
     QDetalleTMP.Parameters.ParamByName('suc').Value    := DBLookupComboBox2.KeyValue;
+    QDetalleTMP.Parameters.ParamByName('id_facturatemporal').Value    := frmBuscaTemporal.QFacturasid_facturatemporal.value;
+                   
     QDetalleTMP.open;
 
     QDetalleTMP.First;
@@ -10749,8 +10764,8 @@ begin
     end
     else
     begin
-      edTipo.Enabled := False;
-      btTipo.Enabled := False;
+     // edTipo.Enabled := False;
+     // btTipo.Enabled := False;
       end;
 
       FactPendiente                := Query1.fieldbyname('cli_facturarbce').asstring;

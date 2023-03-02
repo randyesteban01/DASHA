@@ -1,6 +1,6 @@
 object frmRepHistorialSuplidor: TfrmRepHistorialSuplidor
-  Left = 405
-  Top = 646
+  Left = 481
+  Top = 362
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Historial del Suplidor'

@@ -258,8 +258,8 @@ procedure TRRecibo.QRBand1BeforePrint(Sender: TQRCustomBand;
   var PrintBand: Boolean);
 
 begin
-
-  dm.Query1.Close;
+      
+  {dm.Query1.Close;
   dm.Query1.SQL.Clear;
   dm.Query1.SQL.Add('select cli_balance from clientes');
   dm.Query1.SQL.Add('where emp_codigo = :emp');
@@ -268,7 +268,36 @@ begin
   dm.Query1.Parameters.ParamByName('cli').Value := QRecibosCLI_CODIGO.Value;
   dm.Query1.Open;  
   lbBalance.Caption := 'Balance actual: '+#13+'$'+Format('%n',[dm.Query1.FieldByName('cli_balance').AsFloat / tasa]);
+    }
+  dm.Query1.Close;
+  dm.Query1.SQL.Clear;
 
+  //dm.Query1.SQL.Add(' select SUM((d.det_pendiente-d.det_monto) /r.rec_tasa ) as cli_balance from DET_RECIBO d, movimientos m, recibos r');
+  //dm.Query1.SQL.Add('where r.emp_codigo = d.emp_codigo and r.suc_codigo = d.suc_codigo and r.rec_numero = d.rec_numero');
+  //dm.Query1.SQL.Add('and d.emp_codigo = :emp');
+  //dm.Query1.SQL.Add('and d.rec_numero = :num');
+  //dm.Query1.SQL.Add('and d.suc_codigo = :suc');
+  //dm.Query1.SQL.Add('and d.emp_codigo = m.emp_codigo and d.suc_codigo = m.suc_codigo and d.det_tipo = m.mov_tipo');
+  //dm.Query1.SQL.Add('and d.tfa_codigo = m.tfa_codigo and d.fac_forma = m.fac_forma and d.det_numero = m.mov_numero');
+  //dm.Query1.SQL.Add('AND m.cli_codigo = r.cli_codigo');
+
+  dm.Query1.SQL.Add(' select isnull(balance_fecha,0.0) as cli_balance from DET_RECIBO d, movimientos m, recibos r');
+  dm.Query1.SQL.Add('where r.emp_codigo = d.emp_codigo and r.suc_codigo = d.suc_codigo and r.rec_numero = d.rec_numero');
+  dm.Query1.SQL.Add('and d.emp_codigo = :emp');
+  dm.Query1.SQL.Add('and d.rec_numero = :num');
+  dm.Query1.SQL.Add('and d.suc_codigo = :suc');
+  dm.Query1.SQL.Add('and d.emp_codigo = m.emp_codigo and d.suc_codigo = m.suc_codigo and d.det_tipo = m.mov_tipo');
+  dm.Query1.SQL.Add('and d.tfa_codigo = m.tfa_codigo and d.fac_forma = m.fac_forma and d.det_numero = m.mov_numero');
+  dm.Query1.SQL.Add('AND m.cli_codigo = r.cli_codigo');
+
+
+  dm.Query1.Parameters.ParamByName('emp').Value := dm.vp_cia;
+  dm.Query1.Parameters.ParamByName('num').Value := QRecibosREC_NUMERO.Value;
+  dm.Query1.Parameters.ParamByName('suc').Value := QRecibossuc_codigo.Value;
+
+  dm.Query1.Open;
+  lbBalance.Caption := 'Balance actual: '+#13+'$'+Format('%n',[dm.Query1.FieldByName('cli_balance').AsFloat / tasa]);
+  
 
   lbmoneda.Caption := ' ';
   if not QRecibosmon_codigo.IsNull then

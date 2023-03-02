@@ -991,7 +991,7 @@ begin
   vRetencion := QFacturaFAC_retencion.value;
   vRetencionISR := QFacturafac_retencion_isr.value;
   vSubtotal := (vGrabado + vExento + vFlete + vSelectivo_ad + vSelectivo + vServicios+ vPropinaLegal);
-  QfacturaTotal.Value := (vSubtotal- vDescuento);// + vItbis + vOtrosImp - (vRetencion + vRetencionISR);
+  QfacturaTotal.Value := (vSubtotal- vDescuento) + vItbis + vOtrosImp - (vRetencion + vRetencionISR);
   lbdiferencia.Caption := format('%n',[Creditos-Debitos-vDescuento]);
 end;
 

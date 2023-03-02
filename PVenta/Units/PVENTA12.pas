@@ -1116,18 +1116,42 @@ end;
 
 procedure TfrmUsuarios.ckInsertClick(Sender: TObject);
 begin
+
+ if (Lista1.Selected.Index=-1)  then
+  begin
+    MessageDlg('DEBE SELECCIONAR UN ITEMS DE LA LISTA.', mtWarning, [mbOk], 0);
+
+  end   ;
+
+  if (Lista1.Selected.Index>0)  then
+  begin
   if ckInsert.Checked then
-     Ins.Items[Lista1.Selected.AbsoluteIndex] := 'True'
-  else
-     Ins.Items[Lista1.Selected.AbsoluteIndex] := 'False';
+        Ins.Items[Lista1.Selected.AbsoluteIndex] := 'True' 
+   else
+       Ins.Items[Lista1.Selected.AbsoluteIndex] := 'False';
+  end
+  { else
+   begin
+    MessageDlg('DEBE SELECCIONAR UN ITEMS DE LA LSITA.', mtWarning, [mbOk], 0);
+    ckInsert.Checked :=false;
+    end     }
+    
+   
+ // if ckInsert.Checked then
+   //  Ins.Items[Lista1.Selected.AbsoluteIndex] := 'True'
+  //else
+    // Ins.Items[Lista1.Selected.AbsoluteIndex] := 'False';
 end;
 
 procedure TfrmUsuarios.ckEditClick(Sender: TObject);
 begin
+if (Lista1.Selected.Index>0)  then
+  begin
   if ckEdit.Checked then
      Modi.Items[Lista1.Selected.AbsoluteIndex] := 'True'
   else
      Modi.Items[Lista1.Selected.AbsoluteIndex] := 'False';
+     end;
 end;
 
 procedure TfrmUsuarios.ckDeleteClick(Sender: TObject);

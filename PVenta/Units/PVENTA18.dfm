@@ -1,6 +1,6 @@
 object frmFactura: TfrmFactura
-  Left = 252
-  Top = 49
+  Left = 453
+  Top = 64
   ActiveControl = edTipo
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
@@ -2972,16 +2972,22 @@ object frmFactura: TfrmFactura
         DataType = ftInteger
         Size = -1
         Value = Null
+      end
+      item
+        Name = 'id_facturatemporal'
+        Size = -1
+        Value = Null
       end>
     SQL.Strings = (
       
         'declare @empresa int, @sucursal int, @numero int, @forma char(1)' +
-        ', @tfactura int'
+        ', @tfactura int, @id_facturatemporal int'
       'set @empresa = :emp'
       'set @sucursal = :suc'
       'set @numero = :num'
       'set @forma = :for'
       'set @tfactura = :tfa'
+      'set @id_facturatemporal = :id_facturatemporal'
       'select '
       
         'emp_codigo, suc_codigo, fac_forma, tfa_codigo, fac_numero, fac_f' +
@@ -3018,6 +3024,7 @@ object frmFactura: TfrmFactura
         'where emp_codigo = @empresa  and SUC_CODIGO = @sucursal and fac_' +
         'numero = @numero and tfa_codigo = @tfactura and fac_forma = @for' +
         'ma'
+      'and id_facturatemporal = @id_facturatemporal'
       'order by FAC_NUMERO DESC')
     Left = 536
     Top = 235
@@ -3355,6 +3362,11 @@ object frmFactura: TfrmFactura
         Name = 'for'
         Size = -1
         Value = Null
+      end
+      item
+        Name = 'id_facturatemporal'
+        Size = -1
+        Value = Null
       end>
     SQL.Strings = (
       'select '
@@ -3388,12 +3400,14 @@ object frmFactura: TfrmFactura
       
         'Medidor_Cantidad, pro_utilizamedidor,pro_UtilizaEnvio, pro_seria' +
         'lizado, pro_UtilizaRenta, DET_DESCUENTO'
-      ',SubPedido, Orden, Recargo, Secuencia'
+      ',SubPedido, Orden, Recargo, Secuencia,'
+      'fac_nombre'
       'from '
       'DET_FACTURATMP'
       
         'where emp_codigo = :emp and SUC_CODIGO = :suc and fac_numero = :' +
         'num and tfa_codigo = :tfa and fac_forma = :for'
+      'and id_facturatemporal= :id_facturatemporal'
       'order by det_secuencia')
     Left = 568
     Top = 235
@@ -3721,6 +3735,10 @@ object frmFactura: TfrmFactura
     end
     object QDetalleTMPSecuencia: TIntegerField
       FieldName = 'Secuencia'
+    end
+    object QDetalleTMPfac_nombre: TStringField
+      FieldName = 'fac_nombre'
+      Size = 255
     end
   end
   object QVendedores: TADOQuery

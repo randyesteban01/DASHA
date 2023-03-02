@@ -411,7 +411,7 @@ begin
     QProductos.SQL.add('F.FAM_NOMBRE, M.MAR_NOMBRE, C.COL_NOMBRE, P.PRO_FOTO,pro_costoempaque,');
     QProductos.SQL.add('E.EXI_EMPAQUE AS EXISTEMP, D.DEP_NOMBRE, P.PRO_ITBIS, substring(P.PRO_COMENTARIO,1,255) PRO_COMENTARIO,');
     QProductos.SQL.add('p.pro_cantempaque, p.pro_montoitbis,P.PRO_serializado, um.nombre as UnidadMedida');
-     QProductos.SQL.Add(',cast(p.pro_costo*(1+(p.pro_montoitbis/100)) as numeric(18,4)) costoitbis');
+     QProductos.SQL.Add(',cast(p.pro_costo*(1+(p.pro_montoitbis/100)) as numeric(18,2)) costoitbis');
     {IF edProveedor.Text <> '' THEN
     QProductos.sql.add(',(SELECT SUP_NOMBRE FROM PROVEEDORES WHERE EMP_CODIGO = '+IntToStr(DM.vp_cia)+' AND SUP_CODIGO = '+edProveedor.Text+') SUP_NOMBRE') ELSE
     QProductos.sql.add(',''N/A'' SUP_NOMBRE');}
