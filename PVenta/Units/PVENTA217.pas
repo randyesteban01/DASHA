@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, DBCtrls, ComCtrls, StdCtrls, Buttons, DB, ADODB,
-  QuerySearchDlgADO;
+  QuerySearchDlgADO, Mask;
 
 type
   TfrmRepProductosDespachados = class(TForm)
@@ -85,6 +85,7 @@ type
       Shift: TShiftState);
     procedure btCloseClick(Sender: TObject);
     procedure btPrintClick(Sender: TObject);
+  
   private
     { Private declarations }
   public
@@ -584,7 +585,7 @@ begin
   RRepProdDespachados.lbFecha.Caption := 'Del '+DateToStr(Fecha1.Date)+' Al '+DateToStr(Fecha2.Date);
 
   RRepProdDespachados.QProductos.SQL.Clear;
-  RRepProdDespachados.QProductos.SQL.Add('select p.pro_codigo, p.pro_roriginal, p.pro_nombre, sum(isnull(d.det_cantidad,0)) as Cantidad');
+  RRepProdDespachados.QProductos.SQL.Add('select c.suc_codigo, p.pro_codigo, p.pro_roriginal, p.pro_nombre, sum(isnull(d.det_cantidad,0)) as Cantidad');
   RRepProdDespachados.QProductos.SQL.Add('from productos p, conduce c, det_conduce d');
   RRepProdDespachados.QProductos.SQL.Add('where c.emp_codigo = d.emp_codigo');
   RRepProdDespachados.QProductos.SQL.Add('and c.suc_codigo = d.suc_codigo');
@@ -592,6 +593,7 @@ begin
   RRepProdDespachados.QProductos.SQL.Add('and d.pro_codigo = p.pro_codigo');
   RRepProdDespachados.QProductos.SQL.Add('and c.con_fecha between convert(datetime, :fec1, 105)');
   RRepProdDespachados.QProductos.SQL.Add('and convert(datetime, :fec2, 105)');
+  RRepProdDespachados.QProductos.SQL.Add('and c.suc_codigo= :suc_codigo');
 
   if Trim(edProveedor.Text) <> '' then
      RRepProdDespachados.QProductos.SQL.Add('and P.pro_codigo in (select pro_codigo from prodproveedores where sup_codigo = '+Trim(edProveedor.Text)+')');
@@ -618,12 +620,14 @@ begin
 
   if Trim(edVendedor.Text) <> '' then
      RRepProdDespachados.QProductos.SQL.Add('and c.ven_codigo = '+Trim(edVendedor.Text));
-
-  RRepProdDespachados.QProductos.SQL.Add('group by p.pro_codigo, p.pro_roriginal, p.pro_nombre');
+    
+  RRepProdDespachados.QProductos.SQL.Add('group by c.suc_codigo, p.pro_codigo, p.pro_roriginal, p.pro_nombre');
   RRepProdDespachados.QProductos.Parameters.ParamByName('fec1').DataType := ftDate;
   RRepProdDespachados.QProductos.Parameters.ParamByName('fec2').DataType := ftDate;
   RRepProdDespachados.QProductos.Parameters.ParamByName('fec1').Value := fecha1.date;
   RRepProdDespachados.QProductos.Parameters.ParamByName('fec2').Value := fecha2.date;
+  RRepProdDespachados.QProductos.Parameters.ParamByName('suc_codigo').Value :=  DBLookupComboBox2.KeyValue;
+
   RRepProdDespachados.QProductos.Open;
   RRepProdDespachados.QRLSUCURSAL.Caption := DBLookupComboBox2.Text;
   RRepProdDespachados.PrinterSetup;
@@ -631,5 +635,6 @@ begin
   RRepProdDespachados.Destroy;
 
 end;
+
 
 end.

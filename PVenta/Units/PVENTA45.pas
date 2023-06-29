@@ -317,6 +317,7 @@ type
     QFacturacont_numeroSucursal: TStringField;
     QFacturaFAC_FECHA_EFECTIVA: TDateTimeField;
     QFacturanumero_orden: TStringField;
+    QDetallecod_UnidadMedida: TStringField;
     procedure QFacturaNewRecord(DataSet: TDataSet);
     procedure QFacturaFAC_DIASChange(Sender: TField);
     procedure QFacturaFAC_NUMEROChange(Sender: TField);
@@ -732,8 +733,8 @@ procedure TfrmFacProvee.GridEnter(Sender: TObject);
 var
   a : integer;
 begin
-  for a := 0 to Grid.Columns.Count - 1 do
-    Grid.Columns[a].ReadOnly := QFacturaPED_NUMERO.AsInteger > 0;
+//  for a := 0 to Grid.Columns.Count - 1 do
+//    Grid.Columns[a].ReadOnly := QFacturaPED_NUMERO.AsInteger > 0;
 
   Grid.Columns[2].ReadOnly := false;
   
@@ -792,10 +793,12 @@ begin
     if QFacturaPED_NUMERO.IsNull then
     begin
       QDetalle.Edit;
+      
       if uppercase(key) = 'E' then
         QDetalleDET_MEDIDA.Value := 'Emp'
       else if uppercase(key) = 'U' then
         QDetalleDET_MEDIDA.Value := 'Und';
+
     end;
   end;
   if uppercase(Grid.Columns[Grid.selectedindex].FieldName) = 'PRO_UNIDAD_MEDIDA' then
@@ -1491,6 +1494,12 @@ begin
   if dm.QParametrospar_inv_unidad_medida.Value <> 'True' then
   begin
     Grid.Columns[6].Visible := False;
+    Grid.Columns[1].Width := Grid.Columns[1].Width + 30;
+  end;
+
+  if dm.QParametrosPAR_UnidadMedida_Producto.Value <> true then
+  begin
+    Grid.Columns[4].Visible := False;
     Grid.Columns[1].Width := Grid.Columns[1].Width + 30;
   end;
 
@@ -3891,7 +3900,7 @@ begin
     Totaliza := True;
     QDetalle.close;
     QDetalle.open;
-    QDetalle.disablecontrols;
+    //QDetalle.disablecontrols;
     QDetalle.First;
     while not QUtil.Eof do
     begin

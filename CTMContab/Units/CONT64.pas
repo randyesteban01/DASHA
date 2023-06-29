@@ -30,6 +30,7 @@ type
     LB_1: TLabel;
     DEdt_Venc: TcxDateEdit;
     ChkB_Vencimiento: TCheckBox;
+    chkDetenerNCF: TCheckBox;
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure FormCreate(Sender: TObject);
     procedure edFijoChange(Sender: TObject);

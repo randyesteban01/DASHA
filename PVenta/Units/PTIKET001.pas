@@ -6,13 +6,12 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ExtCtrls, dbcgrids, DBCtrls, StdCtrls, DB, ADODB, Grids, DBGrids,
   Buttons, Spin,Barcode, frxClass, frxDBSet, frxBarcode, frxRich,
-  OleServer, AccessXP, Mask, ToolEdit;
+  OleServer, AccessXP, Mask, ToolEdit, ComCtrls;
 
 type
   TfrmBoleteria = class(TForm)
     pTop: TPanel;
     Panel3: TPanel;
-    cbSucOrigen: TDBLookupComboBox;
     Panel2: TPanel;
     Label2: TLabel;
     dsSucOrigen: TDataSource;
@@ -125,7 +124,6 @@ type
     qrycodbarra: TStringField;
     frxRichObject1: TfrxRichObject;
     Panel5: TPanel;
-    DEdt_ValidoHasta: TDateEdit;
     AccessApplication1: TAccessApplication;
     Label5: TLabel;
     cbbHoraValido: TComboBox;
@@ -157,6 +155,10 @@ type
     DB_SUCORIGEN: TfrxDBDataset;
     qryCONTEO: TIntegerField;
     cbbHoraValido2: TComboBox;
+    cbSucOrigen: TDBLookupComboBox;
+    DEdt_ValidoHasta: TDateTimePicker;
+    btRefresh: TBitBtn;
+    qEjecutarsuc_cod_destino: TIntegerField;
     procedure FormCreate(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
@@ -177,8 +179,9 @@ type
     procedure qBoletoAfterPost(DataSet: TDataSet);
     procedure tmr1Timer(Sender: TObject);
     procedure qBoletoBeforePost(DataSet: TDataSet);
-    procedure cbSucOrigenCloseUp(Sender: TObject);
+    procedure cbSucOrigen2CloseUp(Sender: TObject);
     function  NumeracionTicket:Integer;
+    procedure btRefreshClick(Sender: TObject);
 
   private
       FechaServer :TDateTime;
@@ -241,14 +244,14 @@ begin
    DEdt_ValidoHasta.Date := FechaServer;
    cbbHoraValido.ItemIndex := Hora;
 
-   with QRESUMEN DO BEGIN
+  { with QRESUMEN DO BEGIN
   Close;
   Parameters.ParamByName('EMP').Value   := DM.vp_cia;
   Parameters.ParamByName('SUC').Value   := cbSucOrigen.KeyValue;
   Parameters.ParamByName('FECHA').Value := DEdt_ValidoHasta.Date;
   Parameters.ParamByName('HORA').Value  := cbbHoraValido.Text;
   Open;
-  end;
+  end;     }
 
 
   QSucOrigen.close;
@@ -317,20 +320,20 @@ begin
       TStaticText(FindComponent('StaticText'+IntToStr(i+40))).Visible := false;
   end;
 
-   with QRESUMEN DO BEGIN
+   {with QRESUMEN DO BEGIN
   Close;
   Parameters.ParamByName('EMP').Value   := DM.vp_cia;
   Parameters.ParamByName('SUC').Value   := cbSucOrigen.KeyValue;
   Parameters.ParamByName('FECHA').Value := DEdt_ValidoHasta.Date;
   Parameters.ParamByName('HORA').Value  := cbbHoraValido.Text;
   Open;
-  end;
+  end; }
 
     dm.Query1.Close;
     dm.Query1.SQL.Clear;
     dm.Query1.SQL.Add('select pre_codigo,descripcion,precio from boleto_precio');
     dm.Query1.SQL.Add('where emp_codigo  = :emp');
-    dm.Query1.SQL.Add('  and suc_cod_origen  = :origen');
+    dm.Query1.SQL.Add('  and suc_cod_origen  = :origen order by precio desc' );
     //dm.Query1.SQL.Add('  and suc_cod_destino = :destino');
     dm.Query1.Parameters.ParamByName('emp').Value     := QSucOrigenemp_codigo.Value;
     dm.Query1.Parameters.ParamByName('origen').Value  := cbSucOrigen.KeyValue;
@@ -357,7 +360,8 @@ begin
 end;
 
 procedure TfrmBoleteria.CrearBoleto(vTag, vCantidad: integer);
-var i:integer;
+var i:integer; id : integer;
+
 begin
   for i := 1 to vCantidad do begin
   WITH qEjecutar DO BEGIN
@@ -366,24 +370,75 @@ begin
   Parameters.ParamByName('emp').Value := qBoletoemp_codigo.Value;
   Open;
   LTotalCobrar.Caption := FormatFloat(',0.00',(vCantidad * dm.Query1.FieldByName('precio').Value));
-  LTranss.Caption := ' '+IntToStr(vCantidad)+' * '+dm.Query1.FieldByName('precio').AsString;
+  LTranss.Caption := ' '+IntToStr(vCantidad)+' * '+dm.Query1.FieldByName('precio').AsString;         
+  id:=0;
     with qBoleto do
     begin
+
+    { dm.Query1.Close;
+     dm.Query1.SQL.Clear;
+     dm.Query1.SQL.Add('insert into boleto (emp_codigo, usu_codigo, fecha,');
+     dm.Query1.SQL.Add('secuencia_rando, suc_cod_origen, suc_cod_destino,');
+     dm.Query1.SQL.Add('producto, descripcion, precio, ');
+     dm.Query1.SQL.Add('codbarra, FECHA_VALIDA, HORA_VALIDA) OUTPUT INSERTED.boleto AS boleto');
+     dm.Query1.SQL.Add('values (:emp, :usu_codigo, :fecha, :secuencia_rando, :suc_cod_origen, ');
+     dm.Query1.SQL.Add(':suc_cod_destino, :producto, :descripcion, :precio, :codbarra, :FECHA_VALIDA, :HORA_VALIDA)');
+
+     dm.Query1.Parameters.ParamByName('emp').Value   := dm.vp_cia;
+     dm.Query1.Parameters.ParamByName('usu_codigo').Value   := dm.Usuario;
+     dm.Query1.Parameters.ParamByName('fecha').Value   := FechaServer;
+     dm.Query1.Parameters.ParamByName('secuencia_rando').Value   := RamdomValido;
+     dm.Query1.Parameters.ParamByName('suc_cod_origen').Value   := QSucOrigen.FieldByName('suc_codigo').Value;
+
+     dm.Query1.Parameters.ParamByName('suc_cod_destino').Value   := qEjecutar.FieldByName('suc_cod_destino').Value; //vl_suc_destino ;
+     dm.Query1.Parameters.ParamByName('producto').Value   := vTag;
+     dm.Query1.Parameters.ParamByName('descripcion').Value   := qEjecutar.FieldByName('descripcion').Value;
+     dm.Query1.Parameters.ParamByName('precio').Value   := qEjecutar.FieldByName('precio').Value;
+
+     dm.Query1.Parameters.ParamByName('codbarra').Value := qEjecutar.FieldByName('codbarra').Value;
+     dm.Query1.Parameters.ParamByName('FECHA_VALIDA').Value := DEdt_ValidoHasta.Date;
+     dm.Query1.Parameters.ParamByName('HORA_VALIDA').Value := cbbHoraValido.Text;
+     dm.Query1.ExecSQL;
+     dm.Query1.Open;
+
+   //  id := qry.FieldByName('boleto').AsInteger;
+
+       }
+
       Insert;
+      FieldByName('emp_codigo').Value   := dm.vp_cia;
+      FieldByName('usu_codigo').Value   := dm.Usuario;
+      FieldByName('fecha').Value   := FechaServer;
+      FieldByName('secuencia_rando').Value   := RamdomValido;
+      FieldByName('suc_cod_origen').Value   := QSucOrigen.FieldByName('suc_codigo').Value;
+      FieldByName('suc_cod_destino').Value := qEjecutar.FieldByName('suc_cod_destino').Value;
+
       FieldByName('producto').Value   := vTag;
       FieldByName('descripcion').Value:= qEjecutar.FieldByName('descripcion').Value;
       FieldByName('precio').Value     := qEjecutar.FieldByName('precio').Value;
       FieldByName('codbarra').Value   := qEjecutar.FieldByName('codbarra').Value;
       FieldByName('fecha_valida').Value := DEdt_ValidoHasta.Date;
       FieldByName('hora_valida').Value  := cbbHoraValido.Text;
-      FieldByName('suc_cod_destino').Value := vl_suc_destino;
+
+      //FieldByName('suc_cod_origen').Value := cbSucOrigen.KeyValue;
       Post;
 
       imprimeTicket2(FieldByName('boleto').Value);
       LTotalCobrar.Caption := FormatFloat(',0.00',0);
       LTranss.Caption := '';
+
+
       //imprimeTicket(FieldByName('boleto').Value,Barcode1);
     end;
+
+     with QRESUMEN DO BEGIN
+        Close;
+        Parameters.ParamByName('EMP').Value   := DM.vp_cia;
+        Parameters.ParamByName('SUC').Value   := cbSucOrigen.KeyValue;
+        Parameters.ParamByName('FECHA').Value := DEdt_ValidoHasta.Date;
+        Parameters.ParamByName('HORA').Value  := cbbHoraValido.Text;
+        Open;
+      end;
 end;
 end;
 end;
@@ -600,14 +655,15 @@ end;
 procedure TfrmBoleteria.dsSucOrigenDataChange(Sender: TObject;
   Field: TField);
 begin
-with QRESUMEN DO BEGIN
+{with QRESUMEN DO BEGIN
   Close;
   Parameters.ParamByName('EMP').Value   := DM.vp_cia;
   Parameters.ParamByName('SUC').Value   := cbSucOrigen.KeyValue;
   Parameters.ParamByName('FECHA').Value := DEdt_ValidoHasta.Date;
   Parameters.ParamByName('HORA').Value  := cbbHoraValido.Text;
   Open;
-  end;
+  end; }
+  
     SetBoton;
 end;
 
@@ -620,7 +676,7 @@ cbbHoraValido.ItemIndex := Hora;
 
 
 
-
+ {
 with QRESUMEN DO BEGIN
   Close;
   Parameters.ParamByName('EMP').Value   := DM.vp_cia;
@@ -628,7 +684,8 @@ with QRESUMEN DO BEGIN
   Parameters.ParamByName('FECHA').Value := DEdt_ValidoHasta.Date;
   Parameters.ParamByName('HORA').Value  := cbbHoraValido.Text;
   Open;
-  end;
+  end;  }
+
 end;
 
 procedure TfrmBoleteria.DEdt_ValidoHastaChange(Sender: TObject);
@@ -636,7 +693,7 @@ begin
 BuscarFechaServer;
 if FechaServer >= DEdt_ValidoHasta.Date then
 DEdt_ValidoHasta.Date := FechaServer;
-
+{
 with QRESUMEN DO BEGIN
   Close;
   Parameters.ParamByName('EMP').Value   := DM.vp_cia;
@@ -645,6 +702,7 @@ with QRESUMEN DO BEGIN
   Parameters.ParamByName('HORA').Value  := cbbHoraValido.Text;
   Open;
   end;
+  }
 end;
 
 procedure TfrmBoleteria.qBoletoAfterPost(DataSet: TDataSet);
@@ -694,9 +752,9 @@ end;
 end;
 end;
 
-procedure TfrmBoleteria.cbSucOrigenCloseUp(Sender: TObject);
+procedure TfrmBoleteria.cbSucOrigen2CloseUp(Sender: TObject);
 begin
-with QRESUMEN DO BEGIN
+{with QRESUMEN DO BEGIN
   Close;
   Parameters.ParamByName('EMP').Value   := DM.vp_cia;
   Parameters.ParamByName('SUC').Value   := cbSucOrigen.KeyValue;
@@ -704,6 +762,7 @@ with QRESUMEN DO BEGIN
   Parameters.ParamByName('HORA').Value  := cbbHoraValido.Text;
   Open;
   end;
+  }
 end;
 
 function TfrmBoleteria.NumeracionTicket: Integer;
@@ -719,6 +778,18 @@ with DM.adoMultiUso do begin
   Result := FieldByName('CANT').Value else
   Result := 1;
 end;
+end;
+
+procedure TfrmBoleteria.btRefreshClick(Sender: TObject);
+begin
+with QRESUMEN DO BEGIN
+  Close;
+  Parameters.ParamByName('EMP').Value   := DM.vp_cia;
+  Parameters.ParamByName('SUC').Value   := cbSucOrigen.KeyValue;
+  Parameters.ParamByName('FECHA').Value := DEdt_ValidoHasta.Date;
+  Parameters.ParamByName('HORA').Value  := cbbHoraValido.Text;
+  Open;
+  end;
 end;
 
 end.

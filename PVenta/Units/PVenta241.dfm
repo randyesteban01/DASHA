@@ -1,12 +1,12 @@
 object frmConsFacturasRestBar: TfrmConsFacturasRestBar
-  Left = 183
-  Top = 146
+  Left = 360
+  Top = 168
   ActiveControl = edTipo
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Listado de Facturas Restbar'
-  ClientHeight = 665
-  ClientWidth = 1522
+  ClientHeight = 528
+  ClientWidth = 997
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -14,9 +14,11 @@ object frmConsFacturasRestBar: TfrmConsFacturasRestBar
   Font.Name = 'Tahoma'
   Font.Style = []
   FormStyle = fsMDIChild
+  KeyPreview = True
   OldCreateOrder = False
   Position = poScreenCenter
   Visible = True
+  OnActivate = FormActivate
   OnClose = FormClose
   OnCreate = FormCreate
   OnKeyPress = FormKeyPress
@@ -25,22 +27,25 @@ object frmConsFacturasRestBar: TfrmConsFacturasRestBar
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 1522
-    Height = 152
+    Width = 997
+    Height = 209
     Align = alTop
     BevelInner = bvRaised
     BevelOuter = bvLowered
     TabOrder = 0
+    DesignSize = (
+      997
+      209)
     object Label1: TLabel
-      Left = 8
-      Top = 4
+      Left = 9
+      Top = 39
       Width = 25
       Height = 13
       Caption = 'Mesa'
     end
     object btTipo: TSpeedButton
       Left = 94
-      Top = 4
+      Top = 37
       Width = 23
       Height = 22
       Flat = True
@@ -60,14 +65,14 @@ object frmConsFacturasRestBar: TfrmConsFacturasRestBar
     end
     object Label3: TLabel
       Left = 8
-      Top = 52
+      Top = 88
       Width = 32
       Height = 13
       Caption = 'Cajero'
     end
     object SpeedButton1: TSpeedButton
       Left = 94
-      Top = 52
+      Top = 85
       Width = 23
       Height = 22
       Flat = True
@@ -87,7 +92,7 @@ object frmConsFacturasRestBar: TfrmConsFacturasRestBar
     end
     object Label4: TLabel
       Left = 158
-      Top = 128
+      Top = 187
       Width = 37
       Height = 13
       Caption = 'Nombre'
@@ -101,28 +106,28 @@ object frmConsFacturasRestBar: TfrmConsFacturasRestBar
     end
     object Label6: TLabel
       Left = 8
-      Top = 104
+      Top = 163
       Width = 29
       Height = 13
       Caption = 'Fecha'
     end
     object Label9: TLabel
       Left = 8
-      Top = 128
+      Top = 187
       Width = 37
       Height = 13
       Caption = 'Factura'
     end
     object Label11: TLabel
       Left = 8
-      Top = 28
+      Top = 63
       Width = 22
       Height = 13
       Caption = 'Caja'
     end
     object SpeedButton4: TSpeedButton
       Left = 94
-      Top = 28
+      Top = 61
       Width = 23
       Height = 22
       Flat = True
@@ -142,14 +147,14 @@ object frmConsFacturasRestBar: TfrmConsFacturasRestBar
     end
     object Label17: TLabel
       Left = 8
-      Top = 80
+      Top = 112
       Width = 43
       Height = 13
       Caption = 'Tipo NCF'
     end
     object SpeedButton5: TSpeedButton
       Left = 94
-      Top = 80
+      Top = 109
       Width = 23
       Height = 22
       Flat = True
@@ -167,9 +172,113 @@ object frmConsFacturasRestBar: TfrmConsFacturasRestBar
         777770000000}
       OnClick = SpeedButton5Click
     end
+    object Label2: TLabel
+      Left = 10
+      Top = 137
+      Width = 33
+      Height = 13
+      Caption = 'Cliente'
+    end
+    object SpeedButton2: TSpeedButton
+      Left = 94
+      Top = 133
+      Width = 23
+      Height = 22
+      Flat = True
+      Glyph.Data = {
+        42010000424D4201000000000000760000002800000011000000110000000100
+        040000000000CC00000000000000000000001000000010000000000000000000
+        BF0000BF000000BFBF00BF000000BF00BF00BFBF0000C0C0C000808080000000
+        FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00777777777777
+        77777000000077777777777777777000000070000077777000007000000070B0
+        00777770F0007000000070F000777770B0007000000070000000700000007000
+        0000700B000000B0000070000000700F000700F0000070000000700B000700B0
+        0000700000007700000000000007700000007770B00070B00077700000007770
+        0000700000777000000077770007770007777000000077770B07770B07777000
+        0000777700077700077770000000777777777777777770000000777777777777
+        777770000000}
+      OnClick = SpeedButton2Click
+    end
+    object Label8: TLabel
+      Left = 8
+      Top = 10
+      Width = 40
+      Height = 13
+      Caption = 'Sucursal'
+    end
+    object Label7: TLabel
+      Left = 702
+      Top = 96
+      Width = 46
+      Height = 13
+      Anchors = [akTop, akRight]
+      Caption = 'SubTotal:'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label10: TLabel
+      Left = 702
+      Top = 136
+      Width = 40
+      Height = 13
+      Anchors = [akTop, akRight]
+      Caption = 'Propina:'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label12: TLabel
+      Left = 703
+      Top = 155
+      Width = 55
+      Height = 13
+      Anchors = [akTop, akRight]
+      Caption = 'Descuento:'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label13: TLabel
+      Left = 703
+      Top = 116
+      Width = 25
+      Height = 13
+      Anchors = [akTop, akRight]
+      Caption = 'Itbis:'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label18: TLabel
+      Left = 703
+      Top = 178
+      Width = 28
+      Height = 13
+      Anchors = [akTop, akRight]
+      Caption = 'Total:'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
     object edTipo: TEdit
       Left = 58
-      Top = 4
+      Top = 37
       Width = 33
       Height = 21
       BevelKind = bkFlat
@@ -184,7 +293,7 @@ object frmConsFacturasRestBar: TfrmConsFacturasRestBar
     end
     object tTipo: TEdit
       Left = 119
-      Top = 4
+      Top = 37
       Width = 186
       Height = 21
       BevelKind = bkFlat
@@ -201,7 +310,7 @@ object frmConsFacturasRestBar: TfrmConsFacturasRestBar
     end
     object tCajero: TEdit
       Left = 119
-      Top = 52
+      Top = 85
       Width = 186
       Height = 21
       BevelKind = bkFlat
@@ -218,7 +327,7 @@ object frmConsFacturasRestBar: TfrmConsFacturasRestBar
     end
     object edCajero: TEdit
       Left = 58
-      Top = 52
+      Top = 85
       Width = 33
       Height = 21
       BevelKind = bkFlat
@@ -234,9 +343,9 @@ object frmConsFacturasRestBar: TfrmConsFacturasRestBar
     end
     object edNombre: TEdit
       Left = 206
-      Top = 128
+      Top = 183
       Width = 99
-      Height = 21
+      Height = 20
       BevelKind = bkFlat
       BorderStyle = bsNone
       CharCase = ecUpperCase
@@ -286,7 +395,7 @@ object frmConsFacturasRestBar: TfrmConsFacturasRestBar
     end
     object Fecha1: TDateTimePicker
       Left = 58
-      Top = 104
+      Top = 159
       Width = 79
       Height = 21
       Date = 37506.000000000000000000
@@ -301,7 +410,7 @@ object frmConsFacturasRestBar: TfrmConsFacturasRestBar
     end
     object Fecha2: TDateTimePicker
       Left = 138
-      Top = 104
+      Top = 159
       Width = 79
       Height = 21
       Date = 37506.000000000000000000
@@ -316,9 +425,9 @@ object frmConsFacturasRestBar: TfrmConsFacturasRestBar
     end
     object edFac1: TEdit
       Left = 58
-      Top = 128
+      Top = 183
       Width = 47
-      Height = 21
+      Height = 20
       BevelKind = bkFlat
       BorderStyle = bsNone
       CharCase = ecUpperCase
@@ -332,9 +441,9 @@ object frmConsFacturasRestBar: TfrmConsFacturasRestBar
     end
     object edFac2: TEdit
       Left = 106
-      Top = 128
+      Top = 183
       Width = 47
-      Height = 21
+      Height = 20
       BevelKind = bkFlat
       BorderStyle = bsNone
       CharCase = ecUpperCase
@@ -348,7 +457,7 @@ object frmConsFacturasRestBar: TfrmConsFacturasRestBar
     end
     object ckrango: TCheckBox
       Left = 224
-      Top = 104
+      Top = 159
       Width = 81
       Height = 17
       Caption = 'Utiliza rango'
@@ -358,7 +467,7 @@ object frmConsFacturasRestBar: TfrmConsFacturasRestBar
     end
     object tCaja: TEdit
       Left = 119
-      Top = 28
+      Top = 61
       Width = 186
       Height = 21
       BevelKind = bkFlat
@@ -375,7 +484,7 @@ object frmConsFacturasRestBar: TfrmConsFacturasRestBar
     end
     object edCaja: TEdit
       Left = 58
-      Top = 28
+      Top = 61
       Width = 33
       Height = 21
       BevelKind = bkFlat
@@ -391,7 +500,7 @@ object frmConsFacturasRestBar: TfrmConsFacturasRestBar
     end
     object ttiponcf: TEdit
       Left = 119
-      Top = 80
+      Top = 109
       Width = 186
       Height = 21
       BevelKind = bkFlat
@@ -408,7 +517,7 @@ object frmConsFacturasRestBar: TfrmConsFacturasRestBar
     end
     object edtiponcf: TEdit
       Left = 58
-      Top = 80
+      Top = 109
       Width = 33
       Height = 21
       BevelKind = bkFlat
@@ -435,12 +544,152 @@ object frmConsFacturasRestBar: TfrmConsFacturasRestBar
       TabOrder = 16
       Visible = False
     end
+    object edCliente: TEdit
+      Left = 58
+      Top = 133
+      Width = 33
+      Height = 21
+      BevelKind = bkFlat
+      BorderStyle = bsNone
+      CharCase = ecUpperCase
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 17
+    end
+    object tCliente: TEdit
+      Left = 119
+      Top = 133
+      Width = 186
+      Height = 21
+      BevelKind = bkFlat
+      BorderStyle = bsNone
+      Color = clInfoBk
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 18
+    end
+    object DBLookupComboBox2: TDBLookupComboBox
+      Left = 58
+      Top = 8
+      Width = 247
+      Height = 21
+      DropDownRows = 20
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      KeyField = 'suc_codigo'
+      ListField = 'suc_nombre'
+      ListSource = dsSuc
+      ParentFont = False
+      TabOrder = 19
+    end
+    object lbSubTotal: TStaticText
+      Left = 762
+      Top = 95
+      Width = 103
+      Height = 17
+      Alignment = taRightJustify
+      Anchors = [akTop, akRight]
+      AutoSize = False
+      BorderStyle = sbsSunken
+      Caption = '0.00'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 20
+    end
+    object lbPropina: TStaticText
+      Left = 762
+      Top = 136
+      Width = 103
+      Height = 17
+      Alignment = taRightJustify
+      Anchors = [akTop, akRight]
+      AutoSize = False
+      BorderStyle = sbsSunken
+      Caption = '0.00'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 21
+    end
+    object lbDescuento: TStaticText
+      Left = 762
+      Top = 157
+      Width = 103
+      Height = 17
+      Alignment = taRightJustify
+      Anchors = [akTop, akRight]
+      AutoSize = False
+      BorderStyle = sbsSunken
+      Caption = '0.00'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 22
+    end
+    object lbitbis: TStaticText
+      Left = 762
+      Top = 116
+      Width = 103
+      Height = 17
+      Alignment = taRightJustify
+      Anchors = [akTop, akRight]
+      AutoSize = False
+      BorderStyle = sbsSunken
+      Caption = '0.00'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 23
+    end
+    object lbTotal: TStaticText
+      Left = 762
+      Top = 177
+      Width = 103
+      Height = 17
+      Alignment = taRightJustify
+      Anchors = [akTop, akRight]
+      AutoSize = False
+      BorderStyle = sbsSunken
+      Caption = '0.00'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 24
+    end
   end
   object DBGrid1: TDBGrid
     Left = 0
-    Top = 152
-    Width = 1522
-    Height = 317
+    Top = 209
+    Width = 997
+    Height = 137
     Align = alTop
     Anchors = [akLeft, akTop, akRight, akBottom]
     Color = clInfoBk
@@ -565,21 +814,20 @@ object frmConsFacturasRestBar: TfrmConsFacturasRestBar
       item
         Expanded = False
         FieldName = 'Propina'
-        Width = 94
-        Visible = True
+        Visible = False
       end>
   end
   object Panel2: TPanel
     Left = 0
-    Top = 625
-    Width = 1522
+    Top = 488
+    Width = 997
     Height = 40
     Align = alBottom
     BevelInner = bvRaised
     BevelOuter = bvLowered
     TabOrder = 2
     DesignSize = (
-      1522
+      997
       40)
     object lbCantidad: TLabel
       Left = 8
@@ -595,7 +843,7 @@ object frmConsFacturasRestBar: TfrmConsFacturasRestBar
       ParentFont = False
     end
     object BitBtn2: TBitBtn
-      Left = 1278
+      Left = 713
       Top = 8
       Width = 75
       Height = 25
@@ -614,7 +862,7 @@ object frmConsFacturasRestBar: TfrmConsFacturasRestBar
         03333333333333333333}
     end
     object btRefresh: TBitBtn
-      Left = 1198
+      Left = 633
       Top = 8
       Width = 75
       Height = 25
@@ -624,13 +872,14 @@ object frmConsFacturasRestBar: TfrmConsFacturasRestBar
       OnClick = btRefreshClick
     end
     object btClose: TBitBtn
-      Left = 1358
+      Left = 793
       Top = 8
       Width = 75
       Height = 25
       Anchors = [akTop, akRight]
       Caption = '&Salir'
       TabOrder = 2
+      OnClick = btCloseClick
       Glyph.Data = {
         76010000424D7601000000000000760000002800000020000000100000000100
         04000000000000010000120B0000120B00001000000000000000000000000000
@@ -656,8 +905,8 @@ object frmConsFacturasRestBar: TfrmConsFacturasRestBar
     end
   end
   object Memo1: TMemo
-    Left = 24
-    Top = 192
+    Left = 32
+    Top = 240
     Width = 505
     Height = 41
     Lines.Strings = (
@@ -667,10 +916,10 @@ object frmConsFacturasRestBar: TfrmConsFacturasRestBar
   end
   object PageControl1: TPageControl
     Left = 0
-    Top = 469
-    Width = 1522
-    Height = 156
-    ActivePage = TabSheet1
+    Top = 346
+    Width = 997
+    Height = 142
+    ActivePage = TabSheet7
     Align = alClient
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
@@ -686,8 +935,8 @@ object frmConsFacturasRestBar: TfrmConsFacturasRestBar
       object Grid: TDBGrid
         Left = 0
         Top = 0
-        Width = 1514
-        Height = 130
+        Width = 1118
+        Height = 92
         Align = alClient
         Ctl3D = False
         DataSource = dsDetalle
@@ -769,8 +1018,8 @@ object frmConsFacturasRestBar: TfrmConsFacturasRestBar
       object DBGrid5: TDBGrid
         Left = 0
         Top = 0
-        Width = 1266
-        Height = 137
+        Width = 1118
+        Height = 92
         Align = alClient
         Color = clInfoBk
         Ctl3D = False
@@ -818,10 +1067,10 @@ object frmConsFacturasRestBar: TfrmConsFacturasRestBar
       Caption = 'Cuentas contables'
       ImageIndex = 6
       DesignSize = (
-        1514
-        130)
+        989
+        116)
       object Label14: TLabel
-        Left = 1357
+        Left = 708
         Top = 1
         Width = 40
         Height = 13
@@ -835,7 +1084,7 @@ object frmConsFacturasRestBar: TfrmConsFacturasRestBar
         ParentFont = False
       end
       object Label15: TLabel
-        Left = 1357
+        Left = 708
         Top = 17
         Width = 36
         Height = 13
@@ -849,7 +1098,7 @@ object frmConsFacturasRestBar: TfrmConsFacturasRestBar
         ParentFont = False
       end
       object Label16: TLabel
-        Left = 1357
+        Left = 708
         Top = 33
         Width = 37
         Height = 13
@@ -865,11 +1114,12 @@ object frmConsFacturasRestBar: TfrmConsFacturasRestBar
       object GridCuentas: TDBGrid
         Left = 30
         Top = 0
-        Width = 1321
-        Height = 130
+        Width = 672
+        Height = 116
         Align = alLeft
         Anchors = [akLeft, akTop, akRight, akBottom]
         Ctl3D = False
+        DataSource = dsCuentas
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -11
@@ -921,7 +1171,7 @@ object frmConsFacturasRestBar: TfrmConsFacturasRestBar
           end>
       end
       object lbCR: TStaticText
-        Left = 1411
+        Left = 762
         Top = 1
         Width = 103
         Height = 17
@@ -939,7 +1189,7 @@ object frmConsFacturasRestBar: TfrmConsFacturasRestBar
         TabOrder = 1
       end
       object lbDB: TStaticText
-        Left = 1411
+        Left = 762
         Top = 17
         Width = 103
         Height = 17
@@ -957,7 +1207,7 @@ object frmConsFacturasRestBar: TfrmConsFacturasRestBar
         TabOrder = 2
       end
       object lbBAL: TStaticText
-        Left = 1411
+        Left = 762
         Top = 33
         Width = 103
         Height = 17
@@ -978,7 +1228,7 @@ object frmConsFacturasRestBar: TfrmConsFacturasRestBar
         Left = 0
         Top = 0
         Width = 30
-        Height = 130
+        Height = 116
         Align = alLeft
         BevelInner = bvRaised
         BevelOuter = bvLowered
@@ -1004,6 +1254,7 @@ object frmConsFacturasRestBar: TfrmConsFacturasRestBar
             777770000000}
           ParentShowHint = False
           ShowHint = True
+          OnClick = bteliminacuentaClick
         end
         object btbuscacuenta: TSpeedButton
           Left = 4
@@ -1026,10 +1277,11 @@ object frmConsFacturasRestBar: TfrmConsFacturasRestBar
             777770000000}
           ParentShowHint = False
           ShowHint = True
+          OnClick = btbuscacuentaClick
         end
       end
       object btcodificar: TBitBtn
-        Left = 1354
+        Left = 705
         Top = 52
         Width = 159
         Height = 25
@@ -1065,6 +1317,8 @@ object frmConsFacturasRestBar: TfrmConsFacturasRestBar
   object QFacturas: TADOQuery
     Connection = DM.ADOSigma
     CursorType = ctStatic
+    AfterOpen = QFacturasAfterOpen
+    AfterScroll = QFacturasAfterScroll
     Parameters = <>
     SQL.Strings = (
       'select * from vw_FacturasRestBar'
@@ -1153,6 +1407,14 @@ object frmConsFacturasRestBar: TfrmConsFacturasRestBar
     object QFacturasRNC: TStringField
       FieldName = 'RNC'
     end
+    object QFacturasTipoFactura: TIntegerField
+      FieldName = 'TipoFactura'
+    end
+    object QFacturasSumSubTotal: TCurrencyField
+      FieldKind = fkCalculated
+      FieldName = 'SumSubTotal'
+      Calculated = True
+    end
   end
   object QDetalle: TADOQuery
     Connection = DM.ADOSigma
@@ -1223,12 +1485,20 @@ object frmConsFacturasRestBar: TfrmConsFacturasRestBar
   end
   object QCuentas: TADOQuery
     Connection = DM.ADOSigma
-    LockType = ltBatchOptimistic
+    CursorType = ctStatic
+    AfterInsert = QCuentasAfterInsert
+    AfterEdit = QCuentasAfterEdit
+    BeforePost = QCuentasBeforePost
+    AfterPost = QCuentasAfterPost
+    BeforeDelete = QCuentasBeforeDelete
+    AfterDelete = QCuentasAfterDelete
+    OnNewRecord = QCuentasNewRecord
     DataSource = dsFacturas
     Parameters = <
       item
         Name = 'FacturaID'
-        Size = -1
+        DataType = ftInteger
+        Size = 10
         Value = Null
       end>
     SQL.Strings = (
@@ -1239,6 +1509,7 @@ object frmConsFacturasRestBar: TfrmConsFacturasRestBar
       'from'
       'contdet_facturas'
       'where fac_numero = :FacturaID'
+      ''
       'and det_secuencia is not null')
     Left = 584
     Top = 336
@@ -1258,25 +1529,6 @@ object frmConsFacturasRestBar: TfrmConsFacturasRestBar
       FieldName = 'det_monto'
       currency = True
       Precision = 15
-    end
-    object QCuentasemp_codigo: TIntegerField
-      FieldName = 'emp_codigo'
-    end
-    object QCuentassuc_codigo: TIntegerField
-      FieldName = 'suc_codigo'
-    end
-    object QCuentasfac_forma: TStringField
-      FieldName = 'fac_forma'
-      Size = 1
-    end
-    object QCuentastfa_codigo: TIntegerField
-      FieldName = 'tfa_codigo'
-    end
-    object QCuentasfac_numero: TIntegerField
-      FieldName = 'fac_numero'
-    end
-    object QCuentasdet_secuencia: TIntegerField
-      FieldName = 'det_secuencia'
     end
   end
   object dsCuentas: TDataSource
@@ -1306,6 +1558,7 @@ object frmConsFacturasRestBar: TfrmConsFacturasRestBar
         Size = -1
         Value = Null
       end>
+    Prepared = True
     SQL.Strings = (
       'select * from VW_FormaPago_FacturasRestBar'
       'WHERE FacturaID = :FacturaID'
@@ -1330,5 +1583,58 @@ object frmConsFacturasRestBar: TfrmConsFacturasRestBar
     DataSet = QForma
     Left = 616
     Top = 272
+  end
+  object QSucursal: TADOQuery
+    Connection = DM.ADOSigma
+    LockType = ltReadOnly
+    DataSource = DM.dsEmpresas
+    Parameters = <
+      item
+        Name = 'emp_codigo'
+        Attributes = [paSigned]
+        DataType = ftInteger
+        Precision = 10
+        Size = 4
+        Value = Null
+      end
+      item
+        Name = 'usu'
+        Attributes = [paSigned]
+        DataType = ftInteger
+        Precision = 10
+        Size = 4
+        Value = Null
+      end>
+    SQL.Strings = (
+      'select'
+      's.suc_codigo, s.suc_nombre, s.alm_codigo, s.emp_codigo'
+      'from'
+      'sucursales s, sucursal_acceso a'
+      'where'
+      's.emp_codigo = a.emp_codigo'
+      'and s.suc_codigo = a.suc_codigo'
+      'and a.emp_codigo = :emp_codigo'
+      'and a.usu_codigo = :usu'
+      'order by s.suc_codigo')
+    Left = 496
+    Top = 56
+    object QSucursalsuc_codigo: TIntegerField
+      FieldName = 'suc_codigo'
+    end
+    object QSucursalsuc_nombre: TStringField
+      FieldName = 'suc_nombre'
+      Size = 60
+    end
+    object QSucursalalm_codigo: TIntegerField
+      FieldName = 'alm_codigo'
+    end
+    object QSucursalemp_codigo: TIntegerField
+      FieldName = 'emp_codigo'
+    end
+  end
+  object dsSuc: TDataSource
+    DataSet = QSucursal
+    Left = 528
+    Top = 56
   end
 end

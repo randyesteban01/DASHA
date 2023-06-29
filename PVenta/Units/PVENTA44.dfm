@@ -1,12 +1,12 @@
 object frmConsFacturas: TfrmConsFacturas
-  Left = 601
-  Top = 63
+  Left = 305
+  Top = 217
   ActiveControl = edTipo
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Listado de Facturas'
-  ClientHeight = 749
-  ClientWidth = 1126
+  ClientHeight = 526
+  ClientWidth = 1020
   Color = clBtnFace
   Font.Charset = ANSI_CHARSET
   Font.Color = clWindowText
@@ -28,8 +28,8 @@ object frmConsFacturas: TfrmConsFacturas
   TextHeight = 13
   object Splitter1: TSplitter
     Left = 0
-    Top = 624
-    Width = 1126
+    Top = 368
+    Width = 1020
     Height = 4
     Cursor = crVSplit
     Align = alTop
@@ -37,7 +37,7 @@ object frmConsFacturas: TfrmConsFacturas
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 1126
+    Width = 1020
     Height = 152
     Align = alTop
     BevelInner = bvRaised
@@ -795,15 +795,15 @@ object frmConsFacturas: TfrmConsFacturas
   end
   object Panel2: TPanel
     Left = 0
-    Top = 709
-    Width = 1126
+    Top = 486
+    Width = 1020
     Height = 40
     Align = alBottom
     BevelInner = bvRaised
     BevelOuter = bvLowered
     TabOrder = 1
     DesignSize = (
-      1126
+      1020
       40)
     object lbCantidad: TLabel
       Left = 8
@@ -819,7 +819,7 @@ object frmConsFacturas: TfrmConsFacturas
       ParentFont = False
     end
     object BitBtn2: TBitBtn
-      Left = 962
+      Left = 856
       Top = 8
       Width = 75
       Height = 25
@@ -838,7 +838,7 @@ object frmConsFacturas: TfrmConsFacturas
         03333333333333333333}
     end
     object btRefresh: TBitBtn
-      Left = 802
+      Left = 696
       Top = 8
       Width = 75
       Height = 25
@@ -848,7 +848,7 @@ object frmConsFacturas: TfrmConsFacturas
       OnClick = btRefreshClick
     end
     object btClose: TBitBtn
-      Left = 1042
+      Left = 936
       Top = 8
       Width = 75
       Height = 25
@@ -872,7 +872,7 @@ object frmConsFacturas: TfrmConsFacturas
       NumGlyphs = 2
     end
     object BitBtn1: TBitBtn
-      Left = 882
+      Left = 776
       Top = 8
       Width = 75
       Height = 25
@@ -899,7 +899,7 @@ object frmConsFacturas: TfrmConsFacturas
       Visible = False
     end
     object btnEmail: TBitBtn
-      Left = 711
+      Left = 605
       Top = 8
       Width = 85
       Height = 25
@@ -912,8 +912,8 @@ object frmConsFacturas: TfrmConsFacturas
   object DBGrid1: TDBGrid
     Left = 0
     Top = 152
-    Width = 1126
-    Height = 472
+    Width = 1020
+    Height = 216
     Align = alTop
     Anchors = [akLeft, akTop, akRight, akBottom]
     Color = clInfoBk
@@ -1195,10 +1195,10 @@ object frmConsFacturas: TfrmConsFacturas
   end
   object PageControl1: TPageControl
     Left = 0
-    Top = 628
-    Width = 1126
-    Height = 81
-    ActivePage = TabSheet3
+    Top = 372
+    Width = 1020
+    Height = 114
+    ActivePage = TabSheet7
     Align = alClient
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
@@ -1216,7 +1216,7 @@ object frmConsFacturas: TfrmConsFacturas
         Left = 0
         Top = 0
         Width = 1118
-        Height = 89
+        Height = 85
         Align = alClient
         Ctl3D = False
         DataSource = dsDetalle
@@ -1349,7 +1349,7 @@ object frmConsFacturas: TfrmConsFacturas
         Left = 0
         Top = 0
         Width = 1118
-        Height = 89
+        Height = 85
         Align = alClient
         Color = clInfoBk
         Ctl3D = False
@@ -1401,7 +1401,7 @@ object frmConsFacturas: TfrmConsFacturas
         Left = 0
         Top = 0
         Width = 1118
-        Height = 89
+        Height = 85
         Align = alClient
         Color = clInfoBk
         Ctl3D = False
@@ -1735,10 +1735,10 @@ object frmConsFacturas: TfrmConsFacturas
       Caption = 'Cuentas contables'
       ImageIndex = 6
       DesignSize = (
-        1118
-        55)
+        1012
+        88)
       object Label14: TLabel
-        Left = 961
+        Left = 855
         Top = 1
         Width = 40
         Height = 13
@@ -1752,7 +1752,7 @@ object frmConsFacturas: TfrmConsFacturas
         ParentFont = False
       end
       object Label15: TLabel
-        Left = 961
+        Left = 855
         Top = 17
         Width = 36
         Height = 13
@@ -1766,7 +1766,7 @@ object frmConsFacturas: TfrmConsFacturas
         ParentFont = False
       end
       object Label16: TLabel
-        Left = 961
+        Left = 855
         Top = 33
         Width = 37
         Height = 13
@@ -1782,8 +1782,8 @@ object frmConsFacturas: TfrmConsFacturas
       object GridCuentas: TDBGrid
         Left = 30
         Top = 0
-        Width = 925
-        Height = 55
+        Width = 819
+        Height = 88
         Align = alLeft
         Anchors = [akLeft, akTop, akRight, akBottom]
         Ctl3D = False
@@ -1842,7 +1842,7 @@ object frmConsFacturas: TfrmConsFacturas
           end>
       end
       object lbCR: TStaticText
-        Left = 1015
+        Left = 909
         Top = 1
         Width = 103
         Height = 17
@@ -1860,7 +1860,7 @@ object frmConsFacturas: TfrmConsFacturas
         TabOrder = 1
       end
       object lbDB: TStaticText
-        Left = 1015
+        Left = 909
         Top = 17
         Width = 103
         Height = 17
@@ -1878,7 +1878,7 @@ object frmConsFacturas: TfrmConsFacturas
         TabOrder = 2
       end
       object lbBAL: TStaticText
-        Left = 1015
+        Left = 909
         Top = 33
         Width = 103
         Height = 17
@@ -1899,7 +1899,7 @@ object frmConsFacturas: TfrmConsFacturas
         Left = 0
         Top = 0
         Width = 30
-        Height = 55
+        Height = 88
         Align = alLeft
         BevelInner = bvRaised
         BevelOuter = bvLowered
@@ -1952,7 +1952,7 @@ object frmConsFacturas: TfrmConsFacturas
         end
       end
       object btcodificar: TBitBtn
-        Left = 958
+        Left = 852
         Top = 52
         Width = 159
         Height = 25
@@ -3877,8 +3877,8 @@ object frmConsFacturas: TfrmConsFacturas
       ''
       'end.')
     OnBeforePrint = Rpt_FacOrdTallerBeforePrint
-    Left = 896
-    Top = 16
+    Left = 904
+    Top = 48
     Datasets = <
       item
         DataSet = DB_qFacturaOrdTaller

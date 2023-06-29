@@ -1,6 +1,6 @@
 object frmRepConciliacion: TfrmRepConciliacion
-  Left = 390
-  Top = 262
+  Left = 391
+  Top = 263
   ActiveControl = edBanco
   BorderStyle = bsSingle
   Caption = 'Reporte de Conciliaci'#243'n'

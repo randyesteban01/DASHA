@@ -1,12 +1,12 @@
 object frmNCF: TfrmNCF
-  Left = 904
-  Top = 151
+  Left = 545
+  Top = 190
   ActiveControl = edFijo
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'Numero de Comprobante Fiscal (NCF)'
   ClientHeight = 187
-  ClientWidth = 352
+  ClientWidth = 383
   Color = clBtnFace
   Font.Charset = ANSI_CHARSET
   Font.Color = clWindowText
@@ -71,8 +71,8 @@ object frmNCF: TfrmNCF
     Caption = 'Fecha Venc'
   end
   object btgrabar: TBitBtn
-    Left = 208
-    Top = 160
+    Left = 232
+    Top = 152
     Width = 65
     Height = 25
     Caption = 'Grabar'
@@ -115,8 +115,8 @@ object frmNCF: TfrmNCF
       FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00}
   end
   object BitBtn2: TBitBtn
-    Left = 277
-    Top = 160
+    Left = 301
+    Top = 152
     Width = 69
     Height = 25
     Caption = 'Cancelar'
@@ -161,7 +161,7 @@ object frmNCF: TfrmNCF
   object DBLookupComboBox2: TDBLookupComboBox
     Left = 72
     Top = 32
-    Width = 273
+    Width = 297
     Height = 21
     DropDownRows = 20
     Font.Charset = ANSI_CHARSET
@@ -254,6 +254,14 @@ object frmNCF: TfrmNCF
     Caption = 'Fecha Vencimiento'
     TabOrder = 9
     OnClick = ChkB_VencimientoClick
+  end
+  object chkDetenerNCF: TCheckBox
+    Left = 216
+    Top = 80
+    Width = 161
+    Height = 17
+    Caption = 'Detener al llegar a NCF Final'
+    TabOrder = 10
   end
   object QSucursal: TADOQuery
     Connection = DM.ADOSigma

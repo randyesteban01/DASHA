@@ -1,10 +1,10 @@
 object DM: TDM
   OldCreateOrder = False
   OnCreate = DataModuleCreate
-  Left = 489
-  Top = 377
-  Height = 356
-  Width = 619
+  Left = 402
+  Top = 170
+  Height = 429
+  Width = 711
   object dsEmpresas: TDataSource
     DataSet = QEmpresas
     Left = 96
@@ -953,6 +953,12 @@ object DM: TDM
     end
     object QParametrospar_digitos_banderita: TIntegerField
       FieldName = 'par_digitos_banderita'
+    end
+    object QParametrospar_mostrarfacturadolares: TBooleanField
+      FieldName = 'par_mostrarfacturadolares'
+    end
+    object QParametrosPAR_UnidadMedida_Producto: TBooleanField
+      FieldName = 'PAR_UnidadMedida_Producto'
     end
   end
   object QContab: TADOQuery

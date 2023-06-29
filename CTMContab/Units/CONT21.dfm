@@ -1,12 +1,12 @@
 object frmRepBalComprobacion: TfrmRepBalComprobacion
-  Left = 944
-  Top = 325
+  Left = 674
+  Top = 233
   ActiveControl = cbMes
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Balance de Comprobaci'#243'n'
-  ClientHeight = 225
-  ClientWidth = 330
+  ClientHeight = 209
+  ClientWidth = 306
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -21,38 +21,38 @@ object frmRepBalComprobacion: TfrmRepBalComprobacion
   OnClose = FormClose
   OnCreate = FormCreate
   PixelsPerInch = 96
-  TextHeight = 14
+  TextHeight = 13
   object Label3: TLabel
-    Left = 26
-    Top = 95
-    Width = 21
-    Height = 15
+    Left = 24
+    Top = 88
+    Width = 19
+    Height = 13
     Caption = 'A'#241'o'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -12
+    Font.Height = -11
     Font.Name = 'MS Sans Serif'
     Font.Style = []
     ParentFont = False
   end
   object Label4: TLabel
-    Left = 26
-    Top = 121
-    Width = 23
-    Height = 15
+    Left = 24
+    Top = 112
+    Width = 20
+    Height = 13
     Caption = 'Mes'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -12
+    Font.Height = -11
     Font.Name = 'MS Sans Serif'
     Font.Style = []
     ParentFont = False
   end
   object btClose: TBitBtn
-    Left = 241
-    Top = 190
-    Width = 81
-    Height = 26
+    Left = 224
+    Top = 176
+    Width = 75
+    Height = 25
     Caption = '&Salir'
     TabOrder = 1
     OnClick = btCloseClick
@@ -72,10 +72,10 @@ object frmRepBalComprobacion: TfrmRepBalComprobacion
     NumGlyphs = 2
   end
   object BitBtn2: TBitBtn
-    Left = 155
-    Top = 190
-    Width = 81
-    Height = 26
+    Left = 144
+    Top = 176
+    Width = 75
+    Height = 25
     Caption = 'Imprimir'
     TabOrder = 2
     OnClick = BitBtn2Click
@@ -90,15 +90,15 @@ object frmRepBalComprobacion: TfrmRepBalComprobacion
       03333333333333333333}
   end
   object spAno: TSpinEdit
-    Left = 78
-    Top = 95
-    Width = 52
-    Height = 23
+    Left = 72
+    Top = 88
+    Width = 49
+    Height = 22
     TabStop = False
     EditorEnabled = False
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
-    Font.Height = -12
+    Font.Height = -11
     Font.Name = 'Tahoma'
     Font.Style = []
     MaxValue = 3000
@@ -108,18 +108,18 @@ object frmRepBalComprobacion: TfrmRepBalComprobacion
     Value = 1900
   end
   object cbMes: TComboBox
-    Left = 78
-    Top = 121
-    Width = 164
-    Height = 22
+    Left = 72
+    Top = 112
+    Width = 153
+    Height = 21
     BevelKind = bkFlat
     Style = csDropDownList
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
-    Font.Height = -12
+    Font.Height = -11
     Font.Name = 'Tahoma'
     Font.Style = []
-    ItemHeight = 14
+    ItemHeight = 13
     ParentFont = False
     TabOrder = 4
     TabStop = False
@@ -138,10 +138,10 @@ object frmRepBalComprobacion: TfrmRepBalComprobacion
       'Diciembre')
   end
   object rgTipo: TRadioGroup
-    Left = 9
-    Top = 9
-    Width = 302
-    Height = 44
+    Left = 8
+    Top = 8
+    Width = 281
+    Height = 41
     Columns = 2
     ItemIndex = 0
     Items.Strings = (
@@ -150,40 +150,40 @@ object frmRepBalComprobacion: TfrmRepBalComprobacion
     TabOrder = 5
   end
   object ckDetallado: TCheckBox
-    Left = 17
-    Top = 155
-    Width = 105
-    Height = 18
+    Left = 16
+    Top = 144
+    Width = 97
+    Height = 17
     Caption = 'Detallado'
     Checked = True
     State = cbChecked
     TabOrder = 6
   end
   object ckConsol: TCheckBox
-    Left = 17
-    Top = 190
-    Width = 105
-    Height = 18
+    Left = 16
+    Top = 176
+    Width = 97
+    Height = 17
     Caption = 'Consolidado'
     TabOrder = 7
   end
   object ckmail: TCheckBox
-    Left = 17
-    Top = 172
-    Width = 105
-    Height = 19
+    Left = 16
+    Top = 160
+    Width = 97
+    Height = 17
     Caption = 'Enviar por email'
     TabOrder = 8
   end
   object DBLookupComboBox2: TDBLookupComboBox
-    Left = 78
-    Top = 69
-    Width = 242
-    Height = 22
+    Left = 72
+    Top = 64
+    Width = 225
+    Height = 21
     DropDownRows = 20
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
-    Font.Height = -12
+    Font.Height = -11
     Font.Name = 'Tahoma'
     Font.Style = []
     KeyField = 'suc_codigo'
@@ -193,10 +193,10 @@ object frmRepBalComprobacion: TfrmRepBalComprobacion
     TabOrder = 0
   end
   object cksucursal: TCheckBox
-    Left = 9
-    Top = 69
-    Width = 67
-    Height = 18
+    Left = 8
+    Top = 64
+    Width = 63
+    Height = 17
     Caption = 'Sucursal'
     Checked = True
     State = cbChecked

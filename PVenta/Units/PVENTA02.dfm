@@ -1,6 +1,6 @@
 object frmAcceso: TfrmAcceso
-  Left = 518
-  Top = 284
+  Left = 1151
+  Top = 612
   ActiveControl = edUsr
   BorderIcons = []
   BorderStyle = bsSingle

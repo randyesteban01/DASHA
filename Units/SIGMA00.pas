@@ -1024,7 +1024,7 @@ uses PVENTA03, PVENTA02, PVENTA04, PVENTA05, PVENTA06, PVENTA08, PVENTA07,
   SERV05, PVENTA230, PTIKET001, DateUtils, PTIKET002, PTIKET003, PRENTA02,
   PVENTAREPVENC, USerial, PVenta233, RVENTA129, PVenta235, PVENTA236,
   PVENTA237, PVenta241, PVENTA242, PVENTA244, StdConvs, SIGMA09, CONT93,
-  PVENTA245;
+  PVENTA245, PVENTA250;
 
 {$R *.DFM}
 
@@ -1323,6 +1323,9 @@ end;
 
 procedure TfrmMain.ListadodeFacturas1Click(Sender: TObject);
 begin
+  //frmConsFacturas.bteliminacuenta.Visible := vDel
+  //frmConsFacturas.btbuscacuenta.Visible := vMod
+
   dm.Query1.Close;
   dm.Query1.sql.clear;
   dm.Query1.sql.add('select inserta, modifica, elimina ');
@@ -1339,6 +1342,7 @@ begin
   frmConsFacturas.Elimina  := vDel;
   //frmConsFacturas.bteliminacuenta.Visible := vDel
   //frmConsFacturas.btbuscacuenta.Visible := vMod
+  
 end;
 
 procedure TfrmMain.RecibosdeCobro2Click(Sender: TObject);
@@ -1675,13 +1679,14 @@ procedure TfrmMain.rep_cxc_5Click(Sender: TObject);
 begin
   if MessageDlg('Desea seleccionar un rango de fecha?',mtConfirmation,[mbyes,mbno],0) = mrno then
   begin
-    Application.CreateForm(tRCxC, RCxC);
+    ActivaForma(tfrmRepCxcGeneralSucursal, tform(frmRepCxcGeneralSucursal));   
+  {  Application.CreateForm(tRCxC, RCxC);
     RCxC.QClientes.Open;
     RCxC.QDocs.Open;
     RCxC.lbFecha.Caption := 'Al '+DateToStr(Date);
     RCxC.PrinterSetup;
     RCxC.Preview;
-    RCxC.Destroy;
+    RCxC.Destroy;    }
   end
   else
   begin
@@ -5512,25 +5517,25 @@ begin
   dm.QNotificaComprobantes.SQL.Add('ncf n where n.emp_codigo = a.emp_codigo');
   dm.QNotificaComprobantes.SQL.Add('and n.ncf_fijo = a.ncf_fijo');
   dm.QNotificaComprobantes.SQL.Add('and a.ncf_cantidad >= (n.NCF_Final - n.NCF_Secuencia)');
-  dm.QNotificaComprobantes.SQL.Add('and a.emp_codigo = :emp');
+  dm.QNotificaComprobantes.SQL.Add('AND n.detenergeneracioncomprobante=1 and a.emp_codigo = :emp');
   dm.QNotificaComprobantes.Parameters.ParamByName('emp').Value := dm.QEmpresasEMP_CODIGO.Value;
   dm.QNotificaComprobantes.Open;
   dm.QNotificaComprobantes.DisableControls;
   memonotificaciones.Visible := false;
-  memonotificaciones.Lines.Clear;
+
   if dm.QNotificaComprobantes.RecordCount > 0 then
   begin
     texto := '';
-
+    memonotificaciones.Lines.Clear;
     while not dm.QNotificaComprobantes.Eof do
     begin
-      //texto := texto + 'NCF '+dm.QNotificaComprobantes.FieldByName('ncf_fijo').AsString+
-      //                          ' Está a punto de terminarse, ';
-      memonotificaciones.Lines.Add('NCF '+dm.QNotificaComprobantes.FieldByName('ncf_fijo').AsString+
-                                ' Está a punto de terminarse, ');
+      texto := texto + 'NCF '+dm.QNotificaComprobantes.FieldByName('ncf_fijo').AsString+
+                                ' Está a punto de terminarse, ';
+      //memonotificaciones.Lines.Add('NCF '+dm.QNotificaComprobantes.FieldByName('ncf_fijo').AsString+
+      //                          ' Está a punto de terminarse, ');
       dm.QNotificaComprobantes.Next;
     end;
-    //memonotificaciones.Lines.Add(Trim(texto));
+    memonotificaciones.Lines.Add(Trim(texto));
     lblAlerta.Caption := 'ALERTA !! : Comprobantes Fiscal, Presione Click aqui para ver';
     lblAlerta.Visible := true;
   end;
@@ -5724,11 +5729,11 @@ begin
   if qAlertaCot.RecordCount > 0 then begin
   qAlertaCot.DisableControls;
   memonotificaciones.Visible := false;
-  memonotificaciones.Lines.Clear;
+
   if qAlertaCot.RecordCount > 0 then
   begin
     texto := '';
-
+     memonotificaciones.Lines.Clear;
     while not qAlertaCot.Eof do
     begin
       //texto := texto + 'NCF '+dm.QNotificaComprobantes.FieldByName('ncf_fijo').AsString+
@@ -6238,11 +6243,11 @@ begin
   dm.QNotificaComprobantes.Open;
   dm.QNotificaComprobantes.DisableControls;
   memonotificaciones.Visible := false;
-  memonotificaciones.Clear;
+
   if dm.QNotificaComprobantes.RecordCount > 0 then
   begin
     //texto := '';
-
+     memonotificaciones.Clear;
     dm.QNotificaComprobantes.First;
     while not dm.QNotificaComprobantes.Eof do
     begin

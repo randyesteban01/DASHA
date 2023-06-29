@@ -45,16 +45,13 @@ type
     QEmpresasemp_telefono: TStringField;
     QEmpresasemp_rnc: TStringField;
     QRLabel3: TQRLabel;
-    QRLabel25: TQRLabel;
     QRLabel26: TQRLabel;
     QRLabel13: TQRLabel;
-    QRLabel29: TQRLabel;
     QRLabel30: TQRLabel;
     QRExpr1: TQRExpr;
     QRExpr2: TQRExpr;
     QRLabel4: TQRLabel;
     QRDBText8: TQRDBText;
-    QRExpr4: TQRExpr;
     QTickets: TADOQuery;
     QRLabel5: TQRLabel;
     QRLabel11: TQRLabel;
@@ -73,6 +70,16 @@ type
     QRLabel8: TQRLabel;
     QRDBText12: TQRDBText;
     QTicketsPropina: TCurrencyField;
+    QTicketsSubTotal: TCurrencyField;
+    QRLabel10: TQRLabel;
+    QRLabel12: TQRLabel;
+    QRExpr3: TQRExpr;
+    QRLabel14: TQRLabel;
+    QRLabel15: TQRLabel;
+    QRExpr5: TQRExpr;
+    QRLabel17: TQRLabel;
+    QRLabel19: TQRLabel;
+    QRExpr4: TQRExpr;
     procedure QuickRepBeforePrint(Sender: TCustomQuickRep;
       var PrintReport: Boolean);
   private

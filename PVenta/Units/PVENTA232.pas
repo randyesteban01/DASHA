@@ -7586,7 +7586,11 @@ begin
       tmoneda.Text := '';
       QFacturaFAC_TASA.Value := 1;
     end;
+
+  
   end;
+
+
 end;
 
 procedure TfrmFacturaRenta.QFacturafac_cajaChange(Sender: TField);

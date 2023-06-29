@@ -92,6 +92,7 @@ type
     qRepBalanceFact: TADOQuery;
     PopupMenu2: TPopupMenu;
     MenuItem2: TMenuItem;
+    QFacNCF: TStringField;
     procedure btCloseClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormActivate(Sender: TObject);
@@ -573,7 +574,7 @@ begin
        QFac.SQL.Add('select distinct f.FAC_NUMERO, f.FAC_FECHA, f.FAC_VENCE, (f.FAC_TOTAL/isnull(f.fac_tasa,1)) as fac_total,');
        QFac.SQL.Add('(f.FAC_ABONO/isnull(f.fac_tasa,1)) as fac_abono, f.EMP_CODIGO, f.sup_codigo, f.fac_concepto,');
        QFac.SQL.Add('(f.fac_itbis/isnull(f.fac_tasa,1)) as fac_itbis, (f.fac_exento/isnull(f.fac_tasa,1)) as fac_exento,');
-       QFac.SQL.Add('(f.fac_grabado/isnull(f.fac_tasa,1)) as fac_grabado');
+       QFac.SQL.Add('(f.fac_grabado/isnull(f.fac_tasa,1)) as fac_grabado, f.NCF');
      end
      else
      begin
@@ -581,7 +582,7 @@ begin
        QFac.SQL.Clear;
        QFac.SQL.Add('select distinct f.FAC_NUMERO, f.FAC_FECHA, f.FAC_VENCE, f.FAC_TOTAL,');
        QFac.SQL.Add('f.FAC_ABONO, f.EMP_CODIGO, f.sup_codigo, f.fac_concepto,');
-       QFac.SQL.Add('f.fac_itbis, f.fac_exento, f.fac_grabado');
+       QFac.SQL.Add('f.fac_itbis, f.fac_exento, f.fac_grabado, f.NCF');
      end;
 
      QFac.SQL.Add('from PROVFACTURAS f');
@@ -601,7 +602,7 @@ begin
      QFac.SQL.Clear;
      QFac.SQL.Add('select FAC_NUMERO, FAC_FECHA, FAC_VENCE, FAC_TOTAL,');
      QFac.SQL.Add('FAC_ABONO, EMP_CODIGO, sup_codigo, fac_concepto,');
-     QFac.SQL.Add('fac_itbis, fac_exento, fac_grabado');
+     QFac.SQL.Add('fac_itbis, fac_exento, fac_grabado, NCF');
      QFac.SQL.Add('from PROVFACTURAS');
      QFac.SQL.Add('where emp_codigo = :emp_codigo');
      QFac.SQL.Add('and suc_codigo between :suc1 and :suc2');

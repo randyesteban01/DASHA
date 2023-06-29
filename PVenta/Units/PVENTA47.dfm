@@ -1,6 +1,6 @@
 object frmCuadre: TfrmCuadre
-  Left = 726
-  Top = 306
+  Left = 370
+  Top = 157
   ActiveControl = edCajero
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle

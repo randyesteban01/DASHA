@@ -73,6 +73,7 @@ var
     VL_1, VL_2, VL_3, VL_4, VL_5, VL_6, VL_7, VL_8, VL_9, VL_10, VL_11, VL_12,
     VL_13, VL_14, VL_15 : string;
   frmAcceso: TfrmAcceso;
+//const ConnectionStringPlus =  ';User ID=admindasha;password=Admin2023$.';
 const ConnectionStringPlus =  ';User ID=randy;password=dayelcris';
 implementation
 

@@ -1948,6 +1948,11 @@ begin
     PageControl1.ActivePageIndex := 2;
     DBEdit17.SetFocus;
   end
+  else if ((Trim(edProveedor.Text) = '') and (Trim(edCliente.Text) = '')) then
+  begin
+    MessageDlg('DEBE ESPECIFICAR EL PROVEEDOR O CLIENTE', mtError, [mbok], 0);
+    edProveedor.SetFocus;
+  end
   else if messagedlg('TODOS LOS DATOS ESTAN CORECTOS?', mtconfirmation, [mbyes, mbno], 0) = mryes then
   begin
     if ((DM.QParametrospar_fac_preimpresa.Value = 'True') and (DM.QParametrospar_formato_preimpreso.Value = 'Sarita & Asociados')) then
@@ -2001,15 +2006,6 @@ begin
   QConduce.post;
   QConduce.UpdateBatch;
 
-  if ((DM.QParametrospar_fac_preimpresa.Value = 'True') and (DM.QParametrospar_formato_preimpreso.Value = 'Sarita & Asociados')) then
-  begin
-    qUpdateCot.Close;
-    qUpdateCot.Parameters.ParamByName('EMP').Value := QConduceEMP_CODIGO.Value;
-    qUpdateCot.Parameters.ParamByName('DEP').Value := QConduceDEP_CODIGO.Value;
-    qUpdateCot.Parameters.ParamByName('COT').Value := QConducePED_NUMERO.Value;
-    qUpdateCot.ExecSQL;
-  end;
-
     //productos
   QDetalle.disablecontrols;
   QDetalle.First;
@@ -2030,6 +2026,15 @@ begin
   QDetalle.enablecontrols;
   QDetalle.UpdateBatch;
 
+   //if ((DM.QParametrospar_fac_preimpresa.Value = 'True') and (DM.QParametrospar_formato_preimpreso.Value = 'Sarita & Asociados')) then
+  //begin
+    qUpdateCot.Close;
+    qUpdateCot.Parameters.ParamByName('EMP').Value := QConduceEMP_CODIGO.Value;
+    qUpdateCot.Parameters.ParamByName('DEP').Value := QConduceDEP_CODIGO.Value;
+    qUpdateCot.Parameters.ParamByName('COT').Value := QConducePED_NUMERO.Value;
+    qUpdateCot.ExecSQL;
+  //end;
+  
     //Numeros de Serie
   if QSerie.Active then
   begin
@@ -4042,7 +4047,7 @@ begin
       Query1.close;
       Query1.sql.clear;
       Query1.sql.add('select d.pro_codigo, d.pro_roriginal, d.pro_rfabric, d.det_medida,');
-      Query1.sql.add('det_cantidad, d.det_precio, d.det_conitbis, d.det_itbis,');
+      Query1.sql.add('isnull(det_cantidad_disponible,det_cantidad) AS det_cantidad, d.det_precio, d.det_conitbis, d.det_itbis,');
       Query1.sql.add('d.det_descuento, d.pro_nombre, d.det_manejaescala, d.det_Escala,');
       Query1.sql.add('p.pro_Servicio');
       if (DM.QParametrospar_formato_preimpreso.Value = 'Sarita & Asociados') then
@@ -4093,16 +4098,18 @@ begin
         if not Query1.fieldbyname('pro_roriginal').IsNull then
           QDetallePRO_RORIGINAL.value := Query1.fieldbyname('pro_roriginal').asstring;
 
+        if ((DM.QParametrospar_formato_preimpreso.Value <> 'QRAgregados') and (DM.QParametrospar_formato_preimpreso.Value <> 'Grabado_Exento') ) then
+        begin
         if not Query1.fieldbyname('pro_rfabric').IsNull then
           QDetallePRO_RFABRIC.value := Query1.fieldbyname('pro_rfabric').asstring;
-
-        QDetallePRO_NOMBRE.Value := Query1.FieldByName('pro_nombre').AsString;
-        QDetalleDET_MANEJAESCALA.Value := Query1.fieldbyname('det_manejaescala').asstring;
-        if trim(QDetalleDET_MANEJAESCALA.Value) = 'True' then
-          QDetalleDET_ESCALA.Value := Query1.fieldbyname('det_escala').asstring;
-        QDetalleDET_MEDIDA.Value := Query1.fieldbyname('det_medida').asstring;
-        QDetalleDET_PRECIO.value := Query1.fieldbyname('det_precio').asfloat;
-        QDetalle.post;
+          QDetallePRO_NOMBRE.Value := Query1.FieldByName('pro_nombre').AsString;
+          QDetalleDET_MANEJAESCALA.Value := Query1.fieldbyname('det_manejaescala').asstring;
+          if trim(QDetalleDET_MANEJAESCALA.Value) = 'True' then
+            QDetalleDET_ESCALA.Value := Query1.fieldbyname('det_escala').asstring;
+            QDetalleDET_MEDIDA.Value := Query1.fieldbyname('det_medida').asstring;
+            QDetalleDET_PRECIO.value := Query1.fieldbyname('det_precio').asfloat;
+        end;
+      QDetalle.post;
         Query1.next;
 
         Application.ProcessMessages;

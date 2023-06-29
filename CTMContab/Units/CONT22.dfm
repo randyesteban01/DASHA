@@ -1,6 +1,6 @@
 object frmCierreMes: TfrmCierreMes
-  Left = 437
-  Top = 131
+  Left = 618
+  Top = 188
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Cierre de Mes'

@@ -1,12 +1,12 @@
 object frmParametros: TfrmParametros
-  Left = 229
-  Top = 99
+  Left = 292
+  Top = 85
   ActiveControl = tvOpciones
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Parametros generales'
-  ClientHeight = 517
-  ClientWidth = 1009
+  ClientHeight = 689
+  ClientWidth = 1008
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -26,17 +26,17 @@ object frmParametros: TfrmParametros
   PixelsPerInch = 96
   TextHeight = 13
   object pnInvent: TPanel
-    Left = 200
-    Top = 8
+    Left = 208
+    Top = -16
     Width = 417
-    Height = 417
+    Height = 500
     TabOrder = 2
     Visible = False
     object PageControl1: TPageControl
       Left = 4
       Top = 3
       Width = 415
-      Height = 433
+      Height = 500
       ActivePage = TabSheet1
       TabOrder = 0
       object TabSheet1: TTabSheet
@@ -45,7 +45,7 @@ object frmParametros: TfrmParametros
           Left = 0
           Top = 0
           Width = 407
-          Height = 405
+          Height = 472
           Align = alClient
           TabOrder = 0
           object Label17: TLabel
@@ -58,7 +58,7 @@ object frmParametros: TfrmParametros
           end
           object Label53: TLabel
             Left = 8
-            Top = 228
+            Top = 247
             Width = 276
             Height = 13
             Caption = 'Cuando el producto se crea, igualar el codigo para la Ref.'
@@ -71,7 +71,7 @@ object frmParametros: TfrmParametros
           end
           object Label69: TLabel
             Left = 8
-            Top = 274
+            Top = 293
             Width = 174
             Height = 13
             Caption = 'Combinar Referencia Fabricante con'
@@ -84,7 +84,7 @@ object frmParametros: TfrmParametros
           end
           object Label72: TLabel
             Left = 8
-            Top = 296
+            Top = 315
             Width = 128
             Height = 13
             Caption = 'Empresa para el inventario'
@@ -97,7 +97,7 @@ object frmParametros: TfrmParametros
           end
           object Label73: TLabel
             Left = 8
-            Top = 318
+            Top = 337
             Width = 127
             Height = 13
             Caption = 'Almacen para el inventario'
@@ -110,7 +110,7 @@ object frmParametros: TfrmParametros
           end
           object SpeedButton11: TSpeedButton
             Left = 232
-            Top = 296
+            Top = 315
             Width = 23
             Height = 22
             Flat = True
@@ -130,7 +130,7 @@ object frmParametros: TfrmParametros
           end
           object SpeedButton12: TSpeedButton
             Left = 232
-            Top = 318
+            Top = 337
             Width = 23
             Height = 22
             Flat = True
@@ -150,7 +150,7 @@ object frmParametros: TfrmParametros
           end
           object Label1: TLabel
             Left = 8
-            Top = 340
+            Top = 359
             Width = 86
             Height = 13
             Caption = 'Almacen de venta'
@@ -164,7 +164,7 @@ object frmParametros: TfrmParametros
           end
           object btTipo: TSpeedButton
             Left = 232
-            Top = 340
+            Top = 359
             Width = 23
             Height = 22
             Flat = True
@@ -185,7 +185,7 @@ object frmParametros: TfrmParametros
           end
           object Label4: TLabel
             Left = 8
-            Top = 252
+            Top = 271
             Width = 159
             Height = 13
             Caption = 'Combinar Referencia Original con'
@@ -408,7 +408,7 @@ object frmParametros: TfrmParametros
           end
           object DBRadioGroup17: TDBRadioGroup
             Left = 4
-            Top = 196
+            Top = 211
             Width = 83
             Height = 30
             Caption = 'Inicar con Itbis'
@@ -425,7 +425,7 @@ object frmParametros: TfrmParametros
           end
           object DBEdit46: TDBEdit
             Left = 296
-            Top = 228
+            Top = 247
             Width = 52
             Height = 21
             BevelKind = bkFlat
@@ -443,7 +443,7 @@ object frmParametros: TfrmParametros
           end
           object DBComboBox5: TDBComboBox
             Left = 192
-            Top = 252
+            Top = 271
             Width = 201
             Height = 21
             Style = csDropDownList
@@ -463,7 +463,7 @@ object frmParametros: TfrmParametros
           end
           object DBComboBox6: TDBComboBox
             Left = 192
-            Top = 274
+            Top = 293
             Width = 201
             Height = 21
             Style = csDropDownList
@@ -481,7 +481,7 @@ object frmParametros: TfrmParametros
           end
           object DBEdit63: TDBEdit
             Left = 192
-            Top = 296
+            Top = 315
             Width = 33
             Height = 21
             BevelKind = bkFlat
@@ -498,7 +498,7 @@ object frmParametros: TfrmParametros
           end
           object tempresa: TEdit
             Left = 256
-            Top = 296
+            Top = 315
             Width = 140
             Height = 21
             BevelKind = bkFlat
@@ -515,7 +515,7 @@ object frmParametros: TfrmParametros
           end
           object DBEdit64: TDBEdit
             Left = 192
-            Top = 318
+            Top = 337
             Width = 33
             Height = 21
             BevelKind = bkFlat
@@ -532,7 +532,7 @@ object frmParametros: TfrmParametros
           end
           object talmacenemp: TEdit
             Left = 256
-            Top = 318
+            Top = 337
             Width = 140
             Height = 21
             BevelKind = bkFlat
@@ -549,7 +549,7 @@ object frmParametros: TfrmParametros
           end
           object tAlmacen: TEdit
             Left = 256
-            Top = 340
+            Top = 359
             Width = 140
             Height = 21
             BevelKind = bkFlat
@@ -567,7 +567,7 @@ object frmParametros: TfrmParametros
           end
           object DBEdit1: TDBEdit
             Left = 192
-            Top = 340
+            Top = 359
             Width = 33
             Height = 21
             BevelKind = bkFlat
@@ -770,7 +770,7 @@ object frmParametros: TfrmParametros
           end
           object dbrgrpPAR_INV_VENTAS: TDBRadioGroup
             Left = 88
-            Top = 195
+            Top = 210
             Width = 100
             Height = 30
             Caption = 'Inv Ventas'
@@ -784,6 +784,24 @@ object frmParametros: TfrmParametros
             Values.Strings = (
               '0'
               '1')
+          end
+          object DBCheckBox67: TDBCheckBox
+            Left = 5
+            Top = 193
+            Width = 179
+            Height = 17
+            Caption = 'Unidad de medida por productos'
+            DataField = 'PAR_UnidadMedida_Producto'
+            DataSource = dsParametros
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 33
+            ValueChecked = 'True'
+            ValueUnchecked = 'False'
           end
         end
       end
@@ -1421,7 +1439,7 @@ object frmParametros: TfrmParametros
     end
   end
   object pntickets: TPanel
-    Left = 500
+    Left = 700
     Top = 2
     Width = 417
     Height = 393
@@ -3570,7 +3588,7 @@ object frmParametros: TfrmParametros
     Left = 0
     Top = 0
     Width = 161
-    Height = 517
+    Height = 689
     Align = alLeft
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
@@ -3617,8 +3635,8 @@ object frmParametros: TfrmParametros
       000000FFFFFFFFFFFFFFFF000000000000000000}
   end
   object btPost: TBitBtn
-    Left = 430
-    Top = 401
+    Left = 438
+    Top = 399
     Width = 75
     Height = 25
     Caption = '&Grabar'
@@ -3635,8 +3653,8 @@ object frmParametros: TfrmParametros
       8077777CCC777700007777CCC77777777777777C777777777777}
   end
   object btClose: TBitBtn
-    Left = 506
-    Top = 401
+    Left = 514
+    Top = 399
     Width = 74
     Height = 25
     Caption = '&Salir'
@@ -8212,14 +8230,14 @@ object frmParametros: TfrmParametros
   end
   object pnFactura: TPanel
     Left = 1500
-    Top = -26
+    Top = 50
     Width = 417
-    Height = 389
+    Height = 439
     TabOrder = 24
     Visible = False
     object btVendedor: TSpeedButton
       Left = 172
-      Top = 292
+      Top = 294
       Width = 23
       Height = 22
       Flat = True
@@ -8239,14 +8257,14 @@ object frmParametros: TfrmParametros
     end
     object Label12: TLabel
       Left = 16
-      Top = 292
+      Top = 294
       Width = 101
       Height = 13
       Caption = 'Tipo de factura inicial'
     end
     object GroupBox1: TGroupBox
       Left = 16
-      Top = 230
+      Top = 232
       Width = 122
       Height = 59
       Caption = 'Anular factura'
@@ -8290,7 +8308,7 @@ object frmParametros: TfrmParametros
     end
     object GroupBox2: TGroupBox
       Left = 141
-      Top = 230
+      Top = 232
       Width = 121
       Height = 59
       Caption = 'Modificar factura'
@@ -8358,7 +8376,7 @@ object frmParametros: TfrmParametros
     end
     object tTipo: TEdit
       Left = 197
-      Top = 292
+      Top = 294
       Width = 180
       Height = 21
       BevelKind = bkFlat
@@ -8387,7 +8405,7 @@ object frmParametros: TfrmParametros
     end
     object DBEdit13: TDBEdit
       Left = 128
-      Top = 292
+      Top = 294
       Width = 41
       Height = 21
       BevelKind = bkFlat
@@ -8398,7 +8416,7 @@ object frmParametros: TfrmParametros
     end
     object GroupBox5: TGroupBox
       Left = 16
-      Top = 317
+      Top = 319
       Width = 177
       Height = 65
       Caption = 'Horario para el grupo A'
@@ -8454,7 +8472,7 @@ object frmParametros: TfrmParametros
     end
     object GroupBox6: TGroupBox
       Left = 200
-      Top = 317
+      Top = 319
       Width = 177
       Height = 65
       Caption = 'Horario para el grupo B'
@@ -8558,7 +8576,7 @@ object frmParametros: TfrmParametros
     end
     object GroupBox9: TGroupBox
       Left = 232
-      Top = 56
+      Top = 58
       Width = 161
       Height = 81
       Caption = 'Facturas a domicilio'
@@ -8826,6 +8844,18 @@ object frmParametros: TfrmParametros
       DataField = 'par_busq_incrementada'
       DataSource = dsParametros
       TabOrder = 24
+      ValueChecked = 'True'
+      ValueUnchecked = 'False'
+    end
+    object DBCheckBox66: TDBCheckBox
+      Left = 160
+      Top = 213
+      Width = 89
+      Height = 17
+      Caption = 'Multimoneda'
+      DataField = 'par_mostrarfacturadolares'
+      DataSource = dsParametros
+      TabOrder = 25
       ValueChecked = 'True'
       ValueUnchecked = 'False'
     end
@@ -11785,6 +11815,12 @@ object frmParametros: TfrmParametros
     end
     object QParametrosRestBar_FactConItbis: TBooleanField
       FieldName = 'RestBar_FactConItbis'
+    end
+    object QParametrospar_mostrarfacturadolares: TBooleanField
+      FieldName = 'par_mostrarfacturadolares'
+    end
+    object QParametrosPAR_UnidadMedida_Producto: TBooleanField
+      FieldName = 'PAR_UnidadMedida_Producto'
     end
   end
   object dsParametros: TDataSource

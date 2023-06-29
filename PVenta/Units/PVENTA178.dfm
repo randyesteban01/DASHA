@@ -1,6 +1,6 @@
 object frmProductosDespachados: TfrmProductosDespachados
-  Left = 226
-  Top = 265
+  Left = 228
+  Top = 267
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Productos Pedidos -> Despachados'

@@ -1,8 +1,8 @@
 object RFacturaPreImpresa: TRFacturaPreImpresa
-  Left = 193
-  Top = 106
-  Width = 1639
-  Height = 808
+  Left = -7
+  Top = 0
+  Width = 1378
+  Height = 735
   VertScrollBar.Position = 308
   Caption = 'RFacturaPreImpresa'
   Color = clBtnFace

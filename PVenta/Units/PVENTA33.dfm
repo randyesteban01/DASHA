@@ -1,12 +1,12 @@
 object frmBuscaProducto: TfrmBuscaProducto
-  Left = 190
-  Top = 0
+  Left = 202
+  Top = 60
   ActiveControl = edOpcion
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'Buscar productos'
-  ClientHeight = 696
-  ClientWidth = 1188
+  ClientHeight = 659
+  ClientWidth = 1022
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -25,8 +25,8 @@ object frmBuscaProducto: TfrmBuscaProducto
   object DBGrid1: TDBGrid
     Left = 0
     Top = 0
-    Width = 1188
-    Height = 500
+    Width = 1022
+    Height = 463
     Align = alClient
     Color = clInfoBk
     Ctl3D = False
@@ -52,8 +52,8 @@ object frmBuscaProducto: TfrmBuscaProducto
   end
   object Panel1: TPanel
     Left = 0
-    Top = 500
-    Width = 1188
+    Top = 463
+    Width = 1022
     Height = 196
     Align = alBottom
     BevelInner = bvRaised

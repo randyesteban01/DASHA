@@ -549,6 +549,13 @@ type
     CEdt_ValorEmp: TcxDBCurrencyEdit;
     CEdt_CostoEmp: TcxDBCurrencyEdit;
     spUptProducto: TADOStoredProc;
+    lblUnidadMedida: TLabel;
+    cboUnidadMedida: TDBLookupComboBox;
+    QUnidadMedida: TADOQuery;
+    StringField2: TStringField;
+    StringField3: TStringField;
+    dsUnidadMedida: TDataSource;
+    QProductoscod_UnidadMedida: TStringField;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btCloseClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
@@ -1054,10 +1061,10 @@ begin
   vl_sup := 0;
   edtProv.Clear;
   tProv.Clear;
-  
+
   if dm.QParametrospar_inv_unidad_medida.Value = 'True' then
     QProductosUnidadID.Value := QMedidasUnidadID.Value;
-    
+
   QProductospro_utilizamedidor.Value  := 'False';
   QProductospro_UtilizaEnvio.Value    := 'False';
   QProductospro_UtilizaAlquiler.Value := 'False';
@@ -1165,6 +1172,7 @@ begin
   else
   begin
     PageControl1.ActivePageIndex := 0;
+    cboUnidadMedida.Enabled := true;
     QProductos.edit;
     edtProv.setfocus;
   end;
@@ -1184,6 +1192,7 @@ begin
   else
   begin
     PageControl1.ActivePageIndex := 0;
+    cboUnidadMedida.Enabled := true;
     QProductos.insert;
     DBEdit22.setfocus;
   end;
@@ -1224,6 +1233,7 @@ begin
   end;
   frmBuscaProducto.release;
   PageControl1.ActivePageIndex := 0;
+   cboUnidadMedida.Enabled := false;
   DBEdit10.SetFocus;
 end;
 
@@ -1283,7 +1293,7 @@ begin
     QLiquidacion.Open;
     QMedidas.Open;
     QUnidades.Open;
-
+    QUnidadMedida.Open;
     QDescuentoTFA.Parameters.ParamByName('emp').Value := dm.vp_cia;
     QDescuentoTFA.Open;
   end;
@@ -1538,6 +1548,16 @@ begin
   TabSheet8.Visible := dm.QParametrospar_inv_unidad_medida.Value <> 'True';
 //  gbprecios.Visible := dm.QParametrospar_inv_unidad_medida.Value <> 'True';
   btprecios.Visible := dm.QParametrospar_inv_unidad_medida.Value = 'True';
+  if (dm.QParametrosPAR_UnidadMedida_Producto.Value = true)then
+  begin
+     lblUnidadMedida.Visible := true;
+     cboUnidadMedida.Visible := true;
+  end
+  else
+  begin
+     lblUnidadMedida.Visible := false;
+     cboUnidadMedida.Visible := false;
+  end ;
 
   spAno.Value := YearOf(date);
   spinEdit1.Value := YearOf(date);

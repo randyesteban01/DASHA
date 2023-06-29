@@ -1317,6 +1317,10 @@ type
     QParametrospar_tlector_balanza: TIntegerField;
     DBCheckBox65: TDBCheckBox;
     QParametrosRestBar_FactConItbis: TBooleanField;
+    DBCheckBox66: TDBCheckBox;
+    QParametrospar_mostrarfacturadolares: TBooleanField;
+    DBCheckBox67: TDBCheckBox;
+    QParametrosPAR_UnidadMedida_Producto: TBooleanField;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormPaint(Sender: TObject);
     procedure tvOpcionesChange(Sender: TObject; Node: TTreeNode);

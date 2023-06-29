@@ -71,6 +71,7 @@ type
     DBEdit3: TDBEdit;
     QNCFFechaVenc: TDateField;
     QNCFVerificaVenc: TBooleanField;
+    QNCFdetenergeneracioncomprobante: TBooleanField;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btCloseClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
@@ -386,6 +387,7 @@ begin
   fij := frmNCF.edFijo.Text;
   frmNCF.DEdt_Venc.Date := QNCFFechaVenc.AsDateTime;
   frmNCF.ChkB_Vencimiento.Checked := QNCFVerificaVenc.Value;
+  frmNCF.chkDetenerNCF.Checked:=  QNCFdetenergeneracioncomprobante.value;
   frmNCF.ShowModal;
 
   if frmNCF.ModalResult = mrOk then
@@ -396,7 +398,7 @@ begin
     dm.Query1.SQL.Clear;
     dm.Query1.SQL.Add('update NCF set NCF_Fijo = :fij, NCF_Inicial = :ini, NCF_Final = :fin,');
     dm.Query1.SQL.Add('FechaVenc = :FechaVenc, VerificaVenc = :VerificaVenc,');
-    dm.Query1.SQL.Add('NCF_Secuencia = :sec, NCF_Status = :st');
+    dm.Query1.SQL.Add('NCF_Secuencia = :sec, NCF_Status = :st, detenergeneracioncomprobante = :dc ');
     dm.Query1.SQL.Add('where emp_codigo = :emp and suc_codigo = :suc and tdo_codigo = :tdo');
     dm.Query1.SQL.Add('and ncf_fijo = :oldNCF');
     dm.Query1.Parameters.ParamByName('emp').Value  := dm.QEmpresasEMP_CODIGO.Value;
@@ -414,7 +416,8 @@ begin
     dm.Query1.Parameters.ParamByName('fin').Value  := StrToFloat(Trim(frmNCF.edFinal.Text));
     dm.Query1.Parameters.ParamByName('sec').Value  := StrToFloat(Trim(frmNCF.edActual.Text));
     dm.Query1.Parameters.ParamByName('st').Value   := 'ACT';
-    dm.Query1.ExecSQL;
+    dm.Query1.Parameters.ParamByName('dc').Value   := frmNCF.chkDetenerNCF.Checked ;
+    dm.Query1.ExecSQL; 
 
     QNCF.Close;
     QNCF.Open;

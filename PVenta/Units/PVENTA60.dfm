@@ -1,6 +1,6 @@
 object frmConsCxC: TfrmConsCxC
-  Left = 346
-  Top = 94
+  Left = 247
+  Top = 50
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Consulta general de cuentas por cobrar'
@@ -761,6 +761,7 @@ object frmConsCxC: TfrmConsCxC
       Width = 320
       Height = 21
       DropDownRows = 20
+      Enabled = False
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -11

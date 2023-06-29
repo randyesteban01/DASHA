@@ -1,6 +1,6 @@
 object frmRepProductosDespachados: TfrmRepProductosDespachados
-  Left = 418
-  Top = 461
+  Left = 357
+  Top = 317
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Reporte de productos despachados'

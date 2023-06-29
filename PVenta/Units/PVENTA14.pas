@@ -442,11 +442,9 @@ type
     tAseguradora: TEdit;
     LB_2: TLabel;
     LB_3: TLabel;
-    DBDEdtFECHA_VENC_SEG: TDBDateEdit;
     grp2: TGroupBox;
     LB_5: TLabel;
     LB_6: TLabel;
-    DBDEdtFECHA_VENC_lic: TDBDateEdit;
     CB_TIPO_SEG: TComboBox;
     CB_TIPO_CAT_LIC: TComboBox;
     LB_4: TLabel;

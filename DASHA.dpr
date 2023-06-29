@@ -618,7 +618,8 @@ uses
   RVENTA02 in 'PVenta\Reports\RVENTA02.pas' {RFactura: TQuickRep},
   RVENTA36 in 'PVenta\Reports\RVENTA36.pas' {RCotizacion: TQuickRep},
   PVENTA249 in 'PVenta\Units\PVENTA249.pas' {frmDigitarClave},
-  Unit1 in 'PVenta\Units\Unit1.pas' {Form1};
+  Unit1 in 'PVenta\Units\Unit1.pas' {Form1},
+  PVENTA250 in 'PVenta\Units\PVENTA250.pas' {frmRepCxcGeneralSucursal};
 
 {$R *.res}
 

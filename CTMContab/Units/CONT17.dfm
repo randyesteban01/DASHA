@@ -1,6 +1,6 @@
 object frmConsMovimiento: TfrmConsMovimiento
-  Left = 323
-  Top = 163
+  Left = 135
+  Top = 17
   ActiveControl = edCuenta
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle

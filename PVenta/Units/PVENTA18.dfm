@@ -1,6 +1,6 @@
 object frmFactura: TfrmFactura
-  Left = 453
-  Top = 64
+  Left = 221
+  Top = 42
   ActiveControl = edTipo
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
@@ -949,16 +949,16 @@ object frmFactura: TfrmFactura
   end
   object Panel5: TPanel
     Left = 0
-    Top = 470
+    Top = 440
     Width = 910
-    Height = 169
+    Height = 199
     Align = alBottom
     BevelInner = bvRaised
     BevelOuter = bvLowered
     TabOrder = 3
     DesignSize = (
       910
-      169)
+      199)
     object Label19: TLabel
       Left = 434
       Top = 101
@@ -1115,15 +1115,15 @@ object frmFactura: TfrmFactura
       ParentFont = False
     end
     object lblLbTotalUS: TLabel
-      Left = 574
-      Top = 76
-      Width = 60
-      Height = 16
+      Left = 182
+      Top = 109
+      Width = 104
+      Height = 24
       Anchors = [akTop, akRight]
-      Caption = 'Total US$'
+      Caption = 'Total US$:'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -13
+      Font.Height = -20
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
@@ -1645,22 +1645,22 @@ object frmFactura: TfrmFactura
     end
     object EDT_FAC_TOTALUS: TDBEdit
       Tag = 1
-      Left = 639
-      Top = 72
-      Width = 97
-      Height = 21
+      Left = 287
+      Top = 107
+      Width = 130
+      Height = 30
       TabStop = False
       Anchors = [akTop, akRight]
       AutoSelect = False
       BevelKind = bkFlat
       BorderStyle = bsNone
       Color = clInfoBk
-      DataField = 'FAC_TOTALUS'
+      DataField = 'fac_total_dolar'
       DataSource = dsFactura
       Enabled = False
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -11
+      Font.Height = -20
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
@@ -1689,7 +1689,7 @@ object frmFactura: TfrmFactura
     Left = 0
     Top = 190
     Width = 910
-    Height = 280
+    Height = 250
     ActivePage = TabSheet1
     Align = alClient
     Style = tsFlatButtons
@@ -1702,7 +1702,7 @@ object frmFactura: TfrmFactura
         Left = 0
         Top = 35
         Width = 902
-        Height = 214
+        Height = 184
         Align = alClient
         Ctl3D = False
         DataSource = dsDetalle
@@ -1940,10 +1940,10 @@ object frmFactura: TfrmFactura
       ImageIndex = 1
       DesignSize = (
         902
-        249)
+        219)
       object Label24: TLabel
         Left = 39
-        Top = 232
+        Top = 202
         Width = 54
         Height = 13
         Anchors = [akLeft, akBottom]
@@ -1957,7 +1957,7 @@ object frmFactura: TfrmFactura
       end
       object Label25: TLabel
         Left = 207
-        Top = 232
+        Top = 202
         Width = 49
         Height = 13
         Anchors = [akLeft, akBottom]
@@ -1971,7 +1971,7 @@ object frmFactura: TfrmFactura
       end
       object Label26: TLabel
         Left = 375
-        Top = 232
+        Top = 202
         Width = 51
         Height = 13
         Anchors = [akLeft, akBottom]
@@ -1987,7 +1987,7 @@ object frmFactura: TfrmFactura
         Left = 40
         Top = 0
         Width = 870
-        Height = 226
+        Height = 196
         Anchors = [akLeft, akTop, akRight, akBottom]
         Ctl3D = False
         DataSource = dsCuentas
@@ -2047,7 +2047,7 @@ object frmFactura: TfrmFactura
         Left = 0
         Top = 0
         Width = 30
-        Height = 249
+        Height = 219
         Align = alLeft
         BevelInner = bvRaised
         BevelOuter = bvLowered
@@ -2101,7 +2101,7 @@ object frmFactura: TfrmFactura
       end
       object lbBAL: TStaticText
         Left = 431
-        Top = 232
+        Top = 202
         Width = 103
         Height = 17
         Alignment = taRightJustify
@@ -2119,7 +2119,7 @@ object frmFactura: TfrmFactura
       end
       object lbDB: TStaticText
         Left = 263
-        Top = 232
+        Top = 202
         Width = 103
         Height = 17
         Alignment = taRightJustify
@@ -2137,7 +2137,7 @@ object frmFactura: TfrmFactura
       end
       object lbCR: TStaticText
         Left = 95
-        Top = 232
+        Top = 202
         Width = 103
         Height = 17
         Alignment = taRightJustify
@@ -2584,7 +2584,9 @@ object frmFactura: TfrmFactura
         'c_desc_gral,'
       
         'Tdesc_gral, Recargo, PedidoNo, Referencia, FAC_PROPINA, NUMERO_R' +
-        'ESERVA, NIF, Tdesc_gral, porc_desc_gral, FAC_HOLD'
+        'ESERVA, NIF, Tdesc_gral, porc_desc_gral, FAC_HOLD,'
+      'fac_tasacambio, fac_total_dolar '
+      ''
       'from'
       'FACTURAS'
       'where emp_codigo = :emp'
@@ -2592,8 +2594,8 @@ object frmFactura: TfrmFactura
       'and fac_numero = :numero'
       'and fac_forma = :forma'
       'and suc_codigo = :suc')
-    Left = 456
-    Top = 219
+    Left = 464
+    Top = 187
     object QFacturaCAJ_CODIGO: TIntegerField
       FieldName = 'CAJ_CODIGO'
     end
@@ -2910,12 +2912,14 @@ object frmFactura: TfrmFactura
       currency = False
       Calculated = True
     end
-    object QFacturaFAC_TOTALUS: TCurrencyField
-      FieldKind = fkCalculated
-      FieldName = 'FAC_TOTALUS'
+    object QFacturafac_tasacambio: TCurrencyField
+      FieldName = 'fac_tasacambio'
+    end
+    object QFacturafac_total_dolar: TCurrencyField
+      Tag = 2
+      FieldName = 'fac_total_dolar'
       DisplayFormat = '#,0.00'
       currency = False
-      Calculated = True
     end
   end
   object dsFactura: TDataSource
@@ -2923,7 +2927,7 @@ object frmFactura: TfrmFactura
     OnStateChange = dsFacturaStateChange
     OnDataChange = dsFacturaDataChange
     Left = 496
-    Top = 235
+    Top = 203
   end
   object dsDetalle: TDataSource
     DataSet = QDetalle
@@ -3018,16 +3022,16 @@ object frmFactura: TfrmFactura
         'c_desc_gral,'
       
         'Tdesc_gral, Recargo, PedidoNo, Referencia, FAC_PROPINA, NUMERO_R' +
-        'ESERVA, NIF, Tdesc_gral, porc_desc_gral'
-      'from FACTURASTMP'
+        'ESERVA, NIF, Tdesc_gral, porc_desc_gral, '
+      '1.0 as fac_tasacambio from FACTURASTMP'
       
         'where emp_codigo = @empresa  and SUC_CODIGO = @sucursal and fac_' +
         'numero = @numero and tfa_codigo = @tfactura and fac_forma = @for' +
         'ma'
       'and id_facturatemporal = @id_facturatemporal'
       'order by FAC_NUMERO DESC')
-    Left = 536
-    Top = 235
+    Left = 544
+    Top = 203
     object QFacTMPCAJ_CODIGO: TIntegerField
       FieldName = 'CAJ_CODIGO'
     end
@@ -3327,6 +3331,9 @@ object frmFactura: TfrmFactura
       DisplayFormat = '#,0.00'
       Calculated = True
     end
+    object QFacTMPfac_tasacambio: TCurrencyField
+      FieldName = 'fac_tasacambio'
+    end
   end
   object QDetalleTMP: TADOQuery
     Connection = DM.ADOSigma
@@ -3409,8 +3416,8 @@ object frmFactura: TfrmFactura
         'num and tfa_codigo = :tfa and fac_forma = :for'
       'and id_facturatemporal= :id_facturatemporal'
       'order by det_secuencia')
-    Left = 568
-    Top = 235
+    Left = 576
+    Top = 203
     object QDetalleTMPDET_CANTDEVUELTA: TFloatField
       FieldName = 'DET_CANTDEVUELTA'
       Origin = 'DET_FACTURA.DET_CANTDEVUELTA'
@@ -3810,8 +3817,8 @@ object frmFactura: TfrmFactura
       'and a.emp_codigo = :emp_codigo'
       'and a.usu_codigo = :usu'
       'order by s.suc_codigo')
-    Left = 608
-    Top = 235
+    Left = 616
+    Top = 203
     object QSucursalsuc_codigo: TIntegerField
       FieldName = 'suc_codigo'
     end
@@ -3844,8 +3851,8 @@ object frmFactura: TfrmFactura
   end
   object dsSuc: TDataSource
     DataSet = QSucursal
-    Left = 640
-    Top = 235
+    Left = 648
+    Top = 211
   end
   object QReceta: TADOQuery
     Connection = DM.ADOSigma
@@ -4120,13 +4127,15 @@ object frmFactura: TfrmFactura
         Value = Null
       end>
     SQL.Strings = (
-      'select '
+      'select'
       
         'DET_CANTDEVUELTA, DET_CANTIDAD, DET_CONITBIS, DET_COSTO, DET_DES' +
         'CUENTO,'
-      
-        'DET_ITBIS, DET_PRECIO, DET_SECUENCIA, DET_STATUS, EMP_CODIGO, FA' +
-        'C_FORMA,'
+      'DET_ITBIS, DET_PRECIO, '
+      ''
+      ''
+      ''
+      ' DET_SECUENCIA, DET_STATUS, EMP_CODIGO, FAC_FORMA,'
       
         'FAC_NUMERO, PRO_BARRA, PRO_CODIGO, PRO_NOMBRE, PRO_RFABRIC, PRO_' +
         'RORIGINAL,'
@@ -4153,7 +4162,7 @@ object frmFactura: TfrmFactura
         'lizado, pro_UtilizaRenta, DET_DESCUENTO'
       ',SubPedido, Orden, Recargo, Secuencia'
       'From'
-      'DET_FACTURA'
+      'DET_FACTURA D '
       'where emp_codigo = :emp'
       'and tfa_codigo = :tipo'
       'and fac_numero = :numero'
@@ -5141,7 +5150,7 @@ object frmFactura: TfrmFactura
       'and emp_codigo = :emp_codigo'
       'order by suc_codigo')
     Left = 680
-    Top = 235
+    Top = 211
     object QSucursalDestinosuc_codigo: TIntegerField
       FieldName = 'suc_codigo'
     end
@@ -5156,7 +5165,7 @@ object frmFactura: TfrmFactura
   object dsSucDest: TDataSource
     DataSet = QSucursalDestino
     Left = 712
-    Top = 235
+    Top = 211
   end
   object QParametros: TADOQuery
     Connection = DM.ADOSigma
@@ -9018,7 +9027,7 @@ object frmFactura: TfrmFactura
       #9'ORDER BY F.FAC_NUMERO DESC )'
       #9'as temp')
     Left = 420
-    Top = 224
+    Top = 192
     object QUltPrecioPRECIO: TStringField
       FieldName = 'PRECIO'
       Size = 100
@@ -9027,7 +9036,7 @@ object frmFactura: TfrmFactura
   object dsUltimoPrecio: TDataSource
     DataSet = QUltPrecio
     Left = 384
-    Top = 224
+    Top = 200
   end
   object qReservas: TADOQuery
     Connection = DM.ADOSigma
@@ -9516,7 +9525,7 @@ object frmFactura: TfrmFactura
       ''
       'end.')
     Left = 372
-    Top = 433
+    Top = 401
     Datasets = <>
     Variables = <>
     Style = <>
@@ -9606,7 +9615,7 @@ object frmFactura: TfrmFactura
   end
   object frxBarCodeObject1: TfrxBarCodeObject
     Left = 404
-    Top = 433
+    Top = 401
   end
   object qGrabaCombos: TADOQuery
     Connection = DM.ADOSigma
@@ -10052,8 +10061,8 @@ object frmFactura: TfrmFactura
       'begin'
       ''
       'end.')
-    Left = 452
-    Top = 433
+    Left = 476
+    Top = 401
     Datasets = <>
     Variables = <>
     Style = <>
@@ -10556,8 +10565,8 @@ object frmFactura: TfrmFactura
         'where ((PRO_BENEFICIO<>BEN1) or (pro_beneficio2<>BEN2) or (pro_p' +
         'recio3<>BEN3) or (PRO_BENEFICIO4<>BEN4)) and '
       'pro_costo > 0 AND pro_codigo = @PRO')
-    Left = 800
-    Top = 368
+    Left = 688
+    Top = 304
   end
   object dsSucOrigen: TDataSource
     DataSet = QSucOrigen

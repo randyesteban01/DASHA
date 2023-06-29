@@ -347,6 +347,9 @@ begin
     REstadoCtaProv.QDocs.SQL.Add('AND sup_codigo = @SUP');
     REstadoCtaProv.QDocs.SQL.Add('AND FAC_TOTAL > 0');
     REstadoCtaProv.QDocs.SQL.Add('and FAC_FECHA <= @FECHA');
+    if (dm.QEmpresasEMP_RNC.Value = '130282943') then
+      REstadoCtaProv.QDocs.SQL.Add('and fac_numero not in	(select fac_numero from provfacturasAnteriores )');
+
     IF ckMov.Checked THEN
     cbBalance.ItemIndex := 2;
     

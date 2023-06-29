@@ -187,6 +187,9 @@ type
     QRLabel35: TQRLabel;
     QRLabel43: TQRLabel;
     QRDBText4: TQRDBText;
+    QRLabel44: TQRLabel;
+    QRLabel45: TQRLabel;
+    QRDBText5: TQRDBText;
     procedure QRBand3BeforePrint(Sender: TQRCustomBand;
       var PrintBand: Boolean);
     procedure QuickRepBeforePrint(Sender: TCustomQuickRep;

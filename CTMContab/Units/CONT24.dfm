@@ -1,6 +1,6 @@
 object frmRepAnexos: TfrmRepAnexos
-  Left = 207
-  Top = 340
+  Left = 208
+  Top = 341
   ActiveControl = cbMes
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle

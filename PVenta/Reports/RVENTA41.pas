@@ -453,7 +453,7 @@ begin
      PrintBand := true;
 
  //Titin para imprimir monto en dolares.
-   qrlNCR_MONTO.Caption := format('%n',[QNCNCR_MONTO.Value]);
+   qrlNCR_MONTO.Caption :=format('%n',[QNCNCR_MONTO.Value]);
 
    if QDocsmov_tasa.Value = 1 then
    Balance := (Balance - QNCNCR_MONTO.Value);

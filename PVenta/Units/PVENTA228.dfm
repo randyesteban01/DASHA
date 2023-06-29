@@ -1,6 +1,6 @@
 object frmRepCxCFecha: TfrmRepCxCFecha
-  Left = 864
-  Top = 375
+  Left = 606
+  Top = 293
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Reporte general de CxC a una fecha'

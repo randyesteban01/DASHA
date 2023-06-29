@@ -1,6 +1,6 @@
 object frmFacProvee: TfrmFacProvee
-  Left = 387
-  Top = 81
+  Left = 395
+  Top = 89
   ActiveControl = edProveedor
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
@@ -672,7 +672,7 @@ object frmFacProvee: TfrmFacProvee
       Height = 21
       BevelKind = bkFlat
       BorderStyle = bsNone
-      DataField = 'fac_retencion_isr'
+      DataField = 'fac_retencion'
       DataSource = dsFactura
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -1304,6 +1304,15 @@ object frmFacProvee: TfrmFacProvee
             Title.Alignment = taCenter
             Title.Caption = 'Oferta'
             Width = 36
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'cod_UnidadMedida'
+            ReadOnly = True
+            Title.Alignment = taCenter
+            Title.Caption = 'Unidad Medida'
+            Width = 80
             Visible = True
           end
           item
@@ -2554,7 +2563,7 @@ object frmFacProvee: TfrmFacProvee
       'det_cambiarprecio, det_Descuento,'
       'pro_unidad_medida, UnidadID, Medida_Precio1, Medida_Precio2,'
       'Medida_Precio3, Medida_Precio4, det_cant_unidad_medida,'
-      'det_cant_pendiente'
+      'det_cant_pendiente, cod_UnidadMedida'
       'From '
       'DET_PROVFACTURAS'
       'where '
@@ -2869,6 +2878,9 @@ object frmFacProvee: TfrmFacProvee
       FieldName = 'det_cant_pendiente'
       Precision = 10
       Size = 2
+    end
+    object QDetallecod_UnidadMedida: TStringField
+      FieldName = 'cod_UnidadMedida'
     end
   end
   object dsDetalle: TDataSource

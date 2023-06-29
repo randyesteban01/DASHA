@@ -1,10 +1,10 @@
 object frmConsEntrada: TfrmConsEntrada
-  Left = 376
-  Top = 191
+  Left = 247
+  Top = 108
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Consulta de entradas de almac'#233'n'
-  ClientHeight = 581
+  ClientHeight = 588
   ClientWidth = 990
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -28,7 +28,7 @@ object frmConsEntrada: TfrmConsEntrada
   TextHeight = 13
   object Splitter1: TSplitter
     Left = 0
-    Top = 442
+    Top = 449
     Width = 990
     Height = 6
     Cursor = crVSplit
@@ -395,7 +395,7 @@ object frmConsEntrada: TfrmConsEntrada
   end
   object Panel2: TPanel
     Left = 0
-    Top = 541
+    Top = 548
     Width = 990
     Height = 40
     Align = alBottom
@@ -525,7 +525,7 @@ object frmConsEntrada: TfrmConsEntrada
     Left = 0
     Top = 133
     Width = 990
-    Height = 309
+    Height = 316
     Align = alTop
     Anchors = [akLeft, akTop, akRight, akBottom]
     Color = clInfoBk
@@ -638,7 +638,7 @@ object frmConsEntrada: TfrmConsEntrada
   end
   object PageControl1: TPageControl
     Left = 0
-    Top = 448
+    Top = 455
     Width = 990
     Height = 93
     ActivePage = TabSheet1

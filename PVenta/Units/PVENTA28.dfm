@@ -1,11 +1,11 @@
 object frmConduce: TfrmConduce
-  Left = 316
-  Top = 71
+  Left = 346
+  Top = 22
   ActiveControl = DBEdit5
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Conduce [Salida de Almacen]'
-  ClientHeight = 624
+  ClientHeight = 599
   ClientWidth = 788
   Color = clBtnFace
   Font.Charset = ANSI_CHARSET
@@ -453,7 +453,7 @@ object frmConduce: TfrmConduce
       Top = 4
       Width = 500
       Height = 117
-      ActivePage = TabSheet1
+      ActivePage = TabSheet2
       TabOrder = 9
       object TabSheet2: TTabSheet
         Caption = 'Proveedor'
@@ -901,7 +901,7 @@ object frmConduce: TfrmConduce
   end
   object Panel5: TPanel
     Left = 0
-    Top = 531
+    Top = 506
     Width = 788
     Height = 93
     Align = alBottom
@@ -1246,7 +1246,7 @@ object frmConduce: TfrmConduce
     Left = 0
     Top = 227
     Width = 788
-    Height = 304
+    Height = 279
     ActivePage = TabSheet4
     Align = alClient
     TabOrder = 2
@@ -1256,7 +1256,7 @@ object frmConduce: TfrmConduce
         Left = 0
         Top = 0
         Width = 780
-        Height = 276
+        Height = 251
         Align = alClient
         Ctl3D = False
         DataSource = dsDetalle
@@ -1444,7 +1444,7 @@ object frmConduce: TfrmConduce
         Left = 0
         Top = 0
         Width = 30
-        Height = 244
+        Height = 219
         Align = alLeft
         BevelInner = bvRaised
         BevelOuter = bvLowered
@@ -1498,7 +1498,7 @@ object frmConduce: TfrmConduce
       end
       object Panel1: TPanel
         Left = 0
-        Top = 244
+        Top = 219
         Width = 780
         Height = 32
         Align = alBottom
@@ -1609,7 +1609,7 @@ object frmConduce: TfrmConduce
         Left = 30
         Top = 0
         Width = 750
-        Height = 244
+        Height = 219
         Align = alClient
         Ctl3D = False
         DataSource = dsCuentas
@@ -2893,7 +2893,7 @@ object frmConduce: TfrmConduce
     SQL.Strings = (
       'DECLARE @CANTCOT NUMERIC(18,2),'
       '        @CANTENT NUMERIC(18,2),'
-      '        @CANT NUMERIC(18,2),'
+      '        @CANT NUMERIC(18,2),'#9
       '        @PROD INT,'
       '        @DEP INT,'
       '        @COT INT,'
@@ -2904,6 +2904,7 @@ object frmConduce: TfrmConduce
       'SET @COT = :COT'
       'SET @CANT = 0'
       'DECLARE ProdInfo CURSOR FOR '
+      ''
       'SELECT DC.PRO_CODIGO , DC.DET_CANTIDAD'
       'FROM COTIZACION C '
       
@@ -2912,6 +2913,7 @@ object frmConduce: TfrmConduce
       
         'WHERE C.DEP_CODIGO = @DEP AND C.COT_STATUS = '#39'EMI'#39' AND C.COT_NUM' +
         'ERO = @COT'
+      ''
       'OPEN ProdInfo'
       'FETCH NEXT FROM ProdInfo INTO @PROD, @CANTCOT'
       'WHILE @@fetch_status = 0'
@@ -2929,17 +2931,18 @@ object frmConduce: TfrmConduce
       ''
       'SET @CANT = @CANT+(@CANTCOT-@CANTENT)'
       ''
+      'UPDATE DET_COTIZACION '
+      'SET det_cantidad_disponible =det_cantidad - @CANTENT'
+      
+        'WHERE cot_numero = @COT AND emp_codigo = @EMP and pro_codigo=@PR' +
+        'OD'
+      ''
+      'print @CANTENT '
+      ''
       'FETCH NEXT FROM ProdInfo INTO @PROD, @CANTCOT'
       'END'
       'CLOSE ProdInfo'
-      'DEALLOCATE ProdInfo'
-      ''
-      'IF @CANT <=0 BEGIN '
-      'UPDATE Cotizacion '
-      'SET cot_status = '#39'COM'#39
-      'WHERE cot_numero = @COT AND emp_codigo = @EMP'
-      'END'
-      '')
+      'DEALLOCATE ProdInfo')
     Left = 312
     Top = 328
   end

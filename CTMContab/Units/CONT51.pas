@@ -37,6 +37,7 @@ type
     ckconduce: TCheckBox;
     ckdevventa: TCheckBox;
     ckdevcompra: TCheckBox;
+    ckFactRes: TCheckBox;
     procedure btCloseClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
@@ -262,7 +263,19 @@ begin
         dm.Query1.ExecSQL;
       end;
 
-      
+       if ckFactRes.Checked then
+      begin
+        // Pasando Facturas del ResBar
+        dm.Query1.Close;
+        dm.Query1.SQL.Clear;
+        dm.Query1.SQL.Add('execute contpr_pase_facturasResBar :emp, :suc, :fec1, :fec2');
+        dm.Query1.Parameters.ParamByName('emp').Value := dm.QEmpresasEMP_CODIGO.Value;
+        dm.Query1.Parameters.ParamByName('fec1').Value   := fecha1.Date;
+        dm.Query1.Parameters.ParamByName('fec2').Value   := fecha2.Date;
+        dm.Query1.Parameters.ParamByName('suc').Value    := DBLookupComboBox2.KeyValue;
+        dm.Query1.ExecSQL;
+      end;
+
 
       if ckliq.Checked then
       begin

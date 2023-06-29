@@ -1,6 +1,6 @@
 object frmRepCxPGeneral: TfrmRepCxPGeneral
-  Left = 393
-  Top = 258
+  Left = 201
+  Top = 132
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Reporte general de cuentas por pagar'

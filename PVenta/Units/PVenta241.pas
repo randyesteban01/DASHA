@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ComCtrls, StdCtrls, Buttons, Grids, DBGrids, DBCtrls, ExtCtrls,
-  QuerySearchDlgADO, DB, IBCustomDataSet, ADODB, DateUtils;
+  QuerySearchDlgADO, DB, IBCustomDataSet, ADODB, DateUtils, Mask;
 
 type
   TfrmConsFacturasRestBar = class(TForm)
@@ -57,12 +57,6 @@ type
     QCuentascat_nombre: TStringField;
     QCuentasdet_origen: TStringField;
     QCuentasdet_monto: TBCDField;
-    QCuentasemp_codigo: TIntegerField;
-    QCuentassuc_codigo: TIntegerField;
-    QCuentasfac_forma: TStringField;
-    QCuentastfa_codigo: TIntegerField;
-    QCuentasfac_numero: TIntegerField;
-    QCuentasdet_secuencia: TIntegerField;
     dsCuentas: TDataSource;
     QForma: TADOQuery;
     dsFroma: TDataSource;
@@ -116,6 +110,30 @@ type
     QFormaDEVUELTA: TCurrencyField;
     QFacturasPropina: TCurrencyField;
     QFacturasRNC: TStringField;
+    Label2: TLabel;
+    edCliente: TEdit;
+    SpeedButton2: TSpeedButton;
+    tCliente: TEdit;
+    QFacturasTipoFactura: TIntegerField;
+    Label8: TLabel;
+    DBLookupComboBox2: TDBLookupComboBox;
+    QSucursal: TADOQuery;
+    QSucursalsuc_codigo: TIntegerField;
+    QSucursalsuc_nombre: TStringField;
+    QSucursalalm_codigo: TIntegerField;
+    QSucursalemp_codigo: TIntegerField;
+    dsSuc: TDataSource;
+    Label7: TLabel;
+    QFacturasSumSubTotal: TCurrencyField;
+    lbSubTotal: TStaticText;
+    lbPropina: TStaticText;
+    Label10: TLabel;
+    lbDescuento: TStaticText;
+    Label12: TLabel;
+    lbitbis: TStaticText;
+    Label13: TLabel;
+    Label18: TLabel;
+    lbTotal: TStaticText;
     procedure btTipoClick(Sender: TObject);
     procedure SpeedButton5Click(Sender: TObject);
     procedure SpeedButton4Click(Sender: TObject);
@@ -127,13 +145,33 @@ type
     procedure btcodificarClick(Sender: TObject);
     procedure dsFacturasDataChange(Sender: TObject; Field: TField);
     procedure BitBtn2Click(Sender: TObject);
+    procedure SpeedButton2Click(Sender: TObject);
+    procedure btbuscacuentaClick(Sender: TObject);
+    procedure bteliminacuentaClick(Sender: TObject);
+    procedure QCuentasAfterDelete(DataSet: TDataSet);
+    procedure QCuentasAfterEdit(DataSet: TDataSet);
+    procedure QCuentasAfterInsert(DataSet: TDataSet);
+    procedure QCuentasAfterPost(DataSet: TDataSet);
+    procedure QCuentasBeforeDelete(DataSet: TDataSet);
+    procedure QCuentasBeforePost(DataSet: TDataSet);
+    procedure QCuentasNewRecord(DataSet: TDataSet);
+    procedure QFacturasAfterOpen(DataSet: TDataSet);
+    procedure QFacturasAfterScroll(DataSet: TDataSet);
+    procedure btCloseClick(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
   private
     { Private declarations }
   public
-    
+    Debitos, Creditos : Double;
     Modifica, Elimina : Boolean;
     vl_consulta : String;
+    SubTotal, Propina: Double;
+    Descuento,itbis,total: Double;
+    
     { Public declarations }
+     Procedure Totalizar;
+     Procedure TotalizarFacturas;
+
   end;
 
 var
@@ -145,6 +183,93 @@ uses
   SIGMA01, RVENTA133;
 
 {$R *.dfm}
+
+
+procedure TfrmConsFacturasRestBar.Totalizar;
+var
+  Punt : TBookMark;
+  PuntFact : TBookMark;
+begin
+  if not QCuentas.Active then QCuentas.Open;
+  Debitos  := 0;
+  Creditos := 0;
+  Punt := QCuentas.GetBookmark;
+  QCuentas.DisableControls;
+  QCuentas.First;
+  while not QCuentas.Eof do
+  begin
+    if QCuentasDET_ORIGEN.Value = 'Debito' then
+      Debitos  := Debitos  + StrToFloat(Format('%10.2f',[QCuentasDET_MONTO.Value]))
+    else
+      Creditos := Creditos + StrToFloat(Format('%10.2f',[QCuentasDET_MONTO.Value]));
+
+    QCuentas.Next;
+  end;
+  QCuentas.GotoBookmark(Punt);
+  QCuentas.EnableControls;
+  lbCR.Caption  := Format('%n',[Creditos]);
+  lbDB.Caption  := Format('%n',[Debitos]);
+  lbBAL.Caption := Format('%n',[Debitos-Creditos]);
+  if Trim(lbBAL.Caption) <> '0.00' then
+    lbBAL.Font.Color := clRed
+  else
+    lbBAL.Font.Color := clBlack;
+
+  //Totales de las facturas
+  {if not QFacturas.Active then QFacturas.Open;
+  SubTotal  := 0;
+  Propina := 0;
+
+  PuntFact := QFacturas.GetBookmark;
+  QFacturas.DisableControls;
+  QFacturas.First;
+  while not QFacturas.Eof do
+  begin
+    SubTotal  := SubTotal  + StrToFloat(Format('%10.2f',[QFacturasTOTAL.Value]));
+    QFacturas.Next;
+  end;
+  QFacturas.GotoBookmark(PuntFact);
+  QFacturas.EnableControls;
+ lbSubTotal.Caption  := Format('%n',[SubTotal]);
+ }
+end;
+
+procedure TfrmConsFacturasRestBar.TotalizarFacturas;
+var
+  PuntFact : TBookMark;
+begin
+
+  //Totales de las facturas
+  if not QFacturas.Active then QFacturas.Open;
+  SubTotal  := 0;
+  Propina := 0;
+  Descuento:=0;
+  itbis:=0;
+  total:=0;
+
+  PuntFact := QFacturas.GetBookmark;
+  QFacturas.DisableControls;
+  QFacturas.First;
+  while not QFacturas.Eof do
+  begin
+    SubTotal  := SubTotal  + StrToFloat(Format('%10.2f',[QFacturasTOTAL.Value])) - StrToFloat(Format('%10.2f',[QFacturasitbis.Value])) - StrToFloat(Format('%10.2f',[QFacturasPropina.Value])) - StrToFloat(Format('%10.2f',[QFacturasDescuento.Value]));
+    Propina  := Propina  + StrToFloat(Format('%10.2f',[QFacturasPropina.Value]));
+    Descuento  := Descuento  + StrToFloat(Format('%10.2f',[QFacturasDescuento.Value]));
+    itbis  := itbis  + StrToFloat(Format('%10.2f',[QFacturasitbis.Value]));
+    total  := total  + StrToFloat(Format('%10.2f',[QFacturasTOTAL.Value]));
+
+    QFacturas.Next;
+  end;
+  QFacturas.GotoBookmark(PuntFact);
+  QFacturas.EnableControls;
+  lbSubTotal.Caption  := Format('%n',[SubTotal]);
+  lbPropina.Caption  := Format('%n',[Propina]);
+  lbDescuento.Caption  := Format('%n',[Descuento]);
+  lbItbis.Caption  := Format('%n',[itbis]);
+  lbTotal.Caption  := Format('%n',[total]);
+
+end;
+
 
 procedure TfrmConsFacturasRestBar.btTipoClick(Sender: TObject);
 begin
@@ -281,9 +406,14 @@ begin
   if trim(edCaja.text) <> '' then
     QFacturas.sql.add('and CAJAID = '+trim(edCaja.text));
 
+ if trim(edCliente.text) <> '' then
+       QFacturas.sql.add('and cli_codigo = '+trim(edCliente.text));
 
   if trim(edNombre.text) <> '' then
     QFacturas.sql.add('and nombre like '+#39+trim(edNombre.text)+#39);
+
+  if trim(DBLookupComboBox2.text) <> '' then
+    QFacturas.sql.add('and suc_codigo = '+#39+FloatToStr(DBLookupComboBox2.KeyValue)+#39);
 
   if cbStatus.ItemIndex = 1 then
      QFacturas.sql.add('and Estatus = '+#39+'ANU'+#39)
@@ -316,7 +446,7 @@ begin
   QFacturas.open;
 
   lbCantidad.caption := inttostr(QFacturas.recordcount)+' Facturas';
-
+   TotalizarFacturas;
   DBGrid1.setfocus;
 end;
 
@@ -351,7 +481,56 @@ var
   CtaTipoFactura, todo : String;
   TotalCosto, TotalNC : double;
 begin
-{  if dm.QContabpar_codifica_venta_familia.Value <> 'True' then
+if MessageDlg('Codificar la lista completa?', mtConfirmation, [mbyes, mbno],0) = mryes then
+      todo := 'si'
+    else
+      todo := 'no';
+    if todo = 'no' then
+    begin
+
+  //Procedimeinto que graba la factura
+  dm.Query1.close;
+  dm.Query1.sql.clear;
+  dm.Query1.sql.add('exec RECALCULARCUENTASCONTABLES :numero,:emp, :suc');
+  dm.Query1.Parameters.parambyname('emp').Value    := QFacturasEMP_CODIGO.value;
+  dm.Query1.Parameters.parambyname('suc').Value    := QFacturasSUC_CODIGO.Value;
+  dm.Query1.Parameters.parambyname('numero').Value := QFacturasfacturaid.value;
+  dm.Query1.ExecSQL;
+  QCuentas.Close;
+  QCuentas.Open;
+  Messagedlg('CODIFICACION TERMINADA',mtInformation, [mbok],0);
+end
+else
+begin
+     ProgressBar1.Visible := true;
+      Application.ProcessMessages;
+      ProgressBar1.Max := QFacturas.RecordCount;
+      ProgressBar1.Position := 0;
+      QFacturas.DisableControls;
+      QFacturas.First;
+      while not QFacturas.Eof do
+      begin
+        ProgressBar1.Position := ProgressBar1.Position + 1;
+        Application.ProcessMessages;
+          dm.Query1.close;
+          dm.Query1.sql.clear;
+          dm.Query1.sql.add('exec RECALCULARCUENTASCONTABLES :numero,:emp, :suc');
+          dm.Query1.Parameters.parambyname('emp').Value    := QFacturasEMP_CODIGO.value;
+          dm.Query1.Parameters.parambyname('suc').Value    := QFacturasSUC_CODIGO.Value;
+          dm.Query1.Parameters.parambyname('numero').Value := QFacturasfacturaid.value;
+          dm.Query1.ExecSQL;
+          QCuentas.Close;
+          QCuentas.Open;
+
+        QFacturas.Next;
+      end;
+      Messagedlg('CODIFICACION TERMINADA',mtInformation, [mbok],0);
+      ProgressBar1.Visible := false;
+      QFacturas.First;
+      QFacturas.EnableControls;
+end;
+
+{ if dm.QContabpar_codifica_venta_familia.Value <> 'True' then
   begin
     if MessageDlg('Codificar la lista completa?', mtConfirmation, [mbyes, mbno],0) = mryes then
       todo := 'si'
@@ -1317,6 +1496,9 @@ QDetalle.Open;
 
 QForma.Close;
 QForma.Open;
+
+QCuentas.Close;
+QCuentas.Open;
 end;
 
 procedure TfrmConsFacturasRestBar.BitBtn2Click(Sender: TObject);
@@ -1330,7 +1512,7 @@ begin
     RepListaRestBar.QTickets.Close;
     RepListaRestBar.QTickets.SQL.Clear;
     RepListaRestBar.QTickets.SQL.Add
-    ('select Fecha, Caja, Propina, FacturaID, NCF, Total Monto, Itbis, Descuento, Estatus  from vw_FacturasRestBar  WHERE Estatus not in (''SER'', ''ANU'')');
+    ('select Fecha, Caja, Propina, FacturaID, NCF, Total Monto, Itbis, Descuento, Estatus, Total-Itbis-Propina as SubTotal  from vw_FacturasRestBar  WHERE Estatus not in (''SER'', ''ANU'')');
 
      if (trim(edFac1.Text) <> '') and (trim(edFac2.Text) <> '') then
      RepListaRestBar.QTickets.sql.add('and FacturaID between '+edFac1.Text+' and '+edFac2.Text);
@@ -1384,6 +1566,170 @@ begin
     RepListaRestBar.PrinterSetup;
     RepListaRestBar.Preview;
     RepListaRestBar.Destroy;
+end;
+
+procedure TfrmConsFacturasRestBar.SpeedButton2Click(Sender: TObject);
+begin
+  search.AliasFields.clear;
+  search.AliasFields.add('Nombre');
+  search.AliasFields.add('Código');
+  search.AliasFields.add('Referencia');
+  Search.Query.clear;
+  Search.Query.add('select cli_nombre, cli_codigo, cli_referencia');
+  Search.Query.add('from clientes');
+  Search.Query.add('where emp_codigo = '+inttostr(dm.vp_cia));
+
+  if dm.QParametrosPAR_CODIGOCLIENTE.value = 'I' then
+     Search.ResultField := 'cli_Codigo'       ;
+
+  Search.Title := 'Listado de Clientes';
+  if Search.execute then
+  begin
+    edCliente.text := Search.ValueField;
+    dm.Query1.close;
+    dm.Query1.sql.clear;
+    dm.Query1.sql.add('select cli_nombre, cli_codigo, cli_referencia from clientes');
+    dm.Query1.sql.add('where emp_codigo = :emp');
+    if dm.QParametrosPAR_CODIGOCLIENTE.value = 'I' then
+       dm.Query1.sql.add('and cli_codigo = :cod') ;
+
+    dm.Query1.Parameters.parambyname('emp').Value := dm.vp_cia;
+    if dm.QParametrosPAR_CODIGOCLIENTE.value = 'I' then
+       dm.Query1.Parameters.parambyname('cod').Value := strtoint(trim(edCliente.text))
+    else
+       dm.Query1.Parameters.parambyname('cod').Value := trim(edCliente.text);
+    dm.Query1.open;
+    if dm.Query1.recordcount = 0 then
+      messagedlg('CLIENTE NO EXISTE',mterror,[mbok],0)
+    else
+      tCliente.text := dm.Query1.fieldbyname('cli_nombre').asstring;
+    edCliente.setfocus;
+    btRefreshClick(self);
+  end;
+
+end;
+
+procedure TfrmConsFacturasRestBar.btbuscacuentaClick(Sender: TObject);
+begin
+  Search.Query.Clear;
+  Search.AliasFields.Clear;
+  Search.Query.Add('select cat_nombre, cat_cuenta');
+  Search.Query.Add('from contcatalogo');
+  Search.Query.Add('where emp_codigo = '+IntToStr(dm.vp_cia));
+  Search.Query.Add('and cat_movimiento = '+#39+'S'+#39);
+  Search.AliasFields.Add('Descripción');
+  Search.AliasFields.Add('Cuenta');
+  Search.ResultField := 'cat_cuenta';
+  Search.Title := 'Catalogo de Cuentas';
+  if Search.execute then
+  begin
+    QCuentas.Open;
+    QCuentas.Edit;
+    QCuentascat_cuenta.Value := Search.ValueField;
+  end;
+
+end;
+
+procedure TfrmConsFacturasRestBar.bteliminacuentaClick(Sender: TObject);
+begin
+  if messagedlg('DESEA ELIMINAR LA CUENTA?',mtconfirmation,[mbyes,mbno],0) = mryes then
+  begin
+    QCuentas.Delete
+  end;
+  GridCuentas.setfocus;
+
+end;
+
+procedure TfrmConsFacturasRestBar.QCuentasAfterDelete(DataSet: TDataSet);
+begin
+//  QCuentas.UpdateBatch;
+  Totalizar;
+
+end;
+
+procedure TfrmConsFacturasRestBar.QCuentasAfterEdit(DataSet: TDataSet);
+begin
+//  if not Modifica then QCuentas.Cancel;
+
+end;
+
+procedure TfrmConsFacturasRestBar.QCuentasAfterInsert(DataSet: TDataSet);
+begin
+//  if not Modifica then QCuentas.Cancel;
+
+end;
+
+procedure TfrmConsFacturasRestBar.QCuentasAfterPost(DataSet: TDataSet);
+begin
+//  QCuentas.UpdateBatch;
+  Totalizar;
+
+end;
+
+procedure TfrmConsFacturasRestBar.QCuentasBeforeDelete(DataSet: TDataSet);
+begin
+//  if not Elimina then Abort;
+
+end;
+
+procedure TfrmConsFacturasRestBar.QCuentasBeforePost(DataSet: TDataSet);
+begin
+  {     if QCuentas.State = dsInsert then
+  begin
+    dm.Query1.Close;
+    dm.Query1.SQL.Clear;
+    dm.Query1.SQL.Add('select isnull(max(det_secuencia),0) as maximo');
+    dm.Query1.SQL.Add('from contdet_Facturas');
+    dm.Query1.SQL.Add('where emp_codigo = :emp');
+    dm.Query1.SQL.Add('and suc_codigo = :suc');
+    dm.Query1.SQL.Add('and fac_forma = :for');
+    dm.Query1.SQL.Add('and tfa_codigo = :tfa');
+    dm.Query1.SQL.Add('and fac_numero = :num');
+    dm.Query1.Parameters.ParamByName('emp').Value := dm.vp_cia;
+    dm.Query1.Parameters.ParamByName('suc').Value := QFacturassuc_codigo.Value;
+    dm.Query1.Parameters.ParamByName('for').Value := 'A';
+    dm.Query1.Parameters.ParamByName('tfa').Value := QFacturasTipoFactura.Value;
+    dm.Query1.Parameters.ParamByName('num').Value := QFacturasfacturaid.Value;
+    dm.Query1.Open;
+    QCuentasDET_SECUENCIA.Value := dm.Query1.FieldByName('maximo').AsInteger + 1;
+  end;}
+
+end;
+
+procedure TfrmConsFacturasRestBar.QCuentasNewRecord(DataSet: TDataSet);
+begin
+{  QCuentasemp_codigo.Value := dm.vp_cia;
+  QCuentassuc_codigo.Value := QFacturassuc_codigo.Value;
+  QCuentasfac_forma.Value  := 'A';
+  QCuentastfa_codigo.Value := QFacturasTipoFactura.Value;
+  QCuentasfac_numero.Value := QFacturasfacturaid.Value;
+    }
+end;
+
+procedure TfrmConsFacturasRestBar.QFacturasAfterOpen(DataSet: TDataSet);
+begin
+//  if not QCuentas.Active then QCuentas.Open;
+
+end;
+
+procedure TfrmConsFacturasRestBar.QFacturasAfterScroll(DataSet: TDataSet);
+begin
+ Totalizar
+end;
+
+procedure TfrmConsFacturasRestBar.btCloseClick(Sender: TObject);
+begin
+close;
+end;
+
+procedure TfrmConsFacturasRestBar.FormActivate(Sender: TObject);
+begin
+ if not QSucursal.Active then
+  begin
+    QSucursal.Parameters.ParamByName('usu').Value := dm.Usuario;
+    QSucursal.Open;
+    DBLookupComboBox2.KeyValue := QSucursalsuc_codigo.Value;
+  end;
 end;
 
 end.

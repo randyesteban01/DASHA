@@ -1,6 +1,6 @@
 object frmEntradasDiario: TfrmEntradasDiario
-  Left = 746
-  Top = 222
+  Left = 432
+  Top = 181
   ActiveControl = DBEdit1
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle

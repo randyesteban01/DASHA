@@ -1,6 +1,6 @@
 object frmRepSituacion: TfrmRepSituacion
-  Left = 530
-  Top = 116
+  Left = 748
+  Top = 168
   ActiveControl = cbMes
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle

@@ -397,6 +397,8 @@ type
     qRevisarAlmDupliExist: TADOQuery;
     QUsuariosusu_modifica_nombreprod: TBooleanField;
     QUsuariosusu_elimina_factura_temporal: TBooleanField;
+    QParametrospar_mostrarfacturadolares: TBooleanField;
+    QParametrosPAR_UnidadMedida_Producto: TBooleanField;
     procedure IBDatabaseAfterConnect(Sender: TObject);
     procedure QEmpresasCalcFields(DataSet: TDataSet);
     procedure DataModuleCreate(Sender: TObject);

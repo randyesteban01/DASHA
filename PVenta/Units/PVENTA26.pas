@@ -573,7 +573,27 @@ begin
       QDetalledet_costo.Value   := dm.Query1.fieldbyname('pro_costo').AsFloat;
       QDetalleUnidadID.Value := dm.Query1.fieldbyname('UnidadID').AsString;
 
-
+      if dm.Query1.fieldbyname('pro_descmax').asfloat = 0 then
+        begin
+          Query1.Close;
+          Query1.SQL.Clear;
+          Query1.SQL.Add('select top 1 descuento from Prod_Descuentos_TipoFac');
+          Query1.SQL.Add('where emp_codigo = :emp');
+          Query1.SQL.Add('and pro_codigo = :pro');
+          Query1.Parameters.ParamByName('emp').Value := dm.vp_cia;
+          Query1.Parameters.ParamByName('pro').Value := dm.Query1.fieldbyname('pro_codigo').AsInteger;
+          Query1.Open;
+          if Query1.RecordCount > 0 then
+          begin
+            if Query1.FieldByName('descuento').AsFloat > 0 then
+              QDetalleDET_DESCMAX.Value := Query1.FieldByName('descuento').AsFloat;
+          end;
+        end
+        else
+          QDetalleDET_DESCMAX.Value   := dm.Query1.fieldbyname('pro_descmax').asfloat;
+          end;
+  end;
+  
       //Buscando escalas
       if (QDetalleDET_MANEJAESCALA.Value = 'True') and (QDetalleDET_ESCALA.IsNull) then
       begin
@@ -631,26 +651,9 @@ begin
         end;
       end;
     end;
-    if dm.Query1.fieldbyname('pro_descmax').asfloat = 0 then
-        begin
-          Query1.Close;
-          Query1.SQL.Clear;
-          Query1.SQL.Add('select top 1 descuento from Prod_Descuentos_TipoFac');
-          Query1.SQL.Add('where emp_codigo = :emp');
-          Query1.SQL.Add('and pro_codigo = :pro');
-          Query1.Parameters.ParamByName('emp').Value := dm.vp_cia;
-          Query1.Parameters.ParamByName('pro').Value := dm.Query1.fieldbyname('pro_codigo').AsInteger;
-          Query1.Open;
-          if Query1.RecordCount > 0 then
-          begin
-            if Query1.FieldByName('descuento').AsFloat > 0 then
-              QDetalleDET_DESCMAX.Value := Query1.FieldByName('descuento').AsFloat;
-          end;
-        end
-        else
-          QDetalleDET_DESCMAX.Value   := dm.Query1.fieldbyname('pro_descmax').asfloat;
-          end;
-  end;
+
+
+
   end;
 
 
@@ -1755,7 +1758,8 @@ begin
   QDetalleDET_CONITBIS.value := UpperCase(QDetalleDET_CONITBIS.value);
 
   if not QDetallePRO_CODIGO.IsNull then
-  begin
+  begin    
+
     if (FactDebajoCosto <> 'True') and (dm.QUsuariosusu_debajo_costo.Value <> 'True') then
     begin
       if (StrToFloat(format('%10.2F',[QDetalledet_costo.AsFloat])) > 0) and (dm.QParametrosPAR_DEBAJOCOSTO.Value = 'False') then

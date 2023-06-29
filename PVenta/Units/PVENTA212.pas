@@ -173,8 +173,10 @@ begin
     dm.Query1.open;
 
     if dm.Query1.recordcount > 0 then
+    begin
        prod := dm.Query1.FieldByName('pro_codigo').asinteger;
-
+       tprod.text := dm.Query1.fieldbyname('pro_nombre').asstring;
+    end;
     edProd.SetFocus;
   end;
   frmBuscaProducto.release;

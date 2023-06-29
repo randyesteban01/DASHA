@@ -1,11 +1,11 @@
 object frmBoleteria: TfrmBoleteria
-  Left = 441
-  Top = 277
+  Left = 239
+  Top = 108
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Boleter'#237'a'
-  ClientHeight = 475
-  ClientWidth = 1046
+  ClientHeight = 481
+  ClientWidth = 1041
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -21,6 +21,9 @@ object frmBoleteria: TfrmBoleteria
   OnCreate = FormCreate
   OnKeyDown = FormKeyDown
   OnKeyPress = FormKeyPress
+  DesignSize = (
+    1041
+    481)
   PixelsPerInch = 96
   TextHeight = 13
   object Label3: TLabel
@@ -33,15 +36,15 @@ object frmBoleteria: TfrmBoleteria
   object pTop: TPanel
     Left = 0
     Top = 0
-    Width = 1046
+    Width = 1041
     Height = 41
     Align = alTop
     TabOrder = 0
     DesignSize = (
-      1046
+      1041
       41)
     object btnBalance: TBitBtn
-      Left = 915
+      Left = 910
       Top = 11
       Width = 127
       Height = 25
@@ -134,24 +137,6 @@ object frmBoleteria: TfrmBoleteria
       Align = alTop
       BevelOuter = bvNone
       TabOrder = 0
-      object cbSucOrigen: TDBLookupComboBox
-        Left = 2
-        Top = 2
-        Width = 315
-        Height = 33
-        DropDownRows = 20
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -21
-        Font.Name = 'Tahoma'
-        Font.Style = []
-        KeyField = 'suc_codigo'
-        ListField = 'suc_nombre'
-        ListSource = dsSucOrigen
-        ParentFont = False
-        TabOrder = 0
-        OnCloseUp = cbSucOrigenCloseUp
-      end
     end
     object Panel5: TPanel
       Left = 1
@@ -174,21 +159,6 @@ object frmBoleteria: TfrmBoleteria
         Font.Style = [fsBold]
         ParentFont = False
       end
-      object DEdt_ValidoHasta: TDateEdit
-        Left = 76
-        Top = 0
-        Width = 121
-        Height = 29
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -19
-        Font.Name = 'MS Sans Serif'
-        Font.Style = []
-        NumGlyphs = 2
-        ParentFont = False
-        TabOrder = 0
-        OnChange = DEdt_ValidoHastaChange
-      end
       object cbbHoraValido: TComboBox
         Left = 200
         Top = 0
@@ -203,7 +173,7 @@ object frmBoleteria: TfrmBoleteria
         ItemHeight = 24
         ItemIndex = 0
         ParentFont = False
-        TabOrder = 1
+        TabOrder = 0
         Text = '12:00 AM'
         OnChange = cbbHoraValidoChange
         Items.Strings = (
@@ -232,13 +202,29 @@ object frmBoleteria: TfrmBoleteria
           '10:00 PM'
           '11:00 PM')
       end
+      object DEdt_ValidoHasta: TDateTimePicker
+        Left = 82
+        Top = 0
+        Width = 117
+        Height = 32
+        Date = 37506.000000000000000000
+        Time = 37506.000000000000000000
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -19
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 1
+        OnChange = DEdt_ValidoHastaChange
+      end
     end
   end
   object Cantidad: TSpinEdit
     Left = 328
     Top = 64
     Width = 105
-    Height = 88
+    Height = 83
     Hint = 
       'Puede aumentar o disminuir la cantidad precionando las teclas + ' +
       'o -'
@@ -988,11 +974,10 @@ object frmBoleteria: TfrmBoleteria
       ParentFont = False
     end
     object LTotalCobrar: TLabel
-      Left = 1
-      Top = 36
-      Width = 215
-      Height = 44
-      Align = alClient
+      Left = 122
+      Top = 27
+      Width = 94
+      Height = 56
       Alignment = taRightJustify
       Caption = '0.00'
       Font.Charset = ANSI_CHARSET
@@ -1012,7 +997,7 @@ object frmBoleteria: TfrmBoleteria
   end
   object GroupBox1: TGroupBox
     Left = 664
-    Top = 67
+    Top = 73
     Width = 377
     Height = 409
     Caption = '  RESUMEN DE BOLETOS'
@@ -1092,6 +1077,34 @@ object frmBoleteria: TfrmBoleteria
           Visible = True
         end>
     end
+  end
+  object cbSucOrigen: TDBLookupComboBox
+    Left = 2
+    Top = 72
+    Width = 315
+    Height = 31
+    DropDownRows = 20
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -19
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    KeyField = 'suc_codigo'
+    ListField = 'suc_nombre'
+    ListSource = dsSucOrigen
+    ParentFont = False
+    TabOrder = 6
+    OnCloseUp = cbSucOrigen2CloseUp
+  end
+  object btRefresh: TBitBtn
+    Left = 666
+    Top = 44
+    Width = 75
+    Height = 25
+    Anchors = [akTop, akRight]
+    Caption = 'Refrescar >>'
+    TabOrder = 7
+    OnClick = btRefreshClick
   end
   object dsSucOrigen: TDataSource
     DataSet = QSucOrigen
@@ -1532,7 +1545,7 @@ object frmBoleteria: TfrmBoleteria
           7569636F6D7061745C6465666C616E67313033337B5C666F6E7474626C7B5C66
           305C666E696C204D532053616E732053657269663B7D7B5C66315C6673776973
           735C6663686172736574302043616C696272693B7D7D0D0A7B5C2A5C67656E65
-          7261746F722052696368656432302031302E302E32323632317D5C766965776B
+          7261746F722052696368656432302031302E302E31393034317D5C766965776B
           696E64345C756331200D0A5C706172645C71635C625C66305C66733330205B44
           425F312E22656D705F6E6F6D627265225D5C7061720D0A5C66733230205B4442
           5F312E227375635F74656C65666F6E6F225D5C7061720D0A5B44425F312E2273
@@ -1673,8 +1686,8 @@ object frmBoleteria: TfrmBoleteria
       
         'select descripcion,precio, '#39'0'#39'+rtrim(emp_codigo)+'#39'0'#39'+rtrim(suc_c' +
         'od_origen)+'#39'0'#39'+rtrim(suc_cod_destino)+substring('#39'000000000000'#39',6' +
-        '+len(rtrim(@ticket)),15)+rtrim(@ticket) codbarra from boleto_pre' +
-        'cio'
+        '+len(rtrim(@ticket)),15)+rtrim(@ticket) codbarra, suc_cod_destin' +
+        'o from boleto_precio'
       'where pre_codigo = @cod ')
     Left = 240
     Top = 320
@@ -1688,6 +1701,9 @@ object frmBoleteria: TfrmBoleteria
     object qEjecutarcodbarra: TStringField
       FieldName = 'codbarra'
       Size = 15
+    end
+    object qEjecutarsuc_cod_destino: TIntegerField
+      FieldName = 'suc_cod_destino'
     end
   end
   object frxRichObject1: TfrxRichObject
@@ -1755,7 +1771,7 @@ object frmBoleteria: TfrmBoleteria
           7569636F6D7061745C6465666C616E67313033337B5C666F6E7474626C7B5C66
           305C666E696C204D532053616E732053657269663B7D7B5C66315C6673776973
           735C6663686172736574302043616C696272693B7D7D0D0A7B5C2A5C67656E65
-          7261746F722052696368656432302031302E302E32323632317D5C766965776B
+          7261746F722052696368656432302031302E302E31393034317D5C766965776B
           696E64345C756331200D0A5C706172645C71635C625C66305C66733330205B44
           425F312E22656D705F6E6F6D627265225D5C7061720D0A5C66733230205B4442
           5F312E227375635F74656C65666F6E6F225D5C7061720D0A5B44425F312E2273
@@ -1893,13 +1909,39 @@ object frmBoleteria: TfrmBoleteria
       'SET @FECHA = :FECHA'
       'SET @HORA = :HORA'
       ''
-      'update boleto'
+      '/*update boleto'
       'set suc_cod_destino = pb.suc_cod_destino'
       'from boleto_precio pb'
       
         'inner join boleto b on pb.emp_codigo = b.emp_codigo and pb.descr' +
         'ipcion = b.descripcion'
+      '*/'
+      'SELECT '
+      '*'
+      'FROM('
+      'SELECT b.descripcion SUCURSAL,  --a.loc_nombre SUCURSAL,'
+      'COUNT(B.BOLETO) CANT, B.SUC_COD_DESTINO DESTINO'
+      'FROM BOLETO b'
+      
+        'inner join boleto_precio pb on pb.descripcion= b.descripcion and' +
+        ' b.emp_codigo= pb.emp_codigo'
+      
+        'inner join Localidades s on b.suc_cod_ORIGEN = s.suc_codigo and ' +
+        'b.emp_codigo = s.emp_codigo and pb.suc_cod_destino = s.loc_codig' +
+        'o'
+      'where b.suc_cod_origen = @SUC '
+      
+        'and b.emp_codigo = @EMP and convert(varchar(10),fecha_valida,112' +
+        ') = convert(varchar(10),@FECHA,112) and hora_valida = @HORA'
+      'GROUP BY b.descripcion, --S.loc_nombre, '
+      'B.SUC_COD_DESTINO'
+      ') AS TEMP'
+      'WHERE DESTINO IN '
+      
+        '(SELECT SUC_COD_DESTINO FROM BOLETO_PRECIO WHERE SUC_COD_ORIGEN ' +
+        '= @SUC)'
       ''
+      '/*'
       'SELECT * FROM('
       
         'SELECT S.loc_nombre SUCURSAL, COUNT(B.BOLETO) CANT, B.SUC_COD_DE' +
@@ -1916,7 +1958,7 @@ object frmBoleteria: TfrmBoleteria
       'WHERE DESTINO IN '
       
         '(SELECT SUC_COD_DESTINO FROM BOLETO_PRECIO WHERE SUC_COD_ORIGEN ' +
-        '= @SUC)')
+        '= @SUC)*/')
     Left = 800
     Top = 216
     object QRESUMENSUCURSAL: TStringField

@@ -1176,6 +1176,18 @@ end;
 
 procedure TfrmConsCxC.ChkB_cksucursalClick(Sender: TObject);
 begin
+
+IF ChkB_cksucursal.Checked THEN
+begin
+dblkcbb1.Enabled := true;
+ end
+else
+begin
+  dblkcbb1.Enabled :=false;
+  dblkcbb1.KeyValue :=0;
+end;
+
+
 WITH DM.QParametros do BEGIN
   Close;
   Parameters.ParamByName('EMP_CODIGO').Value := dm.vp_cia;

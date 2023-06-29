@@ -1,6 +1,6 @@
 object frmRepSituacionAnual: TfrmRepSituacionAnual
-  Left = 558
-  Top = 212
+  Left = 604
+  Top = 213
   ActiveControl = spAno
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle

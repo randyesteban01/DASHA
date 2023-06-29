@@ -1,10 +1,10 @@
 object frmPasarDocumentos: TfrmPasarDocumentos
-  Left = 439
-  Top = 213
+  Left = 280
+  Top = 137
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Pasar Documentos a Contabilidad'
-  ClientHeight = 281
+  ClientHeight = 292
   ClientWidth = 329
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -122,7 +122,7 @@ object frmPasarDocumentos: TfrmPasarDocumentos
   end
   object btClose: TBitBtn
     Left = 240
-    Top = 248
+    Top = 258
     Width = 75
     Height = 25
     Caption = '&Salir'
@@ -145,7 +145,7 @@ object frmPasarDocumentos: TfrmPasarDocumentos
   end
   object BitBtn1: TBitBtn
     Left = 160
-    Top = 248
+    Top = 258
     Width = 75
     Height = 25
     Caption = 'Processar >>'
@@ -323,6 +323,20 @@ object frmPasarDocumentos: TfrmPasarDocumentos
     ParentFont = False
     TabOrder = 17
   end
+  object ckFactRes: TCheckBox
+    Left = 152
+    Top = 226
+    Width = 128
+    Height = 13
+    Caption = 'Facturas de ResBar'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Verdana'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 18
+  end
   object QSucursal: TADOQuery
     Connection = DM.ADOSigma
     LockType = ltReadOnly
@@ -355,8 +369,8 @@ object frmPasarDocumentos: TfrmPasarDocumentos
       'and a.emp_codigo = :emp_codigo'
       'and a.usu_codigo = :usu'
       'order by s.suc_codigo')
-    Left = 8
-    Top = 240
+    Left = 96
+    Top = 256
     object QSucursalsuc_codigo: TIntegerField
       FieldName = 'suc_codigo'
     end
@@ -373,7 +387,7 @@ object frmPasarDocumentos: TfrmPasarDocumentos
   end
   object dsSuc: TDataSource
     DataSet = QSucursal
-    Left = 40
-    Top = 240
+    Left = 128
+    Top = 256
   end
 end

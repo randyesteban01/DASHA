@@ -256,6 +256,7 @@ type
     QDetalleSubTotal: TCurrencyField;
     QRDBText8: TQRDBText;
     QFacturaSUBTOTAL: TCurrencyField;
+    QFacturaFAC_TOTAL_DOLAR: TCurrencyField;
     procedure QRBand3BeforePrint(Sender: TQRCustomBand;
       var PrintBand: Boolean);
     procedure Qnotasf(Sender: TCustomQuickRep;
@@ -326,6 +327,7 @@ QRDBText11.Left := 320;
 QRLabel10.Left:= QRDBText11.Left;
 QRDBText10.Width := 217;
 end;
+
 
 end;
 
@@ -570,13 +572,13 @@ end;
 procedure TRFactura.QFacturaCalcFields(DataSet: TDataSet);
 begin
   if not QFacturaNCF_Fijo.isnull then
-    QFacturaNumeroCF.Value := QFacturaNCF_Fijo.Value+formatfloat('00000000',QFacturaNCF_Secuencia.Value)
+    QFacturaNumeroCF.Value :=  Trim(QFacturaNCF_Fijo.Value)+Trim(formatfloat('00000000',QFacturaNCF_Secuencia.Value))
   else
     QFacturaNumeroCF.Value := ' ';
 
   QFacturaNumero.Value := inttostr(QFacturaFAC_NUMERO.Value);
   if not QFacturaNCF_Fijo.isnull then BEGIN
-    QFacturaNumeroCF.Value := QFacturaNCF_Fijo.Text+formatfloat('00000000',QFacturaNCF_Secuencia.Value);
+    QFacturaNumeroCF.Value := Trim(QFacturaNCF_Fijo.Text)+formatfloat('00000000',QFacturaNCF_Secuencia.Value);
       //buscar vencimiento
       with QDatos do begin
       Close;
@@ -772,6 +774,10 @@ var
   a : integer;
   cambiar : TQRLabel;
 begin
+
+
+
+
  if FileExists('.\Transporte.txt') then begin
   ChildBand3.Enabled := False;
   //qrMemoMsg.Enabled  := False;

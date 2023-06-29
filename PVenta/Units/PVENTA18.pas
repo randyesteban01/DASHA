@@ -953,9 +953,11 @@ type
     QEnvioSUC_ORIGEN: TStringField;
     QEnvioSUC_DESTINO: TStringField;
     lblLbTotalUS: TLabel;
-    QFacturaFAC_TOTALUS: TCurrencyField;
     EDT_FAC_TOTALUS: TDBEdit;
     QDetalleTMPfac_nombre: TStringField;
+    QFacturafac_tasacambio: TCurrencyField;
+    QFacTMPfac_tasacambio: TCurrencyField;
+    QFacturafac_total_dolar: TCurrencyField;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormPaint(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
@@ -1185,6 +1187,7 @@ type
 
     procedure BuscaProducto (Cod : String);
     function DescuentoGeneral(desc_gral:Real):Boolean;
+   
   end;
 
 var
@@ -1818,7 +1821,7 @@ begin
 
   QFacturaMON_CODIGO.Value := dm.QParametrosMON_CODIGO.Value;
 
-   if not QFacturaMON_CODIGO.IsNull then
+  if not QFacturaMON_CODIGO.IsNull then
   begin
     Text := IntToStr(QFacturaMON_CODIGO.Value);
     dm.Query1.Close;
@@ -1838,6 +1841,25 @@ begin
     begin
       tmoneda.Text := '';
     end;
+
+     //Buscamos la tasa de cambio del dolar
+    dm.Query1.Close;
+    dm.Query1.SQL.Clear;
+    dm.Query1.SQL.Add('select mon_sigla, MON_RELACIONPESOCOMPRA from moneda');
+    dm.Query1.SQL.Add('where emp_codigo = :emp');
+    dm.Query1.SQL.Add('and mon_codigo = :mon');
+    dm.Query1.Parameters.ParamByName('emp').Value := dm.vp_cia;
+    dm.Query1.Parameters.ParamByName('mon').Value := 2;
+    dm.Query1.Open;
+    if dm.Query1.RecordCount > 0 then
+    begin
+      QFacturafac_tasacambio.Value := dm.Query1.FieldByName('MON_RELACIONPESOCOMPRA').AsFloat;
+    end
+    else
+    begin
+      QFacturafac_tasacambio.Value := 1;
+    end;
+    
   end;
 
   qOrdenesTaller.close;
@@ -2502,9 +2524,11 @@ end;
 
 procedure TfrmFactura.QDetalleCalcFields(DataSet: TDataSet);
 var
-  Venta, NumItbis : Currency;
+  Venta,VentaUSD, NumItbis : Currency;
   a : integer;
 begin
+
+
   NumItbis := (QDetalleDET_ITBIS.Value/100)+1;
   if (QDetalleDET_CONITBIS.value = 'S') and (QFacturaFAC_CONITBIS.Value = 'True') then
   begin
@@ -2520,6 +2544,7 @@ begin
       else
       if ((ckItbis.Checked) and (QDetalleCalcDesc.Value > 0)) then begin
         QDetalleCalcItbis.value   := ((Venta - QDetalleCalcDesc.value) * (QDetalleDET_ITBIS.value / 100));
+
       end
       else
       begin
@@ -2532,6 +2557,7 @@ begin
       else
       QDetalleCalcItbis.value   := 0;}
       QDetalleValor.value     := (QDetallePrecioItbis.value - QDetalleCalcDesc.value + QDetalleCalcItbis.value);
+
     end
     else
     begin
@@ -2539,22 +2565,36 @@ begin
       QDetallePrecioItbis.value := Venta;
       QDetalleCalcDesc.value    := ((QDetalleDET_PRECIO.value * QDetalleDET_CANTIDAD.Value) * QDetalleDET_DESCUENTO.value)/100;
       if (ckItbis.Checked)  then
-        QDetalleCalcItbis.value := (((QDetalleDET_PRECIO.value * QDetalleDET_CANTIDAD.Value) - QDetalleCalcDesc.value)* QDetalleDET_ITBIS.value) / 100
+      begin
+        QDetalleCalcItbis.value := (((QDetalleDET_PRECIO.value * QDetalleDET_CANTIDAD.Value) - QDetalleCalcDesc.value)* QDetalleDET_ITBIS.value) / 100  ;
+
+      end
       else
+      begin
         QDetalleCalcItbis.value := 0;
+         end ;
+
       QDetalleValor.value     := (QDetallePrecioItbis.value - QDetalleCalcDesc.value + QDetalleCalcItbis.value);
+
     end;
   end
   else
   begin
-    if (DM.QParametrospar_itbisincluido.Value = 'True') and (ckItbis.Checked) then
-    Venta := (QDetalleDET_PRECIO.value/NumItbis) * QDetalleDET_CANTIDAD.Value else
+    if (DM.QParametrospar_itbisincluido.Value = 'True') and (ckItbis.Checked)
+    then
+    begin
+    Venta := (QDetalleDET_PRECIO.value/NumItbis) * QDetalleDET_CANTIDAD.Value ;
+     end
+    else
+    begin
     Venta := (QDetalleDET_PRECIO.value) * QDetalleDET_CANTIDAD.Value;
+    end ;
     QDetalleCalcDesc.value    := (Venta * QDetalleDET_DESCUENTO.value)/100;
     QDetallePrecioItbis.value := Venta;
     QDetalleCalcItbis.value   := 0;
     QDetalleValor.value       := (Venta-QDetalleCalcDesc.value);
-  end;
+
+    end;
 
   if QDetalleDET_OFERTA.Value = 'S' then
   begin
@@ -2562,7 +2602,7 @@ begin
     begin
       if dm.QUsuariosusu_modifica_precio.Value = 'True' then
       begin
-        if Grid.Columns[a].FieldName = 'DET_PRECIO' then
+        if ((Grid.Columns[a].FieldName = 'DET_PRECIO') OR  (Grid.Columns[a].FieldName = 'det_preciousd')) then
         begin
            Grid.Columns[a].ReadOnly := True;
            break;
@@ -2576,7 +2616,7 @@ begin
     begin
       if dm.QUsuariosusu_modifica_precio.Value = 'True' then
       begin
-        if Grid.Columns[a].FieldName = 'DET_PRECIO' then
+        if ((Grid.Columns[a].FieldName = 'DET_PRECIO') OR  (Grid.Columns[a].FieldName = 'det_preciousd')) then
         begin
            Grid.Columns[a].ReadOnly := False;
            break;
@@ -2584,7 +2624,7 @@ begin
       end
       else
       begin
-        if Grid.Columns[a].FieldName = 'DET_PRECIO' then
+        if (Grid.Columns[a].FieldName = 'DET_PRECIO') OR  (Grid.Columns[a].FieldName = 'det_preciousd') then
         begin
            Grid.Columns[a].ReadOnly := True;
            break;
@@ -2597,7 +2637,7 @@ begin
   begin
     for a := 0 to Grid.Columns.Count -1 do
     begin
-      if Grid.Columns[a].FieldName = 'DET_DESCUENTO' then
+      if (Grid.Columns[a].FieldName = 'DET_DESCUENTO') OR  (Grid.Columns[a].FieldName = 'DET_DESCUENTOUSD') then
       begin
          Grid.Columns[a].ReadOnly := True;
          break;
@@ -2608,7 +2648,7 @@ begin
   begin
     for a := 0 to Grid.Columns.Count -1 do
     begin
-      if Grid.Columns[a].FieldName = 'DET_DESCUENTO' then
+      if (Grid.Columns[a].FieldName = 'DET_DESCUENTO') OR  (Grid.Columns[a].FieldName = 'DET_DESCUENTOUSD') then
       begin
         if dm.QUsuariosusu_descuento.Value = 'True' then
           Grid.Columns[a].ReadOnly := False
@@ -2619,6 +2659,7 @@ begin
     end;
   end;
 
+  
 {if (dm.QParametrospar_fac_preimpresa.Value = 'True') and (dm.QParametrospar_formato_preimpreso.Value = 'SteelTec') {then begin
 IF QFactura.State IN [DSEDIT, DSINSERT] THEN BEGIN
 QFacturaSubTotal.VALUE:=(QDetalleValor.Value*0.88231827112);
@@ -2857,8 +2898,6 @@ if (RG_BuscaDet.ItemIndex = 2) and (Buscando = False) and (Not realizado) and (D
         else
           QDetallealm_codigo.Value  := 1;
 
-
-
         QDetalleUnidadID.Value := dm.Query1.fieldbyname('UnidadID').AsString;
 
        { if not dm.Query1.fieldbyname('dep_codigo').IsNull then
@@ -2919,8 +2958,6 @@ if (RG_BuscaDet.ItemIndex = 2) and (Buscando = False) and (Not realizado) and (D
         QDetallepro_utilizamedidor.Value := utilizamedidor;
         QDetallepro_UtilizaEnvio.Value := UtilizaEnvio;
 
-     
-
         if Precio = 'Ninguno' then
         begin
           if (not QDetalleDET_MEDIDA.IsNull) and (dm.QParametrosPAR_FACMEDIDA.Value = 'True') then
@@ -2929,7 +2966,8 @@ if (RG_BuscaDet.ItemIndex = 2) and (Buscando = False) and (Not realizado) and (D
             begin
               //Unidad
               if QDetalleDET_MEDIDA.Value = 'Und' then
-                QDetalleDET_PRECIO.Value := QDetalle.FieldByName('det_'+dm.QParametrosPAR_PRECIOUND.Value).AsFloat;
+               QDetalleDET_PRECIO.Value := QDetalle.FieldByName('det_'+dm.QParametrosPAR_PRECIOUND.Value).AsFloat;
+
             end;
 
             if dm.QParametrosPAR_PRECIOEMP.Value <> 'Ninguno' then
@@ -2937,10 +2975,12 @@ if (RG_BuscaDet.ItemIndex = 2) and (Buscando = False) and (Not realizado) and (D
               //Empaque
               if QDetalleDET_MEDIDA.Value = 'Emp' then
                 QDetalleDET_PRECIO.Value := QDetalle.FieldByName('det_'+dm.QParametrosPAR_PRECIOEMP.Value).AsFloat;
+
             end;
           end
           else if dm.QParametrosPAR_FACMEDIDA.Value = 'False' then
             QDetalleDET_PRECIO.value := QDetalle.FieldByName('det_precio1').AsFloat;
+
         end
         else
         begin
@@ -2953,6 +2993,7 @@ if (RG_BuscaDet.ItemIndex = 2) and (Buscando = False) and (Not realizado) and (D
                 QDetalleDET_PRECIO.Value := QDetalle.FieldByName('det_'+dm.QParametrosPAR_PRECIOUND.Value).AsFloat
               else if Precio = dm.QParametrospar_preciound_m.Value then
                 QDetalleDET_PRECIO.Value := QDetalle.FieldByName('det_'+dm.QParametrospar_preciound_m.Value).AsFloat;
+
             end;
 
             //Empaque
@@ -2962,12 +3003,14 @@ if (RG_BuscaDet.ItemIndex = 2) and (Buscando = False) and (Not realizado) and (D
                 QDetalleDET_PRECIO.Value := QDetalle.FieldByName('det_'+dm.QParametrosPAR_PRECIOEMP.Value).AsFloat
               else if Precio = dm.QParametrospar_precioemp_m.Value then
                 QDetalleDET_PRECIO.Value := QDetalle.FieldByName('det_'+dm.QParametrospar_precioemp_m.Value).AsFloat;
+
             end;
           end
           else
           begin
             if (dm.QParametrosPAR_FACMEDIDA.Value = 'False') and (dm.QParametrospar_inv_unidad_medida.Value = 'False') then
               QDetalleDET_PRECIO.value := QDetalle.FieldByName('det_'+Precio).AsFloat;
+
           end;
         end;
 
@@ -3040,6 +3083,7 @@ if (RG_BuscaDet.ItemIndex = 2) and (Buscando = False) and (Not realizado) and (D
                 QDetalleDET_PRECIO.Value := QUnidadesCredito.Value; }
              if Precio <> '' then begin
              QDetalleDET_PRECIO.Value := QUnidades.FieldByName('Precio').AsFloat;
+
              end
              else
              begin
@@ -3142,6 +3186,7 @@ if (RG_BuscaDet.ItemIndex = 2) and (Buscando = False) and (Not realizado) and (D
 
         if ckItbis.Checked = False then
         QDetalleDET_PRECIO.Value := (QDetalleDET_PRECIO.Value);     }
+
 
         QDetalle.Post;
 
@@ -3268,6 +3313,7 @@ if (RG_BuscaDet.ItemIndex = 2) and (Buscando = False) and (Not realizado) and (D
           frmDatosMedidor.Release;
         end;
 
+
         //Si es un producto que utiliza envio
         if UtilizaEnvio = 'True' then
         begin
@@ -3358,12 +3404,11 @@ if (RG_BuscaDet.ItemIndex = 1) and (Buscando = False) and (Not realizado) and (D
       Prod := QDetallePRO_CODIGO.Value;
       end;
 
-      
 
       dm.Query1.close;
       dm.Query1.sql.clear;
-      dm.Query1.sql.add('select p.pro_codigo, p.pro_nombre, p.pro_costo, p.pro_precio1,');
-      dm.Query1.sql.add('p.pro_precio2, p.pro_precio3, p.pro_precio4, p.dep_codigo, ');
+      dm.Query1.sql.add('select p.pro_codigo, p.pro_nombre, p.pro_costo AS pro_costo, p.pro_precio1,');
+      dm.Query1.sql.add('p.pro_precio2 , p.pro_precio3, p.pro_precio4, p.dep_codigo, ');
       dm.Query1.sql.add('p.pro_roriginal, p.pro_rfabric, p.pro_itbis, p.PRO_DESCMAX,');
       dm.Query1.sql.add('p.pro_servicio, p.pro_vence, p.PRO_PRECIOMENOR, p.pro_escala,');
       dm.Query1.sql.add('p.PRO_COSTOEMPAQUE, p.pro_combo, p.pro_preciomenoremp, p.pro_cantempaque,');
@@ -3375,6 +3420,8 @@ if (RG_BuscaDet.ItemIndex = 1) and (Buscando = False) and (Not realizado) and (D
       dm.Query1.sql.add('and p.pro_status = '+QuotedStr('ACT'));
       dm.Query1.Parameters.parambyname('emp').Value := dm.QParametrosPAR_INVEMPRESA.Value;
       dm.Query1.Parameters.parambyname('cod').Value := QDetallePRO_RORIGINAL.Text;
+
+
       dm.Query1.open;
       if not dm.Query1.fieldbyname('pro_codigo').IsNull  then
         Prod := dm.Query1.fieldbyname('pro_codigo').AsInteger;
@@ -3743,6 +3790,21 @@ if (RG_BuscaDet.ItemIndex = 1) and (Buscando = False) and (Not realizado) and (D
 
         if ckItbis.Checked = False then
         QDetalleDET_PRECIO.Value := (QDetalleDET_PRECIO.Value);      }
+        //MRUIZ
+    //si el parametro es multimoneda se procede a realizar el calculo en precio
+    { if dm.QParametrospar_mostrarfacturadolares.Value = true then
+      BEGIN
+           IF  QFacturaMON_CODIGO.value = 2 THEN
+            BEGIN
+              IF QFacturafac_tasacambio.Value>0 THEN
+              BEGIN
+                QDetalledet_preciousd.Value :=QDetalleDET_PRECIO.Value / QFacturafac_tasacambio.Value;
+
+	              END ;
+            END;
+      END; }
+
+        //QDetalleDET_PRECIOUSD.Value :=QDetalleDET_PRECIO.Value;
 
         QDetalle.Post;
 
@@ -4340,6 +4402,7 @@ if (not FileExists('.\Transporte.Txt')) then begin
 
         if ckItbis.Checked = False then
         QDetalleDET_PRECIO.Value := (QDetalleDET_PRECIO.Value);  }
+         //dolares MRUIZ
 
         QDetalle.Post;
 
@@ -4681,6 +4744,12 @@ begin
   frmBuscaProducto.vp_suc := QFacturaSUC_CODIGO.Value;
   primera := true;
   GRID.SelectedIndex := 2;
+
+  //Enviamos la moneda en la que se va facturar  - MRUIZ
+  frmBuscaProducto.TasaCambio:=QFacturaFAC_TASA.Value;
+  frmBuscaProducto.codigomoneda:=QFacturaMON_CODIGO.value;
+  
+  //frmBuscaProducto.ckactiva.Checked:=true;
   while (frmBuscaProducto.ckactiva.Checked) or (Primera) do
   begin
 
@@ -4707,6 +4776,7 @@ begin
       end;
       QDetalle.Edit;
       QDetalleDET_ESCALA.Value := frmBuscaProducto.QEscalasESC_ESCALA.Value;
+      //QDetalleDET_PRECIOUSD.Value := 2536; 
       //CAMBIO REALIZADO POR JHONATTAN GOMEZ 16/02/2018
       CASE RG_BuscaDet.ItemIndex OF
 
@@ -4715,21 +4785,27 @@ begin
       2:QDetallePRO_RFABRIC.value := Relleno+frmBuscaProducto.QProductosPRO_RFABRIC.value;
       END;
 
-     
-      //CAMBIO REALIZADO POR JHONATTAN GOMEZ 16/02/2018
 
-      if frmBuscaProducto.ckactiva.Checked then
-      begin
+
+      //CAMBIO REALIZADO POR JHONATTAN GOMEZ 16/02/2018
         QDetalle.Append;
+
+      //if frmBuscaProducto.ckactiva.Checked then
+    //  begin
+        QDetalle.Append;
+
+        //Eliminar la linea solo para Ferreteria Nunez
+        if dm.QEmpresasEMP_RNC.Value ='130282943' then
+          QDetalle.Delete;
       //  Grid.SelectedIndex := 0;
-      end;
+     // end;
     end;
   end;
   frmBuscaProducto.release;
   PageControl1.ActivePageIndex := 0;
   Grid.SelectedIndex := 0;
   Grid.setfocus;
-   QDetalle.Delete;
+
 end;
 
 procedure TfrmFactura.btSalirClick(Sender: TObject);
@@ -4758,12 +4834,25 @@ var
   PrecioReal:Double;
 
 begin
+if ((Realizado<>true)) THEN
+BEGIN
+//DOLAR
+               if dm.QParametrospar_mostrarfacturadolares.Value = true then
+                BEGIN
+                  IF  QFacturaMON_CODIGO.value = 2 THEN
+                  BEGIN
+                    IF QFacturafac_tasacambio.Value>0 THEN
+                    BEGIN
+                       QDetalleDET_PRECIO.Value:=QDetalleDET_PRECIO.Value / QFacturafac_tasacambio.Value;
+                        //QDetalle.Post;
+                    END ;
+                  END;
+                END;
+END;
 QDetalleFAC_NUMERO.Value := QFacturaFAC_NUMERO.Value;
-
 if (DM.QParametrospar_itbisincluido.Value = 'False') and (QDetalleDET_CONITBIS.Value = 'S') then
 QDetalleDET_TOTALITBIS.value := (QDetalleDET_PRECIO.value*(QDetalleDET_ITBIS.Value/100))*QDetalleDET_CANTIDAD.Value else
 QDetalleDET_TOTALITBIS.value := ((QDetalleDET_PRECIO.value/(1+(QDetalleDET_ITBIS.Value/100)))*(QDetalleDET_ITBIS.Value/100))*QDetalleDET_CANTIDAD.Value;
-
 
 IF DM.QParametrospar_busqueda_dejar_ultimo.Value = 'True' then
   dm.UltProducto := QDetallePRO_CODIGO.Text;
@@ -4872,8 +4961,8 @@ IF DM.QParametrospar_busqueda_dejar_ultimo.Value = 'True' then
 
        if (PorcReal > StrToFloat(Format('%10.2f',[QDetalleDET_DESCMAX.Value]))) and
        (dm.QUsuariosusu_excede_descuento.Value <> 'True') and
-       (dm.QParametrospar_fac_preimpresa.Value = 'True') and
-       (dm.QParametrospar_formato_preimpreso.Value <> 'Caceres&Equipos') and
+      // (dm.QParametrospar_fac_preimpresa.Value = 'True') and
+      // (dm.QParametrospar_formato_preimpreso.Value <> 'Caceres&Equipos') and
        (not QDetalleTMP.Active) then
        begin
           Application.CreateForm(tfrmPideClave, frmPideClave);
@@ -5038,6 +5127,7 @@ IF DM.QParametrospar_busqueda_dejar_ultimo.Value = 'True' then
         end;
       end;
       //Verificando Precio Minimo
+
      if (FactDebajoMinimo <> 'True') and (dm.QUsuariosusu_debajo_minimo.Value <> 'True')
      then
       begin
@@ -5114,6 +5204,45 @@ IF DM.QParametrospar_busqueda_dejar_ultimo.Value = 'True' then
       end;
     end;
 
+    //end;
+  // verificando permiso para disminuir el precio
+
+  if (dm.QUsuariosusu_disminuye_precio.Value <> 'True') then
+  begin
+    if (dm.QParametrosPAR_PRECIOUND.Value = 'Precio1') and (QDetalleDET_MEDIDA.Value = 'Und') then
+    begin
+      if QDetalleDET_PRECIO.Value < QDetalleDET_PRECIO1.Value then
+      begin
+        MessageDlg('NO PUEDE DISMINUIR EL PRECIO DEL PRODUCTO', mterror, [mbok],0);
+        abort;
+      end;
+    end
+    else if (dm.QParametrosPAR_PRECIOUND.Value = 'Precio2') and (QDetalleDET_MEDIDA.Value = 'Und') then
+    begin
+      if QDetalleDET_PRECIO.Value < QDetalleDET_PRECIO2.Value then
+      begin
+        MessageDlg('NO PUEDE DISMINUIR EL PRECIO DEL PRODUCTO', mterror, [mbok],0);
+        abort;
+      end;
+    end
+    else if (dm.QParametrosPAR_PRECIOEMP.Value = 'Precio1') and (QDetalleDET_MEDIDA.Value = 'Emp') then
+    begin
+      if QDetalleDET_PRECIO.Value < QDetalleDET_PRECIO1.Value then
+      begin
+        MessageDlg('NO PUEDE DISMINUIR EL PRECIO DEL PRODUCTO', mterror, [mbok],0);
+        abort;
+      end;
+    end
+    else if (dm.QParametrosPAR_PRECIOEMP.Value = 'Precio2') and (QDetalleDET_MEDIDA.Value = 'Emp') then
+    begin
+      if QDetalleDET_PRECIO.Value < QDetalleDET_PRECIO2.Value then
+      begin
+        MessageDlg('NO PUEDE DISMINUIR EL PRECIO DEL PRODUCTO', mterror, [mbok],0);
+        abort;
+      end;
+    end;
+  end;
+  
   if (not QDetalleVEN_CODIGO.IsNull) and (not QDetallePRO_CODIGO.IsNull) then
   begin
     //Buscando comision para el producto
@@ -6326,8 +6455,25 @@ if (Trim(QFacturafac_rnc.Text)<>'') and (QFacturatip_codigo.Value <> 1) then beg
     DBEdit11.setfocus;
     Exit;
   end
-  else if (dm.QUsuariosusu_factura_cuentas.Value = 'True') and (lbBAL.Caption <> '0.00') then
-  begin
+  else
+    dm.Query1.Close;
+    dm.Query1.SQL.Clear;
+    dm.Query1.SQL.Add('select distinct a.ncf_fijo from Alarma_Comprobantes a,');
+    dm.Query1.SQL.Add('ncf n, TipoNCF tn  where n.emp_codigo = a.emp_codigo and n.ncf_fijo = a.ncf_fijo');
+    dm.Query1.SQL.Add('and tn.tdo_codigo=n.tdo_codigo and a.ncf_cantidad = (n.NCF_Final - n.NCF_Secuencia)');
+    dm.Query1.SQL.Add('and a.emp_codigo = :emp AND n.detenergeneracioncomprobante=1');
+    dm.Query1.SQL.Add('and tn.tip_codigo = :tip_codigo and n.suc_codigo = :suc ');
+    dm.Query1.Parameters.ParamByName('emp').Value := dm.vp_cia;
+    dm.Query1.Parameters.ParamByName('suc').Value := QFacturaSUC_CODIGO.Value;
+    dm.Query1.Parameters.ParamByName('tip_codigo').Value := QFacturatip_codigo.Value;
+    dm.Query1.Open;
+    if dm.Query1.RecordCount > 0 then
+    begin
+      MessageDlg('NO ES POSIBLE REALIZAR LA FACTURA. LA SECUENCIA DEL NCF LLEGO AL FINAL.',mtError,[mbok],0);
+     // edTipo.SetFocus;
+      Exit;
+    end else if (dm.QUsuariosusu_factura_cuentas.Value = 'True') and (lbBAL.Caption <> '0.00') then
+    begin
     MessageDlg('LAS CUENTAS CONTABLES DE ESTA FACTURA'+#13+
                'NO ESTAN CUADRADAS',mtError,[mbok],0);
     PageControl1.ActivePageIndex := 1;
@@ -6400,7 +6546,8 @@ if (Trim(QFacturafac_rnc.Text)<>'') and (QFacturatip_codigo.Value <> 1) then beg
         dbCondi.setfocus;
         Exit;
       end
-      else if (QFacturaVEN_CODIGO.IsNull) or (QFacturaVEN_CODIGO.Value = 0) then
+      else if (QFacturaVEN_CODIGO.IsNull) or (QFacturaVEN_CODIGO.Value = 0)
+      or (tVendedor.Text = '') then
       begin
           showmessage('DEBE ESPECIFICAR EL VENDEDOR');
         dbVendedor.setfocus;
@@ -7230,6 +7377,20 @@ end;
                         RFactura.QFactura.Parameters.ParamByName('suc').Value    := QFacturaSUC_CODIGO.Value;
                         RFactura.QFactura.open;
                         RFactura.QDetalle.Parameters.ParamByName('par_invempresa').Value := dm.QParametrosPAR_INVEMPRESA.Value;
+
+                       
+                      //VERIFICAMOS SI TIENE ACTIVO MULTIMONEDA     MRUIZ
+                  {      if dm.QParametrospar_mostrarfacturadolares.Value = true then
+                        BEGIN
+                              RFactura.lblTotalMultimoneda.Visible :=  True;
+                              RFactura.txtTotalMultimoneda.Visible :=  True;
+
+                        end
+                        else
+                        begin
+                             RFactura.lblTotalMultimoneda.Visible :=  false;
+                              RFactura.txtTotalMultimoneda.Visible :=  false;
+                        end;  }
                         RFactura.QDetalle.open;
                         RFactura.PrinterSetup;
 
@@ -7703,6 +7864,8 @@ end;
 
             Totaliza := true;
             PageControl1.ActivePageIndex := 0;
+            dbvendedor.Text :='0';
+            tvendedor.Text :='';
             Grid.SetFocus;
 
  end;
@@ -9451,6 +9614,8 @@ end;
   if Query1.FieldByName('otros').AsString = 'Si' then
      writeln(arch, '              Otros      :'+s5+format('%n',[RFactura.QFacturaFAC_OTROS.value]));
   writeln(arch, '              Total Neto :'+s2+format('%n',[RFactura.QFacturaFAC_TOTAL.value]));
+  writeln(arch, '                             -----------');
+  writeln(arch, '              Total Neto US$:'+s3+format('%n',[RFactura.QFacturaFAC_TOTAL_DOLAR.value]));
 
 
   if   RFactura.QFacturafac_tasa.Value > 1 then begin
@@ -9778,7 +9943,11 @@ end;
 procedure TfrmFactura.btCotizaClick(Sender: TObject);
 var
   a, Moneda : integer;
+   PrecioReal:Double;
+   vieneConDescuento:Boolean;
 begin
+  vieneConDescuento:= false;
+  
   Search.AliasFields.clear;
   Search.AliasFields.add('Numero');
   Search.AliasFields.add('Nombre del Cliente');
@@ -9918,7 +10087,7 @@ begin
     Query1.sql.add('d.det_manejaescala, d.det_escala, d.pro_nombre, d.det_medida, d.det_nota, p.pro_costo,');
     Query1.sql.add('d.pro_unidad_medida, d.UnidadID, isnull(d.Medida_Precio1,d.det_precio1)Medida_Precio1, ');
     Query1.sql.add('isnull(d.Medida_Precio2,d.det_precio2)Medida_Precio2, isnull(d.Medida_Precio3,d.det_precio3)Medida_Precio3,');
-    Query1.sql.add('isnull(d.Medida_Precio4,d.det_precio4)Medida_Precio4, d.det_cant_unidad_medida,d.det_cantidad, p.pro_servicio, d.DET_DESCMAX');
+    Query1.sql.add('isnull(d.Medida_Precio4,d.det_precio4)Medida_Precio4, d.det_cant_unidad_medida,d.det_cantidad, p.pro_servicio, d.DET_DESCMAX, pro_preciomenor,pro_preciomenoremp, pro_precio4 ');
     Query1.sql.add('from det_cotizacion d, productos p');
     Query1.sql.add('where d.pro_codigo = p.pro_codigo');
     Query1.sql.add('and d.emp_codigo = :emp');
@@ -9970,8 +10139,10 @@ begin
         QDetalleDET_PRECIO1.Value    := Query1.fieldbyname('Det_Precio1').AsFloat;
         QDetalleDET_PRECIO2.Value    := Query1.fieldbyname('Det_Precio2').AsFloat;
         QDetalleDET_PRECIO3.Value    := Query1.fieldbyname('Det_Precio3').AsFloat;
-        QDetalleDET_PRECIO4.Value    := Query1.fieldbyname('Det_Precio4').AsFloat;
+        QDetalleDET_PRECIO4.Value    := Query1.fieldbyname('pro_precio4').AsFloat;
         QDetallepro_serializado.Value := Query1.fieldbyname('pro_serializado').Value;
+        QDetalleDET_PRECIOMINIMO.Value := Query1.fieldbyname('pro_preciomenor').Value;
+        QDetalleDET_PRECIOMINIMOEMP.Value := Query1.fieldbyname('pro_preciomenoremp').Value;
 
         if dm.QParametrospar_inv_unidad_medida.AsString = 'True' then
         begin
@@ -10015,40 +10186,289 @@ begin
 
         QDetallealm_codigo.Value    := QFacturaALM_CODIGO.Value;
 
-        {if not Query1.fieldbyname('dep_codigo').IsNull then
+         with qVerProductos do begin
+           Close;
+           Parameters.ParamByName('emp').Value  := DM.vp_cia;
+           Parameters.ParamByName('alm').Value  := QFacturaALM_CODIGO.Value;
+           Parameters.ParamByName('pro').Value  := QDetallePRO_CODIGO.Value;
+
+           if dm.QParametrospar_inv_unidad_medida.Value = 'True' then
+               Parameters.ParamByName('can').Value  := QDetalleDET_CANTIDAD.Value * QDetalledet_cant_unidad_medida.Value
+            else
+               Parameters.ParamByName('can').Value  := QDetalleDET_CANTIDAD.Value;
+
+            Parameters.ParamByName('med').Value  := QDetalleDET_MEDIDA.Value;
+            Parameters.ParamByName('usu').Value  := dm.Usuario;
+            Parameters.ParamByName('suc').Value  := QFacturaSUC_CODIGO.Value;
+            Parameters.ParamByName('tfa').Value  := QFacturaTFA_CODIGO.Value;
+            Parameters.ParamByName('for').Value  := QFacturaFAC_FORMA.Value;
+            Parameters.ParamByName('num').Value  := QFacturaFAC_NUMERO.Value;
+            Open;
+        end;
+
+        //Verificamos que el precio no sea inferior al costo y al precio minimo
+         if (FactDebajoCosto <> 'True') and (dm.QUsuariosusu_debajo_costo.Value <> 'True')
+          then
+          begin
+            if (StrToFloat(format('%10.2F',[qVerProductos.FieldByName('costo').AsFloat])) > 0) and
+            (dm.QParametrosPAR_DEBAJOCOSTO.Value = 'False') then
+              begin
+                PrecioReal := QDetalleDET_PRECIO.Value - ((QDetalleDET_PRECIO.Value*QDetalleDET_DESCUENTO.Value)/100);
+                if dm.QParametrospar_itbisincluido.Value <> 'True' then
+                  begin
+                  PrecioReal := (QDetalleDET_PRECIO.Value - ((QDetalleDET_PRECIO.Value*QDetalleDET_DESCUENTO.Value)/100));
+                  PrecioReal := QDetallePrecioItbis.value;
+               end;
+
+          if (StrToFloat(format('%10.2F',[qVerProductos.FieldByName('costo').AsFloat])) >
+            PrecioReal)
+          and (QDetalleDET_OFERTA.Value <> 'S') and (dm.QParametrosPAR_DEBAJOCOSTO.Value = 'False')
+          then
+          begin
+            MessageDlg('NO PUEDE FACTURAR UN PRODUCTO POR DEBAJO DEL COSTO',mtError,[mbok],0);
+
+          Application.CreateForm(tfrmPideClave, frmPideClave);
+          frmPideClave.ShowModal;
+          if frmPideClave.acepto = 1 then
+          begin
+            dm.Query1.Close;
+            dm.Query1.SQL.Clear;
+            dm.Query1.SQL.Add('select usu_debajo_costo from usuarios');
+            dm.Query1.SQL.Add('where usu_clave = :cla');
+            dm.Query1.Parameters.ParamByName('cla').Value := MimeEncodeString(frmPideClave.edclave.Text);
+            dm.Query1.Open;
+            if (dm.Query1.RecordCount = 0) or (dm.Query1.FieldByName('usu_debajo_costo').Value <> 'True') then
+            begin
+              MessageDlg('NO TIENE ACCESO PARA FACTURAR UN PRODUCTO POR DEBAJO DEL COSTO '+Format('%n',[QDetalleDET_COSTO.Value])+'%',mtError,[mbok],0);
+              QDetalleDET_PRECIO.Value := QDetalleDET_PRECIO1.Value;
+              Lista.Items.Delete(Lista.Items.IndexOf(IntToStr(QDetallePRO_CODIGO.Value)));
+              PageControl1.ActivePageIndex := 0;
+              Grid.SetFocus;
+              Grid.SelectedIndex := 5;
+              QDetalle.EnableControls;
+              abort;
+            end;
+          end
+          else
+          begin
+            QDetalleDET_PRECIO.Value := QDetalleDET_PRECIO1.Value;
+            Lista.Items.Delete(Lista.Items.IndexOf(IntToStr(QDetallePRO_CODIGO.Value)));
+            PageControl1.ActivePageIndex := 0;
+            Grid.SetFocus;
+            Grid.SelectedIndex := 5;
+            QDetalle.EnableControls;
+            abort;
+          end;
+          frmPideClave.Release;
+          end;
+        end;
+      end;
+
+       //Verificando Precio Minimo
+
+     if (FactDebajoMinimo <> 'True') and (dm.QUsuariosusu_debajo_minimo.Value <> 'True')
+     then
+      begin
+        if QDetalleDET_MEDIDA.Value = 'Und' then //Unidad
         begin
-          dm.Query1.Close;
-          dm.Query1.SQL.Clear;
-          dm.Query1.SQL.Add('select alm_codigo from departamentos');
-          dm.Query1.SQL.Add('where emp_codigo = :emp');
-          dm.Query1.SQL.Add('and dep_codigo = :dep');
-          dm.Query1.Parameters.ParamByName('emp').Value := dm.vp_cia;
-          dm.Query1.Parameters.ParamByName('dep').Value := Query1.fieldbyname('dep_codigo').AsInteger;
-          dm.Query1.Open;
-          if not dm.Query1.FieldByName('alm_codigo').IsNull then
-            QDetallealm_codigo.Value := dm.Query1.FieldByName('alm_codigo').AsInteger;
-        end; }
+          if (dm.QParametrosPAR_DEBAJOPRECIO.Value <> 'False') and
+          (StrToFloat(Format('%10.2f',[QDetalleDET_PRECIOMINIMO.Value])) > 0) then
+          begin
+            if StrToFloat(Format('%10.2f',[QDetalleValor.Value])) <
+            StrToFloat(Format('%10.2f',[QDetalleDET_PRECIOMINIMO.Value])) then
+            begin
+              MessageDlg('EL PRECIO MINIMO PARA ESTE PRODUCTO ES '+
+              Format('%n',[QDetalleDET_PRECIOMINIMO.Value]),mtError,[mbok],0);
+              //Lista.Items.Delete(Lista.Items.IndexOf(IntToStr(QDetallePRO_CODIGO.Value)));
+              //QDetalleDET_PRECIO.Clear;
+              //Grid.SelectedIndex := 3;
+              //abort;
+          Application.CreateForm(tfrmPideClave, frmPideClave);
+          frmPideClave.ShowModal;
+          if frmPideClave.acepto = 1 then
+          begin
+            dm.Query1.Close;
+            dm.Query1.SQL.Clear;
+            dm.Query1.SQL.Add('select usu_debajo_minimo from usuarios');
+            dm.Query1.SQL.Add('where usu_clave = :cla');
+            dm.Query1.Parameters.ParamByName('cla').Value := MimeEncodeString(frmPideClave.edclave.Text);
+            dm.Query1.Open;
+            if (dm.Query1.RecordCount = 0) or (dm.Query1.FieldByName('usu_debajo_minimo').Value <> 'True') then
+            begin
+              MessageDlg('NO TIENE ACCESO PARA FACTURAR UN PRODUCTO POR DEBAJO DEL PRECIO '+Format('%n',[QDetalleDET_PRECIOMINIMO.Value]),mtError,[mbok],0);
+              QDetalleDET_PRECIO.Value := QDetalleDET_PRECIO1.Value;
+              Lista.Items.Delete(Lista.Items.IndexOf(IntToStr(QDetallePRO_CODIGO.Value)));
+              PageControl1.ActivePageIndex := 0;
+              Grid.SetFocus;
+              Grid.SelectedIndex := 5;
+              QDetalle.EnableControls;
+              abort;
+            end;
+          end
+          else
+          begin
+            QDetalleDET_PRECIO.Value := QDetalleDET_PRECIO1.Value;
+            Lista.Items.Delete(Lista.Items.IndexOf(IntToStr(QDetallePRO_CODIGO.Value)));
+            PageControl1.ActivePageIndex := 0;
+            Grid.SetFocus;
+            Grid.SelectedIndex := 5;
+            QDetalle.EnableControls;
+            abort;
+          end;
+          frmPideClave.Release;
+
+            end;
+          end;
+        end
+        else
+
+        if QDetalleDET_MEDIDA.Value = 'Emp' then //Empaque
+        begin
+          if (dm.QParametrosPAR_DEBAJOPRECIO.Value <> 'False') and
+          (StrToFloat(Format('%10.2f',[QDetalleDET_PRECIOMINIMOEMP.Value])) > 0) then
+          begin
+            if StrToFloat(Format('%10.2f',[QDetalleValor.Value])) <
+            StrToFloat(Format('%10.2f',[QDetalleDET_PRECIOMINIMOEMP.Value])) then
+            begin
+              MessageDlg('EL PRECIO MINIMO PARA ESTE PRODUCTO ES '+
+              Format('%n',[QDetalleDET_PRECIOMINIMOEMP.Value]),mtError,[mbok],0);
+              Lista.Items.Delete(Lista.Items.IndexOf(IntToStr(QDetallePRO_CODIGO.Value)));
+              QDetalleDET_PRECIO.Clear;
+              Grid.SelectedIndex := 3;
+              abort;
+            end;
+          end;
+        end;
+      end;
+
+          end;
+
+          //Verificar que no sea mayor al precio 4
+        if (dm.QParametrosPAR_DEBAJOPRECIO.Value <> 'False') and
+          (StrToFloat(Format('%10.2f',[QDetalleDET_PRECIO4.Value])) > 0) then
+          begin
+            if StrToFloat(Format('%10.2f',[QDetalleValor.Value])) <
+            StrToFloat(Format('%10.2f',[QDetalleDET_PRECIO4.Value])) then
+            begin
+              MessageDlg('EL PRECIO MINIMO PARA ESTE PRODUCTO ES '+
+              Format('%n',[QDetalleDET_PRECIO4.Value]),mtError,[mbok],0);
+
+          Application.CreateForm(tfrmPideClave, frmPideClave);
+          frmPideClave.ShowModal;
+          if frmPideClave.acepto = 1 then
+          begin
+            dm.Query1.Close;
+            dm.Query1.SQL.Clear;
+            dm.Query1.SQL.Add('select usu_debajo_minimo from usuarios');
+            dm.Query1.SQL.Add('where usu_clave = :cla');
+            dm.Query1.Parameters.ParamByName('cla').Value := MimeEncodeString(frmPideClave.edclave.Text);
+            dm.Query1.Open;
+            if (dm.Query1.RecordCount = 0) or (dm.Query1.FieldByName('usu_debajo_minimo').Value <> 'True') then
+            begin
+              MessageDlg('NO TIENE ACCESO PARA FACTURAR UN PRODUCTO POR DEBAJO DEL PRECIO '+Format('%n',[QDetalleDET_PRECIO4.Value]),mtError,[mbok],0);
+              QDetalleDET_PRECIO.Value := QDetalleDET_PRECIO1.Value;
+              Lista.Items.Delete(Lista.Items.IndexOf(IntToStr(QDetallePRO_CODIGO.Value)));
+              PageControl1.ActivePageIndex := 0;
+              Grid.SetFocus;
+              Grid.SelectedIndex := 5;
+              QDetalle.EnableControls;
+              abort;
+            end;
+          end
+          else
+          begin
+            QDetalleDET_PRECIO.Value := QDetalleDET_PRECIO1.Value;
+            Lista.Items.Delete(Lista.Items.IndexOf(IntToStr(QDetallePRO_CODIGO.Value)));
+            PageControl1.ActivePageIndex := 0;
+            Grid.SetFocus;
+            Grid.SelectedIndex := 5;
+            QDetalle.EnableControls;
+            abort;
+          end;
+          frmPideClave.Release;
+
+            end;
+        end;
+
+          
+        /// //Buscando comision para el producto
+
+          if (not QDetalleVEN_CODIGO.IsNull) and (not QDetallePRO_CODIGO.IsNull) then
+          begin  
+            dm.Query1.Close;
+            dm.Query1.SQL.Clear;
+            dm.Query1.SQL.Add('select * from pr_busca_comision (:emp, :pro, :ven)');
+            dm.Query1.Parameters.ParamByName('emp').Value := dm.vp_cia;
+            dm.Query1.Parameters.ParamByName('pro').Value := QDetallePRO_CODIGO.Value;
+            dm.Query1.Parameters.ParamByName('ven').Value := QDetalleVEN_CODIGO.Value;
+            dm.Query1.Open;
+            if QDetalleDET_DESCUENTO.Value > 0 then
+              QDetalleDET_COMISION.Value := StrToFloat(format('%10.2f',[dm.Query1.FieldByName('comisiondescuento').AsFloat]))
+            else
+              QDetalleDET_COMISION.Value := StrToFloat(format('%10.2f',[dm.Query1.FieldByName('comision').AsFloat]));
+          end;
+          QDetallealm_codigo.Value := vAlmacen;
+          QMsnExistencia.Close;
+          QMsnExistencia.Parameters.ParamByName('emp').Value := dm.vp_cia;//dm.QParametrosPAR_INVEMPRESA.Value;
+          QMsnExistencia.Parameters.ParamByName('usu').Value := dm.Usuario;
+          QMsnExistencia.Open;
+
+          IF (QDetalleDET_DESCUENTO.Value > 0) then
+            vieneConDescuento:=true;
+
+         IF ((QDetalleDET_DESCUENTO.Value > 0) and (QDetalleDET_DESCUENTO.Value> QDetalleDET_DESCMAX.Value)
+        AND (dm.QUsuariosusu_excede_descuento.Value <> 'True')) AND (QDetalleDET_DESCMAX.Value > 0) THEN BEGIN
+        IF MessageDlg('ESTE PRODUCTO NO ACEPTA EL PORCIENTO DE DESCUENTO APLICADO DE UN '+QDetalleDET_DESCUENTO.Text+QuotedStr('%')+CHAR(13)+
+        'DEBE SER AUTORIZADO POR UN SUPERVISOR'+CHAR(13)+
+        'DESEA CONTINUAR?',mtConfirmation,[mbYes,mbNo],0)=MRYES THEN BEGIN
+                  Application.CreateForm(tfrmPideClave, frmPideClave);
+          frmPideClave.ShowModal;
+          if frmPideClave.acepto = 1 then
+          begin
+            dm.Query1.Close;
+            dm.Query1.SQL.Clear;
+            dm.Query1.SQL.Add('select usu_excede_descuento from usuarios');
+            dm.Query1.SQL.Add('where usu_clave = :cla');
+            dm.Query1.Parameters.ParamByName('cla').Value := MimeEncodeString(frmPideClave.edclave.Text);
+            dm.Query1.Open;
+            if (dm.Query1.RecordCount = 0) or (dm.Query1.FieldByName('usu_excede_descuento').Value <> 'True') then
+            begin
+              MessageDlg('NO TIENE ACCESO PARA EXCEDER EL DESCUENTO MAXIMO DE '+Format('%n',[QDetalleDET_DESCMAX.Value])+'%',mtError,[mbok],0);
+
+              QDetalleDET_DESCUENTO.Value := 0;
+              vieneConDescuento:=false;
+              Lista.Items.Delete(Lista.Items.IndexOf(IntToStr(QDetallePRO_CODIGO.Value)));
+              PageControl1.ActivePageIndex := 0;
+              Grid.SetFocus;
+              Grid.SelectedIndex := 5;
+              QDetalle.EnableControls;
+              abort;
+
+            end;
+          end
+          else
+          begin
+            QDetalleDET_DESCUENTO.Value := 0;
+              Lista.Items.Delete(Lista.Items.IndexOf(IntToStr(QDetallePRO_CODIGO.Value)));
+              PageControl1.ActivePageIndex := 0;
+              Grid.SetFocus;
+              Grid.SelectedIndex := 5;
+              QDetalle.EnableControls;
+              abort;
+          end;
+          frmPideClave.Release;
+      end; 
 
         QDetalle.post;
       end;
       Query1.next;
     end;
 
-    {for a := QDetalleDET_SECUENCIA.value to 30 do
-    begin
-      QDetalle.append;
-      QDetalleEMP_CODIGO.value := dm.vp_cia;
-      QDetalleFAC_FORMA.value  := QFacturaFAC_FORMA.value;
-      QDetalleDET_SECUENCIA.value := a;
-      QDetalle.post;
-    end;
-    QDetalle.first;}
     QDetalle.enablecontrols;
     QDetalle.first;
-
     Totaliza := true;
     totalizar;
-
+   //Descuento General - S
     if QFacturaCLI_CODIGO.Value > 0 then
     begin
       dm.Query1.close;
@@ -10092,11 +10512,16 @@ begin
         QFacturaFAC_RNC.Value := dm.Query1.fieldbyname('cli_rnc').asstring;
 
       descuento := dm.Query1.fieldbyname('cli_descuento').asfloat;
+
+      //Si tiene descuento aplicado a nivel de items - no permitir aplicar el descuento por cliente
+      {  if ( vieneConDescuento and (descuento>0)) then
+        begin
+          MessageDlg('LOS PRODUCTOS TIENEN DESCUENTO APLICADO, NO ES POSIBLE APLIAR UN DESCUENTO GENERAL QUE TIENE ESTE CLIENTE. ', mtError,[mbok],0);
+
+        end
+        else   totalizar;   }
     end;
     Buscando := False;
-
-
-
     PageControl1.ActivePageIndex := 0;
     Grid.setfocus;
   end;
@@ -10133,6 +10558,10 @@ if Trim(edTipo.Text)='' then begin
     factmp := 0;
     dm.Query1.Close;
     dm.Query1.SQL.Clear;
+
+    //si es un cliente de contado no realizar esta validacion
+    if (DBEdit11.Text<>'CLIENTE CONTADO') then
+    begin
     dm.Query1.SQL.Add('select fac_numero, id_facturatemporal from facturastmp');
     dm.Query1.SQL.Add('where emp_codigo = :emp');
     dm.Query1.SQL.Add('and suc_codigo = :suc');
@@ -10142,6 +10571,7 @@ if Trim(edTipo.Text)='' then begin
     dm.Query1.Parameters.ParamByName('suc').Value := DBLookupComboBox2.KeyValue;
     //dm.Query1.Parameters.ParamByName('tfa').Value := strtoint(edtipo.Text);
     dm.Query1.Parameters.ParamByName('cli').Value := DBEdit11.Text;
+
     dm.Query1.Open;
     if dm.Query1.RecordCount > 0 then begin
     if MessageDlg('Existe ya una factura grabada con el nombre'+Char(13)+
@@ -10182,6 +10612,8 @@ if Trim(edTipo.Text)='' then begin
    // dm.Query1.Parameters.ParamByName('fac_nombre').Value :=DBEdit11.Text;
 
     dm.Query1.ExecSQL;
+    end;
+
     end;
     end;
 
@@ -11074,6 +11506,8 @@ end;
 procedure TfrmFactura.QDetalleAfterEdit(DataSet: TDataSet);
 begin
   Realizado := False;
+
+   
   //if not (dm.QParametrospar_fac_preimpresa.Value = 'True') and (dm.QParametrospar_formato_preimpreso.Value = 'Sarita & Asociados') then begin
   if (QFacturaCON_NUMERO.Value > 0) and (Totaliza = True) then
   begin
@@ -11235,6 +11669,7 @@ begin
     dm.Query1.open;
     tmoneda.Text := dm.Query1.FieldByName('mon_sigla').AsString;
     QFacturaFAC_TASA.Value := dm.Query1.FieldByName('MON_RELACIONPESOCOMPRA').AsFloat;
+
   end;
 end;
 
@@ -11770,7 +12205,28 @@ begin
       tmoneda.Text := '';
       QFacturaFAC_TASA.Value := 1;
     end;
+
+    
+    //Buscamos la tasa de cambio del dolar
+    dm.Query1.Close;
+    dm.Query1.SQL.Clear;
+    dm.Query1.SQL.Add('select mon_sigla, MON_RELACIONPESOCOMPRA from moneda');
+    dm.Query1.SQL.Add('where emp_codigo = :emp');
+    dm.Query1.SQL.Add('and mon_codigo = :mon');
+    dm.Query1.Parameters.ParamByName('emp').Value := dm.vp_cia;
+    dm.Query1.Parameters.ParamByName('mon').Value := 2;
+    dm.Query1.Open;
+    if dm.Query1.RecordCount > 0 then
+    begin
+      QFacturafac_tasacambio.Value := dm.Query1.FieldByName('MON_RELACIONPESOCOMPRA').AsFloat;
+    end
+    else
+    begin
+      QFacturafac_tasacambio.Value := 1;
+    end;
   end;
+    //VERIFICAMOS SI TIENE ACTIVO MULTIMONEDA
+    //modificargrid();
 end;
 
 procedure TfrmFactura.QFacturafac_cajaChange(Sender: TField);
@@ -12295,6 +12751,7 @@ begin
           QDetalleDET_LOTE.Value := Lote;
         end;
 
+
         {if not ckItbis.Checked then
         begin
           if QDetalleDET_CONITBIS.Value = 'S' then
@@ -12407,6 +12864,9 @@ begin
             QCuentas.Post;
           end;
         end;
+
+        
+          
     end;
   end;
 end;
@@ -12853,6 +13313,9 @@ begin
       tmoneda.Text := '';
     end;
   end;
+
+  //VERIFICAMOS SI TIENE ACTIVO MULTIMONEDA
+ // modificargrid();
 end;
 
 procedure TfrmFactura.bttiponcfClick(Sender: TObject);
@@ -17229,15 +17692,13 @@ end;
 procedure TfrmFactura.QFacturaCalcFields(DataSet: TDataSet);
 begin
 QFacturaSubTotal.Value := sSubTotal;
-
-IF QFacturaFAC_TASA.Value > 1 THEN BEGIN
-QFacturaFAC_TOTALUS.Value := QFacturaFAC_TOTAL.Value / QFacturaFAC_TASA.Value;
+//modificargrid();
+IF  QFacturaMON_CODIGO.value = 2 THEN BEGIN
 lblLbTotalUS.Visible :=  True;
 EDT_FAC_TOTALUS.Visible :=  True;
 end
 else
 begin
-QFacturaFAC_TOTALUS.Value := 0;
 lblLbTotalUS.Visible :=  False;
 EDT_FAC_TOTALUS.Visible :=  False;
 end;
@@ -19121,6 +19582,8 @@ qSucDestino.Parameters[1].Value := QFacturaUSU_CODIGO.Value;
 qSucDestino.Open;
 
 end;
+
+
 
 end.
 
