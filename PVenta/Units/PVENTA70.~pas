@@ -219,7 +219,7 @@ begin
         MessageDlg('NO PUEDE ANULARSE LA FACTURA, DEBIDO A QUE ESTE'+#13+
                    'DIA FUE CERRADO.',mtError,[mbok],0);
       end
-x      else if MessageDlg('ESTA SEGURO?',mtConfirmation,[mbyes,mbno],0) = mryes then
+      else if MessageDlg('ESTA SEGURO?',mtConfirmation,[mbyes,mbno],0) = mryes then
       begin
         dm.Query1.Close;
         dm.Query1.SQL.Clear;

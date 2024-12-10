@@ -1,6 +1,6 @@
 object frmPideCajero: TfrmPideCajero
-  Left = 364
-  Top = 198
+  Left = 922
+  Top = 323
   ActiveControl = edClave
   BorderIcons = []
   BorderStyle = bsSingle

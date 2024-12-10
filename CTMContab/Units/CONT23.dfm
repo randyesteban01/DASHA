@@ -289,7 +289,6 @@ object frmRepMayorGeneral: TfrmRepMayorGeneral
     TabOrder = 0
   end
   object Search: TQrySearchDlgADO
-    AliasName = DM.ADOSigma
     Left = 432
     Top = 88
   end

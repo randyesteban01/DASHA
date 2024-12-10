@@ -1,6 +1,6 @@
 object frmMain: TfrmMain
-  Left = 114
-  Top = 150
+  Left = 319
+  Top = 203
   Width = 939
   Height = 445
   HelpContext = 1
@@ -6326,6 +6326,7 @@ object frmMain: TfrmMain
         Value = Null
       end>
     SQL.Strings = (
+      'DELETE  from COTIZACION_NOTIF'
       'SET DATEFORMAT YMD'
       'INSERT INTO COTIZACION_NOTIF'
       
@@ -6496,8 +6497,8 @@ object frmMain: TfrmMain
     ConcatCount = 1
     LinkFontSize = 12
     LinkFontName = 'Arial'
-    Left = 328
-    Top = 48
+    Left = 336
+    Top = 80
   end
   object QRExcelFilter1: TQRExcelFilter
     UseXLColumns = False
@@ -7277,7 +7278,7 @@ object frmMain: TfrmMain
         end
       end
       object Contabilidad4: TMenuItem
-        Caption = 'Contabilidad'
+        Caption = 'Contabilidaad'
         Hint = 'Procesos de Contabilidad'
         object Cierredemes1: TMenuItem
           Caption = 'Cierre de mes'
@@ -7453,6 +7454,10 @@ object frmMain: TfrmMain
       object Generarfacturasautomticas1: TMenuItem
         Caption = 'Generar facturas autom'#225'ticas'
         OnClick = Generarfacturasautomticas1Click
+      end
+      object FacturacionElectronica1: TMenuItem
+        Caption = 'Facturaci'#243'n electr'#243'nica'
+        OnClick = FacturacionElectronica1Click
       end
     end
     object OrdendeServicio1: TMenuItem

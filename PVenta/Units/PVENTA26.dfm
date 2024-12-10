@@ -1,6 +1,6 @@
 object frmCotizacion: TfrmCotizacion
-  Left = 411
-  Top = 69
+  Left = 576
+  Top = 95
   ActiveControl = DBEdit5
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle

@@ -227,7 +227,6 @@ type
     Label24: TLabel;
     Label34: TLabel;
     Label35: TLabel;
-    QFacturanumero_orden: TIntegerField;
     Label36: TLabel;
     DBEdit33: TDBEdit;
     QFacturamapid: TIntegerField;
@@ -317,6 +316,7 @@ type
     lbLocSuc: TLabel;
     QFacturacont_numeroSucursal: TStringField;
     QFacturaFAC_FECHA_EFECTIVA: TDateTimeField;
+    QFacturanumero_orden: TStringField;
     procedure QFacturaNewRecord(DataSet: TDataSet);
     procedure QFacturaFAC_DIASChange(Sender: TField);
     procedure QFacturaFAC_NUMEROChange(Sender: TField);
@@ -871,7 +871,12 @@ begin
       else if dm.QParametrosPAR_CODIGOPRODUCTO.value = 'F' then
          QDetallePRO_RFABRIC.value := frmBuscaProducto.QProductosPRO_RFABRIC.value
       else if dm.QParametrosPAR_CODIGOPRODUCTO.value = 'O' then
-         QDetallePRO_RORIGINAL.value := frmBuscaProducto.QProductosPRO_RORIGINAL.value;
+      begin
+        if (frmBuscaProducto.QProductosPRO_RORIGINAL.value<>'') then
+           QDetallePRO_RORIGINAL.value := frmBuscaProducto.QProductosPRO_RORIGINAL.value
+           else  QDetallePRO_CODIGO.value := frmBuscaProducto.QProductosPRO_CODIGO.value
+      end;
+
 
       if frmBuscaProducto.ckactiva.Checked then
       begin
@@ -890,7 +895,7 @@ procedure TfrmFacProvee.QDetallePRO_CODIGOChange(Sender: TField);
 var
   cod : integer;
 begin
- if dm.QParametrosPAR_CODIGOPRODUCTO.value = 'I' then
+ if ((dm.QParametrosPAR_CODIGOPRODUCTO.value = 'I') ) then
   begin
     if not QDetallePRO_CODIGO.isnull then
     begin
@@ -999,6 +1004,7 @@ procedure TfrmFacProvee.btGRabarClick(Sender: TObject);
 var
   a : integer;
   realiza, Grabar : boolean;
+  costo, codigo, empCodigo: String;
 begin
   //Verificar fecha de factura
   dm.Query1.Close;
@@ -1158,18 +1164,51 @@ begin
             QDetalleFAC_NUMERO.Value    := QFacturaFAC_NUMERO.Value;
             QDetalleSUP_CODIGO.Value    := QFacturaSUP_CODIGO.Value;
 
+              // Asegurarse de que el costo no sea vacío y asignar un valor por defecto
+              if Trim(QDetalleDET_COSTO.Text) = '' then
+                costo := '0'  // O el valor predeterminado que consideres apropiado
+              else
+                costo := QDetalleDET_COSTO.Text;
+
+              // Asignar valores de los otros campos
+              codigo := QDetallePRO_CODIGO.Text;
+              empCodigo := QDetalleEMP_CODIGO.Text;
+
+              // Ejecutar la consulta SQL con los valores verificados
+              dm.ADOSigma.Execute('update productos set pro_costo = case when ' + costo +
+                      ' <> pro_costo then ' + costo + ' else pro_costo end' +
+                      ' where pro_codigo = ' + codigo + ' and emp_codigo = ' + empCodigo);
+
+            {dm.ADOSigma.Execute('update productos '+
+            '  set pro_costo = case when '+QDetalleDET_COSTO.Text+ ' <> pro_costo then '+QDetalleDET_COSTO.Text +' else pro_costo end'+
+            ' where pro_codigo ='+QDetallePRO_CODIGO.Text + ' and emp_codigo = '+QDetalleEMP_CODIGO.Text);
+
+                     }
+            {IF DM.QParametrospar_modifica_precio_automatico.Value = 'True'  then begin
             dm.ADOSigma.Execute('update productos '+
-            '  set pro_costo = '+QDetalleDET_COSTO.Text+
-            ' ,pro_beneficio  = '+QDetallePRO_BENEFICIO.Text+
-            ' ,pro_beneficio2 = '+QDetallePRO_BENEFICIO2.Text+
-            ' ,pro_beneficio3 = '+QDetallePRO_BENEFICIO3.Text+
-            ' ,pro_beneficio4 = '+QDetallePRO_BENEFICIO4.Text+
-            ' ,pro_precio1 = '+QDetallePRO_PRECIO1.Text+
-            ' ,pro_precio2 = '+QDetallePRO_PRECIO2.Text+
-            ' ,pro_precio3 = '+QDetallePRO_PRECIO3.Text+
-            ' ,pro_precio4 = '+QDetallePRO_PRECIO4.Text+
-            ' where pro_codigo ='+QDetallePRO_CODIGO.Text + ' and emp_codigo = '+QDetalleEMP_CODIGO.Text+
-            ' and pro_costo <> '+QDetalleDET_COSTO.Text);
+            '  set pro_beneficio = case when '+QDetallePRO_BENEFICIO.Text+ ' <> pro_beneficio then '+QDetallePRO_BENEFICIO.Text +' else pro_beneficio end'+
+            ' ,pro_beneficio2 = case when '+QDetallePRO_BENEFICIO2.Text+ ' <> pro_beneficio2 then '+QDetallePRO_BENEFICIO2.Text +' else pro_beneficio2 end'+
+            ' ,pro_beneficio3 = case when '+QDetallePRO_BENEFICIO3.Text+ ' <> pro_beneficio3 then '+QDetallePRO_BENEFICIO3.Text +' else pro_beneficio3 end'+
+            ' ,pro_beneficio4 = case when '+QDetallePRO_BENEFICIO4.Text+ ' <> pro_beneficio3 then '+QDetallePRO_BENEFICIO4.Text +' else pro_beneficio4 end'+
+            ' ,pro_precio1 = case when '+QDetallePRO_PRECIO1.Text+ ' <> pro_precio1 then '+QDetallePRO_PRECIO1.Text +' else pro_precio1 end'+
+            ' ,pro_precio2 = case when '+QDetallePRO_PRECIO2.Text+ ' <> pro_precio1 then '+QDetallePRO_PRECIO2.Text +' else pro_precio2 end'+
+            ' ,pro_precio3 = case when '+QDetallePRO_PRECIO3.Text+ ' <> pro_precio1 then '+QDetallePRO_PRECIO3.Text +' else pro_precio3 end'+
+            ' ,pro_precio4 = case when '+QDetallePRO_PRECIO4.Text+ ' <> pro_precio1 then '+QDetallePRO_PRECIO4.Text +' else pro_precio4 end'+
+            ' where pro_codigo ='+QDetallePRO_CODIGO.Text + ' and emp_codigo = '+QDetalleEMP_CODIGO.Text);
+            end;
+
+            IF QDetalledet_cambiarprecio.Value = 'S'  then begin
+            dm.ADOSigma.Execute('update productos '+
+            '  set pro_beneficio = case when '+QDetallePRO_BENEFICIO.Text+ ' <> pro_beneficio then '+QDetallePRO_BENEFICIO.Text +' else pro_beneficio end'+
+            ' ,pro_beneficio2 = case when '+QDetallePRO_BENEFICIO2.Text+ ' <> pro_beneficio2 then '+QDetallePRO_BENEFICIO2.Text +' else pro_beneficio2 end'+
+            ' ,pro_beneficio3 = case when '+QDetallePRO_BENEFICIO3.Text+ ' <> pro_beneficio3 then '+QDetallePRO_BENEFICIO3.Text +' else pro_beneficio3 end'+
+            ' ,pro_beneficio4 = case when '+QDetallePRO_BENEFICIO4.Text+ ' <> pro_beneficio3 then '+QDetallePRO_BENEFICIO4.Text +' else pro_beneficio4 end'+
+            ' ,pro_precio1 = case when '+QDetallePRO_PRECIO1.Text+ ' <> pro_precio1 then '+QDetallePRO_PRECIO1.Text +' else pro_precio1 end'+
+            ' ,pro_precio2 = case when '+QDetallePRO_PRECIO2.Text+ ' <> pro_precio1 then '+QDetallePRO_PRECIO2.Text +' else pro_precio2 end'+
+            ' ,pro_precio3 = case when '+QDetallePRO_PRECIO3.Text+ ' <> pro_precio1 then '+QDetallePRO_PRECIO3.Text +' else pro_precio3 end'+
+            ' ,pro_precio4 = case when '+QDetallePRO_PRECIO4.Text+ ' <> pro_precio1 then '+QDetallePRO_PRECIO4.Text +' else pro_precio4 end'+
+            ' where pro_codigo ='+QDetallePRO_CODIGO.Text + ' and emp_codigo = '+QDetalleEMP_CODIGO.Text);
+            end;}
 
             if QDetalleDET_CANTIDAD.Value > 0 then
             begin
@@ -1513,8 +1552,8 @@ begin
   end
   else
   begin
-    QDetalleCalcCosto.Value    := 0;
-    QDetalleCalcCostoemp.Value := 0;
+    QDetalleCalcCosto.Value    := QDetalleDET_COSTOUND.Value;//0;
+    QDetalleCalcCostoemp.Value := QDetalleDET_COSTOEMP.Value;//0;
   end;
   QDetalleValorItbisUnd.value := QDetalleCalcCosto.Value + QDetalleDET_COSTOUND.Value;
   QDetalleValorItbisEmp.value := QDetalleCalcCostoemp.Value + QDetalleDET_COSTOEMP.Value;
@@ -2417,7 +2456,7 @@ begin
       CantLineas := CantLineas + 1;
       if dm.QParametrospar_inv_unidad_medida.Value <> 'True' then
       begin
-        if QDetalledet_medida.Value = 'Und' then
+        if (QDetalledet_medida.Value = 'Und') or (QDetalledet_medida.Value = 'UND') then
         begin
           if QDetalleDET_ITBIS.AsFloat = 0 then
             Exento := Exento + (QDetallePrecioItbis.Value * QDetalleDET_CANTIDAD.Value)
@@ -4887,6 +4926,14 @@ procedure TfrmFacProvee.Pantalladeproductos1Click(Sender: TObject);
 var
   vIns, vMod, vDel : boolean;
 begin
+{//actuliza producto
+   with qActulizaProd do begin
+   Close;
+   Parameters.ParamByName('PROD').Value := QDetallePRO_CODIGO.Value;
+   Parameters.ParamByName('EMP').Value  := DM.QParametrosPAR_INVEMPRESA.Value;
+   ExecSQL;
+   end;    }
+
   dm.Query1.Close;
   dm.Query1.sql.clear;
   dm.Query1.sql.add('select inserta, modifica, elimina ');
@@ -4905,6 +4952,7 @@ begin
     frmProductos.btInsert.visible := vIns;
     frmProductos.btDelete.visible := vDel;
     frmProductos.QProductos.Close;
+    frmProductos.QProductos.Parameters.ParamByName('par_invempresa').Value := DM.QParametrosPAR_INVEMPRESA.Value;
     frmProductos.QProductos.Parameters.ParamByName('prod').Value := QDetallePRO_CODIGO.Value;
     frmProductos.QProductos.Open;
 
@@ -4916,7 +4964,7 @@ begin
     frmProductos.vl_sup       := frmProductos.QProveeSUP_CODIGO.Value;
     frmProductos.edtProv.Text := frmProductos.QProveeSUP_CODIGO.Text;
     frmProductos.tProv.Text   := frmProductos.QProveeSUP_NOMBRE.Text;
-  end;
+    end;
   end;
 
 end;

@@ -1,8 +1,8 @@
 object frmMain: TfrmMain
-  Left = 267
-  Top = 196
-  Width = 1242
-  Height = 740
+  Left = 266
+  Top = 169
+  Width = 939
+  Height = 445
   HelpContext = 1
   Caption = 'DASHA'
   Color = clWhite
@@ -29,14 +29,14 @@ object frmMain: TfrmMain
     Left = 193
     Top = 33
     Width = 6
-    Height = 629
+    Height = 334
     Beveled = True
   end
   object Image1: TImage
     Left = 199
     Top = 33
-    Width = 1027
-    Height = 629
+    Width = 724
+    Height = 334
     Align = alClient
     AutoSize = True
     Center = True
@@ -3373,8 +3373,8 @@ object frmMain: TfrmMain
   end
   object stBar1: TStatusBar
     Left = 0
-    Top = 662
-    Width = 1226
+    Top = 367
+    Width = 923
     Height = 19
     Panels = <
       item
@@ -3413,11 +3413,11 @@ object frmMain: TfrmMain
     Left = 0
     Top = 33
     Width = 193
-    Height = 629
+    Height = 334
     Align = alLeft
     Constraints.MinWidth = 10
     Locked = True
-    ActiveGroupIndex = 4
+    ActiveGroupIndex = 0
     DragCopyCursor = -1119
     DragCursor = -1120
     DragDropFlags = [fAllowDragLink, fAllowDropLink, fAllowDragGroup, fAllowDropGroup]
@@ -3554,9 +3554,9 @@ object frmMain: TfrmMain
     end
     object navInventarioControl: TdxNavBarGroupControl
       Left = 1
-      Top = 389
+      Top = 26
       Width = 191
-      Height = 24
+      Height = 61
       TabOrder = 0
       GroupIndex = 0
       OriginalHeight = 41
@@ -3564,7 +3564,7 @@ object frmMain: TfrmMain
         Left = 0
         Top = 0
         Width = 191
-        Height = 24
+        Height = 61
         Align = alClient
         ParentFont = False
         PopupMenu = PopupMenu1
@@ -3588,7 +3588,7 @@ object frmMain: TfrmMain
         HideSelection = False
         HotTrack = True
         Items.Data = {
-          120000002B000000000000000000000001000000FFFFFFFF0000000000000000
+          130000002B000000000000000000000001000000FFFFFFFF0000000000000000
           12416A757374617220696E76656E746172696F22000000000000000000000001
           000000FFFFFFFF000000000000000009416C6D6163656E657320000000000000
           0000000000FFFFFFFFFFFFFFFF000000000000000007426F6C65746F73200000
@@ -3611,7 +3611,9 @@ object frmMain: TfrmMain
           00000001000000FFFFFFFF00000000000000000E5472616E73666572656E6369
           61732B000000000000000000000001000000FFFFFFFF00000000000000001255
           6E696461646573206465206D6564696461240000000000000000000000010000
-          00FFFFFFFF00000000000000000B56656E63696D69656E746F}
+          00FFFFFFFF00000000000000000B56656E63696D69656E746F2B000000000000
+          0000000000FFFFFFFFFFFFFFFF000000000000000012456C696D696E61722070
+          726F647563746F73}
         ReadOnly = True
         RowSelect = True
         ShowLines = False
@@ -3621,7 +3623,7 @@ object frmMain: TfrmMain
     end
     object navVentasControl: TdxNavBarGroupControl
       Left = 1
-      Top = 413
+      Top = 118
       Width = 191
       Height = 24
       TabOrder = 7
@@ -3681,7 +3683,7 @@ object frmMain: TfrmMain
     end
     object navCxCControl: TdxNavBarGroupControl
       Left = 1
-      Top = 437
+      Top = 142
       Width = 191
       Height = 24
       TabOrder = 1
@@ -3730,7 +3732,7 @@ object frmMain: TfrmMain
     end
     object navCxPControl: TdxNavBarGroupControl
       Left = 1
-      Top = 461
+      Top = 166
       Width = 191
       Height = 24
       TabOrder = 2
@@ -3783,9 +3785,9 @@ object frmMain: TfrmMain
     end
     object navBancoControl: TdxNavBarGroupControl
       Left = 1
-      Top = 26
+      Top = 190
       Width = 191
-      Height = 356
+      Height = 24
       TabOrder = 3
       GroupIndex = 4
       OriginalHeight = 41
@@ -3793,7 +3795,7 @@ object frmMain: TfrmMain
         Left = 0
         Top = 0
         Width = 191
-        Height = 356
+        Height = 24
         Align = alClient
         PopupMenu = PopupMenu1
         TabOrder = 0
@@ -3852,7 +3854,7 @@ object frmMain: TfrmMain
     end
     object navContabControl: TdxNavBarGroupControl
       Left = 1
-      Top = 509
+      Top = 214
       Width = 191
       Height = 24
       TabOrder = 4
@@ -3925,7 +3927,7 @@ object frmMain: TfrmMain
     end
     object navRHControl: TdxNavBarGroupControl
       Left = 1
-      Top = 533
+      Top = 238
       Width = 191
       Height = 24
       Caption = 'navRHControl'
@@ -3966,7 +3968,7 @@ object frmMain: TfrmMain
     end
     object navSeguridadControl: TdxNavBarGroupControl
       Left = 1
-      Top = 557
+      Top = 262
       Width = 191
       Height = 24
       TabOrder = 6
@@ -4012,7 +4014,7 @@ object frmMain: TfrmMain
     end
     object navParamControl: TdxNavBarGroupControl
       Left = 1
-      Top = 581
+      Top = 286
       Width = 191
       Height = 24
       Caption = 'navParamControl'
@@ -4054,7 +4056,7 @@ object frmMain: TfrmMain
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 1226
+    Width = 923
     Height = 33
     Align = alTop
     BevelInner = bvRaised
@@ -6006,7 +6008,7 @@ object frmMain: TfrmMain
     end
     object inv_eliminar: TAction
       Caption = 'inv_eliminar'
-      Visible = False
+      OnExecute = inv_eliminarExecute
     end
     object venta_tipofactura: TAction
       Caption = 'venta_tipofactura'
@@ -6305,7 +6307,6 @@ object frmMain: TfrmMain
   end
   object IdSMTP1: TIdSMTP
     MaxLineAction = maException
-    ReadTimeout = 0
     Host = 'mail.verizon.net.do'
     Port = 25
     AuthenticationType = atLogin
@@ -6325,6 +6326,7 @@ object frmMain: TfrmMain
         Value = Null
       end>
     SQL.Strings = (
+      'DELETE  from COTIZACION_NOTIF'
       'SET DATEFORMAT YMD'
       'INSERT INTO COTIZACION_NOTIF'
       
@@ -6523,7 +6525,7 @@ object frmMain: TfrmMain
     Enabled = False
     Interval = 10000
     OnTimer = tmr4Timer
-    Left = 536
+    Left = 544
     Top = 144
   end
   object MainMenu1: TMainMenu
@@ -7276,7 +7278,7 @@ object frmMain: TfrmMain
         end
       end
       object Contabilidad4: TMenuItem
-        Caption = 'Contabilidad'
+        Caption = 'Contabilidaad'
         Hint = 'Procesos de Contabilidad'
         object Cierredemes1: TMenuItem
           Caption = 'Cierre de mes'
@@ -7452,6 +7454,10 @@ object frmMain: TfrmMain
       object Generarfacturasautomticas1: TMenuItem
         Caption = 'Generar facturas autom'#225'ticas'
         OnClick = Generarfacturasautomticas1Click
+      end
+      object FacturacionElectronica1: TMenuItem
+        Caption = 'Facturaci'#243'n electr'#243'nica'
+        OnClick = FacturacionElectronica1Click
       end
     end
     object OrdendeServicio1: TMenuItem
@@ -7881,29 +7887,85 @@ object frmMain: TfrmMain
       
         'DECLARE @SUC INT, @FAC INT, @tipo INT, @FORMA CHAR(1), @PAGO NUM' +
         'ERIC(18,2), @CLI INT, @EMPRESA INT, @SUP INT, @FACSUP VARCHAR(20' +
-        ')'
+        '), @NC INT, @SEC INT, @MOVTIPO CHAR(5), @MOVCUOTA int, @MONTONC ' +
+        'NUMERIC(18,2)'
       ''
       'SET @EMPRESA = :EMP'
       ''
       ''
       ''
+      ''
       'DECLARE Cr_Actualiza_CXC CURSOR FOR '
       
-        'SELECT F.EMP_CODIGO, F.suc_codigo SUC, F.FAC_numero FAC, F.cli_c' +
-        'odigo CLI, F.tfa_codigo TFAC, F.fac_forma FORMA'
-      'FROM Facturas F'
+        'SELECT F.EMP_CODIGO, F.suc_codigo SUC, F.MOV_numero FAC, F.cli_c' +
+        'odigo CLI, F.tfa_codigo TFAC, F.fac_forma FORMA, F.mov_tipo'
+      'FROM MOVIMIENTOS F'
       
-        'WHERE F.fac_status NOT IN ('#39'ANU'#39') AND F.EMP_CODIGO = @EMPRESA  A' +
-        'ND CLI_CODIGO = @CLI'
-      'ORDER BY F.cli_codigo, F.fac_numero'
+        'WHERE F.MOV_status NOT IN ('#39'ANU'#39')  AND F.MOV_TIPO IN ('#39'CRE'#39', '#39'ND' +
+        #39')   AND F.EMP_CODIGO = @EMPRESA '
+      'ORDER BY F.suc_codigo, F.MOV_numero'
       ''
       ''
       'OPEN Cr_Actualiza_CXC'
       
         'FETCH NEXT FROM Cr_Actualiza_CXC INTO @EMPRESA, @SUC, @FAC, @CLI' +
-        ', @tipo, @FORMA'
+        ', @tipo, @FORMA, @MOVTIPO'
       'WHILE @@fetch_status = 0'
-      'BEGIN'
+      'begin '
+      'IF EXISTS(select *'
+      'from NotasCredito NC'
+      
+        'inner join Devolucion d on nc.emp_codigo = d.emp_codigo and nc.s' +
+        'uc_codigo=d.suc_codigo and nc.ncr_devolucion=d.dev_numero'
+      
+        'inner join Movimientos f on d.emp_codigo = f.emp_codigo and d.su' +
+        'c_codigo=f.suc_codigo and d.tfa_codigo = f.tfa_codigo and d.fac_' +
+        'forma = f.fac_forma and d.fac_numero = f.MOV_numero'
+      
+        'where nc.ncr_status <> '#39'ANU'#39' AND F.mov_numero = @FAC AND F.tfa_c' +
+        'odigo = @tipo AND F.fac_forma = @FORMA AND F.emp_codigo = @EMPRE' +
+        'SA AND F.suc_codigo = @SUC  AND NC.cli_codigo = @CLI'
+      'AND nc.ncr_numero not in '
+      '(select ncr_numero from Det_NotaCredito)) BEGIN '
+      'IF EXISTS(SELECT * FROM FACTURAS '
+      
+        'WHERE fac_status = '#39'PAG'#39' AND fac_numero = @FAC AND tfa_codigo = ' +
+        '@tipo AND emp_codigo = @EMPRESA AND suc_codigo = @SUC AND fac_fo' +
+        'rma= @FORMA) BEGIN '
+      
+        'select @MOVTIPO = f.mov_tipo, @MONTONC = nc.ncr_monto, @NC = NC.' +
+        'ncr_numero'
+      'from NotasCredito NC'
+      
+        'inner join Devolucion d on nc.emp_codigo = d.emp_codigo and nc.s' +
+        'uc_codigo=d.suc_codigo and nc.ncr_devolucion=d.dev_numero'
+      
+        'inner join Movimientos f on d.emp_codigo = f.emp_codigo and d.su' +
+        'c_codigo=f.suc_codigo and d.tfa_codigo = f.tfa_codigo and d.fac_' +
+        'forma = f.fac_forma and d.fac_numero = f.MOV_numero'
+      
+        'where nc.ncr_status <> '#39'ANU'#39' AND F.mov_numero = @FAC AND F.tfa_c' +
+        'odigo = @tipo AND F.fac_forma = @FORMA AND F.emp_codigo = @EMPRE' +
+        'SA AND F.suc_codigo = @SUC '
+      'AND nc.ncr_numero not in '
+      
+        '(select ncr_numero from Det_NotaCredito WHERE mov_numero = D.fac' +
+        '_numero AND tfa_codigo = D.tfa_codigo AND fac_forma = D.fac_form' +
+        'a AND emp_codigo = D.emp_codigo AND suc_codigo = D.suc_codigo)'
+      ''
+      'insert into Det_NotaCredito'
+      
+        'SELECT @EMPRESA, @SUC, @NC, 1 DET_SECUENCIA, @MOVTIPO, @FAC, @MO' +
+        'NTONC, @FORMA, @tipo, NULL, NULL'
+      ''
+      'UPDATE NotasCredito'
+      'SET ncr_montousado = ncr_monto'
+      
+        'WHERE emp_codigo = @EMPRESA AND suc_codigo = @SUC AND ncr_numero' +
+        ' = @NC'
+      'END'
+      'END'
+      ''
       'SET @PAGO = 0'
       
         'if exists(select fac_numero from FacFormaPago where fac_numero =' +
@@ -7918,7 +7980,6 @@ object frmMain: TfrmMain
       'end'
       ''
       ''
-      ''
       
         'SET @PAGO = ISNULL(@PAGO,0) + ISNULL((SELECT SUM(isnull(DET_MONT' +
         'O,0)+isnull(det_descuento,0)) FROM Recibos R '
@@ -7927,39 +7988,60 @@ object frmMain: TfrmMain
         'odigo AND R.suc_codigo = DR.suc_codigo AND R.rec_numero =DR.rec_' +
         'numero'
       
-        '             WHERE R.rec_status = '#39'EMI'#39' AND DR.det_numero = @FAC' +
-        ' AND DR.emp_codigo  = @EMPRESA AND DR.suc_codigo = @SUC AND R.CL' +
-        'I_CODIGO = @CLI'
+        '             WHERE R.rec_status <> '#39'ANU'#39' AND DR.det_numero = @FA' +
+        'C AND DR.emp_codigo  = @EMPRESA AND DR.suc_codigo = @SUC AND R.C' +
+        'LI_CODIGO = @CLI '
       
         '             AND DR.FAC_FORMA = @FORMA AND DR.tfa_codigo = @tipo' +
-        '),0)'
+        ' AND DR.det_tipo = @MOVTIPO),0)'
       #9#9#9' '
+      
+        'SET @PAGO = ISNULL(@PAGO,0) + ISNULL((SELECT ISNULL(SUM(DET_MONT' +
+        'O),0) '
+      '             FROM DET_NOTACREDITO N '
+      
+        '             INNER JOIN NOTASCREDITO NC ON N.EMP_CODIGO = NC.EMP' +
+        '_CODIGO AND N.SUC_CODIGO = NC.SUC_CODIGO AND N.NCR_NUMERO = NC.N' +
+        'CR_NUMERO'
+      
+        '             WHERE MOV_NUMERO = @FAC AND N.emp_codigo  = @EMPRES' +
+        'A AND N.suc_codigo = @SUC'
+      
+        '             AND N.FAC_FORMA = @FORMA AND N.tfa_codigo = @TIPO A' +
+        'ND NC.mov_tipo = @MOVTIPO'
+      #9#9#9' AND NC.NCR_STATUS <> '#39'ANU'#39
+      '             AND NC.NCR_DEVOLUCION IS NULL ),0)'
+      ''
       
         'SET @PAGO = ISNULL(@PAGO,0) + ISNULL((SELECT ISNULL(SUM(DEV_TOTA' +
         'L),0) FROM DEVOLUCION N '
       
+        '             WHERE N.dev_status <> '#39'ANU'#39' AND N.fac_numero = @FAC' +
+        ' AND N.emp_codigo  = @EMPRESA AND N.suc_codigo = @SUC'
+      
+        '             AND N.FAC_FORMA = @FORMA AND N.tfa_codigo = @TIPO),' +
+        '0)'
+      ''
+      '/*SET @PAGO = ISNULL(@PAGO,0) + '
+      '             ISNULL((SELECT ISNULL(SUM(D.DET_MONTO),0) '
+      '             FROM NotasCredito N '
+      
+        '             INNER JOIN Det_NotaCredito D ON N.EMP_CODIGO = D.EM' +
+        'P_CODIGO AND N.SUC_CODIGO = D.SUC_CODIGO AND N.NCR_NUMERO = D.NC' +
+        'R_NUMERO'
+      
+        '             WHERE N.NCR_status <> '#39'ANU'#39' AND D.MOV_numero = @FAC' +
+        ' AND D.emp_codigo  = @EMPRESA AND D.suc_codigo = @SUC'
+      '             AND D.FAC_FORMA = @FORMA AND D.tfa_codigo = @TIPO'
+      #9#9#9' AND N.NCR_DEVOLUCION NOT IN '
+      #9#9#9' (SELECT N.DEV_NUMERO FROM DEVOLUCION N '
+      
         '             WHERE N.dev_status = '#39'EMI'#39' AND N.fac_numero = @FAC ' +
         'AND N.emp_codigo  = @EMPRESA AND N.suc_codigo = @SUC'
-      '             AND N.FAC_FORMA = @FORMA AND N.tfa_codigo = @tipo'
-      #9#9#9' AND N.DEV_NUMERO NOT IN '
       
-        #9#9#9' (SELECT NCR_DEVOLUCION FROM NOTASCREDITO WHERE EMP_CODIGO = ' +
-        'N.EMP_CODIGO AND SUC_CODIGO = N.SUC_CODIGO)),0)'
-      ''
-      'SET @PAGO = ISNULL(@PAGO,0) + ISNULL(('
-      '             SELECT ISNULL(SUM(DNC.DET_MONTO),0) '
-      '             FROM NOTASCREDITO N'
-      
-        #9#9#9' INNER JOIN det_notacredito DNC ON N.EMP_CODIGO = DNC.EMP_COD' +
-        'IGO AND N.SUC_CODIGO = DNC.SUC_CODIGO AND N.NCR_NUMERO = DNC.NCR' +
-        '_NUMERO'
-      
-        '             WHERE N.NCR_status = '#39'EMI'#39' AND DNC.MOV_numero = @FA' +
-        'C AND DNC.emp_codigo  = @EMPRESA AND DNC.suc_codigo = @SUC'
-      
-        '             AND DNC.FAC_FORMA = @FORMA AND DNC.tfa_codigo = @ti' +
-        'po and n.cli_codigo = @CLI),0)'
-      ''
+        '             AND N.FAC_FORMA = @FORMA AND N.tfa_codigo = @TIPO))' +
+        ',0)'
+      '*/'
       ''
       
         'SET @PAGO = ISNULL(@PAGO,0) + ISNULL((SELECT isnull(sum(DD.FAC_P' +
@@ -7973,12 +8055,11 @@ object frmMain: TfrmMain
         ' DD.emp_codigo= @EMPRESA AND DD.suc_codigo = @SUC'
       
         '                                      and d.ban_codigo = dd.ban_' +
-        'codigo'
+        'codigo AND DD.mov_tipo = @MOVTIPO'
       #9#9#9'  and d.dep_ano = dd.dep_ano'
       #9#9#9'  and d.dep_mes = dd.dep_mes'
       #9#9'      AND DD.FAC_FORMA = @FORMA AND DD.TFA_CODIGO = @TIPO),0)'
       #9#9#9' '
-      ''
       'UPDATE Facturas'
       'SET fac_abono = isnull(@PAGO,0),'
       
@@ -7987,7 +8068,7 @@ object frmMain: TfrmMain
       
         'WHERE emp_codigo = @EMPRESA AND suc_codigo = @SUC AND tfa_codigo' +
         ' = @tipo AND fac_forma = @FORMA '
-      'AND fac_numero = @FAC'
+      'AND fac_numero = @FAC and cli_codigo = @CLI'
       ''
       'UPDATE Movimientos '
       'SET mov_abono = isnull(@PAGO,0),'
@@ -7997,16 +8078,21 @@ object frmMain: TfrmMain
       
         'WHERE emp_codigo = @EMPRESA AND suc_codigo = @SUC AND tfa_codigo' +
         ' = @tipo AND fac_forma = @FORMA '
-      'AND MOV_numero = @FAC'
-      ''
+      'AND MOV_numero = @FAC and cli_codigo = @CLI'
       ''
       ''
       
         'FETCH NEXT FROM Cr_Actualiza_CXC INTO @EMPRESA, @SUC, @FAC, @CLI' +
-        ', @tipo, @FORMA'
+        ', @tipo, @FORMA, @MOVTIPO'
       'END'
       'CLOSE Cr_Actualiza_CXC'
       'DEALLOCATE Cr_Actualiza_CXC'
+      ''
+      'exec pr_actualiza_bce @empresa'
+      ''
+      ''
+      ''
+      ''
       ''
       ''
       '/*CXP */'

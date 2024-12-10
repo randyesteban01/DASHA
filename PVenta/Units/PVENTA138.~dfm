@@ -1450,6 +1450,10 @@ object frmAjusteInventario: TfrmAjusteInventario
       Caption = 'Traer pantalla de producto'
       OnClick = raerpantalladeproducto1Click
     end
+    object raerpantallaReporte1: TMenuItem
+      Caption = 'Traer pantalla Reporte Existencias por Producto '
+      OnClick = raerpantallaReporte1Click
+    end
   end
   object qRegExist: TADOQuery
     Connection = DM.ADOSigma

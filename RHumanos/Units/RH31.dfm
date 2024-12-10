@@ -1,6 +1,6 @@
 object frmEmpleados: TfrmEmpleados
-  Left = 412
-  Top = 311
+  Left = 387
+  Top = 224
   BorderIcons = [biSystemMenu, biMinimize, biHelp]
   BorderStyle = bsSingle
   Caption = 'Empleados'
@@ -139,7 +139,7 @@ object frmEmpleados: TfrmEmpleados
     Top = 39
     Width = 662
     Height = 369
-    ActivePage = TabSheet3
+    ActivePage = TabSheet1
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
     Font.Height = -11

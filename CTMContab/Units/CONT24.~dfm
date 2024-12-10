@@ -227,7 +227,6 @@ object frmRepAnexos: TfrmRepAnexos
   end
   object QAnexos: TADOQuery
     Connection = DM.ADOSigma
-    DataSource = DM.dsEmpresas
     Parameters = <
       item
         Name = 'EMP_CODIGO'
@@ -285,7 +284,6 @@ object frmRepAnexos: TfrmRepAnexos
   object QSucursal: TADOQuery
     Connection = DM.ADOSigma
     LockType = ltReadOnly
-    DataSource = DM.dsEmpresas
     Parameters = <
       item
         Name = 'emp_codigo'

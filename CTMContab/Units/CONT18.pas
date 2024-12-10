@@ -109,7 +109,7 @@ end;
 procedure TfrmRepEntrada.EnvioMail(Rep: TQuickRep);
 var
    MailMsg : TIdMessage;
-   Archivo : TIdAttachment;
+  // Archivo : TIdAttachment;
    nArchivo : string;
 begin
    nArchivo := InputBox('Envio de Mail','Correo : ','');
@@ -125,6 +125,9 @@ begin
      MailMsg.ReplyTo.EMailAddresses :=  dm.QParametrospar_mailcorreo.Value;
      MailMsg.Recipients.Add;
      MailMsg.Recipients.Items[0].Address := nArchivo;
+
+     //TIdAttachmentFile.Create(MailMsg.MessageParts, 'c:\EntradaDiario.pdf');
+
      //TIdAttachment.Create(MailMsg.MessageParts, 'c:\EntradaDiario.pdf');
      frmMain.IdSMTP1.Host := dm.QParametrospar_mailservidor.Value;
      frmMain.IdSMTP1.Port := dm.QParametrospar_mailpuerto.AsInteger;

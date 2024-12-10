@@ -49,7 +49,6 @@ type
     QProductosPRO_STATUS: TIBStringField;
     QProductosPRO_INVINICIAL: TFloatField;
     QProductosPRO_EXISTENCIA: TFloatField;
-    QProductosPRO_UBICACION: TIBStringField;
     QProductosPRO_STKMINIMO: TFloatField;
     QProductosPRO_STKMAXIMO: TFloatField;
     QProductosPRO_INVFISICO: TFloatField;
@@ -549,13 +548,7 @@ type
     CEdt_ValorEmp: TcxDBCurrencyEdit;
     CEdt_CostoEmp: TcxDBCurrencyEdit;
     spUptProducto: TADOStoredProc;
-    lblUnidadMedida: TLabel;
-    cboUnidadMedida: TDBLookupComboBox;
-    QUnidadMedida: TADOQuery;
-    StringField2: TStringField;
-    StringField3: TStringField;
-    dsUnidadMedida: TDataSource;
-    QProductoscod_UnidadMedida: TStringField;
+    QProductosPRO_UBICACION: TStringField;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btCloseClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
@@ -1061,10 +1054,10 @@ begin
   vl_sup := 0;
   edtProv.Clear;
   tProv.Clear;
-
+  
   if dm.QParametrospar_inv_unidad_medida.Value = 'True' then
     QProductosUnidadID.Value := QMedidasUnidadID.Value;
-
+    
   QProductospro_utilizamedidor.Value  := 'False';
   QProductospro_UtilizaEnvio.Value    := 'False';
   QProductospro_UtilizaAlquiler.Value := 'False';
@@ -1172,7 +1165,6 @@ begin
   else
   begin
     PageControl1.ActivePageIndex := 0;
-    cboUnidadMedida.Enabled := true;
     QProductos.edit;
     edtProv.setfocus;
   end;
@@ -1192,7 +1184,6 @@ begin
   else
   begin
     PageControl1.ActivePageIndex := 0;
-    cboUnidadMedida.Enabled := true;
     QProductos.insert;
     DBEdit22.setfocus;
   end;
@@ -1233,7 +1224,6 @@ begin
   end;
   frmBuscaProducto.release;
   PageControl1.ActivePageIndex := 0;
-   cboUnidadMedida.Enabled := false;
   DBEdit10.SetFocus;
 end;
 
@@ -1293,7 +1283,7 @@ begin
     QLiquidacion.Open;
     QMedidas.Open;
     QUnidades.Open;
-    QUnidadMedida.Open;
+
     QDescuentoTFA.Parameters.ParamByName('emp').Value := dm.vp_cia;
     QDescuentoTFA.Open;
   end;
@@ -1548,16 +1538,6 @@ begin
   TabSheet8.Visible := dm.QParametrospar_inv_unidad_medida.Value <> 'True';
 //  gbprecios.Visible := dm.QParametrospar_inv_unidad_medida.Value <> 'True';
   btprecios.Visible := dm.QParametrospar_inv_unidad_medida.Value = 'True';
-  if (dm.QParametrosPAR_UnidadMedida_Producto.Value = true)then
-  begin
-     lblUnidadMedida.Visible := true;
-     cboUnidadMedida.Visible := true;
-  end
-  else
-  begin
-     lblUnidadMedida.Visible := false;
-     cboUnidadMedida.Visible := false;
-  end ;
 
   spAno.Value := YearOf(date);
   spinEdit1.Value := YearOf(date);
@@ -3461,13 +3441,13 @@ procedure TfrmProductos.VerificarBeneficio1;
 begin
     if QProductos.State <> dsbrowse then
     begin
-      if (CEdt_PRECIO1.Value<>0) and (CEdt_Valor.Value > 0) then
+      if (CEdt_PRECIO1.Value<>0) and (CEdt_Valor.Value > 0) and (CEdt_Costo.Value>0) then
       begin
         if dm.QParametrospar_itbisincluido.Value = 'True' then
            CEdt_Ben1.Value := ((CEdt_PRECIO1.Value/CEdt_Valor.Value)-1)*100
          else
-           CEdt_Ben1.Value := ((CEdt_Costo.Value/CEdt_Valor.Value)-1)*100;
-
+           CEdt_Ben1.Value := ((CEdt_PRECIO1.Value/CEdt_Costo.Value)-1)*100;
+          // CEdt_Ben1.Value := ((CEdt_Costo.Value/CEdt_PRECIO1.Value)-1)*100;
       QProductosPRO_BENEFICIO.Value := CEdt_Ben1.Value;
       end;
     end;
@@ -3478,13 +3458,13 @@ procedure TfrmProductos.VerificarBeneficio2;
 begin
     if QProductos.State <> dsbrowse then
     begin
-      if (CEdt_PRECIO2.Value<>0) and (CEdt_Valor.Value > 0) and (QProductosPRO_CANTEMPAQUE.Value = 0) then
+      if (CEdt_PRECIO2.Value<>0) and (CEdt_Valor.Value > 0) and (CEdt_Costo.Value>0) and (QProductosPRO_CANTEMPAQUE.Value = 0) then
       begin
         if dm.QParametrospar_itbisincluido.Value = 'True' then
            CEdt_Ben2.Value := ((CEdt_PRECIO2.Value/CEdt_Valor.Value)-1)*100
          else
-           CEdt_Ben2.Value := ((CEdt_Costo.Value/CEdt_Valor.Value)-1)*100;
-
+           CEdt_Ben2.Value := ((CEdt_PRECIO2.Value/CEdt_Costo.Value)-1)*100;
+           //CEdt_Ben2.Value := ((CEdt_Costo.Value/CEdt_Valor.Value)-1)*100;
       QProductosPRO_BENEFICIO2.Value := CEdt_Ben2.Value;
       end;
 
@@ -3505,13 +3485,13 @@ procedure TfrmProductos.VerificarBeneficio3;
 begin
     if QProductos.State <> dsbrowse then
     begin
-      if (CEdt_PRECIO3.Value<>0) and (CEdt_Valor.Value > 0) then
+      if (CEdt_PRECIO3.Value<>0) and (CEdt_Valor.Value > 0) and (CEdt_Costo.Value>0) then
       begin
         if dm.QParametrospar_itbisincluido.Value = 'True' then
            CEdt_Ben3.Value := ((CEdt_PRECIO3.Value/CEdt_Valor.Value)-1)*100
          else
-           CEdt_Ben3.Value := ((CEdt_Costo.Value/CEdt_Valor.Value)-1)*100;
-
+           //CEdt_Ben3.Value := ((CEdt_Costo.Value/CEdt_Valor.Value)-1)*100;
+           CEdt_Ben3.Value := ((CEdt_PRECIO3.Value/CEdt_Costo.Value)-1)*100;
       QProductosPRO_BENEFICIO3.Value := CEdt_Ben3.Value;
       end;
     end;
@@ -3521,13 +3501,14 @@ procedure TfrmProductos.VerificarBeneficio4;
 begin
     if QProductos.State <> dsbrowse then
     begin
-      if (CEdt_PRECIO4.Value<>0) and (CEdt_Valor.Value > 0) then
+      if (CEdt_PRECIO4.Value<>0) and (CEdt_Valor.Value > 0) and (CEdt_Costo.Value>0) then
       begin
         if dm.QParametrospar_itbisincluido.Value = 'True' then
            CEdt_Ben4.Value := ((CEdt_PRECIO4.Value/CEdt_Valor.Value)-1)*100
          else
-           CEdt_Ben4.Value := ((CEdt_Costo.Value/CEdt_Valor.Value)-1)*100;
-
+           //CEdt_Ben4.Value := ((CEdt_Costo.Value/CEdt_Valor.Value)-1)*100;
+           CEdt_Ben4.Value := ((CEdt_PRECIO4.Value/CEdt_Costo.Value)-1)*100;
+           
       QProductosPRO_BENEFICIO4.Value := CEdt_BEN4.Value;
       end;
     end;

@@ -283,7 +283,6 @@ end;
 procedure TfrmEmpresas.FormCreate(Sender: TObject);
 var
   a : integer;
-   Bitmap : TBitmap;    
 begin
   for a := 0 to (Sender as TForm).ComponentCount -1 DO
   begin

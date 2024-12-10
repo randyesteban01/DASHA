@@ -1,6 +1,6 @@
 object frmDevolucion: TfrmDevolucion
-  Left = 463
-  Top = 181
+  Left = 413
+  Top = 170
   ActiveControl = PageControl1
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
@@ -21,7 +21,7 @@ object frmDevolucion: TfrmDevolucion
   OnActivate = FormActivate
   OnClose = FormClose
   OnCreate = FormCreate
-  OnKeyDown = FormKeyDown
+  OnKeyDown = RG
   OnKeyPress = FormKeyPress
   OnPaint = FormPaint
   PixelsPerInch = 96
@@ -1030,7 +1030,7 @@ object frmDevolucion: TfrmDevolucion
       
         'ticket_fecha, mot_codigo, dev_fecha_factura, DEV_RECARGO, TDesc_' +
         'gral, porc_desc_gral,'
-      'DEV_TASA'
+      'DEV_TASA, DEV_HORA'
       'from DEVOLUCION'
       'where emp_codigo = :emp_codigo'
       'and dev_numero = :numero'
@@ -1197,6 +1197,10 @@ object frmDevolucion: TfrmDevolucion
     end
     object QDevolucionDEV_TASA: TCurrencyField
       FieldName = 'DEV_TASA'
+    end
+    object QDevolucionDEV_HORA: TStringField
+      FieldName = 'DEV_HORA'
+      Size = 15
     end
   end
   object dsDevolucion: TDataSource
@@ -2497,6 +2501,7 @@ object frmDevolucion: TfrmDevolucion
         Value = Null
       end>
     SQL.Strings = (
+      'if exitst'
       'update devolucion '
       'set NCF           =  :NCF,'
       '    NCF_Fijo      = b.NCF_Fijo,'
@@ -2508,44 +2513,22 @@ object frmDevolucion: TfrmDevolucion
       'where a.emp_codigo = :emp '
       'and   a.suc_codigo    = :suc'
       'and   a.dev_numero = :num')
-    Left = 224
-    Top = 248
+    Left = 240
+    Top = 280
   end
   object QUpdNC: TADOQuery
     Connection = DM.ADOSigma
-    Parameters = <
-      item
-        Name = 'NCF'
-        DataType = ftString
-        Size = -1
-        Value = Null
-      end
-      item
-        Name = 'emp'
-        DataType = ftInteger
-        Size = -1
-        Value = Null
-      end
-      item
-        Name = 'suc'
-        DataType = ftInteger
-        Size = -1
-        Value = Null
-      end
-      item
-        Name = 'num'
-        DataType = ftInteger
-        Size = -1
-        Value = Null
-      end>
+    Parameters = <>
     SQL.Strings = (
-      'update notascredito'
-      'set NCF           =  :NCF'
-      'where emp_codigo = :emp '
-      'and   suc_codigo    = :suc'
-      'and   ncr_numero = :num')
-    Left = 256
-    Top = 248
+      'UPDATE NotasCredito'
+      'SET NCF =  D.NCF'
+      'from NotasCredito NC'
+      
+        'inner join Devolucion D on NC.emp_codigo = d.emp_codigo and nc.s' +
+        'uc_codigo = d.suc_codigo and nc.ncr_devolucion = d.dev_numero'
+      'where nc.NCF IS NULL')
+    Left = 312
+    Top = 288
   end
   object QConsDev: TADOQuery
     Connection = DM.ADOSigma

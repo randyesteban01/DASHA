@@ -2,7 +2,7 @@ unit SIGMA00;
 interface
 
 uses
-  Windows, Messages, IdMessage, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  ShellAPI, Windows, Messages, IdMessage, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   ComCtrls, ExtCtrls, Buttons, Menus, IBDatabase, DBCtrls, ImgList, ToolWin, db,
   ActnList, OleCtrls, SHDocVw, StdCtrls, IBSQL, IdBaseComponent, IdComponent, IdTCPConnection,
   IdTCPClient, QuerySearchDlgADO, QRPDFFilt, QRExport, QRWebFilt,
@@ -489,6 +489,7 @@ type
     qRepBalanceFact: TADOQuery;
     banco_disp: TAction;
     CierredeldaCardnet1: TMenuItem;
+    FacturacionElectronica1: TMenuItem;
 
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -924,12 +925,12 @@ type
     procedure Reset1Click(Sender: TObject);
     procedure banco_dispExecute(Sender: TObject);
     procedure CierredeldaCardnet1Click(Sender: TObject);
+    procedure FacturacionElectronica1Click(Sender: TObject);
   private
     { Private declarations }
     FClientInstance : TFarProc;
     FPrevClientProc : TFarProc;
     procedure ClientWndProc(var Message: TMessage);
-    function ChAnsiToWide(const StrA: AnsiString): WideString; overload;
     function ChAnsiToWide(const StrA: WideString): WideString; overload;
   public
     { Public declarations }
@@ -1024,7 +1025,7 @@ uses PVENTA03, PVENTA02, PVENTA04, PVENTA05, PVENTA06, PVENTA08, PVENTA07,
   SERV05, PVENTA230, PTIKET001, DateUtils, PTIKET002, PTIKET003, PRENTA02,
   PVENTAREPVENC, USerial, PVenta233, RVENTA129, PVenta235, PVENTA236,
   PVENTA237, PVenta241, PVENTA242, PVENTA244, StdConvs, SIGMA09, CONT93,
-  PVENTA245, PVENTA250;
+  PVENTA245, prueba;
 
 {$R *.DFM}
 
@@ -1323,9 +1324,6 @@ end;
 
 procedure TfrmMain.ListadodeFacturas1Click(Sender: TObject);
 begin
-  //frmConsFacturas.bteliminacuenta.Visible := vDel
-  //frmConsFacturas.btbuscacuenta.Visible := vMod
-
   dm.Query1.Close;
   dm.Query1.sql.clear;
   dm.Query1.sql.add('select inserta, modifica, elimina ');
@@ -1342,7 +1340,6 @@ begin
   frmConsFacturas.Elimina  := vDel;
   //frmConsFacturas.bteliminacuenta.Visible := vDel
   //frmConsFacturas.btbuscacuenta.Visible := vMod
-  
 end;
 
 procedure TfrmMain.RecibosdeCobro2Click(Sender: TObject);
@@ -1679,14 +1676,13 @@ procedure TfrmMain.rep_cxc_5Click(Sender: TObject);
 begin
   if MessageDlg('Desea seleccionar un rango de fecha?',mtConfirmation,[mbyes,mbno],0) = mrno then
   begin
-    ActivaForma(tfrmRepCxcGeneralSucursal, tform(frmRepCxcGeneralSucursal));   
-  {  Application.CreateForm(tRCxC, RCxC);
+    Application.CreateForm(tRCxC, RCxC);
     RCxC.QClientes.Open;
     RCxC.QDocs.Open;
     RCxC.lbFecha.Caption := 'Al '+DateToStr(Date);
     RCxC.PrinterSetup;
     RCxC.Preview;
-    RCxC.Destroy;    }
+    RCxC.Destroy;
   end
   else
   begin
@@ -2294,6 +2290,9 @@ begin
   vMod := dm.Query1.fieldbyname('Modifica').asboolean;
   vDel := dm.Query1.fieldbyname('Elimina').asboolean;
   activaforma(tfrmConsCargosBanco, tform(frmConsCargosBanco));
+
+  activaforma(Tfrmprueba, tform(frmprueba));
+
   frmConsCargosBanco.btBuscaCta.Visible := vMod;
   frmConsCargosBanco.btElimina.Visible := vDel;
   frmConsCargosBanco.Modifica := vMod;
@@ -2550,7 +2549,7 @@ end;
 procedure TfrmMain.btEmailClick(Sender: TObject);
 var
    MailMsg : TIdMessage;
-   Archivo : TIdAttachment;
+  // Archivo : TIdAttachment;
 begin
    if IdSMTP1.Connected then IdSMTP1.Disconnect;
    MailMsg := TidMessage.Create(IdSMTP1);
@@ -2561,7 +2560,7 @@ begin
    MailMsg.Recipients.Add;
    MailMsg.Recipients.Items[0].Address := 'adm@syservicios.com.do';
    MailMsg.Body.Add('Esto es una prueba de como enviar mail');
-   TIdAttachment.Create(MailMsg.MessageParts, ArchivoMail);
+ //  TIdAttachmentFile.Create(MailMsg.MessageParts, ArchivoMail);
 
    IdSMTP1.Host := dm.QParametrospar_mailservidor.Value;
    IdSMTP1.Port := dm.QParametrospar_mailpuerto.AsInteger;
@@ -4130,6 +4129,7 @@ procedure TfrmMain.cxtvVentasClick(Sender: TObject);
 var
   vName : string;
 begin
+  
   dm.Query1.Close;
   dm.Query1.SQL.Clear;
   dm.Query1.SQL.Add('select pri_nombre from privilegios where usu_codigo = :usu');
@@ -4147,6 +4147,7 @@ begin
     except
     end;
   end;
+
 end;
 
 procedure TfrmMain.cxtvCxCClick(Sender: TObject);
@@ -5517,25 +5518,25 @@ begin
   dm.QNotificaComprobantes.SQL.Add('ncf n where n.emp_codigo = a.emp_codigo');
   dm.QNotificaComprobantes.SQL.Add('and n.ncf_fijo = a.ncf_fijo');
   dm.QNotificaComprobantes.SQL.Add('and a.ncf_cantidad >= (n.NCF_Final - n.NCF_Secuencia)');
-  dm.QNotificaComprobantes.SQL.Add('AND n.detenergeneracioncomprobante=1 and a.emp_codigo = :emp');
+  dm.QNotificaComprobantes.SQL.Add('and a.emp_codigo = :emp');
   dm.QNotificaComprobantes.Parameters.ParamByName('emp').Value := dm.QEmpresasEMP_CODIGO.Value;
   dm.QNotificaComprobantes.Open;
   dm.QNotificaComprobantes.DisableControls;
   memonotificaciones.Visible := false;
-
+  memonotificaciones.Lines.Clear;
   if dm.QNotificaComprobantes.RecordCount > 0 then
   begin
     texto := '';
-    memonotificaciones.Lines.Clear;
+
     while not dm.QNotificaComprobantes.Eof do
     begin
-      texto := texto + 'NCF '+dm.QNotificaComprobantes.FieldByName('ncf_fijo').AsString+
-                                ' Está a punto de terminarse, ';
-      //memonotificaciones.Lines.Add('NCF '+dm.QNotificaComprobantes.FieldByName('ncf_fijo').AsString+
-      //                          ' Está a punto de terminarse, ');
+      //texto := texto + 'NCF '+dm.QNotificaComprobantes.FieldByName('ncf_fijo').AsString+
+      //                          ' Está a punto de terminarse, ';
+      memonotificaciones.Lines.Add('NCF '+dm.QNotificaComprobantes.FieldByName('ncf_fijo').AsString+
+                                ' Está a punto de terminarse, ');
       dm.QNotificaComprobantes.Next;
     end;
-    memonotificaciones.Lines.Add(Trim(texto));
+    //memonotificaciones.Lines.Add(Trim(texto));
     lblAlerta.Caption := 'ALERTA !! : Comprobantes Fiscal, Presione Click aqui para ver';
     lblAlerta.Visible := true;
   end;
@@ -5714,6 +5715,8 @@ begin
   vIns := dm.Query1.fieldbyname('Inserta').asboolean;
   vMod := dm.Query1.fieldbyname('Modifica').asboolean;
   vDel := dm.Query1.fieldbyname('Elimina').asboolean;
+
+
   activaforma(tfrmConsFacturasRestBar, tform(frmConsFacturasRestBar));
   frmConsFacturasRestBar.Modifica := vMod;
   frmConsFacturasRestBar.Elimina  := vDel;
@@ -5729,11 +5732,11 @@ begin
   if qAlertaCot.RecordCount > 0 then begin
   qAlertaCot.DisableControls;
   memonotificaciones.Visible := false;
-
+  memonotificaciones.Lines.Clear;
   if qAlertaCot.RecordCount > 0 then
   begin
     texto := '';
-     memonotificaciones.Lines.Clear;
+
     while not qAlertaCot.Eof do
     begin
       //texto := texto + 'NCF '+dm.QNotificaComprobantes.FieldByName('ncf_fijo').AsString+
@@ -5783,7 +5786,7 @@ begin
   with qAlertaCot do begin
   Close;
   SQL.Clear;
-  SQL.Add('select c.cot_nombre, c.cot_numero, c.cot_fecha');
+  SQL.Add('select distinct c.cot_nombre, c.cot_numero, c.cot_fecha');
   SQL.Add('from Cotizacion_Notif n');
   SQL.Add('INNER JOIN Cotizacion C ON N.emp_codigo = C.emp_codigo AND N.suc_codigo = C.suc_codigo AND N.cot_numero = N.cot_numero');
   SQL.Add('where n.cot_not_status = ''ABI''');
@@ -5807,6 +5810,7 @@ var
   RcptBound: integer;
   RcptAddr: WideString;
   oEncryptCert: TCertificate;
+  pas: String;
 begin
   if Trim(DM.QUsuariospar_mailusuario.Text) = '' then begin
   DM.vp_usermailok := False;
@@ -5955,7 +5959,9 @@ end;
 
       oSmtp.ServerPort := strtoint(dm.QUsuariospar_mailpuerto.Text);
       oSmtp.UserName := trim(dm.QUsuariospar_mailusuario.Text);
-      oSmtp.Password := MimeDecodeString(dm.QUsuariospar_mailclave.Text);
+      pas:=MimeDecodeString(dm.QUsuariospar_mailclave.Text);
+      oSmtp.Password :=pas;
+     // oSmtp.Password := MimeDecodeString(dm.QUsuariospar_mailclave.Text);
 
       if oSmtp.ServerPort =  25 then
       oSmtp.ConnectType := ConnectNormal else
@@ -5979,22 +5985,6 @@ end;
     ShowMessage(oSmtp.GetLastErrDescription());
 end;
 end;
-
-end;
-
-function TfrmMain.ChAnsiToWide(const StrA: AnsiString): WideString;
-var
-  nLen: integer;
-begin
-  Result := StrA;
-  if Result <> '' then
-  begin
-    // convert ansi string to widestring (unicode) by current system codepage
-    nLen := MultiByteToWideChar(GetACP(), 1, PAnsiChar(@StrA[1]), -1, nil, 0);
-    SetLength(Result, nLen - 1);
-    if nLen > 1 then
-      MultiByteToWideChar(GetACP(), 1, PAnsiChar(@StrA[1]), -1, PWideChar(@Result[1]), nLen - 1);
-  end;
 
 end;
 
@@ -6212,10 +6202,12 @@ end;
     Exit;
     end
     else begin
+
     dm.vp_usermailok := False;
     ShowMessage(oSmtp.GetLastErrDescription());
 
 end;
+
 
 end;
 end;
@@ -6243,11 +6235,11 @@ begin
   dm.QNotificaComprobantes.Open;
   dm.QNotificaComprobantes.DisableControls;
   memonotificaciones.Visible := false;
-
+  memonotificaciones.Clear;
   if dm.QNotificaComprobantes.RecordCount > 0 then
   begin
     //texto := '';
-     memonotificaciones.Clear;
+
     dm.QNotificaComprobantes.First;
     while not dm.QNotificaComprobantes.Eof do
     begin
@@ -6477,6 +6469,26 @@ end;
 procedure TfrmMain.CierredeldaCardnet1Click(Sender: TObject);
 begin
 ActivaForma(tfrmCierreDiaCardnet, Tform(frmCierreDiaCardnet));
+end;
+
+procedure TfrmMain.FacturacionElectronica1Click(Sender: TObject);
+var
+ExePath, Empresa, Usuario, Parametros: string;
+begin
+ // Ruta del ejecutable .NET
+  //ExePath := 'C:\Ruta\\TuAplicacionDotNet.exe';
+  ExePath := ExtractFilePath(ParamStr(0))+'\\FE\\Dasha_FE.exe';
+  ShowMessage(ExePath);
+
+  Empresa := 'MiEmpresa';
+  Usuario := 'MiUsuario';
+
+    // Parámetros que quieres pasar
+  Parametros := Empresa + ' ' + Usuario;
+
+  // Llamada a la aplicación .NET con los parámetros
+  ShellExecute(0, 'open', PChar(ExePath), PChar(Parametros), nil, SW_SHOWNORMAL);
+
 end;
 
 end.

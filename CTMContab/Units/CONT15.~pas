@@ -102,7 +102,7 @@ type
     btLocalidad: TSpeedButton;
     lbLocSuc: TLabel;
     dbedtcont_numeroSucursal: TDBEdit;
-    QTranscont_numeroSucursal: TStringField;
+    QTranscont_numeroSucursal: TIntegerField;
     procedure QTransNewRecord(DataSet: TDataSet);
     procedure QDetalleNewRecord(DataSet: TDataSet);
     procedure FormActivate(Sender: TObject);

@@ -1,6 +1,6 @@
 object frmReimpresion: TfrmReimpresion
-  Left = 315
-  Top = 186
+  Left = 441
+  Top = 260
   ActiveControl = edGrupo
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
@@ -2359,6 +2359,7 @@ object frmReimpresion: TfrmReimpresion
     Connection = DM.ADOSigma
     CursorType = ctStatic
     LockType = ltBatchOptimistic
+    DataSource = DM.dsEmpresas
     Parameters = <
       item
         Name = 'emp'

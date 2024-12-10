@@ -1003,6 +1003,7 @@ object frmAjusteInventario: TfrmAjusteInventario
     AfterPost = QProductosAfterPost
     BeforeDelete = QProductosBeforeDelete
     OnCalcFields = QProductosCalcFields
+    DataSource = DM.dsEmpresas
     Parameters = <
       item
         Name = 'emp_codigo'
@@ -1457,6 +1458,7 @@ object frmAjusteInventario: TfrmAjusteInventario
   end
   object qRegExist: TADOQuery
     Connection = DM.ADOSigma
+    DataSource = DM.dsEmpresas
     Parameters = <
       item
         Name = 'EMP'
@@ -1521,6 +1523,7 @@ object frmAjusteInventario: TfrmAjusteInventario
   end
   object qActulizaProd: TADOQuery
     Connection = DM.ADOSigma
+    DataSource = DM.dsEmpresas
     Parameters = <
       item
         Name = 'PROD'

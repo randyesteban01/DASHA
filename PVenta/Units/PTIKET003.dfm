@@ -1,11 +1,11 @@
 object frmConsBoletos: TfrmConsBoletos
-  Left = 382
-  Top = 250
+  Left = -80
+  Top = 120
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Consulta de Boletos'
-  ClientHeight = 509
-  ClientWidth = 1293
+  ClientHeight = 542
+  ClientWidth = 1288
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -27,15 +27,15 @@ object frmConsBoletos: TfrmConsBoletos
   TextHeight = 13
   object Panel2: TPanel
     Left = 0
-    Top = 449
-    Width = 1293
+    Top = 482
+    Width = 1288
     Height = 60
     Align = alBottom
     BevelInner = bvRaised
     BevelOuter = bvLowered
     TabOrder = 0
     DesignSize = (
-      1293
+      1288
       60)
     object lbCantidad: TLabel
       Left = 171
@@ -97,7 +97,7 @@ object frmConsBoletos: TfrmConsBoletos
       ParentFont = False
     end
     object BitBtn1: TBitBtn
-      Left = 1031
+      Left = 1026
       Top = 30
       Width = 127
       Height = 25
@@ -116,7 +116,7 @@ object frmConsBoletos: TfrmConsBoletos
         03333333333333333333}
     end
     object BitBtn2: TBitBtn
-      Left = 900
+      Left = 895
       Top = 30
       Width = 127
       Height = 25
@@ -135,7 +135,7 @@ object frmConsBoletos: TfrmConsBoletos
         03333333333333333333}
     end
     object btRefresh: TBitBtn
-      Left = 1161
+      Left = 1156
       Top = 3
       Width = 127
       Height = 25
@@ -145,7 +145,7 @@ object frmConsBoletos: TfrmConsBoletos
       OnClick = btRefreshClick
     end
     object btClose: TBitBtn
-      Left = 1163
+      Left = 1158
       Top = 30
       Width = 127
       Height = 25
@@ -177,7 +177,7 @@ object frmConsBoletos: TfrmConsBoletos
       Visible = False
     end
     object btnImprimir: TBitBtn
-      Left = 1031
+      Left = 1026
       Top = 3
       Width = 127
       Height = 25
@@ -196,7 +196,7 @@ object frmConsBoletos: TfrmConsBoletos
         03333333333333333333}
     end
     object btnBalance: TBitBtn
-      Left = 901
+      Left = 896
       Top = 3
       Width = 127
       Height = 25
@@ -215,7 +215,7 @@ object frmConsBoletos: TfrmConsBoletos
         03333333333333333333}
     end
     object btnReimpresionBoleto: TBitBtn
-      Left = 771
+      Left = 766
       Top = 3
       Width = 127
       Height = 25
@@ -233,6 +233,34 @@ object frmConsBoletos: TfrmConsBoletos
         03333330FFFFFFFF03333330FCCCCCCF03333330FFFFFFFF0333333000000000
         03333333333333333333}
     end
+    object btnAnular: TBitBtn
+      Left = 767
+      Top = 30
+      Width = 127
+      Height = 25
+      Anchors = [akTop, akRight]
+      Caption = 'Anular'
+      TabOrder = 8
+      OnClick = btnAnularClick
+      Glyph.Data = {
+        DE010000424DDE01000000000000760000002800000024000000120000000100
+        0400000000006801000000000000000000001000000000000000000000000000
+        80000080000000808000800000008000800080800000C0C0C000808080000000
+        FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00333333333333
+        333333333333333333333333000033338833333333333333333F333333333333
+        0000333911833333983333333388F333333F3333000033391118333911833333
+        38F38F333F88F33300003339111183911118333338F338F3F8338F3300003333
+        911118111118333338F3338F833338F3000033333911111111833333338F3338
+        3333F8330000333333911111183333333338F333333F83330000333333311111
+        8333333333338F3333383333000033333339111183333333333338F333833333
+        00003333339111118333333333333833338F3333000033333911181118333333
+        33338333338F333300003333911183911183333333383338F338F33300003333
+        9118333911183333338F33838F338F33000033333913333391113333338FF833
+        38F338F300003333333333333919333333388333338FFF830000333333333333
+        3333333333333333333888330000333333333333333333333333333333333333
+        0000}
+      NumGlyphs = 2
+    end
   end
   object Memo1: TMemo
     Left = 7
@@ -247,7 +275,7 @@ object frmConsBoletos: TfrmConsBoletos
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 1293
+    Width = 1288
     Height = 129
     Align = alTop
     TabOrder = 2
@@ -261,9 +289,9 @@ object frmConsBoletos: TfrmConsBoletos
     object Label6: TLabel
       Left = 8
       Top = 33
-      Width = 30
+      Width = 61
       Height = 13
-      Caption = 'Fecha'
+      Caption = 'Fecha/ Hora'
     end
     object Label5: TLabel
       Left = 8
@@ -287,9 +315,9 @@ object frmConsBoletos: TfrmConsBoletos
       Caption = 'Usuario'
     end
     object SpeedButton3: TSpeedButton
-      Left = 109
+      Left = 122
       Top = 104
-      Width = 23
+      Width = 22
       Height = 22
       Flat = True
       Glyph.Data = {
@@ -307,9 +335,9 @@ object frmConsBoletos: TfrmConsBoletos
       OnClick = SpeedButton3Click
     end
     object DBLookupComboBox2: TDBLookupComboBox
-      Left = 74
+      Left = 87
       Top = 8
-      Width = 247
+      Width = 338
       Height = 21
       DropDownRows = 20
       Font.Charset = ANSI_CHARSET
@@ -325,9 +353,9 @@ object frmConsBoletos: TfrmConsBoletos
       OnClick = btRefreshClick
     end
     object Fecha1: TDateTimePicker
-      Left = 74
+      Left = 87
       Top = 33
-      Width = 79
+      Width = 90
       Height = 21
       Date = 37506.000000000000000000
       Time = 37506.000000000000000000
@@ -340,9 +368,9 @@ object frmConsBoletos: TfrmConsBoletos
       TabOrder = 1
     end
     object Fecha2: TDateTimePicker
-      Left = 154
+      Left = 261
       Top = 33
-      Width = 79
+      Width = 90
       Height = 21
       Date = 37506.000000000000000000
       Time = 37506.000000000000000000
@@ -355,9 +383,9 @@ object frmConsBoletos: TfrmConsBoletos
       TabOrder = 2
     end
     object ckrango: TCheckBox
-      Left = 240
+      Left = 438
       Top = 33
-      Width = 81
+      Width = 80
       Height = 17
       Caption = 'Utiliza rango'
       Checked = True
@@ -366,9 +394,9 @@ object frmConsBoletos: TfrmConsBoletos
       OnClick = btRefreshClick
     end
     object cbOrden: TComboBox
-      Left = 74
+      Left = 87
       Top = 58
-      Width = 81
+      Width = 80
       Height = 21
       BevelKind = bkSoft
       Style = csDropDownList
@@ -389,9 +417,9 @@ object frmConsBoletos: TfrmConsBoletos
         'Ficha')
     end
     object cbStatus: TRadioGroup
-      Left = 337
-      Top = 3
-      Width = 89
+      Left = 525
+      Top = 11
+      Width = 88
       Height = 76
       Caption = '  Status  '
       ItemIndex = 0
@@ -403,16 +431,16 @@ object frmConsBoletos: TfrmConsBoletos
       OnClick = btRefreshClick
     end
     object edtFicha: TEdit
-      Left = 73
+      Left = 86
       Top = 82
-      Width = 121
+      Width = 120
       Height = 21
       TabOrder = 6
     end
     object edUsuario: TEdit
-      Left = 73
+      Left = 86
       Top = 104
-      Width = 33
+      Width = 32
       Height = 21
       BevelKind = bkFlat
       BorderStyle = bsNone
@@ -428,9 +456,9 @@ object frmConsBoletos: TfrmConsBoletos
       OnKeyDown = edUsuarioKeyDown
     end
     object tUsuario: TEdit
-      Left = 134
+      Left = 147
       Top = 104
-      Width = 172
+      Width = 171
       Height = 21
       BevelKind = bkFlat
       BorderStyle = bsNone
@@ -444,12 +472,46 @@ object frmConsBoletos: TfrmConsBoletos
       ParentFont = False
       TabOrder = 8
     end
+    object Hora1: TDateTimePicker
+      Left = 178
+      Top = 33
+      Width = 75
+      Height = 21
+      Date = 37506.000000000000000000
+      Format = 'hh:mm tt'
+      Time = 37506.000000000000000000
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      Kind = dtkTime
+      ParentFont = False
+      TabOrder = 9
+    end
+    object Hora2: TDateTimePicker
+      Left = 352
+      Top = 33
+      Width = 75
+      Height = 21
+      Date = 37506.500000000000000000
+      Format = 'hh:mm tt'
+      Time = 37506.500000000000000000
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      Kind = dtkTime
+      ParentFont = False
+      TabOrder = 10
+    end
   end
   object DBGrid1: TDBGrid
     Left = 0
     Top = 129
-    Width = 1293
-    Height = 320
+    Width = 1288
+    Height = 353
     Align = alClient
     DataSource = dsBoletos
     Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit]
@@ -460,6 +522,7 @@ object frmConsBoletos: TfrmConsBoletos
     TitleFont.Height = -11
     TitleFont.Name = 'MS Sans Serif'
     TitleFont.Style = []
+    OnEnter = DBGrid1Enter
     Columns = <
       item
         Expanded = False
@@ -530,6 +593,14 @@ object frmConsBoletos: TfrmConsBoletos
         FieldName = 'fecha_pagado'
         Title.Alignment = taCenter
         Title.Caption = 'F. PAGADO'
+        Width = 100
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'Estado'
+        Title.Alignment = taCenter
+        Title.Caption = 'ESTADO'
         Width = 100
         Visible = True
       end>
@@ -632,8 +703,12 @@ object frmConsBoletos: TfrmConsBoletos
         Value = 1
       end>
     SQL.Strings = (
+      ''
       
-        'select b.*, so.suc_nombre suc_origen, sd.suc_nombre suc_destino ' +
+        'select b.*, so.suc_nombre suc_origen, sd.suc_nombre suc_destino,' +
+        ' comentario_anulado,'
+      
+        'case anulado when 1 then '#39'Anulado'#39' else '#39'Vigente'#39' end as Estado ' +
         'from boleto b'
       
         'left join sucursales so on b.suc_cod_origen=so.suc_codigo and b.' +
@@ -728,6 +803,17 @@ object frmConsBoletos: TfrmConsBoletos
       FieldName = 'secuencia_rando'
       FixedChar = True
       Size = 8
+    end
+    object QBoletosanulado: TBooleanField
+      FieldName = 'anulado'
+    end
+    object QBoletoscomentario_anulado: TStringField
+      FieldName = 'comentario_anulado'
+      Size = 500
+    end
+    object QBoletosEstado: TStringField
+      FieldName = 'Estado'
+      Size = 100
     end
   end
   object dsBoletos: TDataSource
@@ -1237,56 +1323,78 @@ object frmConsBoletos: TfrmConsBoletos
         Value = Null
       end
       item
-        Name = 'fecha'
-        Attributes = [paNullable]
-        DataType = ftDateTime
-        NumericScale = 3
-        Precision = 23
-        Size = 16
+        Name = 'FECHA_INICIO'
+        Size = -1
+        Value = Null
+      end
+      item
+        Name = 'FECHA_FIN'
+        Size = -1
         Value = Null
       end>
     SQL.Strings = (
-      'declare @fecha datetime '
+      'DECLARE @fechaInicio DATETIME'
+      'DECLARE @fechaFin DATETIME'
       'DECLARE @SUC INT'
       'DECLARE @EMPRESA INT '
-      'set DATEFORMAT ymd'
+      ''
+      'SET DATEFORMAT ymd'
       'SET @EMPRESA = :EMP'
       'SET @SUC = :SUC'
-      'set @fecha = :FECHA'
+      'SET @fechaInicio = :FECHA_INICIO'
+      'SET @fechaFin = :FECHA_FIN'
+      ''
+      'SELECT '
+      '    s.suc_nombre, '
+      '    s.suc_telefono, '
+      '    s.suc_direccion, '
+      '    u.usu_nombre, '
+      '    A.PRECIO,'
+      '    SUM(A.PRECIO) AS TOTAL, '
+      '    COUNT(PRECIO) AS CANT, '
+      '    A.descripcion,'
+      '    (SELECT SUM(PRECIO) '
+      '     FROM BOLETO '
+      '     WHERE emp_codigo = @EMPRESA '
+      '       AND suc_cod_origen = @SUC '
+      '       AND fecha BETWEEN @fechaInicio AND @fechaFin'
+      '       AND fecha_pagado IS NOT NULL '
+      '       AND DESCRIPCION = A.descripcion '
+      '       AND usu_codigo = A.usu_codigo'
+      '     GROUP BY USU_CODIGO) AS PAGADO,'
+      '    (SELECT SUM(PRECIO) '
+      '     FROM BOLETO '
+      '     WHERE emp_codigo = @EMPRESA '
+      '       AND suc_cod_origen = @SUC '
+      '       AND fecha BETWEEN @fechaInicio AND @fechaFin'
+      '       AND fecha_pagado IS NULL '
+      '       AND DESCRIPCION = A.descripcion '
+      '       AND usu_codigo = A.usu_codigo'
+      '     GROUP BY USU_CODIGO) AS BALANCE,'
+      '    A.usu_codigo'
+      'FROM '
+      '    BOLETO A '
+      'INNER JOIN '
+      '    Empresas E ON A.emp_codigo = E.emp_codigo'
+      'INNER JOIN '
       
-        'select s.suc_nombre, s.suc_telefono, s.suc_direccion, u.usu_nomb' +
-        're, A.PRECIO,'
-      'SUM(A.PRECIO) TOTAL, COUNT(PRECIO) CANT, A.descripcion,'
-      
-        '(SELECT SUM(PRECIO) FROM BOLETO WHERE emp_codigo = @EMPRESA AND ' +
-        'suc_cod_origen = @SUC and CAST(CAST(fecha AS CHAR(11)) AS DATETI' +
-        'ME) = @fecha'
-      
-        ' AND fecha_pagado IS NOT NULL AND DESCRIPCION = A.descripcion AN' +
-        'D usu_codigo = A.usu_codigo'
-      ' GROUP BY USU_CODIGO) PAGADO,'
-      
-        '(SELECT SUM(PRECIO) FROM BOLETO WHERE emp_codigo = @EMPRESA AND ' +
-        'suc_cod_origen = @SUC and CAST(CAST(fecha AS CHAR(11)) AS DATETI' +
-        'ME) = @fecha'
-      
-        ' AND fecha_pagado IS NULL AND DESCRIPCION = A.descripcion AND us' +
-        'u_codigo = A.usu_codigo'
-      ' GROUP BY USU_CODIGO) BALANCE,'
-      ' A.usu_codigo'
-      'from boleto a '
-      'inner join Empresas e on a.emp_codigo=e.emp_codigo'
-      
-        'inner join Sucursales s on a.suc_cod_origen=s.suc_codigo and a.e' +
-        'mp_codigo=s.emp_codigo'
-      'inner join Usuarios u on a.usu_codigo=u.usu_codigo'
-      'where codbarra is not null'
-      
-        'AND A.emp_codigo = @EMPRESA AND A.suc_cod_origen = @SUC and CAST' +
-        '(CAST(a.fecha AS CHAR(11)) AS DATETIME) = @fecha'
-      
-        'GROUP BY S.suc_nombre, S.suc_telefono, S.suc_direccion, U.usu_no' +
-        'mbre, A.PRECIO, A.descripcion, A.usu_codigo')
+        '    Sucursales S ON A.suc_cod_origen = S.suc_codigo AND A.emp_co' +
+        'digo = S.emp_codigo'
+      'INNER JOIN '
+      '    Usuarios U ON A.usu_codigo = U.usu_codigo'
+      'WHERE '
+      '    codbarra IS NOT NULL'
+      '    AND A.emp_codigo = @EMPRESA '
+      '    AND A.suc_cod_origen = @SUC '
+      '    AND A.fecha BETWEEN @fechaInicio AND @fechaFin'
+      'GROUP BY '
+      '    S.suc_nombre, '
+      '    S.suc_telefono, '
+      '    S.suc_direccion, '
+      '    U.usu_nombre, '
+      '    A.PRECIO, '
+      '    A.descripcion, '
+      '    A.usu_codigo')
     Left = 224
     Top = 360
     object StringField1: TStringField
@@ -1895,7 +2003,7 @@ object frmConsBoletos: TfrmConsBoletos
           7569636F6D7061745C6465666C616E67313033337B5C666F6E7474626C7B5C66
           305C666E696C204D532053616E732053657269663B7D7B5C66315C6673776973
           735C6663686172736574302043616C696272693B7D7D0D0A7B5C2A5C67656E65
-          7261746F722052696368656432302031302E302E31393034317D5C766965776B
+          7261746F722052696368656432302031302E302E31373736337D5C766965776B
           696E64345C756331200D0A5C706172645C71635C625C66305C66733330205B44
           425F312E22656D705F6E6F6D627265225D5C7061720D0A5C66733230205B4442
           5F312E227375635F74656C65666F6E6F225D5C7061720D0A5B44425F312E2273

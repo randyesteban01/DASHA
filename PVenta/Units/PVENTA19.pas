@@ -98,6 +98,7 @@ type
     btNota: TSpeedButton;
     Query1: TADOQuery;
     QPedidosPED_NOTA: TMemoField;
+    QPedidosPED_COTIZACION: TIntegerField;
     QPedidosUSU_CODIGO: TIntegerField;
     QDetalleDET_ESCALA: TIBStringField;
     QDetalleDET_MANEJAESCALA: TIBStringField;
@@ -168,7 +169,6 @@ type
     dblExistencia: TDBText;
     dbtxtUBICACION: TDBText;
     QPedidosPED_FICHA: TStringField;
-    QPedidosPED_COTIZACION: TStringField;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormPaint(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word;

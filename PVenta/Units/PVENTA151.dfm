@@ -1,8 +1,8 @@
 object frmConsTicket: TfrmConsTicket
-  Left = 153
-  Top = 72
-  Width = 1620
-  Height = 853
+  Left = -53
+  Top = 69
+  Width = 1386
+  Height = 788
   Caption = 'Consulta de tickets de caja'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -26,7 +26,7 @@ object frmConsTicket: TfrmConsTicket
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 1604
+    Width = 1370
     Height = 106
     Align = alTop
     BevelInner = bvRaised
@@ -493,15 +493,15 @@ object frmConsTicket: TfrmConsTicket
   end
   object Panel2: TPanel
     Left = 0
-    Top = 753
-    Width = 1604
+    Top = 688
+    Width = 1370
     Height = 61
     Align = alBottom
     BevelInner = bvRaised
     BevelOuter = bvLowered
     TabOrder = 1
     DesignSize = (
-      1604
+      1370
       61)
     object lbcant: TLabel
       Left = 8
@@ -702,8 +702,8 @@ object frmConsTicket: TfrmConsTicket
   object PageControl1: TPageControl
     Left = 0
     Top = 106
-    Width = 1604
-    Height = 647
+    Width = 1370
+    Height = 582
     ActivePage = TabSheet1
     Align = alClient
     TabOrder = 2
@@ -713,7 +713,7 @@ object frmConsTicket: TfrmConsTicket
       object Splitter1: TSplitter
         Left = 0
         Top = 0
-        Width = 1596
+        Width = 1362
         Height = 4
         Cursor = crVSplit
         Align = alTop
@@ -721,8 +721,8 @@ object frmConsTicket: TfrmConsTicket
       object DBGrid1: TDBGrid
         Left = 0
         Top = 4
-        Width = 1596
-        Height = 453
+        Width = 1362
+        Height = 388
         Align = alClient
         Color = clInfoBk
         Ctl3D = False
@@ -879,8 +879,8 @@ object frmConsTicket: TfrmConsTicket
       end
       object PageControl2: TPageControl
         Left = 0
-        Top = 457
-        Width = 1596
+        Top = 392
+        Width = 1362
         Height = 162
         ActivePage = TabSheet3
         Align = alBottom
@@ -890,7 +890,7 @@ object frmConsTicket: TfrmConsTicket
           object Grid: TDBGrid
             Left = 0
             Top = 0
-            Width = 1588
+            Width = 1354
             Height = 134
             Align = alClient
             Color = clInfoBk

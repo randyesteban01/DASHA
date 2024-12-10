@@ -119,6 +119,9 @@ type
     QBancosban_tipo_cuenta: TStringField;
     dbchkban_imprime_negritas: TDBCheckBox;
     QBancosban_imprime_negritas: TBooleanField;
+    QBancoscodigo_banco: TStringField;
+    DBEdit16: TDBEdit;
+    Label18: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btCloseClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word;

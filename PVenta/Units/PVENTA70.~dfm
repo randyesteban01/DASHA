@@ -254,8 +254,8 @@ object frmAnulaFac: TfrmAnulaFac
   object Query1: TADOQuery
     Connection = DM.ADOSigma
     Parameters = <>
-    Left = 136
-    Top = 80
+    Left = 152
+    Top = 128
   end
   object QSucursal: TADOQuery
     Connection = DM.ADOSigma
@@ -343,7 +343,7 @@ object frmAnulaFac: TfrmAnulaFac
   end
   object dsMotivo: TDataSource
     DataSet = QMotivo
-    Left = 336
+    Left = 352
     Top = 48
   end
 end

@@ -259,8 +259,8 @@ uses
   RVENTA33 in 'PVenta\Reports\RVENTA33.pas' {RNotaCredito: TQuickRep},
   RVENTA34 in 'PVenta\Reports\RVENTA34.pas' {RNotaDebito: TQuickRep},
   RVENTA35 in 'PVenta\Reports\RVENTA35.pas' {RDesembolso: TQuickRep},
-  RVENTA36 in 'PVenta\Reports\RVENTA36.pas' {RCotizacion: TQuickRep},
-  RVENTA37 in 'PVenta\Reports\RVENTA37.pas' {REntradaAlm: TQuickRep},
+  RVENTA135 in 'PVenta\Reports\RVENTA135.pas' {RCotizacionFUNDGRUBEL: TQuickRep},
+  RVENTA37_SARITA in 'PVenta\Reports\RVENTA37_SARITA.pas' {REntradaAlmSarita: TQuickRep},
   RVENTA127 in 'PVenta\Reports\RVENTA127.pas' {RConduceSarita: TQuickRep},
   RVENTA39 in 'PVenta\Reports\RVENTA39.pas' {RTransferencia: TQuickRep},
   RVENTA40 in 'PVenta\Reports\RVENTA40.pas' {RCxP: TQuickRep},
@@ -278,7 +278,7 @@ uses
   RVENTA53 in 'PVenta\Reports\RVENTA53.pas' {RRepEtiqClientes: TQuickRep},
   RVENTA54 in 'PVenta\Reports\RVENTA54.pas' {RConsComision: TQuickRep},
   RVENTA55 in 'PVenta\Reports\RVENTA55.pas' {RConsTransferencia: TQuickRep},
-  RVENTA56 in 'PVenta\Reports\RVENTA56.pas' {RCuadre: TQuickRep},
+  RVENTA132 in 'PVenta\Reports\RVENTA132.pas' {RCuadreCaceres: TQuickRep},
   RVENTA57 in 'PVenta\Reports\RVENTA57.pas' {RepVentaTipoFac: TQuickRep},
   RVENTA58 in 'PVenta\Reports\RVENTA58.pas' {RepVentaFamilia: TQuickRep},
   RVENTA59 in 'PVenta\Reports\RVENTA59.pas' {RepVentaDepto: TQuickRep},
@@ -389,7 +389,7 @@ uses
   RH17 in 'RHumanos\Units\RH17.pas' {frmTipoIngresos},
   RVENTA77 in 'PVenta\Reports\RVENTA77.pas' {RRepHistorialCli: TQuickRep},
   RVENTA78 in 'PVenta\Reports\RVENTA78.pas' {RRepHistorialSup: TQuickRep},
-  RVENTA73 in 'PVenta\Reports\RVENTA73.pas' {RepListaTickets: TQuickRep},
+  RVENTA133 in 'PVenta\Reports\RVENTA133.pas' {RepListaRestBar: TQuickRep},
   RVENTA74 in 'PVenta\Reports\RVENTA74.pas' {RepTicketsCR: TQuickRep},
   RVENTA75 in 'PVenta\Reports\RVENTA75.pas' {RepListaBonos: TQuickRep},
   RVENTA76 in 'PVenta\Reports\RVENTA76.pas' {RFacturaProvee: TQuickRep},
@@ -580,10 +580,9 @@ uses
   PVENTAASEG in 'PVenta\Units\PVENTAASEG.pas' {frmAseguradoras},
   RCONT17 in 'CTMContab\Reports\RCONT17.pas' {RepCheque: TQuickRep},
   USerial in 'PVenta\Units\USerial.pas' {FSerial},
-  RVENTA26 in 'PVenta\Reports\RVENTA26.pas' {RValorInv: TQuickRep},
+  RVENTA26_SARITA in 'PVenta\Reports\RVENTA26_SARITA.pas' {RValorInvSarita: TQuickRep},
   PVenta233 in 'PVenta\Units\PVenta233.pas' {frmListadoProdFalt},
   RVENTA128 in 'PVenta\Reports\RVENTA128.pas' {RFacturaSteelTec: TQuickRep},
-  RVENTA38 in 'PVenta\Reports\RVENTA38.pas' {RConduce: TQuickRep},
   RVENTA131 in 'PVenta\Reports\RVENTA131.pas' {RCotizacionCaceresEquipos: TQuickRep},
   PVENTA216 in 'PVenta\Units\PVENTA216.pas' {frmRepCxPGeneral},
   RVENTA50 in 'PVenta\Reports\RVENTA50.pas' {RFacVencidasProv: TQuickRep},
@@ -600,7 +599,7 @@ uses
   PVENTA243 in 'PVenta\Units\PVENTA243.pas' {FrmComentCoti},
   PVENTA244 in 'PVenta\Units\PVENTA244.pas' {FrmConfCorreo},
   RCONT11 in 'CTMContab\Reports\RCONT11.pas' {RepBalanceComp: TQuickRep},
-  RVENTA02 in 'PVenta\Reports\RVENTA02.pas' {RFactura: TQuickRep},
+  RVENTA134 in 'PVenta\Reports\RVENTA134.pas' {RFacturaFUNDGRUBEL: TQuickRep},
   SIGMA09 in 'Units\SIGMA09.pas' {FrmActScripts},
   SIGMA10 in 'Units\SIGMA10.pas' {DM_Update: TDataModule},
   RCONT16 in 'CTMContab\Reports\RCONT16.pas' {RepSolicitud: TQuickRep},
@@ -609,17 +608,29 @@ uses
   RVENTA130 in 'PVenta\Reports\RVENTA130.pas' {RFacturaCaceresEquipos: TQuickRep},
   EASendMailObjLib_TLB in 'C:\Program Files (x86)\Borland\Delphi7\Imports\EASendMailObjLib_TLB.pas',
   PVENTA245 in 'PVenta\Units\PVENTA245.pas' {frmCierreDiaCardnet},
-  PVENTA246 in 'PVenta\Units\PVENTA246.pas' {FrmRecibosPagoDestino};
+  PVENTA246 in 'PVenta\Units\PVENTA246.pas' {FrmRecibosPagoDestino},
+  RVENTA56 in 'PVenta\Reports\RVENTA56.pas' {RCuadre: TQuickRep},
+  PVENTA247 in 'PVenta\Units\PVENTA247.pas' {frmLocalidades},
+  RVENTA38 in 'PVenta\Reports\RVENTA38.pas' {RConduce: TQuickRep},
+  RVENTA37 in 'PVenta\Reports\RVENTA37.pas' {REntradaAlm: TQuickRep},
+  RVENTA26 in 'PVenta\Reports\RVENTA26.pas' {RValorInv: TQuickRep},
+  RVENTA73 in 'PVenta\Reports\RVENTA73.pas' {RepListaTickets: TQuickRep},
+  RVENTA02 in 'PVenta\Reports\RVENTA02.pas' {RFactura: TQuickRep},
+  RVENTA36 in 'PVenta\Reports\RVENTA36.pas' {RCotizacion: TQuickRep},
+  prueba in 'PVenta\Units\prueba.pas' {frmprueba},
+  PVENTA249 in 'PVenta\Units\PVENTA249.pas' {frmDigitarClave},
+  PVENTA250 in 'PVenta\Units\PVENTA250.pas' {FormAnularBoleto};
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.Title := 'DASHA';
-  Application.HelpFile := 'D:\Sistemas\Desarrollo\Delphi\DASHA\Fiscal\Dasha\Project\Sigma.hlp';
+  Application.HelpFile := 'd:\D&RTecnologic\Fuentes\Dasha-Administrativo\Project\Sigma.hlp';
   Application.CreateForm(TDM, DM);
   Application.CreateForm(TfrmMain, frmMain);
   Application.CreateForm(TDM_Update, DM_Update);
+  Application.CreateForm(TfrmDigitarClave, frmDigitarClave);
   Application.Run;
 
 

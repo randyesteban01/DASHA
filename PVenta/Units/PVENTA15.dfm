@@ -1,11 +1,11 @@
 object frmProductos: TfrmProductos
   Left = 381
-  Top = 137
+  Top = 158
   HelpContext = 5
   BorderIcons = [biSystemMenu, biMinimize, biHelp]
   BorderStyle = bsSingle
   Caption = 'Productos'
-  ClientHeight = 511
+  ClientHeight = 474
   ClientWidth = 672
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -30,7 +30,7 @@ object frmProductos: TfrmProductos
     Left = 583
     Top = 0
     Width = 89
-    Height = 511
+    Height = 474
     Align = alRight
     BevelInner = bvRaised
     BevelOuter = bvLowered
@@ -226,8 +226,8 @@ object frmProductos: TfrmProductos
     Left = 0
     Top = 0
     Width = 577
-    Height = 511
-    ActivePage = TabSheet1
+    Height = 474
+    ActivePage = TabSheet15
     Align = alLeft
     RaggedRight = True
     TabOrder = 0
@@ -499,8 +499,8 @@ object frmProductos: TfrmProductos
       object Label38: TLabel
         Left = 280
         Top = 0
-        Width = 53
-        Height = 26
+        Width = 44
+        Height = 39
         Caption = 'Inv. Inicial Empaque'
         FocusControl = DBEdit18
         WordWrap = True
@@ -602,14 +602,6 @@ object frmProductos: TfrmProductos
         Width = 60
         Height = 13
         Caption = 'Tiempo Gt'#237'a.'
-      end
-      object lblUnidadMedida: TLabel
-        Left = 8
-        Top = 445
-        Width = 51
-        Height = 26
-        Caption = 'Unidad de medida:'
-        WordWrap = True
       end
       object DBEdit2: TDBEdit
         Left = 88
@@ -1805,26 +1797,6 @@ object frmProductos: TfrmProductos
         TabOrder = 52
         OnExit = CEdt_CostoExit
         Width = 86
-      end
-      object cboUnidadMedida: TDBLookupComboBox
-        Left = 90
-        Top = 447
-        Width = 163
-        Height = 21
-        DataField = 'cod_UnidadMedida'
-        DataSource = dsProductos
-        DropDownRows = 20
-        Enabled = False
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -11
-        Font.Name = 'Tahoma'
-        Font.Style = []
-        KeyField = 'UnidadID'
-        ListField = 'Nombre'
-        ListSource = dsUnidadMedida
-        ParentFont = False
-        TabOrder = 53
       end
     end
     object TabSheet15: TTabSheet
@@ -3198,7 +3170,7 @@ object frmProductos: TfrmProductos
         Left = 0
         Top = 17
         Width = 569
-        Height = 466
+        Height = 429
         ActivePage = TabSheet12
         Align = alClient
         TabOrder = 0
@@ -4382,8 +4354,7 @@ object frmProductos: TfrmProductos
       
         'pro_UtilizaAlquiler,pro_Uni_AlquilerID,pro_Alq_recargo,pro_Alq_s' +
         'tatus,pro_Uni_Alq_cantidad, '
-      'modulo_anterior, modulo_actual, FECHA_CREACION,'
-      'cod_UnidadMedida'
+      'modulo_anterior, modulo_actual, FECHA_CREACION'
       'from '
       'PRODUCTOS'
       'where '
@@ -4444,10 +4415,6 @@ object frmProductos: TfrmProductos
     end
     object QProductosPRO_EXISTENCIA: TFloatField
       FieldName = 'PRO_EXISTENCIA'
-    end
-    object QProductosPRO_UBICACION: TIBStringField
-      FieldName = 'PRO_UBICACION'
-      Size = 10
     end
     object QProductosPRO_STKMINIMO: TFloatField
       FieldName = 'PRO_STKMINIMO'
@@ -4774,8 +4741,9 @@ object frmProductos: TfrmProductos
     object QProductosFECHA_CREACION: TDateTimeField
       FieldName = 'FECHA_CREACION'
     end
-    object QProductoscod_UnidadMedida: TStringField
-      FieldName = 'cod_UnidadMedida'
+    object QProductosPRO_UBICACION: TStringField
+      FieldName = 'PRO_UBICACION'
+      Size = 50
     end
   end
   object dsProductos: TDataSource
@@ -6504,42 +6472,5 @@ object frmProductos: TfrmProductos
       end>
     Left = 615
     Top = 320
-  end
-  object QUnidadMedida: TADOQuery
-    Connection = DM.ADOSigma
-    CursorType = ctStatic
-    DataSource = DM.dsParametros
-    Parameters = <
-      item
-        Name = 'par_invempresa'
-        Attributes = [paSigned]
-        DataType = ftInteger
-        Precision = 10
-        Size = 4
-        Value = Null
-      end>
-    SQL.Strings = (
-      'select'
-      'UnidadID, Nombre'
-      'from'
-      'UnidadMedida'
-      'where'
-      'emp_codigo = :par_invempresa'
-      'order by'
-      '1')
-    Left = 408
-    Top = 470
-    object StringField2: TStringField
-      FieldName = 'UnidadID'
-      Size = 1
-    end
-    object StringField3: TStringField
-      FieldName = 'Nombre'
-    end
-  end
-  object dsUnidadMedida: TDataSource
-    DataSet = QUnidadMedida
-    Left = 440
-    Top = 470
   end
 end

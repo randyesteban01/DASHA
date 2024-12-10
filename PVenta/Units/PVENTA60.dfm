@@ -1,11 +1,11 @@
 object frmConsCxC: TfrmConsCxC
-  Left = 247
-  Top = 50
+  Left = 170
+  Top = 0
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Consulta general de cuentas por cobrar'
   ClientHeight = 646
-  ClientWidth = 1054
+  ClientWidth = 1048
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -25,140 +25,25 @@ object frmConsCxC: TfrmConsCxC
   object Splitter1: TSplitter
     Left = 0
     Top = 441
-    Width = 1054
+    Width = 1048
     Height = 4
     Cursor = crVSplit
     Align = alTop
   end
-  object DBGrid1: TDBGrid
-    Left = 0
-    Top = 63
-    Width = 1054
-    Height = 378
-    Align = alTop
-    Anchors = [akLeft, akTop, akRight, akBottom]
-    Color = clInfoBk
-    Ctl3D = False
-    DataSource = dsCliente
-    Font.Charset = ANSI_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -11
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    Options = [dgTitles, dgColumnResize, dgColLines, dgTabs, dgAlwaysShowSelection, dgCancelOnExit]
-    ParentCtl3D = False
-    ParentFont = False
-    PopupMenu = pm1
-    TabOrder = 0
-    TitleFont.Charset = ANSI_CHARSET
-    TitleFont.Color = clWindowText
-    TitleFont.Height = -11
-    TitleFont.Name = 'Tahoma'
-    TitleFont.Style = []
-    Columns = <
-      item
-        Expanded = False
-        FieldName = 'CLI_NOMBRE'
-        Title.Caption = 'Nombre del cliente'
-        Width = 282
-        Visible = True
-      end
-      item
-        Alignment = taCenter
-        Expanded = False
-        FieldName = 'CLI_TELEFONO'
-        Title.Alignment = taCenter
-        Title.Caption = '# de Tel'#233'fono'
-        Width = 87
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'CLI_LIMITE'
-        Title.Alignment = taCenter
-        Title.Caption = 'L'#237'mite de Cr'#233'dito'
-        Width = 88
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'BALANCE'
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clNavy
-        Font.Height = -11
-        Font.Name = 'Tahoma'
-        Font.Style = [fsBold]
-        Title.Alignment = taCenter
-        Title.Caption = 'Balance'
-        Title.Font.Charset = ANSI_CHARSET
-        Title.Font.Color = clWindowText
-        Title.Font.Height = -11
-        Title.Font.Name = 'Verdana'
-        Title.Font.Style = [fsBold]
-        Width = 104
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'MORA'
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clNavy
-        Font.Height = -11
-        Font.Name = 'Tahoma'
-        Font.Style = [fsBold]
-        Width = 105
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'VENCIDO'
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clRed
-        Font.Height = -11
-        Font.Name = 'Tahoma'
-        Font.Style = [fsBold]
-        Title.Alignment = taCenter
-        Title.Caption = 'Vencido'
-        Title.Font.Charset = ANSI_CHARSET
-        Title.Font.Color = clWindowText
-        Title.Font.Height = -11
-        Title.Font.Name = 'Verdana'
-        Title.Font.Style = [fsBold]
-        Width = 104
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'NOTASPORAPLICAR'
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clRed
-        Font.Height = -11
-        Font.Name = 'Tahoma'
-        Font.Style = [fsBold]
-        Title.Alignment = taCenter
-        Title.Caption = 'NC POR APLICAR'
-        Title.Font.Charset = ANSI_CHARSET
-        Title.Font.Color = clWindowText
-        Title.Font.Height = -11
-        Title.Font.Name = 'Tahoma'
-        Title.Font.Style = [fsBold]
-        Visible = True
-      end>
-  end
   object Panel1: TPanel
     Left = 0
     Top = 605
-    Width = 1054
+    Width = 1048
     Height = 41
     Align = alBottom
     BevelInner = bvRaised
     BevelOuter = bvLowered
     TabOrder = 1
     DesignSize = (
-      1054
+      1048
       41)
     object btRefresh: TBitBtn
-      Left = 528
+      Left = 522
       Top = 8
       Width = 75
       Height = 25
@@ -168,7 +53,7 @@ object frmConsCxC: TfrmConsCxC
       OnClick = btRefreshClick
     end
     object BitBtn2: TBitBtn
-      Left = 682
+      Left = 676
       Top = 8
       Width = 97
       Height = 25
@@ -187,7 +72,7 @@ object frmConsCxC: TfrmConsCxC
         03333333333333333333}
     end
     object btClose: TBitBtn
-      Left = 972
+      Left = 966
       Top = 8
       Width = 75
       Height = 25
@@ -211,7 +96,7 @@ object frmConsCxC: TfrmConsCxC
       NumGlyphs = 2
     end
     object BitBtn1: TBitBtn
-      Left = 781
+      Left = 775
       Top = 9
       Width = 105
       Height = 24
@@ -230,7 +115,7 @@ object frmConsCxC: TfrmConsCxC
         03333333333333333333}
     end
     object BitBtn3: TBitBtn
-      Left = 605
+      Left = 599
       Top = 8
       Width = 75
       Height = 25
@@ -267,7 +152,7 @@ object frmConsCxC: TfrmConsCxC
       OnClick = ckVenceClick
     end
     object btConsolidado: TBitBtn
-      Left = 886
+      Left = 880
       Top = 8
       Width = 85
       Height = 25
@@ -286,7 +171,7 @@ object frmConsCxC: TfrmConsCxC
         03333333333333333333}
     end
     object btnEmail: TBitBtn
-      Left = 439
+      Left = 433
       Top = 8
       Width = 85
       Height = 25
@@ -299,7 +184,7 @@ object frmConsCxC: TfrmConsCxC
   object Panel2: TPanel
     Left = 0
     Top = 445
-    Width = 1054
+    Width = 1048
     Height = 113
     Align = alClient
     BevelInner = bvRaised
@@ -308,7 +193,7 @@ object frmConsCxC: TfrmConsCxC
     object DBGrid2: TDBGrid
       Left = 2
       Top = 2
-      Width = 1050
+      Width = 1044
       Height = 109
       Align = alClient
       Color = clInfoBk
@@ -471,7 +356,7 @@ object frmConsCxC: TfrmConsCxC
   object Panel3: TPanel
     Left = 0
     Top = 558
-    Width = 1054
+    Width = 1048
     Height = 47
     Align = alBottom
     BevelInner = bvRaised
@@ -665,7 +550,7 @@ object frmConsCxC: TfrmConsCxC
   object Panel4: TPanel
     Left = 0
     Top = 0
-    Width = 1054
+    Width = 1048
     Height = 63
     Align = alTop
     BevelInner = bvRaised
@@ -761,7 +646,6 @@ object frmConsCxC: TfrmConsCxC
       Width = 320
       Height = 21
       DropDownRows = 20
-      Enabled = False
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -11
@@ -799,6 +683,121 @@ object frmConsCxC: TfrmConsCxC
     ParentFont = False
     TabOrder = 6
     Visible = False
+  end
+  object DBGrid1: TDBGrid
+    Left = 0
+    Top = 63
+    Width = 1048
+    Height = 378
+    Align = alTop
+    Anchors = [akLeft, akTop, akRight, akBottom]
+    Color = clInfoBk
+    Ctl3D = False
+    DataSource = dsCliente
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    Options = [dgTitles, dgColumnResize, dgColLines, dgTabs, dgAlwaysShowSelection, dgCancelOnExit]
+    ParentCtl3D = False
+    ParentFont = False
+    PopupMenu = pm1
+    TabOrder = 0
+    TitleFont.Charset = ANSI_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -11
+    TitleFont.Name = 'Tahoma'
+    TitleFont.Style = []
+    Columns = <
+      item
+        Expanded = False
+        FieldName = 'CLI_NOMBRE'
+        Title.Caption = 'Nombre del cliente'
+        Width = 282
+        Visible = True
+      end
+      item
+        Alignment = taCenter
+        Expanded = False
+        FieldName = 'CLI_TELEFONO'
+        Title.Alignment = taCenter
+        Title.Caption = '# de Tel'#233'fono'
+        Width = 87
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'CLI_LIMITE'
+        Title.Alignment = taCenter
+        Title.Caption = 'L'#237'mite de Cr'#233'dito'
+        Width = 88
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'BALANCE'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clNavy
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        Title.Alignment = taCenter
+        Title.Caption = 'Balance'
+        Title.Font.Charset = ANSI_CHARSET
+        Title.Font.Color = clWindowText
+        Title.Font.Height = -11
+        Title.Font.Name = 'Verdana'
+        Title.Font.Style = [fsBold]
+        Width = 104
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'MORA'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clNavy
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        Width = 105
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'VENCIDO'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clRed
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        Title.Alignment = taCenter
+        Title.Caption = 'Vencido'
+        Title.Font.Charset = ANSI_CHARSET
+        Title.Font.Color = clWindowText
+        Title.Font.Height = -11
+        Title.Font.Name = 'Verdana'
+        Title.Font.Style = [fsBold]
+        Width = 104
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'NOTASPORAPLICAR'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clRed
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        Title.Alignment = taCenter
+        Title.Caption = 'NC POR APLICAR'
+        Title.Font.Charset = ANSI_CHARSET
+        Title.Font.Color = clWindowText
+        Title.Font.Height = -11
+        Title.Font.Name = 'Tahoma'
+        Title.Font.Style = [fsBold]
+        Visible = True
+      end>
   end
   object QCliente: TADOQuery
     Connection = DM.ADOSigma
@@ -3146,5 +3145,96 @@ object frmConsCxC: TfrmConsCxC
       #9'deallocate c_upd_notascredito;')
     Left = 432
     Top = 248
+  end
+  object QQClientesPrueba: TADOQuery
+    Connection = DM.ADOSigma
+    AfterScroll = QClienteAfterScroll
+    DataSource = dsCliente1
+    Parameters = <
+      item
+        Name = 'suci'
+        Size = -1
+        Value = Null
+      end
+      item
+        Name = 'emp'
+        DataType = ftInteger
+        Size = -1
+        Value = Null
+      end
+      item
+        Name = 'fec'
+        Size = -1
+        Value = Null
+      end
+      item
+        Name = 'tip'
+        Size = -1
+        Value = Null
+      end
+      item
+        Name = 'st'
+        Size = -1
+        Value = Null
+      end
+      item
+        Name = 'suc'
+        Size = -1
+        Value = Null
+      end>
+    SQL.Strings = (
+      
+        'select *, :suci  SUC_CODIGO from pr_cxc (:emp, :fec, :tip, :st, ' +
+        ':suc)')
+    Left = 280
+    Top = 8
+    object IntegerField1: TIntegerField
+      FieldName = 'EMP_CODIGO'
+      Origin = 'PR_CXC.EMP_CODIGO'
+    end
+    object IntegerField2: TIntegerField
+      FieldName = 'CLI_CODIGO'
+      Origin = 'PR_CXC.CLI_CODIGO'
+    end
+    object IBStringField1: TIBStringField
+      FieldName = 'CLI_NOMBRE'
+      Origin = 'PR_CXC.CLI_NOMBRE'
+      Size = 60
+    end
+    object FloatField1: TFloatField
+      FieldName = 'BALANCE'
+      Origin = 'PR_CXC.BALANCE'
+      currency = True
+    end
+    object IBStringField2: TIBStringField
+      FieldName = 'CLI_REFERENCIA'
+      Origin = 'PR_CXC.CLI_REFERENCIA'
+      Size = 10
+    end
+    object QClienteid: TAutoIncField
+      FieldName = 'id'
+      ReadOnly = True
+    end
+    object BCDField1: TBCDField
+      FieldName = 'CLI_LIMITE'
+      Precision = 15
+      Size = 2
+    end
+    object StringField1: TStringField
+      FieldName = 'CLI_TELEFONO'
+      Size = 30
+    end
+    object BCDField2: TBCDField
+      FieldName = 'VENCIDO'
+      Precision = 15
+      Size = 2
+    end
+    object QClienteSUC_CODIGO: TIntegerField
+      FieldName = 'SUC_CODIGO'
+    end
+  end
+  object dsCliente1: TDataSource
+    Left = 312
+    Top = 8
   end
 end

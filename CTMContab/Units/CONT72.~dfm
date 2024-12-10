@@ -312,53 +312,25 @@ object frmRepSituacionAnual: TfrmRepSituacionAnual
     Left = 144
     Top = 160
   end
-  object ExportXLS: TQExport4XLS
-    About = '(About EMS AdvancedExport)'
-    _Version = '4.7.0.2'
+  object ExportXLS: TQExportXLS
+    About = '(About EMS QuickExport)'
+    _Version = '2.50'
+    Formats.DateTimeFormat = 'M/d/yyyy h:mm AMPM'
+    Formats.IntegerFormat = '#,###,##0'
+    Formats.CurrencyFormat = '00.00$'
+    Formats.FloatFormat = '#,###,##0.00'
+    Formats.DateFormat = 'M/d/yyyy'
+    Formats.TimeFormat = 'h:mm AMPM'
+    Formats.BooleanTrue = 'true'
+    Formats.BooleanFalse = 'false'
+    Formats.NullString = 'null'
     Options.PageFooter = 'Page &P of &N'
     Options.SheetTitle = 'Sheet 1'
     Options.CaptionsFormat.Font.Style = [xfsBold]
-    Options.HyperlinkFormat.Font.Color = clrBlue
-    Options.HyperlinkFormat.Font.Underline = fulSingle
-    Options.NoteFormat.Alignment.Horizontal = halLeft
-    Options.NoteFormat.Alignment.Vertical = valTop
-    Options.NoteFormat.Font.Size = 8
-    Options.NoteFormat.Font.Style = [xfsBold]
-    Options.NoteFormat.Font.Name = 'Tahoma'
     FieldFormats = <>
     StripStyles = <>
-    Hyperlinks = <>
-    Notes = <>
-    Charts = <>
-    Sheets = <
-      item
-        Title = 'Sheet 1'
-        Options.PageFooter = 'Page &P of &N'
-        Options.SheetTitle = 'Sheet 1'
-        Options.CaptionsFormat.Font.Style = [xfsBold]
-        Options.HyperlinkFormat.Font.Color = clrBlue
-        Options.HyperlinkFormat.Font.Underline = fulSingle
-        Options.NoteFormat.Alignment.Horizontal = halLeft
-        Options.NoteFormat.Alignment.Vertical = valTop
-        Options.NoteFormat.Font.Size = 8
-        Options.NoteFormat.Font.Style = [xfsBold]
-        Options.NoteFormat.Font.Name = 'Tahoma'
-        FieldFormats = <>
-        StripStyles = <>
-        Hyperlinks = <>
-        Notes = <>
-        Charts = <>
-        Images = <>
-        Cells = <>
-        Aggregates = <>
-        MergedCells = <>
-      end>
-    Pictures = <>
-    Images = <>
-    Cells = <>
-    Aggregates = <>
-    MergedCells = <>
-    Left = 200
-    Top = 160
+    Sheets = <>
+    Left = 368
+    Top = 192
   end
 end

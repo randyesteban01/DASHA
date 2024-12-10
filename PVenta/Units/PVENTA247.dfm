@@ -1,6 +1,6 @@
 object frmLocalidades: TfrmLocalidades
-  Left = 853
-  Top = 222
+  Left = 536
+  Top = 189
   Width = 572
   Height = 366
   Caption = 'Localidades'
@@ -283,6 +283,7 @@ object frmLocalidades: TfrmLocalidades
     BeforePost = QLocalidadesBeforePost
     AfterPost = QLocalidadesAfterPost
     AfterDelete = QLocalidadesAfterDelete
+    DataSource = DM.dsEmpresas
     Parameters = <
       item
         Name = 'emp_Codigo'

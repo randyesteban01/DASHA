@@ -213,6 +213,7 @@ type
     procedure btLocalidadClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure rgTipoDebCreClick(Sender: TObject);
+    procedure SpeedButton1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -228,7 +229,7 @@ var
 
 implementation
 
-uses CONT15, RCONT18, SIGMA00, SIGMA01;
+uses CONT15, RCONT18, SIGMA00, SIGMA01, SIGMA08;
 
 {$R *.dfm}
 
@@ -999,8 +1000,10 @@ begin
 end;
 
 procedure TfrmConsDepositos.SpeedButton4Click(Sender: TObject);
+var
+  a : Integer;
 begin
-  Search.Query.Clear;
+{  Search.Query.Clear;
   Search.AliasFields.Clear;
   Search.Query.Add('select cen_nombre, cen_codigo');
   Search.Query.Add('from centrocostos');
@@ -1013,6 +1016,84 @@ begin
   begin
     QCentro.Edit;
     QCentrocen_referencia.Value := Search.ValueField;
+  end;}
+  dm.Query1.Close;
+  dm.Query1.SQL.Clear;
+  dm.Query1.SQL.Add('select cat_maneja_centro from contcatalogo');
+  dm.Query1.SQL.Add('where emp_codigo = :emp');
+  dm.Query1.SQL.Add('and cat_cuenta = :cta');
+  dm.Query1.Parameters.ParamByName('emp').Value := dm.QEmpresasEMP_CODIGO.Value;
+  dm.Query1.Parameters.ParamByName('cta').Value := QDetalleCAT_CUENTA.AsString;
+  dm.Query1.Open;
+  if dm.Query1.FieldByName('cat_maneja_centro').AsString <> 'S' then
+  begin
+    MessageDlg('Esta cuenta no acepta Centros de Costo', mtError, [mbyes], 0);
+    GridCuentas.SetFocus;
+  end
+  else
+  begin
+    Application.CreateForm(tfrmCentrosXCuenta, frmCentrosXCuenta);
+    frmCentrosXCuenta.lbcuenta.Caption := QDetalleCAT_CUENTA.AsString+': '+QDetalleCAT_NOMBRE.AsString;
+    frmCentrosXCuenta.cta := QDetalleCAT_CUENTA.AsString;
+    frmCentrosXCuenta.vMontototal := QDetalleDET_MONTO.Value;
+    //Grabando registro en la pantalla
+    QCentro.DisableControls;
+    QCentro.First;
+    while not QCentro.Eof do
+    begin
+      if QCentrocat_cuenta.Value = QDetalleCAT_CUENTA.AsString then
+      begin
+        frmCentrosXCuenta.QCentro.Append;
+        frmCentrosXCuenta.QCentrocen_nombre.Value := QCentrocen_nombre.Value;
+        frmCentrosXCuenta.QCentrodet_monto.Value  := QCentrodet_monto.Value;
+        frmCentrosXCuenta.QCentrocen_referencia.Value := QCentrocen_referencia.Value;
+        frmCentrosXCuenta.QCentrosub_referencia.Value := QCentrosub_referencia.Value;
+        frmCentrosXCuenta.QCentrocen_codigo.Value     := QCentrocen_codigo.Value;
+        frmCentrosXCuenta.QCentrosub_secuencia.Value  := QCentrosub_secuencia.Value;
+        frmCentrosXCuenta.QCentro.Post;
+      end;
+
+      QCentro.Next;
+    end;
+    QCentro.EnableControls;  
+
+    frmCentrosXCuenta.ShowModal;
+
+    //eliminando registros de la cuenta selccionada
+    QCentro.DisableControls;
+    QCentro.First;
+    a := QCentro.RecordCount;
+    while a > 0 do
+    begin
+      if QCentrocat_cuenta.Value = QDetalleCAT_CUENTA.AsString then
+        QCentro.Delete
+      else
+        QCentro.Next;
+
+      a := a - 1;
+    end;
+    QCentro.EnableControls;
+
+    //insertando registros de la cuenta selccionada
+    frmCentrosXCuenta.QCentro.DisableControls;
+    frmCentrosXCuenta.QCentro.First;
+    while not frmCentrosXCuenta.QCentro.Eof do
+    begin
+      QCentro.Append;
+      QCentrocat_cuenta.Value := QDetalleCAT_CUENTA.AsString;
+      QCentrocen_nombre.Value := frmCentrosXCuenta.QCentrocen_nombre.Value;
+      QCentrodet_monto.Value  := frmCentrosXCuenta.QCentrodet_monto.Value;
+      QCentrocen_referencia.Value := frmCentrosXCuenta.QCentrocen_referencia.Value;
+      QCentrosub_referencia.Value := frmCentrosXCuenta.QCentrosub_referencia.Value;
+      QCentrocen_codigo.Value     := frmCentrosXCuenta.QCentrocen_codigo.Value;
+      QCentrosub_secuencia.Value  := frmCentrosXCuenta.QCentrosub_secuencia.Value;
+      QCentro.Post;
+
+      frmCentrosXCuenta.QCentro.Next;
+    end;
+    frmCentrosXCuenta.QCentro.First;
+    frmCentrosXCuenta.QCentro.EnableControls;
+    frmCentrosXCuenta.Release;
   end;
 
 end;
@@ -1157,6 +1238,35 @@ end;
 procedure TfrmConsDepositos.rgTipoDebCreClick(Sender: TObject);
 begin
 btRefreshClick(Sender);
+end;
+
+procedure TfrmConsDepositos.SpeedButton1Click(Sender: TObject);
+begin
+if MessageDlg('DESEAS ELIMINAR EL CENTRO DE COSTO'+char(13)+
+QCentrocen_nombre.Text+char(13)+
+'POR UN MONTO DE '+FormatCurr('#,0.00',QCentrodet_monto.Value)+'?',mtConfirmation,[mbYes,mbNo],0)=mrYes THEN BEGIN
+WITH DM.adoMultiUso DO BEGIN
+Close;
+SQL.Clear;
+SQL.Add('DELETE DepositoCentrosCosto');
+SQL.Add('where emp_codigo = :emp and suc_codigo = :suc and ban_codigo = :ban');
+SQL.Add('and dep_numero =  :che and det_secuencia = :sec');
+Parameters.ParamByName('emp').DataType := ftInteger;
+Parameters.ParamByName('suc').DataType := ftInteger;
+Parameters.ParamByName('ban').DataType := ftInteger;
+Parameters.ParamByName('dep').DataType := ftInteger;
+Parameters.ParamByName('sec').DataType := ftInteger;
+Parameters.ParamByName('emp').Value := QCentroemp_codigo.Value;
+Parameters.ParamByName('suc').Value := QCentrosuc_codigo.Value;
+Parameters.ParamByName('ban').Value := QCentroban_codigo.Value;
+Parameters.ParamByName('dep').Value := QCentrodep_numero.Value;
+Parameters.ParamByName('sec').Value := QCentrodet_secuencia.Value;
+ExecSQL;
+QCentro.Close;
+QCentro.Open;
+end;
+end;
+
 end;
 
 end.

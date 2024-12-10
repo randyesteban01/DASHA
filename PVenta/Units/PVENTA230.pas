@@ -254,6 +254,13 @@ begin
   frmMain.ExportXLS.Sheets[0].Exported := True;
 
   btRefreshClick(Sender);
+
+    //Verificar si el usuario tiene sucursal por defecto
+  if not VarIsNull(dm.suc_default) and (dm.suc_default > 0) then
+  begin
+    DBLookupComboBox2.KeyValue := dm.suc_default;
+  end;
+
 end;
 
 procedure TfrmConsFTEnvios.btRefreshClick(Sender: TObject);
@@ -773,8 +780,14 @@ begin
   frmEnvioM2.EdtNombreChofer.Visible :=  True;
   with frmEnvioM2 do
     begin
-      rg.ItemIndex := 2;
-      Caption := TButton(Sender).Caption;
+      if Sender is TButton then
+      begin
+        rg.ItemIndex := 2;
+        Caption := TButton(Sender).Caption;
+      end;
+
+      //rg.ItemIndex := 2;
+      //Caption := TButton(Sender).Caption;
       QEn.close;
       QEn.SQL.Clear;
       QEn.SQL.Add('select (select suc_nombre from sucursales where suc_codigo=Envio.env_suc_destino and emp_codigo=Envio.emp_codigo)Destino,');
@@ -1018,7 +1031,10 @@ IF QEnvios.RecordCount > 0 THEN BEGIN
     application.createform(TfrmEnvioMant, frmEnvioMant);
   if not QDetalle.Active then
   QDetalle.Active := true;
-  frmEnvioMant.pTop.Caption :='[' +QEnviosIDEnvio.AsString+'] Envia : '+QEnviosNombre_envia.AsString+' ==> '+QEnviosNombre_Recibe.AsString;
+
+ // mniPagarEnvio1Click(Sender);
+
+  {frmEnvioMant.pTop.Caption :='[' +QEnviosIDEnvio.AsString+'] Envia : '+QEnviosNombre_envia.AsString+' ==> '+QEnviosNombre_Recibe.AsString;
   If frmEnvioMant.showmodal= mrAll then
       if (QDetalle.State in [dsEdit,dsInsert])and(QDetalleenv_recibido.Value<>EmptyStr)and(QDetalleenv_rec_cedula.Value<>EmptyStr) then
          begin
@@ -1032,6 +1048,7 @@ IF QEnvios.RecordCount > 0 THEN BEGIN
       else MessageDlg('DEBE INGRESAR NOMBRE Y CEDULA DE QUIEN RECIBE EL ENVIO',
         mtError,[mbok],0);
   frmEnvioMant.Release;
+  }
   end;
   end
   else
@@ -1118,7 +1135,6 @@ procedure TfrmConsFTEnvios.mniPagarEnvio1Click(Sender: TObject);
 begin
 if (QEnviosstatus.Value = 'RECIBIDO') AND (QEnviosfacpagodestino.Value = True) THEN BEGIN
  frmMain.activaforma(tFrmRecibosPagoDestino, tform(FrmRecibosPagoDestino));
- 
 
   if (QEnviosenv_recibido.Value = EmptyStr)or(QEnviosenv_rec_cedula.Value = EmptyStr)then
      DBGrid1DblClick(self)

@@ -399,6 +399,7 @@ object frmRepCodigoBarra: TfrmRepCodigoBarra
   end
   object QVencimiento: TADOQuery
     Connection = DM.ADOSigma
+    DataSource = DM.dsEmpresas
     Parameters = <
       item
         Name = 'emp'

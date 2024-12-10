@@ -62,6 +62,7 @@ end;
 procedure TfrmNCF.FormCreate(Sender: TObject);
 begin
   QSucursal.Parameters.ParamByName('usu').Value := dm.Usuario;
+    QSucursal.Parameters.ParamByName('emp_codigo').Value := dm.vp_cia;
   QSucursal.Open;
 end;
 
@@ -81,6 +82,7 @@ end;
 
 procedure TfrmNCF.FormActivate(Sender: TObject);
 begin
+DBLookupComboBox2.Enabled := dm.QContabpar_NCF_Sucursal.Value;
 ChkB_VencimientoClick(Sender);
 end;
 

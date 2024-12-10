@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, Buttons, Grids, DBGrids, ExtCtrls, DB, ADODB, Spin, DateUtils,
-  QExport4, QExport4XLS;
+  QExport, QExportXLS;
 
 type
   TfrmRepSituacionAnual = class(TForm)
@@ -37,7 +37,7 @@ type
     btprocesar: TBitBtn;
     btexportar: TBitBtn;
     btClose: TBitBtn;
-    ExportXLS: TQExport4XLS;
+    ExportXLS: TQExportXLS;
     procedure FormPaint(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btCloseClick(Sender: TObject);

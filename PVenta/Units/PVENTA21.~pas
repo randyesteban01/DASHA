@@ -349,7 +349,7 @@ begin
     begin
       if rbTipoNota.ItemIndex = 1 then
       begin
-        QNotaNCR_MONTOUSADO.value := QNotaNCR_MONTO.Value+QNotancr_itbis.Value;
+        QNotaNCR_MONTOUSADO.value := QNotaNCR_MONTO.Value;
         dm.Query1.Close;
         dm.Query1.SQL.Clear;
         dm.Query1.SQL.Add('select tmo_siglas');
@@ -401,6 +401,8 @@ begin
 
       QNotaDET_CUOTA.Value := QMovMOV_CUOTA.Value;
       QNotaMOV_CUOTA.Value := QMovMOV_SECUENCIA.Value;
+      //QNotaNCR_MONTO.Value := QNotaNCR_MONTO.Value  + QNotancr_itbis.Value;
+      
       QNota.Post;
       QNota.UpdateBatch;
 

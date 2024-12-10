@@ -401,6 +401,8 @@ begin
 
       QNotaDET_CUOTA.Value := QMovMOV_CUOTA.Value;
       QNotaMOV_CUOTA.Value := QMovMOV_SECUENCIA.Value;
+      //QNotaNCR_MONTO.Value := QNotaNCR_MONTO.Value  + QNotancr_itbis.Value;
+      
       QNota.Post;
       QNota.UpdateBatch;
 
@@ -457,6 +459,14 @@ begin
       dm.Query1.close;
       dm.Query1.sql.clear;
       dm.Query1.sql.add('execute pr_graba_nc :emp, :suc, :nc');
+      dm.Query1.Parameters.parambyname('emp').Value := dm.vp_cia;
+      dm.Query1.Parameters.parambyname('nc').Value  := QNotaNCR_NUMERO.value;
+      dm.Query1.Parameters.parambyname('suc').Value := QNotaSUC_CODIGO.Value;
+      dm.Query1.ExecSQL;
+
+      dm.Query1.close;
+      dm.Query1.sql.clear;
+      dm.Query1.sql.add('execute pr_graba_nc_monto :emp, :suc, :nc');
       dm.Query1.Parameters.parambyname('emp').Value := dm.vp_cia;
       dm.Query1.Parameters.parambyname('nc').Value  := QNotaNCR_NUMERO.value;
       dm.Query1.Parameters.parambyname('suc').Value := QNotaSUC_CODIGO.Value;

@@ -285,7 +285,6 @@ object frmRepEntrada: TfrmRepEntrada
     Top = 56
   end
   object Search: TQrySearchDlgADO
-    AliasName = DM.ADOSigma
     Left = 112
     Top = 184
   end

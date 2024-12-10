@@ -14,9 +14,7 @@ type
     Panel3: TPanel;
     cbSucOrigen: TDBLookupComboBox;
     Panel2: TPanel;
-    Label1: TLabel;
     Label2: TLabel;
-    DBGrid1: TDBGrid;
     dsSucOrigen: TDataSource;
     QSucOrigen: TADOQuery;
     QSucOrigensuc_codigo: TIntegerField;
@@ -30,11 +28,6 @@ type
     QSucDestino: TADOQuery;
     QSucDestinosuc_codigo: TIntegerField;
     QSucDestinosuc_nombre: TStringField;
-    QSucDestinoemp_codigo: TIntegerField;
-    QSucDestinosuc_direccion: TStringField;
-    QSucDestinosuc_localidad: TStringField;
-    QSucDestinosuc_telefono: TStringField;
-    QSucDestinosuc_rnc: TStringField;
     Cantidad: TSpinEdit;
     Label3: TLabel;
     qBoleto: TADOQuery;
@@ -169,7 +162,6 @@ type
     procedure FormKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure qBoletoNewRecord(DataSet: TDataSet);
-    procedure DBGrid1CellClick(Column: TColumn);
     procedure ExeButton(bt : TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure qBoletosecuencia_randoChange(Sender: TField);
@@ -185,10 +177,13 @@ type
     procedure qBoletoAfterPost(DataSet: TDataSet);
     procedure tmr1Timer(Sender: TObject);
     procedure qBoletoBeforePost(DataSet: TDataSet);
+    procedure cbSucOrigenCloseUp(Sender: TObject);
+    function  NumeracionTicket:Integer;
 
   private
       FechaServer :TDateTime;
       Hora, HoraRetraso, HoraRetraso2:Integer;
+      vl_suc_destino :  Integer;
     Barcode1 : TAsBarcode;
     procedure SetBoton;
     procedure CrearBoleto(vTag,vCantidad:integer);
@@ -252,6 +247,7 @@ begin
   Parameters.ParamByName('SUC').Value   := cbSucOrigen.KeyValue;
   Parameters.ParamByName('FECHA').Value := DEdt_ValidoHasta.Date;
   Parameters.ParamByName('HORA').Value  := cbbHoraValido.Text;
+  Parameters.ParamByName('USUARIO').Value  := DM.Usuario;
   Open;
   end;
 
@@ -266,6 +262,13 @@ begin
      qBoleto.Active := true;
   SetBoton;
   Random;{para cargar un numero al inicio}
+
+  //Verificar si el usuario tiene sucursal por defecto
+  if not VarIsNull(dm.suc_default) and (dm.suc_default > 0) then
+  begin
+    cbSucOrigen.KeyValue := dm.suc_default;
+  end;
+
 end;
 
 procedure TfrmBoleteria.FormKeyPress(Sender: TObject; var Key: Char);
@@ -307,7 +310,6 @@ end;
 procedure TfrmBoleteria.qBoletoNewRecord(DataSet: TDataSet);
 begin
   DataSet.FieldByName('suc_cod_origen').Value     := QSucOrigen.FieldByName('suc_codigo').Value;
-  DataSet.FieldByName('suc_cod_destino').Value    := QSucDestino.FieldByName('suc_codigo').Value;
   DataSet.FieldByName('secuencia_rando').AsString := RamdomValido;
   DataSet.FieldByName('usu_codigo').Value         := dm.Usuario;
   DataSet.FieldByName('fecha').Value              := FechaServer;
@@ -329,6 +331,7 @@ begin
   Parameters.ParamByName('SUC').Value   := cbSucOrigen.KeyValue;
   Parameters.ParamByName('FECHA').Value := DEdt_ValidoHasta.Date;
   Parameters.ParamByName('HORA').Value  := cbbHoraValido.Text;
+  Parameters.ParamByName('USUARIO').Value  := DM.Usuario;
   Open;
   end;
 
@@ -337,10 +340,10 @@ begin
     dm.Query1.SQL.Add('select pre_codigo,descripcion,precio from boleto_precio');
     dm.Query1.SQL.Add('where emp_codigo  = :emp');
     dm.Query1.SQL.Add('  and suc_cod_origen  = :origen');
-    dm.Query1.SQL.Add('  and suc_cod_destino = :destino');
+    //dm.Query1.SQL.Add('  and suc_cod_destino = :destino');
     dm.Query1.Parameters.ParamByName('emp').Value     := QSucOrigenemp_codigo.Value;
     dm.Query1.Parameters.ParamByName('origen').Value  := cbSucOrigen.KeyValue;
-    dm.Query1.Parameters.ParamByName('destino').Value := QSucDestinosuc_codigo.Value;
+    //dm.Query1.Parameters.ParamByName('destino').Value := QSucDestinosuc_codigo.Value;
     dm.Query1.Open;
 
   while not dm.Query1.Eof do
@@ -354,15 +357,12 @@ begin
     end;
 end;
 
-procedure TfrmBoleteria.DBGrid1CellClick(Column: TColumn);
-begin
-  SetBoton;
-end;
-
 procedure TfrmBoleteria.ExeButton(bt: TObject);
 begin
+  vl_suc_destino := TStaticText(bt).Tag;
   CrearBoleto(TStaticText(bt).Tag, Cantidad.Value);
   Cantidad.Value := 1;
+
 end;
 
 procedure TfrmBoleteria.CrearBoleto(vTag, vCantidad: integer);
@@ -374,22 +374,45 @@ begin
   Parameters.ParamByName('cod').Value := vTag;
   Parameters.ParamByName('emp').Value := qBoletoemp_codigo.Value;
   Open;
-  LTotalCobrar.Caption := FormatFloat(',0.00',(vCantidad * dm.Query1.FieldByName('precio').Value));
-  LTranss.Caption := ' '+IntToStr(vCantidad)+' * '+dm.Query1.FieldByName('precio').AsString;
-    with qBoleto do
-    begin
-      Insert;
-      FieldByName('producto').Value   := vTag;
-      FieldByName('descripcion').Value:= qEjecutar.FieldByName('descripcion').Value;
-      FieldByName('precio').Value     := qEjecutar.FieldByName('precio').Value;
-      FieldByName('codbarra').Value   := qEjecutar.FieldByName('codbarra').Value;
-      FieldByName('fecha_valida').Value := DEdt_ValidoHasta.Date;
-      FieldByName('hora_valida').Value  := cbbHoraValido.Text;
-      Post;
 
-      imprimeTicket2(FieldByName('boleto').Value);
-      //imprimeTicket(FieldByName('boleto').Value,Barcode1);
-    end;
+  if dm.Query1.FindField('precio') <> nil then
+  begin
+    LTotalCobrar.Caption := FormatFloat(',0.00', (vCantidad * dm.Query1.FieldByName('precio').AsFloat));
+    LTranss.Caption := ' '+IntToStr(vCantidad)+' * '+dm.Query1.FieldByName('precio').AsString;
+  end
+  else
+  begin
+    LTotalCobrar.Caption := '0.00';
+    LTranss.Caption := '0.00';
+  end;   
+
+  with qBoleto do
+  begin
+    Insert;
+
+    FieldByName('producto').Value := vTag;
+
+    if qEjecutar.FindField('descripcion') <> nil then
+      FieldByName('descripcion').Value := qEjecutar.FieldByName('descripcion').Value  ;
+
+    if qEjecutar.FindField('precio') <> nil then
+      FieldByName('precio').Value := qEjecutar.FieldByName('precio').Value;
+
+    if qEjecutar.FindField('codbarra') <> nil then
+      FieldByName('codbarra').Value := qEjecutar.FieldByName('codbarra').Value;
+
+    FieldByName('fecha_valida').Value := DEdt_ValidoHasta.Date;
+    FieldByName('hora_valida').Value := cbbHoraValido.Text;
+    FieldByName('suc_cod_destino').Value := vl_suc_destino;
+
+    Post;
+
+    imprimeTicket2(FieldByName('boleto').Value);
+    LTotalCobrar.Caption := FormatFloat(',0.00', 0);
+    LTranss.Caption := '';
+    // imprimeTicket(FieldByName('boleto').Value, Barcode1);
+  end;
+
 end;
 end;
 end;
@@ -587,6 +610,7 @@ Parameters.ParamByName('emp').Value := dm.vp_cia;
 Parameters.ParamByName('suc').Value := cbSucOrigen.KeyValue;
 Parameters.ParamByName('fecha').Value := DEdt_ValidoHasta.Date;
 Parameters.ParamByName('HORA').Value  := cbbHoraValido.Text;
+Parameters.ParamByName('USUARIO').Value  := dm.Usuario;
 Open;
 if not IsEmpty then begin
 Rpt_Balance.PrintOptions.Printer := DM.QParametrospar_impresora_boleto.Value;
@@ -612,16 +636,19 @@ with QRESUMEN DO BEGIN
   Parameters.ParamByName('SUC').Value   := cbSucOrigen.KeyValue;
   Parameters.ParamByName('FECHA').Value := DEdt_ValidoHasta.Date;
   Parameters.ParamByName('HORA').Value  := cbbHoraValido.Text;
+  Parameters.ParamByName('USUARIO').Value  := DM.Usuario;
   Open;
   end;
+    SetBoton;
 end;
 
 procedure TfrmBoleteria.cbbHoraValidoChange(Sender: TObject);
 begin
 BuscarFechaServer2;
 BuscarFechaServer;
+    {
 if (HoraRetraso2 > cbbHoraValido.ItemIndex) and (StrToDate(FormatDateTime('dd/mm/yyyy',FechaServer)) = DEdt_ValidoHasta.Date) then
-cbbHoraValido.ItemIndex := Hora;
+cbbHoraValido.ItemIndex := Hora;     }
 
 
 
@@ -632,6 +659,7 @@ with QRESUMEN DO BEGIN
   Parameters.ParamByName('SUC').Value   := cbSucOrigen.KeyValue;
   Parameters.ParamByName('FECHA').Value := DEdt_ValidoHasta.Date;
   Parameters.ParamByName('HORA').Value  := cbbHoraValido.Text;
+  Parameters.ParamByName('USUARIO').Value  := DM.Usuario;
   Open;
   end;
 end;
@@ -648,6 +676,7 @@ with QRESUMEN DO BEGIN
   Parameters.ParamByName('SUC').Value   := cbSucOrigen.KeyValue;
   Parameters.ParamByName('FECHA').Value := DEdt_ValidoHasta.Date;
   Parameters.ParamByName('HORA').Value  := cbbHoraValido.Text;
+  Parameters.ParamByName('USUARIO').Value  := DM.Usuario;
   Open;
   end;
 end;
@@ -660,6 +689,7 @@ with QRESUMEN DO BEGIN
   Parameters.ParamByName('SUC').Value   := cbSucOrigen.KeyValue;
   Parameters.ParamByName('FECHA').Value := DEdt_ValidoHasta.Date;
   Parameters.ParamByName('HORA').Value  := cbbHoraValido.Text;
+  Parameters.ParamByName('USUARIO').Value  := DM.Usuario;
   Open;
 end;
 end;
@@ -688,14 +718,42 @@ begin
 BuscarFechaServer2;
 BuscarFechaServer;
 cbbHoraValido2.ItemIndex := Hora;
-IF StrToDate(FormatDateTime('dd/mm/yyyy',FechaServer)) = DEdt_ValidoHasta.Date THEN BEGIN
-if (HoraRetraso2 > cbbHoraValido.ItemIndex)  then begin
-  MessageDlg('LA HORA DEL SERVIDOR CAMBIO Y NO PERMITE VENDER BOLETOS DE ESTE HORARIO '+cbbHoraValido.Text+Char(13)+
-  'FAVOR CAMBIAR / REVISAR EL HORARIO'+Char(#13)+
-  'SOLO SE PERMITE VENDER A PARTIR DE '+FormatDateTime('dd/mm/yyyy',FechaServer)+' '+cbbHoraValido2.Text,mtInformation,[mbOK],0);
-  cbbHoraValido.SetFocus;
-  Abort;
+//IF StrToDate(FormatDateTime('dd/mm/yyyy',FechaServer)) = DEdt_ValidoHasta.Date THEN BEGIN
+//if (HoraRetraso2 > cbbHoraValido.ItemIndex)  then begin
+ // MessageDlg('LA HORA DEL SERVIDOR CAMBIO Y NO PERMITE VENDER BOLETOS DE ESTE HORARIO '+cbbHoraValido.Text+Char(13)+
+  //'FAVOR CAMBIAR / REVISAR EL HORARIO'+Char(#13)+
+ // 'SOLO SE PERMITE VENDER A PARTIR DE '+FormatDateTime('dd/mm/yyyy',FechaServer)+' '+cbbHoraValido2.Text,mtInformation,[mbOK],0);
+ // cbbHoraValido.SetFocus;
+ // Abort;
+//end;
+//end;
 end;
+
+procedure TfrmBoleteria.cbSucOrigenCloseUp(Sender: TObject);
+begin
+with QRESUMEN DO BEGIN
+  Close;
+  Parameters.ParamByName('EMP').Value   := DM.vp_cia;
+  Parameters.ParamByName('SUC').Value   := cbSucOrigen.KeyValue;
+  Parameters.ParamByName('FECHA').Value := DEdt_ValidoHasta.Date;
+  Parameters.ParamByName('HORA').Value  := cbbHoraValido.Text;
+  Parameters.ParamByName('USUARIO').Value  := DM.Usuario;
+  Open;
+  end;
+end;
+
+function TfrmBoleteria.NumeracionTicket: Integer;
+begin
+with DM.adoMultiUso do begin
+  Close;
+  SQL.Clear;
+  SQL.Add('SELECT COUNT(*) CANT FROM BOLETOS WHERE EMP_CODIGO ='+qBoletoemp_codigo.Text);
+  SQL.Add('AND SUC_COD_ORIGEN ='+qBoletosuc_cod_origen.Text);
+  Open;
+
+  IF NOT IsEmpty THEN
+  Result := FieldByName('CANT').Value else
+  Result := 1;
 end;
 end;
 

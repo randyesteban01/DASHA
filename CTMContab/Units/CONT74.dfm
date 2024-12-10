@@ -193,6 +193,7 @@ object frmRepResultadoAnual: TfrmRepResultadoAnual
     Connection = DM.ADOSigma
     CursorType = ctStatic
     LockType = ltBatchOptimistic
+    DataSource = DM.dsEmpresas
     ProcedureName = 'pr_resultado_anual;1'
     Parameters = <
       item

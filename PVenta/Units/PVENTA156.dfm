@@ -1,6 +1,6 @@
 object frmRepHistorialSuplidor: TfrmRepHistorialSuplidor
-  Left = 481
-  Top = 362
+  Left = 460
+  Top = 461
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Historial del Suplidor'
@@ -220,12 +220,10 @@ object frmRepHistorialSuplidor: TfrmRepHistorialSuplidor
     TabOrder = 8
   end
   object Search: TQrySearchDlgADO
-    AliasName = DM.ADOSigma
     Left = 208
     Top = 112
   end
   object QSucursal: TADOQuery
-    Connection = DM.ADOSigma
     LockType = ltReadOnly
     DataSource = DM.dsEmpresas
     Parameters = <

@@ -1,12 +1,12 @@
 object frmNCF: TfrmNCF
-  Left = 545
-  Top = 190
+  Left = 904
+  Top = 151
   ActiveControl = edFijo
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'Numero de Comprobante Fiscal (NCF)'
   ClientHeight = 187
-  ClientWidth = 383
+  ClientWidth = 352
   Color = clBtnFace
   Font.Charset = ANSI_CHARSET
   Font.Color = clWindowText
@@ -71,8 +71,8 @@ object frmNCF: TfrmNCF
     Caption = 'Fecha Venc'
   end
   object btgrabar: TBitBtn
-    Left = 232
-    Top = 152
+    Left = 208
+    Top = 160
     Width = 65
     Height = 25
     Caption = 'Grabar'
@@ -115,8 +115,8 @@ object frmNCF: TfrmNCF
       FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00}
   end
   object BitBtn2: TBitBtn
-    Left = 301
-    Top = 152
+    Left = 277
+    Top = 160
     Width = 69
     Height = 25
     Caption = 'Cancelar'
@@ -161,7 +161,7 @@ object frmNCF: TfrmNCF
   object DBLookupComboBox2: TDBLookupComboBox
     Left = 72
     Top = 32
-    Width = 297
+    Width = 273
     Height = 21
     DropDownRows = 20
     Font.Charset = ANSI_CHARSET
@@ -255,24 +255,13 @@ object frmNCF: TfrmNCF
     TabOrder = 9
     OnClick = ChkB_VencimientoClick
   end
-  object chkDetenerNCF: TCheckBox
-    Left = 216
-    Top = 80
-    Width = 161
-    Height = 17
-    Caption = 'Detener al llegar a NCF Final'
-    TabOrder = 10
-  end
   object QSucursal: TADOQuery
     Connection = DM.ADOSigma
     DataSource = DM.dsEmpresas
     Parameters = <
       item
         Name = 'emp_codigo'
-        Attributes = [paSigned]
-        DataType = ftInteger
-        Precision = 10
-        Size = 4
+        Size = -1
         Value = Null
       end
       item
@@ -291,7 +280,7 @@ object frmNCF: TfrmNCF
       'where'
       's.emp_codigo = a.emp_codigo'
       'and s.suc_codigo = a.suc_codigo'
-      'and a.emp_codigo = :emp_codigo'
+      'and a.emp_codigo =:emp_codigo'
       'and a.usu_codigo = :usu'
       'order by s.suc_codigo')
     Left = 216

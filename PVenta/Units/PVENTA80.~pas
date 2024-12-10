@@ -1312,6 +1312,27 @@ type
     dbedtpar_digitos_: TDBEdit;
     QParametrospar_digitos_banderita: TIntegerField;
     dbrgrpPAR_INV_VENTAS: TDBRadioGroup;
+    QParametrosPAR_INV_VENTAS: TIntegerField;
+    dbrgrppar_tlector_balanza: TDBRadioGroup;
+    QParametrospar_tlector_balanza: TIntegerField;
+    QParametrosRestBar_FactConItbis: TBooleanField;
+    QParametrospar_mostrarfacturadolares: TBooleanField;
+    QParametrosPAR_UnidadMedida_Producto: TBooleanField;
+    QParametrospar_totalizardolaresPOS: TBooleanField;
+    QParametrospar_codigobarrasdolares: TBooleanField;
+    QParametrospar_vouchercardnet: TBooleanField;
+    QParametrosPAR_MESERO: TBooleanField;
+    DBCheckBox65: TDBCheckBox;
+    DBCheckBox66: TDBCheckBox;
+    DBEdit3: TDBEdit;
+    Label175: TLabel;
+    DBCheckBox67: TDBCheckBox;
+    DBCheckBox68: TDBCheckBox;
+    QParametrosPAR_cantidadRecibosImprimir: TIntegerField;
+    DBCheckBox69: TDBCheckBox;
+    QParametrosPAR_mostrarsubcategorias: TBooleanField;
+    dbchkpar_posAutorizacion: TDBCheckBox;
+    QParametrosPAR_AutorizacionNoRequerida: TBooleanField;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormPaint(Sender: TObject);
     procedure tvOpcionesChange(Sender: TObject; Node: TTreeNode);
@@ -1600,6 +1621,7 @@ type
     procedure btnpar_ctadevventasClick(Sender: TObject);
     procedure QContabpar_ctadevventasGetText(Sender: TField;
       var Text: String; DisplayText: Boolean);
+    procedure edpuertoChange(Sender: TObject);
   private
     { Private declarations }
   public
@@ -1611,6 +1633,7 @@ type
 
 var
   frmParametros: TfrmParametros;
+
 
 implementation
 
@@ -1662,7 +1685,6 @@ begin
   pnCotizacion.Visible  := tvOpciones.Selected.AbsoluteIndex = 21;
   pnAtrasos.Visible     := tvOpciones.Selected.AbsoluteIndex = 22;
   pnVerifone.Visible    := tvOpciones.Selected.AbsoluteIndex = 23;
-
 
   case tvOpciones.Selected.AbsoluteIndex of
   6 : begin
@@ -1892,8 +1914,8 @@ begin
   tvOpciones.FullExpand;
   if not QParametros.Active then
   begin
-    AssignFile(puertoimp, 'puerto.txt');
-    if not FileExists('puerto.txt') then
+    AssignFile(puertoimp, '.\puerto.txt');
+    if not FileExists('.\puerto.txt') then
     begin
       Rewrite(puertoimp);
       writeln(puertoimp,'PRN');
@@ -4682,11 +4704,17 @@ begin
      if (frmParametros.Components[x] is TPanel) then
        begin
          (frmParametros.Components[x] as TPanel).Width := 437; //417;
+         if frmParametros.Components[x].Name = 'pnFormatosImp' then
+         (frmParametros.Components[x] as TPanel).Height:=  413 else
          (frmParametros.Components[x] as TPanel).Height:=  385;
          (frmParametros.Components[x] as TPanel).Left := 168;
          (frmParametros.Components[x] as TPanel).Top := 8;
        end;
    end;
+
+
+
+
 end;
 
 procedure TfrmParametros.adoRangoDescVtaNewRecord(DataSet: TDataSet);
@@ -5683,6 +5711,34 @@ begin
   end
   else
     edtpar_ctafletecomp.Text := '';
+end;
+
+procedure TfrmParametros.edpuertoChange(Sender: TObject);
+VAR
+  X :  Integer;
+begin
+DBComboBox12.Clear;
+If Trim(edpuerto.Text)= '' THEN BEGIN
+  DBComboBox12.Clear;
+  for X := 1 TO 15 DO BEGIN
+  DBComboBox12.Items.Add('COM'+IntToStr(X));
+  end;
+  for X := 1 TO 5 DO BEGIN
+  DBComboBox12.Items.Add('LPT'+IntToStr(X));
+  end;
+  DBComboBox12.Items.Add(edpuerto.Text);
+end
+else
+BEGIN
+  for X := 1 TO 15 DO BEGIN
+  DBComboBox12.Items.Add('COM'+IntToStr(X));
+  end;
+  for X := 1 TO 5 DO BEGIN
+  DBComboBox12.Items.Add('LPT'+IntToStr(X));
+  end;
+  DBComboBox12.Items.Add(edpuerto.Text);
+end;
+
 end;
 
 end.

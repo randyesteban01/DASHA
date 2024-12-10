@@ -1,12 +1,12 @@
 object frmConsFacturas: TfrmConsFacturas
-  Left = 227
-  Top = 13
+  Left = 265
+  Top = 0
   ActiveControl = edTipo
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Listado de Facturas'
-  ClientHeight = 771
-  ClientWidth = 1126
+  ClientHeight = 696
+  ClientWidth = 1076
   Color = clBtnFace
   Font.Charset = ANSI_CHARSET
   Font.Color = clWindowText
@@ -28,8 +28,8 @@ object frmConsFacturas: TfrmConsFacturas
   TextHeight = 13
   object Splitter1: TSplitter
     Left = 0
-    Top = 612
-    Width = 1126
+    Top = 571
+    Width = 1076
     Height = 4
     Cursor = crVSplit
     Align = alTop
@@ -37,7 +37,7 @@ object frmConsFacturas: TfrmConsFacturas
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 1126
+    Width = 1076
     Height = 152
     Align = alTop
     BevelInner = bvRaised
@@ -795,15 +795,15 @@ object frmConsFacturas: TfrmConsFacturas
   end
   object Panel2: TPanel
     Left = 0
-    Top = 731
-    Width = 1126
+    Top = 656
+    Width = 1076
     Height = 40
     Align = alBottom
     BevelInner = bvRaised
     BevelOuter = bvLowered
     TabOrder = 1
     DesignSize = (
-      1126
+      1076
       40)
     object lbCantidad: TLabel
       Left = 8
@@ -819,7 +819,7 @@ object frmConsFacturas: TfrmConsFacturas
       ParentFont = False
     end
     object BitBtn2: TBitBtn
-      Left = 962
+      Left = 912
       Top = 8
       Width = 75
       Height = 25
@@ -838,7 +838,7 @@ object frmConsFacturas: TfrmConsFacturas
         03333333333333333333}
     end
     object btRefresh: TBitBtn
-      Left = 802
+      Left = 752
       Top = 8
       Width = 75
       Height = 25
@@ -848,7 +848,7 @@ object frmConsFacturas: TfrmConsFacturas
       OnClick = btRefreshClick
     end
     object btClose: TBitBtn
-      Left = 1042
+      Left = 992
       Top = 8
       Width = 75
       Height = 25
@@ -872,7 +872,7 @@ object frmConsFacturas: TfrmConsFacturas
       NumGlyphs = 2
     end
     object BitBtn1: TBitBtn
-      Left = 882
+      Left = 832
       Top = 8
       Width = 75
       Height = 25
@@ -899,7 +899,7 @@ object frmConsFacturas: TfrmConsFacturas
       Visible = False
     end
     object btnEmail: TBitBtn
-      Left = 711
+      Left = 661
       Top = 8
       Width = 85
       Height = 25
@@ -912,8 +912,8 @@ object frmConsFacturas: TfrmConsFacturas
   object DBGrid1: TDBGrid
     Left = 0
     Top = 152
-    Width = 1126
-    Height = 460
+    Width = 1076
+    Height = 419
     Align = alTop
     Anchors = [akLeft, akTop, akRight, akBottom]
     Color = clInfoBk
@@ -1065,6 +1065,12 @@ object frmConsFacturas: TfrmConsFacturas
       end
       item
         Expanded = False
+        FieldName = 'RECARGO'
+        Width = 108
+        Visible = True
+      end
+      item
+        Expanded = False
         FieldName = 'FAC_TOTAL'
         Title.Alignment = taCenter
         Title.Caption = 'Total'
@@ -1189,10 +1195,10 @@ object frmConsFacturas: TfrmConsFacturas
   end
   object PageControl1: TPageControl
     Left = 0
-    Top = 616
-    Width = 1126
-    Height = 115
-    ActivePage = TabSheet5
+    Top = 575
+    Width = 1076
+    Height = 81
+    ActivePage = TabSheet3
     Align = alClient
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
@@ -1477,8 +1483,8 @@ object frmConsFacturas: TfrmConsFacturas
       object DBGrid3: TDBGrid
         Left = 0
         Top = 0
-        Width = 1118
-        Height = 89
+        Width = 1068
+        Height = 55
         Align = alClient
         Color = clInfoBk
         Ctl3D = False
@@ -1729,10 +1735,10 @@ object frmConsFacturas: TfrmConsFacturas
       Caption = 'Cuentas contables'
       ImageIndex = 6
       DesignSize = (
-        1118
-        89)
+        1068
+        55)
       object Label14: TLabel
-        Left = 961
+        Left = 911
         Top = 1
         Width = 40
         Height = 13
@@ -1746,7 +1752,7 @@ object frmConsFacturas: TfrmConsFacturas
         ParentFont = False
       end
       object Label15: TLabel
-        Left = 961
+        Left = 911
         Top = 17
         Width = 36
         Height = 13
@@ -1760,7 +1766,7 @@ object frmConsFacturas: TfrmConsFacturas
         ParentFont = False
       end
       object Label16: TLabel
-        Left = 961
+        Left = 911
         Top = 33
         Width = 37
         Height = 13
@@ -1776,8 +1782,8 @@ object frmConsFacturas: TfrmConsFacturas
       object GridCuentas: TDBGrid
         Left = 30
         Top = 0
-        Width = 925
-        Height = 89
+        Width = 875
+        Height = 55
         Align = alLeft
         Anchors = [akLeft, akTop, akRight, akBottom]
         Ctl3D = False
@@ -1836,7 +1842,7 @@ object frmConsFacturas: TfrmConsFacturas
           end>
       end
       object lbCR: TStaticText
-        Left = 1015
+        Left = 965
         Top = 1
         Width = 103
         Height = 17
@@ -1854,7 +1860,7 @@ object frmConsFacturas: TfrmConsFacturas
         TabOrder = 1
       end
       object lbDB: TStaticText
-        Left = 1015
+        Left = 965
         Top = 17
         Width = 103
         Height = 17
@@ -1872,7 +1878,7 @@ object frmConsFacturas: TfrmConsFacturas
         TabOrder = 2
       end
       object lbBAL: TStaticText
-        Left = 1015
+        Left = 965
         Top = 33
         Width = 103
         Height = 17
@@ -1893,7 +1899,7 @@ object frmConsFacturas: TfrmConsFacturas
         Left = 0
         Top = 0
         Width = 30
-        Height = 89
+        Height = 55
         Align = alLeft
         BevelInner = bvRaised
         BevelOuter = bvLowered
@@ -1946,7 +1952,7 @@ object frmConsFacturas: TfrmConsFacturas
         end
       end
       object btcodificar: TBitBtn
-        Left = 958
+        Left = 908
         Top = 52
         Width = 159
         Height = 25
@@ -2050,7 +2056,6 @@ object frmConsFacturas: TfrmConsFacturas
         Value = Null
       end>
     SQL.Strings = (
-      'UPDATE FACTURAS SET fac_conitbis = '#39'False'#39' where fac_itbis = 0'
       'SELECT '
       'fac_caja, pro_codigo,'
       'ALM_CODIGO, CAJ_CODIGO, CLI_CODIGO, CLI_REFERENCIA, tdesc_gral,'
@@ -2075,7 +2080,8 @@ object frmConsFacturas: TfrmConsFacturas
       'FAC_PROYECTO, FAC_SERVICIOS, fac_usuario_anulo,'
       
         '(ISNULL(FAC_TOTAL,0)-ISNULL(FAC_ITBIS,0)+ISNULL(fac_descuento,0)' +
-        ') SUB_TOTAL'
+        ') SUB_TOTAL,'
+      'RECARGO'
       'FROM('
       'select '
       'f.fac_caja, f.pro_codigo, tdesc_gral,'
@@ -2122,16 +2128,17 @@ object frmConsFacturas: TfrmConsFacturas
       
         '(FAC_TOTAL*0.88231827112) FAC_PROYECTO, (FAC_TOTAL*0.10) FAC_SER' +
         'VICIOS,'
-      'fac_usuario_anulo'
+      'fac_usuario_anulo,'
+      'ISNULL(F.RECARGO,0) RECARGO'
       'from'
       'facturas f '
       
-        'inner join det_factura df on f.emp_codigo=df.emp_codigo and f.su' +
-        'c_codigo=df.suc_codigo and '
+        'LEFT join det_factura df on f.emp_codigo=df.emp_codigo and f.suc' +
+        '_codigo=df.suc_codigo and '
       
         'f.fac_forma=df.fac_forma and f.tfa_codigo=df.tfa_codigo and f.fa' +
         'c_numero=df.fac_numero'
-      'inner join parametros p on df.emp_codigo =p.emp_codigo'
+      'inner join parametros p on f.emp_codigo =p.emp_codigo'
       
         'inner join TiposFactura t on (f.emp_codigo = t.emp_codigo and f.' +
         'tfa_codigo = t.tfa_codigo)'
@@ -2434,6 +2441,9 @@ object frmConsFacturas: TfrmConsFacturas
       FieldKind = fkCalculated
       FieldName = 'TipoPago'
       Calculated = True
+    end
+    object QFacturasRECARGO: TCurrencyField
+      FieldName = 'RECARGO'
     end
   end
   object QDetalle: TADOQuery
@@ -3046,6 +3056,14 @@ object frmConsFacturas: TfrmConsFacturas
         Value = Null
       end
       item
+        Name = 'SUC_CODIGO'
+        Attributes = [paSigned]
+        DataType = ftInteger
+        Precision = 10
+        Size = 4
+        Value = Null
+      end
+      item
         Name = 'TFA_CODIGO'
         Attributes = [paSigned]
         DataType = ftInteger
@@ -3068,16 +3086,14 @@ object frmConsFacturas: TfrmConsFacturas
         Precision = 10
         Size = 4
         Value = Null
-      end
-      item
-        Name = 'SUC_CODIGO'
-        Attributes = [paSigned]
-        DataType = ftInteger
-        Precision = 10
-        Size = 4
-        Value = Null
       end>
     SQL.Strings = (
+      'DECLARE @EMP INT, @SUC INT, @TFA INT, @FOR CHAR(1), @NUM INT'
+      'SET @EMP = :EMP_CODIGO'
+      'SET @SUC = :SUC_CODIGO'
+      'SET @TFA = :TFA_CODIGO'
+      'SET @FOR = :FAC_FORMA'
+      'SET @NUM =  :FAC_NUMERO'
       'SELECT'
       'F.FPA_NOMBRE, P.FOR_MONTO, P.FOR_DESCRIPCION'
       'FROM'
@@ -3085,13 +3101,23 @@ object frmConsFacturas: TfrmConsFacturas
       'WHERE'
       'F.EMP_CODIGO = P.EMP_CODIGO'
       'AND F.FPA_CODIGO = P.FPA_CODIGO'
-      'AND P.EMP_CODIGO = :EMP_CODIGO'
-      'AND P.TFA_CODIGO = :TFA_CODIGO'
-      'AND P.FAC_FORMA = :FAC_FORMA'
-      'AND P.FAC_NUMERO = :FAC_NUMERO'
-      'AND P.SUC_CODIGO = :SUC_CODIGO'
-      'ORDER BY'
-      '1')
+      'AND P.EMP_CODIGO = @EMP'
+      'AND P.TFA_CODIGO = @TFA'
+      'AND P.FAC_FORMA = @FOR'
+      'AND P.FAC_NUMERO = @NUM'
+      'AND P.SUC_CODIGO = @SUC'
+      'UNION ALL'
+      'SELECT'
+      
+        #39'NC'#39' FPA_NOMBRE, P.NCR_MONTO, '#39'PAGADO CON NC #'#39'+RTRIM(P.NCR_NUME' +
+        'RO) FOR_DESCRIPCION'
+      'FROM'
+      'FacNotasCredito P'
+      'WHERE P.EMP_CODIGO = @EMP'
+      'AND P.TFA_CODIGO = @TFA'
+      'AND P.FAC_FORMA = @FOR'
+      'AND P.FAC_NUMERO = @NUM'
+      'AND P.SUC_CODIGO = @SUC')
     Left = 392
     Top = 152
     object QFormaFPA_NOMBRE: TIBStringField

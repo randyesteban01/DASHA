@@ -15,6 +15,7 @@ object frmEnvio: TfrmEnvio
   OldCreateOrder = False
   Position = poScreenCenter
   OnKeyPress = FormKeyPress
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object Label4: TLabel
@@ -23,6 +24,14 @@ object frmEnvio: TfrmEnvio
     Width = 32
     Height = 13
     Caption = 'Label4'
+  end
+  object Label24: TLabel
+    Left = 200
+    Top = 32
+    Width = 48
+    Height = 26
+    Caption = 'Inv. Inicial Unidad'
+    WordWrap = True
   end
   object GroupBox1: TGroupBox
     Left = 8
@@ -56,10 +65,17 @@ object frmEnvio: TfrmEnvio
       Height = 13
       Caption = 'Terminal:'
     end
+    object Label1: TLabel
+      Left = 182
+      Top = 27
+      Width = 76
+      Height = 13
+      Caption = 'Cant. Paquetes:'
+    end
     object edoNombre: TEdit
       Left = 64
       Top = 48
-      Width = 209
+      Width = 249
       Height = 19
       CharCase = ecUpperCase
       MaxLength = 50
@@ -75,13 +91,11 @@ object frmEnvio: TfrmEnvio
       TabOrder = 0
       OnKeyDown = edoTelefonoKeyDown
     end
-    object DBLookupComboBox2: TDBLookupComboBox
+    object SucursalDestino: TDBLookupComboBox
       Left = 64
       Top = 72
       Width = 257
       Height = 19
-      DataField = 'SUC_CODIGO'
-      DataSource = frmFactura.dsFactura
       DropDownRows = 20
       Enabled = False
       Font.Charset = ANSI_CHARSET
@@ -91,7 +105,7 @@ object frmEnvio: TfrmEnvio
       Font.Style = []
       KeyField = 'suc_codigo'
       ListField = 'suc_nombre'
-      ListSource = frmFactura.dsSuc
+      ListSource = dsSucOrigen
       ParentFont = False
       TabOrder = 2
       TabStop = False
@@ -107,7 +121,7 @@ object frmEnvio: TfrmEnvio
     Ctl3D = False
     ParentColor = False
     ParentCtl3D = False
-    TabOrder = 1
+    TabOrder = 2
     object Label6: TLabel
       Left = 8
       Top = 48
@@ -136,7 +150,7 @@ object frmEnvio: TfrmEnvio
       Height = 19
       CharCase = ecUpperCase
       MaxLength = 50
-      TabOrder = 1
+      TabOrder = 2
       OnExit = eddNombreExit
     end
     object eddTelefono: TMaskEdit
@@ -149,7 +163,7 @@ object frmEnvio: TfrmEnvio
       TabOrder = 0
       OnKeyDown = eddTelefonoKeyDown
     end
-    object SucursalDestino: TDBLookupComboBox
+    object DBLookupComb_env_suc_destino: TDBLookupComboBox
       Left = 55
       Top = 73
       Width = 266
@@ -162,9 +176,9 @@ object frmEnvio: TfrmEnvio
       Font.Style = []
       KeyField = 'suc_codigo'
       ListField = 'suc_nombre'
-      ListSource = frmFactura.dsSucDest
+      ListSource = dsSucDestino
       ParentFont = False
-      TabOrder = 2
+      TabOrder = 3
       TabStop = False
     end
     object chkPagoDestino: TCheckBox
@@ -179,18 +193,18 @@ object frmEnvio: TfrmEnvio
       Font.Name = 'MS Sans Serif'
       Font.Style = [fsBold]
       ParentFont = False
-      TabOrder = 3
+      TabOrder = 1
     end
   end
   object GroupBox3: TGroupBox
-    Left = 8
-    Top = 121
+    Left = 3
+    Top = 117
     Width = 649
     Height = 49
     Caption = '[ Descripci'#243'n ]'
     Ctl3D = False
     ParentCtl3D = False
-    TabOrder = 2
+    TabOrder = 3
     object edDescripcion: TEdit
       Left = 322
       Top = 20
@@ -198,7 +212,6 @@ object frmEnvio: TfrmEnvio
       Height = 19
       MaxLength = 200
       TabOrder = 0
-      OnExit = edDescripcionExit
     end
     object cbbConceptos: TComboBox
       Left = 5
@@ -208,7 +221,6 @@ object frmEnvio: TfrmEnvio
       Style = csDropDownList
       ItemHeight = 13
       TabOrder = 1
-      OnExit = cbbConceptosExit
     end
   end
   object btClose: TBitBtn
@@ -217,7 +229,7 @@ object frmEnvio: TfrmEnvio
     Width = 90
     Height = 48
     Caption = '&Salir'
-    TabOrder = 3
+    TabOrder = 4
     TabStop = False
     OnClick = btCloseClick
     Glyph.Data = {
@@ -234,5 +246,159 @@ object frmEnvio: TfrmEnvio
       0333337F3F7F33337F333301E10BBBBB0333337F7F7F33337F333301EE0BBBBB
       0333337F777FFFFF7F3333000000000003333377777777777333}
     NumGlyphs = 2
+  end
+  object edCantidad: TEdit
+    Left = 268
+    Top = 40
+    Width = 53
+    Height = 21
+    TabOrder = 1
+    OnKeyPress = edCantidadKeyPress
+  end
+  object dsSucOrigen: TDataSource
+    DataSet = QSucOrigen
+    Left = 410
+    Top = 187
+  end
+  object QSucOrigen: TADOQuery
+    Connection = DM.ADOSigma
+    BeforeOpen = QSucOrigenBeforeOpen
+    Parameters = <
+      item
+        Name = 'emp_codigo'
+        Attributes = [paSigned]
+        DataType = ftInteger
+        Precision = 10
+        Size = 4
+        Value = Null
+      end
+      item
+        Name = 'usu'
+        Attributes = [paSigned]
+        DataType = ftInteger
+        Precision = 10
+        Size = 4
+        Value = Null
+      end
+      item
+        Name = 'suc'
+        Size = -1
+        Value = Null
+      end>
+    SQL.Strings = (
+      
+        'select  s.suc_direccion, s.suc_localidad, s.suc_telefono, s.suc_' +
+        'rnc,'
+      's.emp_codigo, s.suc_codigo, s.suc_nombre, s.alm_codigo'
+      'from'
+      'sucursales s, sucursal_acceso a'
+      'where'
+      's.emp_codigo = a.emp_codigo'
+      'and s.suc_codigo = a.suc_codigo'
+      'and a.emp_codigo = :emp_codigo'
+      'and a.usu_codigo = :usu'
+      'and a.suc_codigo= :suc'
+      'order by s.suc_codigo')
+    Left = 354
+    Top = 187
+    object QSucOrigensuc_codigo: TIntegerField
+      FieldName = 'suc_codigo'
+    end
+    object QSucOrigensuc_nombre: TStringField
+      FieldName = 'suc_nombre'
+      Size = 60
+    end
+    object QSucOrigenalm_codigo: TIntegerField
+      FieldName = 'alm_codigo'
+    end
+    object QSucOrigenemp_codigo: TIntegerField
+      FieldName = 'emp_codigo'
+    end
+    object QSucOrigensuc_direccion: TStringField
+      FieldName = 'suc_direccion'
+      Size = 60
+    end
+    object QSucOrigensuc_localidad: TStringField
+      FieldName = 'suc_localidad'
+      Size = 60
+    end
+    object QSucOrigensuc_telefono: TStringField
+      FieldName = 'suc_telefono'
+      Size = 30
+    end
+    object QSucOrigensuc_rnc: TStringField
+      FieldName = 'suc_rnc'
+      Size = 30
+    end
+  end
+  object dsSucDestino: TDataSource
+    DataSet = qSucDestino
+    Left = 530
+    Top = 186
+  end
+  object qSucDestino: TADOQuery
+    Connection = DM.ADOSigma
+    BeforeOpen = qSucDestinoBeforeOpen
+    Parameters = <
+      item
+        Name = 'emp_codigo'
+        Attributes = [paSigned]
+        DataType = ftInteger
+        Precision = 10
+        Size = 4
+        Value = Null
+      end
+      item
+        Name = 'usu'
+        Attributes = [paSigned]
+        DataType = ftInteger
+        Precision = 10
+        Size = 4
+        Value = Null
+      end>
+    SQL.Strings = (
+      
+        'select  s.suc_direccion, s.suc_localidad, s.suc_telefono, s.suc_' +
+        'rnc,'
+      's.emp_codigo, s.suc_codigo, s.suc_nombre, s.alm_codigo'
+      'from'
+      'sucursales s, sucursal_acceso a'
+      'where'
+      's.emp_codigo = a.emp_codigo'
+      'and s.suc_codigo = a.suc_codigo'
+      'and a.emp_codigo = :emp_codigo'
+      'and a.usu_codigo = :usu'
+      'order by s.suc_codigo')
+    Left = 474
+    Top = 186
+    object IntegerField1: TIntegerField
+      FieldName = 'suc_codigo'
+    end
+    object StringField1: TStringField
+      FieldName = 'suc_nombre'
+      Size = 60
+    end
+    object IntegerField2: TIntegerField
+      FieldName = 'alm_codigo'
+    end
+    object IntegerField3: TIntegerField
+      FieldName = 'emp_codigo'
+    end
+    object StringField2: TStringField
+      FieldName = 'suc_direccion'
+      Size = 60
+    end
+    object StringField3: TStringField
+      FieldName = 'suc_localidad'
+      Size = 60
+    end
+    object StringField4: TStringField
+      FieldName = 'suc_telefono'
+      Size = 30
+    end
+    object StringField5: TStringField
+      FieldName = 'suc_rnc'
+      Size = 30
+    end
   end
 end

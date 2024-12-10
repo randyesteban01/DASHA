@@ -1,8 +1,8 @@
 object DM: TDM
   OldCreateOrder = False
   OnCreate = DataModuleCreate
-  Left = 352
-  Top = 356
+  Left = 407
+  Top = 164
   Height = 356
   Width = 619
   object dsEmpresas: TDataSource
@@ -23,7 +23,6 @@ object DM: TDM
   end
   object IdHTTP1: TIdHTTP
     MaxLineAction = maException
-    ReadTimeout = 0
     AllowCookies = True
     ProxyParams.BasicAuthentication = False
     ProxyParams.ProxyPort = 0
@@ -39,10 +38,11 @@ object DM: TDM
     Top = 248
   end
   object ADOSigma: TADOConnection
-    ConnectionTimeout = 150
+    ConnectionTimeout = 0
     ConnectOptions = coAsyncConnect
     KeepConnection = False
     LoginPrompt = False
+    Mode = cmReadWrite
     Provider = 'SQLOLEDB.1'
     Left = 440
     Top = 248
@@ -954,6 +954,30 @@ object DM: TDM
     object QParametrospar_digitos_banderita: TIntegerField
       FieldName = 'par_digitos_banderita'
     end
+    object QParametrosRestBar_FactConItbis: TBooleanField
+      FieldName = 'RestBar_FactConItbis'
+    end
+    object QParametrospar_mostrarfacturadolares: TBooleanField
+      FieldName = 'par_mostrarfacturadolares'
+    end
+    object QParametrosPAR_UnidadMedida_Producto: TBooleanField
+      FieldName = 'PAR_UnidadMedida_Producto'
+    end
+    object QParametrospar_totalizardolaresPOS: TBooleanField
+      FieldName = 'par_totalizardolaresPOS'
+    end
+    object QParametrospar_codigobarrasdolares: TBooleanField
+      FieldName = 'par_codigobarrasdolares'
+    end
+    object QParametrospar_vouchercardnet: TBooleanField
+      FieldName = 'par_vouchercardnet'
+    end
+    object QParametrosPAR_MESERO: TBooleanField
+      FieldName = 'PAR_MESERO'
+    end
+    object QParametrosPAR_cantidadRecibosImprimir: TIntegerField
+      FieldName = 'PAR_cantidadRecibosImprimir'
+    end
   end
   object QContab: TADOQuery
     Connection = ADOSigma
@@ -1768,7 +1792,8 @@ object DM: TDM
       'usu_modifica_otras_cotizaciones,'
       
         'par_mailservidor, par_mailcorreo, par_mailusuario, par_mailpuert' +
-        'o, par_mailclave, par_mailOK, usu_vendedor'
+        'o, par_mailclave, par_mailOK, usu_vendedor, usu_solo_conduce'
+      ',usu_modifica_nombreprod, usu_suc_default'
       'from'
       'USUARIOS'
       'where'
@@ -1878,6 +1903,15 @@ object DM: TDM
     end
     object QUsuariosusu_vendedor: TBooleanField
       FieldName = 'usu_vendedor'
+    end
+    object QUsuariosusu_solo_conduce: TBooleanField
+      FieldName = 'usu_solo_conduce'
+    end
+    object QUsuariosusu_modifica_nombreprod: TBooleanField
+      FieldName = 'usu_modifica_nombreprod'
+    end
+    object QUsuariosusu_suc_default: TIntegerField
+      FieldName = 'usu_suc_default'
     end
   end
   object QParamRH: TADOQuery
@@ -2274,5 +2308,33 @@ object DM: TDM
     BCDToCurrency = False
     Left = 240
     Top = 192
+  end
+  object qRevisarAlmDupliExist: TADOQuery
+    Connection = ADOSigma
+    Parameters = <>
+    SQL.Strings = (
+      'IF OBJECT_ID('#39'tempdb..#EXISTENCIAS'#39') IS NULL'
+      'BEGIN'
+      '--CREA BACKUP TABLA EXISTENCIAS TEMPORAL'
+      'SELECT * INTO #EXISTENCIAS FROM EXISTENCIAS;'
+      '--LIMPIA TABLA EXISTENCIAS REAL'
+      'DELETE FROM EXISTENCIAS; '
+      '--INSERTA TABLA EXISTENCIAS REAL SIN DUPLICIDA'
+      'INSERT INTO EXISTENCIAS'
+      'SELECT DISTINCT * FROM #EXISTENCIAS;'
+      'END'
+      'ELSE'
+      'BEGIN'
+      '--INSERTA EN TABLA EXISTENCIAS TEMPORAL'
+      'INSERT INTO #EXISTENCIAS'
+      'SELECT * FROM EXISTENCIAS;'
+      '--LIMPIA TABLA EXISTENCIAS REAL'
+      'DELETE FROM EXISTENCIAS ;'
+      '--INSERTA TABLA EXISTENCIAS REAL SIN DUPLICIDA'
+      'INSERT INTO EXISTENCIAS'
+      'SELECT DISTINCT * FROM #EXISTENCIAS;'
+      'END')
+    Left = 536
+    Top = 48
   end
 end

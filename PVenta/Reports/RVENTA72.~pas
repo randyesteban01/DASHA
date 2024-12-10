@@ -76,7 +76,6 @@ type
     QVendedor: TADOQuery;
     QVendedorVEN_NOMBRE: TIBStringField;
     QVendedorVEN_CODIGO: TIntegerField;
-    QDevolucionCLI_REFERENCIA: TStringField;
     QDetalledet_lote: TIntegerField;
     QDetalledet_cant_oferta: TBCDField;
     QDetalledet_fechavence: TDateTimeField;
@@ -165,6 +164,7 @@ type
     QRLabel9: TQRLabel;
     QRDBText8: TQRDBText;
     QDevolucionncr_numero: TIntegerField;
+    QDevolucionCLI_REFERENCIA: TStringField;
     procedure QDetalleCalcFields(DataSet: TDataSet);
     procedure QRBBBeforePrint(Sender: TCustomQuickRep;
       var PrintReport: Boolean);

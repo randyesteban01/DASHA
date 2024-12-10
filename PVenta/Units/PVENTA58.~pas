@@ -714,6 +714,7 @@ begin
 
   Memo1.Lines := QProv.SQL;
   Orden := 'order by p.sup_nombre';
+  btRefreshClick(Sender);
 end;
 
 procedure TfrmConsCxP.ckfiltroClick(Sender: TObject);

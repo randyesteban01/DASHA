@@ -564,6 +564,17 @@ type
     dbchkusu_modifica_factura: TDBCheckBox;
     banco_disp: TMenuItem;
     CierredeldaCardnet1: TMenuItem;
+    dbchkusu_solo_conduce: TDBCheckBox;
+    QUsuariosusu_solo_conduce: TBooleanField;
+    dbchkusu_modifica_nombreprod: TDBCheckBox;
+    QUsuariosusu_modifica_nombreprod: TBooleanField;
+    Label8: TLabel;
+    DBLookupComboBox2: TDBLookupComboBox;
+    QSucursalesDefault: TADOQuery;
+    IntegerField1: TIntegerField;
+    StringField1: TStringField;
+    dsSucursalDefault: TDataSource;
+    QUsuariosusu_suc_default: TIntegerField;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btCloseClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
@@ -783,6 +794,12 @@ begin
 
     QEmpresas.Open;
     QSucursales.Open;
+    
+    QSucursalesDefault.Close;
+    QSucursalesDefault.Parameters.ParamByName('emp_codigo').Value := QEmpresasEMP_CODIGO.Value;
+    QSucursalesDefault.Parameters.ParamByName('usu_codigo').Value := QUsuariosUSU_CODIGO.Value;
+    QSucursalesDefault.Open;
+
   end;
   Lista1.refresh;
   frmMain.ExportXLS.Sheets[2].DataSet := QUsuarios;
@@ -908,6 +925,7 @@ begin
    //   Lista4.items.savetofile(ExtractFilePath(Application.ExeName)+'usuopc4.txt');
   Lista1.Refresh;
   lockwindowupdate(0);
+
 end;
 
 procedure TfrmUsuarios.Lista1DblClick(Sender: TObject);

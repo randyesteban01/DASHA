@@ -297,7 +297,6 @@ var
   s : array[0..20] of char;
   Relleno, IniBarra: String;
 begin
-
   if rgtipo.ItemIndex = 1 then
   begin
     //Gondola

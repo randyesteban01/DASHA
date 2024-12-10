@@ -1,12 +1,12 @@
 object frmTransferencia: TfrmTransferencia
-  Left = 258
-  Top = 196
+  Left = 277
+  Top = 96
   ActiveControl = edDesde
   BorderIcons = [biSystemMenu, biMinimize, biHelp]
   BorderStyle = bsSingle
   Caption = 'Transferencia entre almacenes'
-  ClientHeight = 452
-  ClientWidth = 640
+  ClientHeight = 420
+  ClientWidth = 594
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -25,12 +25,12 @@ object frmTransferencia: TfrmTransferencia
   OnKeyPress = FormKeyPress
   OnPaint = FormPaint
   PixelsPerInch = 96
-  TextHeight = 14
+  TextHeight = 13
   object SpeedButton1: TSpeedButton
-    Left = 396
-    Top = 422
-    Width = 148
-    Height = 27
+    Left = 368
+    Top = 392
+    Width = 137
+    Height = 25
     Caption = 'Buscar Pedido cliente'
     Glyph.Data = {
       42010000424D4201000000000000760000002800000011000000110000000100
@@ -47,32 +47,32 @@ object frmTransferencia: TfrmTransferencia
     OnClick = SpeedButton1Click
   end
   object BitBtn2: TSpeedButton
-    Left = 164
-    Top = 422
-    Width = 225
-    Height = 27
+    Left = 152
+    Top = 392
+    Width = 209
+    Height = 25
     Caption = 'Grabar al dispositivo de almacenamiento'
     OnClick = BitBtn2Click
   end
   object btBuscaProd: TSpeedButton
-    Left = 345
-    Top = 388
-    Width = 139
-    Height = 27
+    Left = 320
+    Top = 360
+    Width = 129
+    Height = 25
     Caption = '[ F4 ] - Buscar producto'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -12
+    Font.Height = -11
     Font.Name = 'MS Sans Serif'
     Font.Style = []
     ParentFont = False
     OnClick = btBuscaProdClick
   end
   object btPost: TSpeedButton
-    Left = 52
-    Top = 388
-    Width = 147
-    Height = 27
+    Left = 48
+    Top = 360
+    Width = 137
+    Height = 25
     Caption = '[ F2 ] &Grabar / Imprimir'
     Glyph.Data = {
       F6000000424DF600000000000000760000002800000010000000100000000100
@@ -86,18 +86,18 @@ object frmTransferencia: TfrmTransferencia
     OnClick = btPostClick
   end
   object btlimpiar: TSpeedButton
-    Left = 207
-    Top = 388
-    Width = 130
-    Height = 27
+    Left = 192
+    Top = 360
+    Width = 121
+    Height = 25
     Caption = '[ F3 ] Limpiar pantalla'
     OnClick = btlimpiarClick
   end
   object BitBtn3: TSpeedButton
-    Left = 17
-    Top = 422
-    Width = 139
-    Height = 27
+    Left = 16
+    Top = 392
+    Width = 129
+    Height = 25
     Caption = '&Buscar transferencia'
     Glyph.Data = {
       42010000424D4201000000000000760000002800000011000000110000000100
@@ -114,10 +114,10 @@ object frmTransferencia: TfrmTransferencia
     OnClick = BitBtn3Click
   end
   object btClose: TSpeedButton
-    Left = 551
-    Top = 422
-    Width = 79
-    Height = 27
+    Left = 512
+    Top = 392
+    Width = 73
+    Height = 25
     Caption = '&Salir'
     Glyph.Data = {
       76010000424D7601000000000000760000002800000020000000100000000100
@@ -136,44 +136,44 @@ object frmTransferencia: TfrmTransferencia
     OnClick = btCloseClick
   end
   object bteliminar: TSpeedButton
-    Left = 491
-    Top = 388
-    Width = 139
-    Height = 27
+    Left = 456
+    Top = 360
+    Width = 129
+    Height = 25
     Caption = '[ F7 ] - Eliminar producto'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -12
+    Font.Height = -11
     Font.Name = 'MS Sans Serif'
     Font.Style = []
     ParentFont = False
     OnClick = bteliminarClick
   end
   object Panel1: TPanel
-    Left = 9
-    Top = 8
-    Width = 621
-    Height = 28
+    Left = 8
+    Top = 7
+    Width = 577
+    Height = 26
     TabOrder = 0
     object Label1: TLabel
-      Left = 13
+      Left = 12
       Top = 5
       Width = 37
-      Height = 14
+      Height = 13
       Caption = 'N'#250'mero'
     end
     object Label8: TLabel
-      Left = 155
+      Left = 144
       Top = 6
-      Width = 43
-      Height = 14
+      Width = 41
+      Height = 13
       Caption = 'Sucursal'
     end
     object DBEdit1: TDBEdit
-      Left = 69
+      Left = 64
       Top = 2
-      Width = 79
-      Height = 23
+      Width = 73
+      Height = 21
       BevelKind = bkFlat
       BorderStyle = bsNone
       Color = clInfoBk
@@ -182,23 +182,23 @@ object frmTransferencia: TfrmTransferencia
       Enabled = False
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
       TabOrder = 0
     end
     object DBLookupComboBox2: TDBLookupComboBox
-      Left = 204
+      Left = 189
       Top = 1
-      Width = 407
-      Height = 22
+      Width = 378
+      Height = 21
       DataField = 'suc_codigo'
       DataSource = dsTrans
       DropDownRows = 20
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = []
       KeyField = 'suc_codigo'
@@ -210,25 +210,25 @@ object frmTransferencia: TfrmTransferencia
     end
   end
   object Panel2: TPanel
-    Left = 9
-    Top = 43
-    Width = 621
-    Height = 337
+    Left = 8
+    Top = 40
+    Width = 577
+    Height = 313
     Ctl3D = True
     ParentCtl3D = False
     TabOrder = 1
     object Label2: TLabel
-      Left = 9
-      Top = 9
+      Left = 8
+      Top = 8
       Width = 31
-      Height = 14
+      Height = 13
       Caption = 'Desde'
     end
     object SpeedButton2: TSpeedButton
-      Left = 125
-      Top = 9
-      Width = 25
-      Height = 23
+      Left = 116
+      Top = 8
+      Width = 23
+      Height = 22
       Flat = True
       Glyph.Data = {
         42010000424D4201000000000000760000002800000011000000110000000100
@@ -245,31 +245,31 @@ object frmTransferencia: TfrmTransferencia
       OnClick = SpeedButton2Click
     end
     object Label3: TLabel
-      Left = 9
-      Top = 86
+      Left = 8
+      Top = 80
       Width = 30
-      Height = 14
+      Height = 13
       Caption = 'Fecha'
     end
     object Label4: TLabel
-      Left = 9
-      Top = 60
+      Left = 8
+      Top = 56
       Width = 46
-      Height = 14
+      Height = 13
       Caption = 'Concepto'
     end
     object Label5: TLabel
-      Left = 9
-      Top = 34
+      Left = 8
+      Top = 32
       Width = 28
-      Height = 14
+      Height = 13
       Caption = 'Hasta'
     end
     object SpeedButton3: TSpeedButton
-      Left = 125
-      Top = 34
-      Width = 25
-      Height = 24
+      Left = 116
+      Top = 32
+      Width = 23
+      Height = 22
       Flat = True
       Glyph.Data = {
         42010000424D4201000000000000760000002800000011000000110000000100
@@ -285,16 +285,23 @@ object frmTransferencia: TfrmTransferencia
         777770000000}
       OnClick = SpeedButton3Click
     end
+    object Label6: TLabel
+      Left = 8
+      Top = 106
+      Width = 48
+      Height = 13
+      Caption = 'Ubicaci'#243'n'
+    end
     object edDesde: TEdit
-      Left = 69
-      Top = 9
-      Width = 53
-      Height = 22
+      Left = 64
+      Top = 8
+      Width = 49
+      Height = 21
       BevelKind = bkFlat
       BorderStyle = bsNone
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
@@ -302,27 +309,27 @@ object frmTransferencia: TfrmTransferencia
       OnKeyDown = edDesdeKeyDown
     end
     object tAlmacen1: TEdit
-      Left = 152
-      Top = 9
-      Width = 461
-      Height = 22
+      Left = 141
+      Top = 8
+      Width = 428
+      Height = 21
       BevelKind = bkFlat
       BorderStyle = bsNone
       Color = clInfoBk
       Enabled = False
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
       TabOrder = 5
     end
     object DBEdit2: TDBEdit
-      Left = 69
-      Top = 60
-      Width = 544
-      Height = 23
+      Left = 64
+      Top = 56
+      Width = 505
+      Height = 21
       BevelKind = bkFlat
       BorderStyle = bsNone
       CharCase = ecUpperCase
@@ -330,24 +337,24 @@ object frmTransferencia: TfrmTransferencia
       DataSource = dsTrans
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
       TabOrder = 2
     end
     object DBEdit3: TDBEdit
-      Left = 69
-      Top = 86
-      Width = 79
-      Height = 23
+      Left = 64
+      Top = 80
+      Width = 73
+      Height = 21
       BevelKind = bkFlat
       BorderStyle = bsNone
       DataField = 'TRA_FECHA'
       DataSource = dsTrans
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
@@ -355,15 +362,15 @@ object frmTransferencia: TfrmTransferencia
     end
     object Grid: TDBGrid
       Left = 1
-      Top = 112
-      Width = 619
-      Height = 224
+      Top = 136
+      Width = 575
+      Height = 176
       Align = alBottom
       Ctl3D = False
       DataSource = dsDetalle
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = []
       Options = [dgEditing, dgTitles, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgCancelOnExit]
@@ -431,15 +438,15 @@ object frmTransferencia: TfrmTransferencia
         end>
     end
     object edHasta: TEdit
-      Left = 69
-      Top = 34
-      Width = 53
-      Height = 23
+      Left = 64
+      Top = 32
+      Width = 49
+      Height = 21
       BevelKind = bkFlat
       BorderStyle = bsNone
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
@@ -447,27 +454,27 @@ object frmTransferencia: TfrmTransferencia
       OnKeyDown = edHastaKeyDown
     end
     object tAlmacen2: TEdit
-      Left = 152
-      Top = 34
-      Width = 461
-      Height = 23
+      Left = 141
+      Top = 32
+      Width = 428
+      Height = 21
       BevelKind = bkFlat
       BorderStyle = bsNone
       Color = clInfoBk
       Enabled = False
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
       TabOrder = 7
     end
     object StaticText1: TStaticText
-      Left = 409
-      Top = 93
-      Width = 96
-      Height = 18
+      Left = 380
+      Top = 86
+      Width = 89
+      Height = 17
       Alignment = taCenter
       AutoSize = False
       BorderStyle = sbsSunken
@@ -475,10 +482,10 @@ object frmTransferencia: TfrmTransferencia
       TabOrder = 8
     end
     object StaticText2: TStaticText
-      Left = 506
-      Top = 93
-      Width = 95
-      Height = 18
+      Left = 470
+      Top = 86
+      Width = 88
+      Height = 17
       Alignment = taCenter
       AutoSize = False
       BorderStyle = sbsSunken
@@ -486,27 +493,45 @@ object frmTransferencia: TfrmTransferencia
       TabOrder = 9
     end
     object ckautomatico: TCheckBox
-      Left = 164
-      Top = 86
-      Width = 190
-      Height = 18
+      Left = 152
+      Top = 80
+      Width = 177
+      Height = 17
       Caption = '[ F5 ] - Registro automatico'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'MS Sans Serif'
       Font.Style = [fsBold]
       ParentFont = False
       TabOrder = 4
     end
     object Lista: TListBox
-      Left = 362
-      Top = 250
-      Width = 208
-      Height = 70
-      ItemHeight = 14
+      Left = 336
+      Top = 232
+      Width = 193
+      Height = 65
+      ItemHeight = 13
       TabOrder = 10
       Visible = False
+    end
+    object DBEdit4: TDBEdit
+      Left = 64
+      Top = 104
+      Width = 505
+      Height = 21
+      BevelKind = bkFlat
+      BorderStyle = bsNone
+      CharCase = ecUpperCase
+      DataField = 'Ubicacion'
+      DataSource = dsTrans
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 11
     end
   end
   object QTrans: TADOQuery
@@ -536,7 +561,7 @@ object frmTransferencia: TfrmTransferencia
       
         'USU_CODIGO, tra_medida_almacen1, tra_medida_almacen2, suc_codigo' +
         ','
-      'TRA_FECHA_HORA'
+      'TRA_FECHA_HORA, Ubicacion'
       'from TRANSFER'
       'where emp_codigo = :emp'
       'and tra_numero = :numero')
@@ -592,6 +617,10 @@ object frmTransferencia: TfrmTransferencia
     object QTransTRA_FECHA_HORA: TDateTimeField
       FieldName = 'TRA_FECHA_HORA'
     end
+    object QTransUbicacion: TStringField
+      FieldName = 'Ubicacion'
+      Size = 255
+    end
   end
   object dsTrans: TDataSource
     DataSet = QTrans
@@ -620,12 +649,12 @@ object frmTransferencia: TfrmTransferencia
       end>
     SQL.Strings = (
       'select '
-      'DET_CANTIDAD, DET_SECUENCIA, EMP_CODIGO, PRO_CODIGO, '
-      'PRO_NOMBRE, PRO_RFABRIC, PRO_RORIGINAL, TRA_NUMERO,'
-      'DET_MEDIDA, det_medida2, pro_cantempaque, det_cantidad2,'
+      'DET_CANTIDAD, DET_SECUENCIA, d.EMP_CODIGO, d.PRO_CODIGO, '
+      'd.PRO_NOMBRE, d.PRO_RFABRIC, d.PRO_RORIGINAL, TRA_NUMERO,'
+      'DET_MEDIDA, det_medida2, d.pro_cantempaque, det_cantidad2,'
       'det_costo, det_costound, det_costoemp, suc_codigo'
-      'from DET_TRANSFER'
-      'where emp_codigo = :EMP_CODIGO'
+      'from DET_TRANSFER d '
+      'where d.emp_codigo = :EMP_CODIGO'
       'and tra_numero = :numero'
       'order by det_secuencia')
     Left = 184

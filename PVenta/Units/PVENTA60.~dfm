@@ -1,11 +1,11 @@
 object frmConsCxC: TfrmConsCxC
-  Left = 377
-  Top = 246
+  Left = 170
+  Top = 0
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Consulta general de cuentas por cobrar'
   ClientHeight = 646
-  ClientWidth = 1054
+  ClientWidth = 1048
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -25,140 +25,25 @@ object frmConsCxC: TfrmConsCxC
   object Splitter1: TSplitter
     Left = 0
     Top = 441
-    Width = 1054
+    Width = 1048
     Height = 4
     Cursor = crVSplit
     Align = alTop
   end
-  object DBGrid1: TDBGrid
-    Left = 0
-    Top = 63
-    Width = 1054
-    Height = 378
-    Align = alTop
-    Anchors = [akLeft, akTop, akRight, akBottom]
-    Color = clInfoBk
-    Ctl3D = False
-    DataSource = dsCliente
-    Font.Charset = ANSI_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -11
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    Options = [dgTitles, dgColumnResize, dgColLines, dgTabs, dgAlwaysShowSelection, dgCancelOnExit]
-    ParentCtl3D = False
-    ParentFont = False
-    PopupMenu = pm1
-    TabOrder = 0
-    TitleFont.Charset = ANSI_CHARSET
-    TitleFont.Color = clWindowText
-    TitleFont.Height = -11
-    TitleFont.Name = 'Tahoma'
-    TitleFont.Style = []
-    Columns = <
-      item
-        Expanded = False
-        FieldName = 'CLI_NOMBRE'
-        Title.Caption = 'Nombre del cliente'
-        Width = 282
-        Visible = True
-      end
-      item
-        Alignment = taCenter
-        Expanded = False
-        FieldName = 'CLI_TELEFONO'
-        Title.Alignment = taCenter
-        Title.Caption = '# de Tel'#233'fono'
-        Width = 87
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'CLI_LIMITE'
-        Title.Alignment = taCenter
-        Title.Caption = 'L'#237'mite de Cr'#233'dito'
-        Width = 88
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'BALANCE'
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clNavy
-        Font.Height = -11
-        Font.Name = 'Tahoma'
-        Font.Style = [fsBold]
-        Title.Alignment = taCenter
-        Title.Caption = 'Balance'
-        Title.Font.Charset = ANSI_CHARSET
-        Title.Font.Color = clWindowText
-        Title.Font.Height = -11
-        Title.Font.Name = 'Verdana'
-        Title.Font.Style = [fsBold]
-        Width = 104
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'MORA'
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clNavy
-        Font.Height = -11
-        Font.Name = 'Tahoma'
-        Font.Style = [fsBold]
-        Width = 105
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'VENCIDO'
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clRed
-        Font.Height = -11
-        Font.Name = 'Tahoma'
-        Font.Style = [fsBold]
-        Title.Alignment = taCenter
-        Title.Caption = 'Vencido'
-        Title.Font.Charset = ANSI_CHARSET
-        Title.Font.Color = clWindowText
-        Title.Font.Height = -11
-        Title.Font.Name = 'Verdana'
-        Title.Font.Style = [fsBold]
-        Width = 104
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'NOTASPORAPLICAR'
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clRed
-        Font.Height = -11
-        Font.Name = 'Tahoma'
-        Font.Style = [fsBold]
-        Title.Alignment = taCenter
-        Title.Caption = 'NC POR APLICAR'
-        Title.Font.Charset = ANSI_CHARSET
-        Title.Font.Color = clWindowText
-        Title.Font.Height = -11
-        Title.Font.Name = 'Tahoma'
-        Title.Font.Style = [fsBold]
-        Visible = True
-      end>
-  end
   object Panel1: TPanel
     Left = 0
     Top = 605
-    Width = 1054
+    Width = 1048
     Height = 41
     Align = alBottom
     BevelInner = bvRaised
     BevelOuter = bvLowered
     TabOrder = 1
     DesignSize = (
-      1054
+      1048
       41)
     object btRefresh: TBitBtn
-      Left = 528
+      Left = 522
       Top = 8
       Width = 75
       Height = 25
@@ -168,7 +53,7 @@ object frmConsCxC: TfrmConsCxC
       OnClick = btRefreshClick
     end
     object BitBtn2: TBitBtn
-      Left = 682
+      Left = 676
       Top = 8
       Width = 97
       Height = 25
@@ -187,7 +72,7 @@ object frmConsCxC: TfrmConsCxC
         03333333333333333333}
     end
     object btClose: TBitBtn
-      Left = 972
+      Left = 966
       Top = 8
       Width = 75
       Height = 25
@@ -211,10 +96,10 @@ object frmConsCxC: TfrmConsCxC
       NumGlyphs = 2
     end
     object BitBtn1: TBitBtn
-      Left = 781
-      Top = 8
+      Left = 775
+      Top = 9
       Width = 105
-      Height = 25
+      Height = 24
       Anchors = [akTop, akRight]
       Caption = 'Imprimir cliente'
       TabOrder = 3
@@ -230,7 +115,7 @@ object frmConsCxC: TfrmConsCxC
         03333333333333333333}
     end
     object BitBtn3: TBitBtn
-      Left = 605
+      Left = 599
       Top = 8
       Width = 75
       Height = 25
@@ -267,7 +152,7 @@ object frmConsCxC: TfrmConsCxC
       OnClick = ckVenceClick
     end
     object btConsolidado: TBitBtn
-      Left = 886
+      Left = 880
       Top = 8
       Width = 85
       Height = 25
@@ -286,7 +171,7 @@ object frmConsCxC: TfrmConsCxC
         03333333333333333333}
     end
     object btnEmail: TBitBtn
-      Left = 439
+      Left = 433
       Top = 8
       Width = 85
       Height = 25
@@ -299,7 +184,7 @@ object frmConsCxC: TfrmConsCxC
   object Panel2: TPanel
     Left = 0
     Top = 445
-    Width = 1054
+    Width = 1048
     Height = 113
     Align = alClient
     BevelInner = bvRaised
@@ -308,7 +193,7 @@ object frmConsCxC: TfrmConsCxC
     object DBGrid2: TDBGrid
       Left = 2
       Top = 2
-      Width = 1050
+      Width = 1044
       Height = 109
       Align = alClient
       Color = clInfoBk
@@ -471,7 +356,7 @@ object frmConsCxC: TfrmConsCxC
   object Panel3: TPanel
     Left = 0
     Top = 558
-    Width = 1054
+    Width = 1048
     Height = 47
     Align = alBottom
     BevelInner = bvRaised
@@ -665,7 +550,7 @@ object frmConsCxC: TfrmConsCxC
   object Panel4: TPanel
     Left = 0
     Top = 0
-    Width = 1054
+    Width = 1048
     Height = 63
     Align = alTop
     BevelInner = bvRaised
@@ -799,9 +684,125 @@ object frmConsCxC: TfrmConsCxC
     TabOrder = 6
     Visible = False
   end
+  object DBGrid1: TDBGrid
+    Left = 0
+    Top = 63
+    Width = 1048
+    Height = 378
+    Align = alTop
+    Anchors = [akLeft, akTop, akRight, akBottom]
+    Color = clInfoBk
+    Ctl3D = False
+    DataSource = dsCliente
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    Options = [dgTitles, dgColumnResize, dgColLines, dgTabs, dgAlwaysShowSelection, dgCancelOnExit]
+    ParentCtl3D = False
+    ParentFont = False
+    PopupMenu = pm1
+    TabOrder = 0
+    TitleFont.Charset = ANSI_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -11
+    TitleFont.Name = 'Tahoma'
+    TitleFont.Style = []
+    Columns = <
+      item
+        Expanded = False
+        FieldName = 'CLI_NOMBRE'
+        Title.Caption = 'Nombre del cliente'
+        Width = 282
+        Visible = True
+      end
+      item
+        Alignment = taCenter
+        Expanded = False
+        FieldName = 'CLI_TELEFONO'
+        Title.Alignment = taCenter
+        Title.Caption = '# de Tel'#233'fono'
+        Width = 87
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'CLI_LIMITE'
+        Title.Alignment = taCenter
+        Title.Caption = 'L'#237'mite de Cr'#233'dito'
+        Width = 88
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'BALANCE'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clNavy
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        Title.Alignment = taCenter
+        Title.Caption = 'Balance'
+        Title.Font.Charset = ANSI_CHARSET
+        Title.Font.Color = clWindowText
+        Title.Font.Height = -11
+        Title.Font.Name = 'Verdana'
+        Title.Font.Style = [fsBold]
+        Width = 104
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'MORA'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clNavy
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        Width = 105
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'VENCIDO'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clRed
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        Title.Alignment = taCenter
+        Title.Caption = 'Vencido'
+        Title.Font.Charset = ANSI_CHARSET
+        Title.Font.Color = clWindowText
+        Title.Font.Height = -11
+        Title.Font.Name = 'Verdana'
+        Title.Font.Style = [fsBold]
+        Width = 104
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'NOTASPORAPLICAR'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clRed
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        Title.Alignment = taCenter
+        Title.Caption = 'NC POR APLICAR'
+        Title.Font.Charset = ANSI_CHARSET
+        Title.Font.Color = clWindowText
+        Title.Font.Height = -11
+        Title.Font.Name = 'Tahoma'
+        Title.Font.Style = [fsBold]
+        Visible = True
+      end>
+  end
   object QCliente: TADOQuery
     Connection = DM.ADOSigma
     AfterScroll = QClienteAfterScroll
+    CommandTimeout = 0
     Parameters = <
       item
         Name = 'emp'
@@ -891,6 +892,7 @@ object frmConsCxC: TfrmConsCxC
   object QMovimientos: TADOQuery
     Connection = DM.ADOSigma
     OnCalcFields = QMovimientosCalcFields
+    CommandTimeout = 0
     Parameters = <
       item
         Name = 'emp_codigo'
@@ -958,7 +960,6 @@ object frmConsCxC: TfrmConsCxC
     object QMovimientosMOV_MONTO: TFloatField
       FieldName = 'MOV_MONTO'
       Origin = 'MOVIMIENTOS.MOV_MONTO'
-      currency = True
     end
     object QMovimientosMOV_NUMERO: TIntegerField
       FieldName = 'MOV_NUMERO'
@@ -1030,7 +1031,7 @@ object frmConsCxC: TfrmConsCxC
   end
   object QAntig: TADOQuery
     Connection = DM.ADOSigma
-    DataSource = dsCliente
+    CommandTimeout = 0
     Parameters = <
       item
         Name = 'emp_codigo'
@@ -1140,6 +1141,7 @@ object frmConsCxC: TfrmConsCxC
   end
   object Query1: TADOQuery
     Connection = DM.ADOSigma
+    CommandTimeout = 120
     Parameters = <>
     Left = 368
     Top = 136
@@ -1152,6 +1154,7 @@ object frmConsCxC: TfrmConsCxC
   object QSucursal: TADOQuery
     Connection = DM.ADOSigma
     LockType = ltReadOnly
+    CommandTimeout = 0
     DataSource = DM.dsEmpresas
     Parameters = <
       item
@@ -1201,6 +1204,7 @@ object frmConsCxC: TfrmConsCxC
     Connection = DM.ADOSigma
     CursorType = ctStatic
     LockType = ltBatchOptimistic
+    CommandTimeout = 0
     Parameters = <
       item
         Name = 'EMP'
@@ -2512,7 +2516,7 @@ object frmConsCxC: TfrmConsCxC
   end
   object qAplicaNC: TADOQuery
     Connection = DM.ADOSigma
-    CommandTimeout = 120
+    CommandTimeout = 0
     Parameters = <
       item
         Name = 'NCID'
@@ -2563,7 +2567,7 @@ object frmConsCxC: TfrmConsCxC
         'OAT,'
       
         '@FORMA CHAR(1), @TFAC INT, @PAGO NUMERIC(18,2), @MONTOAPLICADO N' +
-        'UMERIC(18,2)'
+        'UMERIC(18,2), @CLI INT'
       ''
       'SET @NCID = :NCID'
       'SET @EMP = :EMP'
@@ -2573,57 +2577,117 @@ object frmConsCxC: TfrmConsCxC
       'SET @FORMA = :FOR '
       'SET @TFAC = :TFA'
       
-        'SET @MONTOAPLICADO = (SELECT ISNULL(det_monto,0) FROM Det_NotaCr' +
-        'edito WHERE emp_codigo = @EMP AND SUC_CODIGO = @SUC AND NCR_NUME' +
-        'RO = @NCID)'
+        'SET @MONTOAPLICADO = (SELECT ISNULL((SELECT SUM(ISNULL(det_monto' +
+        ',0)) FROM Det_NotaCredito WHERE emp_codigo = @EMP AND SUC_CODIGO' +
+        ' = @SUC AND NCR_NUMERO = @NCID),0))'
       
-        'SET @MONTOAPLICAR = (SELECT ISNULL(ncr_monto,0)-@MONTOAPLICADO F' +
-        'ROM NOTASCREDITO WHERE EMP_CODIGO = @EMP AND SUC_CODIGO = @SUC A' +
-        'ND NCR_NUMERO = @NCID)'
+        'SET @CLI = (SELECT CLI_CODIGO FROM NOTASCREDITO WHERE EMP_CODIGO' +
+        ' = @EMP AND SUC_CODIGO = @SUC AND ncr_numero = @NCID)'
+      ''
+      'UPDATE NotasCredito '
+      'SET ncr_montousado = ISNULL(@MONTOAPLICADO,0)'
       
-        'SET @BALANCE = (SELECT ISNULL(FAC_TOTAL,0)-ISNULL(FAC_ABONO,0) F' +
-        'ROM FACTURAS WHERE EMP_CODIGO = @EMP AND SUC_CODIGO = @SUC AND F' +
-        'AC_NUMERO = @FAC AND TFA_CODIGO = @TFAC AND FAC_FORMA = @FORMA)'
+        'WHERE EMP_CODIGO = @EMP AND SUC_CODIGO = @SUC AND NCR_NUMERO = @' +
+        'NCID'
+      ''
+      ''
+      ''
+      
+        'SET @MONTOAPLICAR = (SELECT ISNULL((SELECT SUM(ISNULL(ncr_monto,' +
+        '0))-@MONTOAPLICADO FROM NOTASCREDITO WHERE EMP_CODIGO = @EMP AND' +
+        ' SUC_CODIGO = @SUC AND NCR_NUMERO = @NCID),0))'
+      
+        'SET @BALANCE = (SELECT ISNULL((SELECT SUM(ISNULL(FAC_TOTAL,0)-IS' +
+        'NULL(FAC_ABONO,0)) FROM FACTURAS WHERE EMP_CODIGO = @EMP AND SUC' +
+        '_CODIGO = @SUC AND FAC_NUMERO = @FAC AND TFA_CODIGO = @TFAC AND ' +
+        'FAC_FORMA = @FORMA),0))'
       
         'SET @SEC = ISNULL((SELECT mov_secuencia FROM Movimientos WHERE E' +
         'MP_CODIGO = @EMP AND SUC_CODIGO = @SUC AND MOV_NUMERO = @FAC AND' +
         ' FAC_FORMA = @FORMA AND TFA_CODIGO = @TFAC),0)'
       
-        'SET @MONTOUSADO = (SELECT ISNULL(ncr_montousado,0) FROM NOTASCRE' +
-        'DITO WHERE EMP_CODIGO = @EMP AND SUC_CODIGO = @SUC AND NCR_NUMER' +
-        'O = @NCID)'
+        'SET @MONTOUSADO = ISNULL((SELECT ISNULL(ncr_montousado,0) FROM N' +
+        'OTASCREDITO WHERE EMP_CODIGO = @EMP AND SUC_CODIGO = @SUC AND NC' +
+        'R_NUMERO = @NCID),0)'
       ''
       ''
       'IF @MONTOAPLICAR = @BALANCE BEGIN '
+      'PRINT '#39'MONTOAPLICAR = BALANCE'#39
+      'IF EXISTS(SELECT * FROM DET_NOTACREDITO'
+      
+        'WHERE EMP_CODIGO = @EMP AND SUC_CODIGO = @SUC AND NCR_NUMERO = @' +
+        'NCID AND mov_numero = @FAC) BEGIN '
+      'UPDATE Det_NotaCredito'
+      'SET det_monto = @BALANCE'
+      
+        'WHERE EMP_CODIGO = @EMP AND SUC_CODIGO = @SUC AND NCR_NUMERO = @' +
+        'NCID AND mov_numero = @FAC'
+      'END'
+      ''
+      'IF NOT EXISTS(SELECT * FROM DET_NOTACREDITO'
+      
+        'WHERE EMP_CODIGO = @EMP AND SUC_CODIGO = @SUC AND NCR_NUMERO = @' +
+        'NCID AND mov_numero = @FAC) BEGIN '
       'UPDATE NOTASCREDITO '
       'SET ncr_montousado = ncr_monto '
       'where emp_codigo = @EMP'
       '  AND suc_codigo = @SUC'
-      '  and ncr_numero = @NCID    '#9
-      ' '
+      '  and ncr_numero = @NCID    '
+      ''
       'INSERT INTO DET_NOTACREDITO'
       
         'SELECT @EMP, @SUC, @NCID, @SEC, @TIPO, @FAC, @MONTOAPLICAR, @FOR' +
-        'MA, @TFAC, NULL, NULL '
+        'MA, @TFAC, NULL, NULL   '
+      ''
+      'END'
       'END'
       ''
       ''
       'IF @MONTOAPLICAR < @BALANCE BEGIN '
+      'PRINT '#39'MONTOAPLICAR < BALANCE'#39
+      'IF EXISTS(SELECT * FROM DET_NOTACREDITO'
+      
+        'WHERE EMP_CODIGO = @EMP AND SUC_CODIGO = @SUC AND NCR_NUMERO = @' +
+        'NCID AND mov_numero = @FAC) BEGIN '
+      'UPDATE Det_NotaCredito'
+      'SET det_monto = @MONTOAPLICAR'
+      
+        'WHERE EMP_CODIGO = @EMP AND SUC_CODIGO = @SUC AND NCR_NUMERO = @' +
+        'NCID AND mov_numero = @FAC'
+      ''
+      'UPDATE NOTASCREDITO '
+      'SET ncr_montousado = ncr_monto'
+      'where emp_codigo = @EMP'
+      '  AND suc_codigo = @SUC'
+      '  and ncr_numero = @NCID '
+      'END'
+      ''
+      'IF EXISTS(SELECT * FROM DET_NOTACREDITO'
+      
+        'WHERE EMP_CODIGO = @EMP AND SUC_CODIGO = @SUC AND NCR_NUMERO = @' +
+        'NCID AND mov_numero = @FAC) BEGIN '
       'UPDATE NOTASCREDITO '
       'SET ncr_montousado = ncr_monto'
       'where emp_codigo = @EMP'
       '  AND suc_codigo = @SUC'
       '  and ncr_numero = @NCID    '#9
       ' '
-      'INSERT INTO DET_NOTACREDITO'
-      
-        'SELECT @EMP, @SUC, @NCID, @SEC, @TIPO, @FAC, @MONTOAPLICAR, @FOR' +
-        'MA, @TFAC, NULL, NULL '
+      'END'
       'END'
       ''
+      ''
       'IF @MONTOAPLICAR > @BALANCE BEGIN '
+      'IF EXISTS(SELECT * FROM DET_NOTACREDITO'
+      
+        'WHERE EMP_CODIGO = @EMP AND SUC_CODIGO = @SUC AND NCR_NUMERO = @' +
+        'NCID AND mov_numero = @FAC) BEGIN '
+      
+        'DELETE Det_NotaCredito WHERE ncr_numero = @NCID AND mov_numero =' +
+        ' @FAC'
+      'END'
+      ''
       'UPDATE NOTASCREDITO '
-      'SET ncr_montousado = ncr_montousado+@BALANCE'
+      'SET ncr_montousado = ISNULL(ncr_montousado,0)+@BALANCE'
       
         'where emp_codigo = @EMP and suc_codigo = @SUC and ncr_numero = @' +
         'NCID'
@@ -2633,6 +2697,7 @@ object frmConsCxC: TfrmConsCxC
         'SELECT @EMP, @SUC, @NCID, @SEC, @TIPO, @FAC, @BALANCE, @FORMA, @' +
         'TFAC, NULL, NULL'
       'END'
+      ''
       ''
       'SET @PAGO = 0'
       
@@ -2674,8 +2739,9 @@ object frmConsCxC: TfrmConsCxC
       
         '             WHERE MOV_NUMERO = @FAC AND N.emp_codigo  = @EMP AN' +
         'D N.suc_codigo = @SUC'
-      '             AND N.FAC_FORMA = @FORMA AND N.tfa_codigo = @TFAC'
-      '             AND NC.NCR_DEVOLUCION IS NULL ),0)'
+      
+        '             AND N.FAC_FORMA = @FORMA AND N.tfa_codigo = @TFAC),' +
+        '0)'
       ''
       
         'SET @PAGO = ISNULL(@PAGO,0) + ISNULL((SELECT ISNULL(SUM(DEV_TOTA' +
@@ -2697,9 +2763,16 @@ object frmConsCxC: TfrmConsCxC
       
         '             WHERE N.NCR_status <> '#39'ANU'#39' AND D.MOV_numero = @FAC' +
         ' AND D.emp_codigo  = @EMP AND D.suc_codigo = @SUC'
+      '             AND D.FAC_FORMA = @FORMA AND D.tfa_codigo = @TFAC'
+      #9#9#9' AND N.NCR_DEVOLUCION NOT IN '
+      #9#9#9' (SELECT N.DEV_NUMERO FROM DEVOLUCION N '
       
-        '             AND D.FAC_FORMA = @FORMA AND D.tfa_codigo = @TFAC),' +
-        '0)'
+        '             WHERE N.dev_status = '#39'EMI'#39' AND N.FAC_NUMERO = @FAC ' +
+        'AND N.emp_codigo  = @EMP AND N.suc_codigo = @SUC'
+      
+        '             AND N.FAC_FORMA = @FORMA AND N.tfa_codigo = @TFAC))' +
+        ',0)'
+      ''
       ''
       ''
       
@@ -2723,7 +2796,7 @@ object frmConsCxC: TfrmConsCxC
       
         'WHERE emp_codigo = @EMP AND suc_codigo = @SUC AND tfa_codigo = @' +
         'TFAC AND fac_forma = @FORMA '
-      'AND fac_numero = @FAC'
+      'AND fac_numero = @FAC AND cli_codigo = @CLI'
       ''
       'UPDATE Movimientos '
       'SET mov_abono = isnull(@PAGO,0),'
@@ -2733,15 +2806,25 @@ object frmConsCxC: TfrmConsCxC
       
         'WHERE emp_codigo = @EMP AND suc_codigo = @SUC AND tfa_codigo = @' +
         'TFAC AND fac_forma = @FORMA '
-      'AND MOV_numero = @FAC'
+      'AND MOV_numero = @FAC AND cli_codigo = @CLI'
       ''
-      'execute pr_actualiza_bce @EMP')
+      #9'update '#9'clientes'
+      
+        #9'set'#9'cli_balance = (select sum(case when isnull(mov_monto,0)-isn' +
+        'ull(mov_abono,0)<1 then 0 else isnull(mov_monto,0)-isnull(mov_ab' +
+        'ono,0) end)'
+      #9#9'from movimientos'
+      #9#9'where emp_codigo = clientes.emp_codigo'
+      #9#9'and cli_codigo = clientes.cli_codigo'
+      #9#9'and mov_status = '#39'PEN'#39')'
+      #9'where'#9'emp_codigo = @emp AND CLI_CODIGO = @CLI;'
+      '')
     Left = 296
     Top = 304
   end
   object qRepBalanceFact: TADOQuery
     Connection = DM.ADOSigma
-    CommandTimeout = 120
+    CommandTimeout = 0
     Parameters = <
       item
         Name = 'EMP'
@@ -2759,29 +2842,86 @@ object frmConsCxC: TfrmConsCxC
       
         'DECLARE @SUC INT, @FAC INT, @tipo INT, @FORMA CHAR(1), @PAGO NUM' +
         'ERIC(18,2), @CLI INT, @EMPRESA INT, @SUP INT, @FACSUP VARCHAR(20' +
-        ')'
+        '), @NC INT, @SEC INT, @MOVTIPO CHAR(5), @MOVCUOTA int, @MONTONC ' +
+        'NUMERIC(18,2)'
       ''
-      'SET @EMPRESA = :EMP'
-      'SET @CLI           = :CLI'
+      'SET @EMPRESA =  :EMP'
+      'SET @CLI     =  :CLI'
+      ''
+      ''
       ''
       ''
       'DECLARE Cr_Actualiza_CXC CURSOR FOR '
       
-        'SELECT F.EMP_CODIGO, F.suc_codigo SUC, F.FAC_numero FAC, F.cli_c' +
-        'odigo CLI, F.tfa_codigo TFAC, F.fac_forma FORMA'
-      'FROM Facturas F'
+        'SELECT F.EMP_CODIGO, F.suc_codigo SUC, F.MOV_numero FAC, F.cli_c' +
+        'odigo CLI, F.tfa_codigo TFAC, F.fac_forma FORMA, F.mov_tipo'
+      'FROM MOVIMIENTOS F'
       
-        'WHERE F.fac_status NOT IN ('#39'ANU'#39') AND F.EMP_CODIGO = @EMPRESA  A' +
-        'ND CLI_CODIGO = @CLI'
-      'ORDER BY F.cli_codigo, F.fac_numero'
+        'WHERE F.MOV_status NOT IN ('#39'ANU'#39','#39'PAG'#39')  AND F.MOV_TIPO IN ('#39'CRE' +
+        #39', '#39'ND'#39')   AND F.EMP_CODIGO = @EMPRESA  AND F.CLI_CODIGO = @CLI'
+      'ORDER BY F.suc_codigo, F.MOV_numero'
       ''
       ''
       'OPEN Cr_Actualiza_CXC'
       
         'FETCH NEXT FROM Cr_Actualiza_CXC INTO @EMPRESA, @SUC, @FAC, @CLI' +
-        ', @tipo, @FORMA'
+        ', @tipo, @FORMA, @MOVTIPO'
       'WHILE @@fetch_status = 0'
-      'BEGIN'
+      'begin '
+      'IF EXISTS(select *'
+      'from NotasCredito NC'
+      
+        'inner join Devolucion d on nc.emp_codigo = d.emp_codigo and nc.s' +
+        'uc_codigo=d.suc_codigo and nc.ncr_devolucion=d.dev_numero'
+      
+        'inner join Movimientos f on d.emp_codigo = f.emp_codigo and d.su' +
+        'c_codigo=f.suc_codigo and d.tfa_codigo = f.tfa_codigo and d.fac_' +
+        'forma = f.fac_forma and d.fac_numero = f.MOV_numero'
+      
+        'where nc.ncr_status <> '#39'ANU'#39' AND F.mov_numero = @FAC AND F.tfa_c' +
+        'odigo = @tipo AND F.fac_forma = @FORMA AND F.emp_codigo = @EMPRE' +
+        'SA AND F.suc_codigo = @SUC  AND NC.cli_codigo = @CLI'
+      'AND nc.ncr_numero not in '
+      '(select ncr_numero from Det_NotaCredito)) BEGIN '
+      'IF EXISTS(SELECT * FROM FACTURAS '
+      
+        'WHERE fac_status = '#39'PAG'#39' AND fac_numero = @FAC AND tfa_codigo = ' +
+        '@tipo AND emp_codigo = @EMPRESA AND suc_codigo = @SUC AND fac_fo' +
+        'rma= @FORMA) BEGIN '
+      
+        'select @MOVTIPO = f.mov_tipo, @MONTONC = nc.ncr_monto, @NC = NC.' +
+        'ncr_numero'
+      'from NotasCredito NC'
+      
+        'inner join Devolucion d on nc.emp_codigo = d.emp_codigo and nc.s' +
+        'uc_codigo=d.suc_codigo and nc.ncr_devolucion=d.dev_numero'
+      
+        'inner join Movimientos f on d.emp_codigo = f.emp_codigo and d.su' +
+        'c_codigo=f.suc_codigo and d.tfa_codigo = f.tfa_codigo and d.fac_' +
+        'forma = f.fac_forma and d.fac_numero = f.MOV_numero'
+      
+        'where nc.ncr_status <> '#39'ANU'#39' AND F.mov_numero = @FAC AND F.tfa_c' +
+        'odigo = @tipo AND F.fac_forma = @FORMA AND F.emp_codigo = @EMPRE' +
+        'SA AND F.suc_codigo = @SUC '
+      'AND nc.ncr_numero not in '
+      
+        '(select ncr_numero from Det_NotaCredito WHERE mov_numero = D.fac' +
+        '_numero AND tfa_codigo = D.tfa_codigo AND fac_forma = D.fac_form' +
+        'a AND emp_codigo = D.emp_codigo AND suc_codigo = D.suc_codigo)'
+      ''
+      'insert into Det_NotaCredito'
+      
+        'SELECT @EMPRESA, @SUC, @NC, 1 DET_SECUENCIA, @MOVTIPO, @FAC, @MO' +
+        'NTONC, @FORMA, @tipo, NULL, NULL'
+      ''
+      'UPDATE NotasCredito'
+      'SET ncr_montousado = ncr_monto'
+      
+        'WHERE emp_codigo = @EMPRESA AND suc_codigo = @SUC AND ncr_numero' +
+        ' = @NC'
+      'END'
+      'END'
+      ''
       'SET @PAGO = 0'
       
         'if exists(select fac_numero from FacFormaPago where fac_numero =' +
@@ -2804,12 +2944,12 @@ object frmConsCxC: TfrmConsCxC
         'odigo AND R.suc_codigo = DR.suc_codigo AND R.rec_numero =DR.rec_' +
         'numero'
       
-        '             WHERE R.rec_status = '#39'EMI'#39' AND DR.det_numero = @FAC' +
-        ' AND DR.emp_codigo  = @EMPRESA AND DR.suc_codigo = @SUC AND R.CL' +
-        'I_CODIGO = @CLI '
+        '             WHERE R.rec_status <> '#39'ANU'#39' AND DR.det_numero = @FA' +
+        'C AND DR.emp_codigo  = @EMPRESA AND DR.suc_codigo = @SUC AND R.C' +
+        'LI_CODIGO = @CLI '
       
         '             AND DR.FAC_FORMA = @FORMA AND DR.tfa_codigo = @tipo' +
-        '),0)'
+        ' AND DR.det_tipo = @MOVTIPO),0)'
       #9#9#9' '
       
         'SET @PAGO = ISNULL(@PAGO,0) + ISNULL((SELECT ISNULL(SUM(DET_MONT' +
@@ -2820,17 +2960,20 @@ object frmConsCxC: TfrmConsCxC
         '_CODIGO AND N.SUC_CODIGO = NC.SUC_CODIGO AND N.NCR_NUMERO = NC.N' +
         'CR_NUMERO'
       
-        '             WHERE MOV_NUMERO = @FAC AND N.emp_codigo  = @EMP AN' +
-        'D N.suc_codigo = @SUC'
-      '             AND N.FAC_FORMA = @FORMA AND N.tfa_codigo = @TFAC'
+        '             WHERE MOV_NUMERO = @FAC AND N.emp_codigo  = @EMPRES' +
+        'A AND N.suc_codigo = @SUC'
+      
+        '             AND N.FAC_FORMA = @FORMA AND N.tfa_codigo = @TIPO A' +
+        'ND NC.mov_tipo = @MOVTIPO'
+      #9#9#9' AND NC.NCR_STATUS <> '#39'ANU'#39
       '             AND NC.NCR_DEVOLUCION IS NULL ),0)'
       ''
       
         'SET @PAGO = ISNULL(@PAGO,0) + ISNULL((SELECT ISNULL(SUM(DEV_TOTA' +
         'L),0) FROM DEVOLUCION N '
       
-        '             WHERE N.dev_status = '#39'EMI'#39' AND N.fac_numero = @FAC ' +
-        'AND N.emp_codigo  = @EMPRESA AND N.suc_codigo = @SUC'
+        '             WHERE N.dev_status <> '#39'ANU'#39' AND N.fac_numero = @FAC' +
+        ' AND N.emp_codigo  = @EMPRESA AND N.suc_codigo = @SUC'
       
         '             AND N.FAC_FORMA = @FORMA AND N.tfa_codigo = @TIPO),' +
         '0)'
@@ -2845,9 +2988,16 @@ object frmConsCxC: TfrmConsCxC
       
         '             WHERE N.NCR_status <> '#39'ANU'#39' AND D.MOV_numero = @FAC' +
         ' AND D.emp_codigo  = @EMPRESA AND D.suc_codigo = @SUC'
+      '             AND D.FAC_FORMA = @FORMA AND D.tfa_codigo = @TIPO'
+      #9#9#9' AND N.NCR_DEVOLUCION NOT IN '
+      #9#9#9' (SELECT N.DEV_NUMERO FROM DEVOLUCION N '
       
-        '             AND D.FAC_FORMA = @FORMA AND D.tfa_codigo = @TIPO),' +
-        '0)'
+        '             WHERE N.dev_status = '#39'EMI'#39' AND N.emp_codigo  = @EMP' +
+        'RESA AND N.suc_codigo = @SUC'
+      
+        '             AND N.FAC_FORMA = @FORMA AND N.tfa_codigo = @TIPO))' +
+        ',0)'
+      ''
       ''
       
         'SET @PAGO = ISNULL(@PAGO,0) + ISNULL((SELECT isnull(sum(DD.FAC_P' +
@@ -2861,7 +3011,7 @@ object frmConsCxC: TfrmConsCxC
         ' DD.emp_codigo= @EMPRESA AND DD.suc_codigo = @SUC'
       
         '                                      and d.ban_codigo = dd.ban_' +
-        'codigo'
+        'codigo AND DD.mov_tipo = @MOVTIPO'
       #9#9#9'  and d.dep_ano = dd.dep_ano'
       #9#9#9'  and d.dep_mes = dd.dep_mes'
       #9#9'      AND DD.FAC_FORMA = @FORMA AND DD.TFA_CODIGO = @TIPO),0)'
@@ -2889,13 +3039,12 @@ object frmConsCxC: TfrmConsCxC
       ''
       
         'FETCH NEXT FROM Cr_Actualiza_CXC INTO @EMPRESA, @SUC, @FAC, @CLI' +
-        ', @tipo, @FORMA'
+        ', @tipo, @FORMA, @MOVTIPO'
       'END'
       'CLOSE Cr_Actualiza_CXC'
       'DEALLOCATE Cr_Actualiza_CXC'
       ''
-      'exec pr_actualiza_bce @empresa'
-      '')
+      'exec pr_actualiza_bce @empresa')
     Left = 328
     Top = 192
   end
@@ -2906,5 +3055,186 @@ object frmConsCxC: TfrmConsCxC
       Caption = 'Reparar Facturas'
       OnClick = RepararFacturas1Click
     end
+  end
+  object qVerificarNCMontoUsados: TADOQuery
+    Connection = DM.ADOSigma
+    CommandTimeout = 0
+    Parameters = <
+      item
+        Name = 'NCID'
+        DataType = ftInteger
+        Size = -1
+        Value = Null
+      end
+      item
+        Name = 'EMP'
+        DataType = ftInteger
+        Size = -1
+        Value = Null
+      end
+      item
+        Name = 'SUC'
+        DataType = ftInteger
+        Size = -1
+        Value = Null
+      end
+      item
+        Name = 'FAC'
+        DataType = ftInteger
+        Size = -1
+        Value = Null
+      end
+      item
+        Name = 'TIPO'
+        DataType = ftString
+        Size = -1
+        Value = Null
+      end
+      item
+        Name = 'FOR'
+        DataType = ftString
+        Size = -1
+        Value = Null
+      end
+      item
+        Name = 'TFA'
+        DataType = ftInteger
+        Size = -1
+        Value = Null
+      end>
+    SQL.Strings = (
+      
+        'declare @emp int, @suc int, @ncid int, @cli int, @monto numeric(' +
+        '18,2), @montousa numeric(18,2)'
+      #9'declare c_upd_notascredito cursor for'
+      
+        #9#9'select nc.emp_codigo, nc.suc_codigo, nc.ncr_numero, nc.cli_cod' +
+        'igo, nc.ncr_monto'
+      #9#9'from notascredito nc'
+      #9#9'where nc.ncr_status <> '#39'anu'#39
+      #9#9'order by nc.emp_codigo, nc.suc_codigo, nc.ncr_numero;'
+      #9
+      #9'open c_upd_notascredito;'
+      
+        #9'fetch next from c_upd_notascredito into @emp, @suc, @ncid, @cli' +
+        ', @monto;'
+      ''
+      #9'while @@fetch_status = 0 '
+      #9'begin'
+      '    select @montousa = isnull(sum(isnull(d.det_monto,0)),0)'
+      #9'from NotasCredito nc'
+      
+        #9'inner join Det_NotaCredito d on nc.emp_codigo = d.emp_codigo an' +
+        'd nc.suc_codigo = d.suc_codigo and nc.ncr_numero = d.ncr_numero'
+      
+        #9'where nc.emp_codigo = @emp and nc.suc_codigo = @suc and nc.ncr_' +
+        'numero = @ncid;'
+      #9
+      #9'update NotasCredito'
+      #9'set ncr_montousado = @montousa'
+      
+        #9'where emp_codigo = @emp and suc_codigo = @suc and ncr_numero = ' +
+        '@ncid;'
+      #9
+      
+        #9#9'fetch next from c_upd_notascredito into @emp, @suc, @ncid, @cl' +
+        'i, @monto;'
+      ''
+      #9'end'
+      #9'close c_upd_notascredito;'
+      #9'deallocate c_upd_notascredito;')
+    Left = 432
+    Top = 248
+  end
+  object QQClientesPrueba: TADOQuery
+    Connection = DM.ADOSigma
+    AfterScroll = QClienteAfterScroll
+    DataSource = dsCliente1
+    Parameters = <
+      item
+        Name = 'suci'
+        Size = -1
+        Value = Null
+      end
+      item
+        Name = 'emp'
+        DataType = ftInteger
+        Size = -1
+        Value = Null
+      end
+      item
+        Name = 'fec'
+        Size = -1
+        Value = Null
+      end
+      item
+        Name = 'tip'
+        Size = -1
+        Value = Null
+      end
+      item
+        Name = 'st'
+        Size = -1
+        Value = Null
+      end
+      item
+        Name = 'suc'
+        Size = -1
+        Value = Null
+      end>
+    SQL.Strings = (
+      
+        'select *, :suci  SUC_CODIGO from pr_cxc (:emp, :fec, :tip, :st, ' +
+        ':suc)')
+    Left = 280
+    Top = 8
+    object IntegerField1: TIntegerField
+      FieldName = 'EMP_CODIGO'
+      Origin = 'PR_CXC.EMP_CODIGO'
+    end
+    object IntegerField2: TIntegerField
+      FieldName = 'CLI_CODIGO'
+      Origin = 'PR_CXC.CLI_CODIGO'
+    end
+    object IBStringField1: TIBStringField
+      FieldName = 'CLI_NOMBRE'
+      Origin = 'PR_CXC.CLI_NOMBRE'
+      Size = 60
+    end
+    object FloatField1: TFloatField
+      FieldName = 'BALANCE'
+      Origin = 'PR_CXC.BALANCE'
+      currency = True
+    end
+    object IBStringField2: TIBStringField
+      FieldName = 'CLI_REFERENCIA'
+      Origin = 'PR_CXC.CLI_REFERENCIA'
+      Size = 10
+    end
+    object QClienteid: TAutoIncField
+      FieldName = 'id'
+      ReadOnly = True
+    end
+    object BCDField1: TBCDField
+      FieldName = 'CLI_LIMITE'
+      Precision = 15
+      Size = 2
+    end
+    object StringField1: TStringField
+      FieldName = 'CLI_TELEFONO'
+      Size = 30
+    end
+    object BCDField2: TBCDField
+      FieldName = 'VENCIDO'
+      Precision = 15
+      Size = 2
+    end
+    object QClienteSUC_CODIGO: TIntegerField
+      FieldName = 'SUC_CODIGO'
+    end
+  end
+  object dsCliente1: TDataSource
+    Left = 312
+    Top = 8
   end
 end

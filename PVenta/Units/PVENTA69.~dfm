@@ -5,8 +5,8 @@ object frmReimpresion: TfrmReimpresion
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Reimpresi'#243'n de documentos'
-  ClientHeight = 180
-  ClientWidth = 603
+  ClientHeight = 192
+  ClientWidth = 604
   Color = clBtnFace
   Font.Charset = ANSI_CHARSET
   Font.Color = clWindowText
@@ -324,7 +324,9 @@ object frmReimpresion: TfrmReimpresion
       end>
     SQL.Strings = (
       'select'
-      's.suc_codigo, s.suc_nombre, s.alm_codigo, s.emp_codigo'
+      
+        's.suc_codigo, s.suc_nombre, s.alm_codigo, s.emp_codigo, s.suc_di' +
+        'reccion, s.suc_localidad, s.suc_rnc, s.suc_telefono'
       'from'
       'sucursales s, sucursal_acceso a'
       'where'
@@ -347,6 +349,20 @@ object frmReimpresion: TfrmReimpresion
     end
     object QSucursalemp_codigo: TIntegerField
       FieldName = 'emp_codigo'
+    end
+    object QSucursalsuc_direccion: TStringField
+      FieldName = 'suc_direccion'
+      Size = 100
+    end
+    object QSucursalsuc_localidad: TStringField
+      FieldName = 'suc_localidad'
+      Size = 100
+    end
+    object QSucursalsuc_rnc: TStringField
+      FieldName = 'suc_rnc'
+    end
+    object QSucursalsuc_telefono: TStringField
+      FieldName = 'suc_telefono'
     end
   end
   object dsSuc: TDataSource
@@ -2338,5 +2354,476 @@ object frmReimpresion: TfrmReimpresion
     Parameters = <>
     Left = 88
     Top = 272
+  end
+  object QFactura: TADOQuery
+    Connection = DM.ADOSigma
+    CursorType = ctStatic
+    LockType = ltBatchOptimistic
+    DataSource = DM.dsEmpresas
+    Parameters = <
+      item
+        Name = 'emp'
+        Attributes = [paSigned]
+        DataType = ftInteger
+        Precision = 10
+        Size = 4
+        Value = 1
+      end
+      item
+        Name = 'tipo'
+        Attributes = [paSigned]
+        DataType = ftInteger
+        Precision = 10
+        Size = 4
+        Value = 1
+      end
+      item
+        Name = 'numero'
+        Attributes = [paSigned]
+        DataType = ftInteger
+        Precision = 10
+        Size = 4
+        Value = 1
+      end
+      item
+        Name = 'forma'
+        DataType = ftString
+        NumericScale = 255
+        Precision = 255
+        Size = 1
+        Value = '1'
+      end
+      item
+        Name = 'suc'
+        Attributes = [paSigned]
+        DataType = ftInteger
+        Precision = 10
+        Size = 4
+        Value = 1
+      end>
+    SQL.Strings = (
+      'select '
+      
+        'emp_codigo, suc_codigo, fac_forma, tfa_codigo, fac_numero, fac_f' +
+        'echa, fac_nombre, fac_direccion, fac_localidad,'
+      
+        'fac_telefono, fac_fax, fac_status, fac_nota, fac_descuento, fac_' +
+        'itbis, fac_otros, fac_total, fac_abono, cli_referencia, '
+      
+        'fac_vence, fac_comision, fac_mensaje1, fac_mensaje2, fac_mensaje' +
+        '3, fac_porccomision, fac_cuotas, fac_hora, fac_ano, fac_mes,'
+      
+        'fac_conitbis, fac_devuelto, fac_tasa, mon_codigo, cpa_codigo, ve' +
+        'n_codigo, caj_codigo, cli_codigo, usu_codigo, alm_codigo,'
+      
+        'ped_tipo,ped_numero, cot_numero, con_numero, fac_domicilio, fac_' +
+        'comisionpagada, fac_caja, pro_codigo, NCF_Fijo, NCF_Secuencia,'
+      
+        'fac_enviado, fac_selectivo_ad, fac_selectivo_con, fac_hold, fac_' +
+        'rnc, fac_usuario_anulo, fac_motivo_anulo, fac_dividio, fac_numer' +
+        'o1,'
+      
+        'fac_numero2, OrdenID, Placa, Chofer, Metraje, Compania, Marca, M' +
+        'odelo, CamionID, Cashflow_Grupo, Cashflow_Subgrupo, Cashflow_Con' +
+        'cepto,'
+      
+        'Cashflow_TransaccionID, mapid, detallemapid, cen_codigo, fac_aut' +
+        'omatica, fac_interes, manu_codigo, tip_codigo, COT_PROYECTO, por' +
+        'c_desc_gral,'
+      
+        'Tdesc_gral, Recargo, PedidoNo, Referencia, FAC_PROPINA, NUMERO_R' +
+        'ESERVA, NIF, Tdesc_gral, porc_desc_gral, FAC_HOLD'
+      'from'
+      'FACTURAS'
+      'where emp_codigo = :emp'
+      'and tfa_codigo = :tipo'
+      'and fac_numero = :numero'
+      'and fac_forma = :forma'
+      'and suc_codigo = :suc')
+    Left = 128
+    Top = 27
+    object QFacturaCAJ_CODIGO: TIntegerField
+      FieldName = 'CAJ_CODIGO'
+    end
+    object QFacturaCLI_CODIGO: TIntegerField
+      FieldName = 'CLI_CODIGO'
+    end
+    object QFacturaCOT_NUMERO: TIntegerField
+      FieldName = 'COT_NUMERO'
+    end
+    object QFacturaCPA_CODIGO: TIntegerField
+      FieldName = 'CPA_CODIGO'
+    end
+    object QFacturaFAC_ABONO: TBCDField
+      FieldName = 'FAC_ABONO'
+      Precision = 15
+      Size = 2
+    end
+    object QFacturaEMP_CODIGO: TIntegerField
+      FieldName = 'EMP_CODIGO'
+    end
+    object QFacturaFAC_DIRECCION: TStringField
+      FieldName = 'FAC_DIRECCION'
+      Size = 100
+    end
+    object QFacturaFAC_FAX: TStringField
+      FieldName = 'FAC_FAX'
+      Size = 30
+    end
+    object QFacturaFAC_FECHA: TDateTimeField
+      FieldName = 'FAC_FECHA'
+      DisplayFormat = 'DD/MM/YYYY'
+    end
+    object QFacturaFAC_FORMA: TStringField
+      FieldName = 'FAC_FORMA'
+      Size = 1
+    end
+    object QFacturaFAC_LOCALIDAD: TStringField
+      FieldName = 'FAC_LOCALIDAD'
+      Size = 100
+    end
+    object QFacturaFAC_NOMBRE: TStringField
+      FieldName = 'FAC_NOMBRE'
+      Size = 255
+    end
+    object QFacturaFAC_NUMERO: TIntegerField
+      FieldName = 'FAC_NUMERO'
+    end
+    object QFacturaFAC_STATUS: TStringField
+      FieldName = 'FAC_STATUS'
+      Size = 3
+    end
+    object QFacturaFAC_TELEFONO: TStringField
+      FieldName = 'FAC_TELEFONO'
+      Size = 30
+    end
+    object QFacturaFAC_OTROS: TBCDField
+      FieldName = 'FAC_OTROS'
+      DisplayFormat = '#,0.0000'
+      Precision = 15
+      Size = 2
+    end
+    object QFacturaPED_NUMERO: TIntegerField
+      FieldName = 'PED_NUMERO'
+    end
+    object QFacturaTFA_CODIGO: TIntegerField
+      FieldName = 'TFA_CODIGO'
+    end
+    object QFacturaUSU_CODIGO: TIntegerField
+      FieldName = 'USU_CODIGO'
+    end
+    object QFacturaVEN_CODIGO: TIntegerField
+      FieldName = 'VEN_CODIGO'
+    end
+    object QFacturaCLI_REFERENCIA: TStringField
+      FieldName = 'CLI_REFERENCIA'
+      Size = 30
+    end
+    object QFacturaALM_CODIGO: TIntegerField
+      FieldName = 'ALM_CODIGO'
+    end
+    object QFacturaFAC_VENCE: TDateTimeField
+      FieldName = 'FAC_VENCE'
+    end
+    object QFacturaFAC_COMISION: TBCDField
+      FieldName = 'FAC_COMISION'
+      Precision = 15
+      Size = 2
+    end
+    object QFacturaFAC_MENSAJE1: TStringField
+      DisplayWidth = 600
+      FieldName = 'FAC_MENSAJE1'
+      Size = 2500
+    end
+    object QFacturaFAC_MENSAJE2: TStringField
+      FieldName = 'FAC_MENSAJE2'
+      Size = 2500
+    end
+    object QFacturaFAC_MENSAJE3: TStringField
+      FieldName = 'FAC_MENSAJE3'
+      Size = 2500
+    end
+    object QFacturaFAC_PORCCOMISION: TBCDField
+      FieldName = 'FAC_PORCCOMISION'
+      Precision = 15
+      Size = 2
+    end
+    object QFacturaFAC_CUOTAS: TIntegerField
+      FieldName = 'FAC_CUOTAS'
+    end
+    object QFacturaFAC_HORA: TStringField
+      FieldName = 'FAC_HORA'
+      Size = 15
+    end
+    object QFacturaCON_NUMERO: TIntegerField
+      FieldName = 'CON_NUMERO'
+    end
+    object QFacturaFAC_ANO: TIntegerField
+      FieldName = 'FAC_ANO'
+    end
+    object QFacturaFAC_MES: TIntegerField
+      FieldName = 'FAC_MES'
+    end
+    object QFacturaFAC_CONITBIS: TStringField
+      FieldName = 'FAC_CONITBIS'
+      Size = 5
+    end
+    object QFacturaFAC_DEVUELTO: TBCDField
+      FieldName = 'FAC_DEVUELTO'
+      Precision = 15
+      Size = 2
+    end
+    object QFacturaMON_CODIGO: TIntegerField
+      FieldName = 'MON_CODIGO'
+    end
+    object QFacturaSUC_CODIGO: TIntegerField
+      FieldName = 'SUC_CODIGO'
+    end
+    object QFacturaFAC_DOMICILIO: TStringField
+      FieldName = 'FAC_DOMICILIO'
+      Size = 5
+    end
+    object QFacturafac_comisionpagada: TBCDField
+      FieldName = 'fac_comisionpagada'
+      Precision = 15
+      Size = 2
+    end
+    object QFacturafac_caja: TIntegerField
+      FieldName = 'fac_caja'
+    end
+    object QFacturapro_codigo: TIntegerField
+      FieldName = 'pro_codigo'
+    end
+    object QFacturaNCF_Fijo: TStringField
+      FieldName = 'NCF_Fijo'
+      Size = 11
+    end
+    object QFacturaNCF_Secuencia: TBCDField
+      FieldName = 'NCF_Secuencia'
+      Precision = 18
+      Size = 0
+    end
+    object QFacturafac_selectivo_ad: TBCDField
+      FieldName = 'fac_selectivo_ad'
+      Precision = 15
+      Size = 2
+    end
+    object QFacturafac_selectivo_con: TBCDField
+      FieldName = 'fac_selectivo_con'
+      Precision = 15
+      Size = 2
+    end
+    object QFacturafac_hold: TStringField
+      FieldName = 'fac_hold'
+      Size = 5
+    end
+    object QFacturafac_rnc: TStringField
+      FieldName = 'fac_rnc'
+      Size = 13
+    end
+    object QFacturaOrdenID: TStringField
+      FieldName = 'OrdenID'
+      Size = 30
+    end
+    object QFacturaPlaca: TStringField
+      FieldName = 'Placa'
+    end
+    object QFacturaChofer: TStringField
+      FieldName = 'Chofer'
+      Size = 50
+    end
+    object QFacturaModelo: TStringField
+      FieldName = 'Modelo'
+      Size = 50
+    end
+    object QFacturaMarca: TStringField
+      FieldName = 'Marca'
+      Size = 50
+    end
+    object QFacturaCompania: TStringField
+      FieldName = 'Compania'
+      Size = 100
+    end
+    object QFacturaCamionID: TIntegerField
+      FieldName = 'CamionID'
+    end
+    object QFacturaMetraje: TBCDField
+      FieldName = 'Metraje'
+      Precision = 18
+      Size = 2
+    end
+    object QFacturafac_interes: TBCDField
+      FieldName = 'fac_interes'
+      Precision = 8
+      Size = 2
+    end
+    object QFacturatip_codigo: TIntegerField
+      FieldName = 'tip_codigo'
+    end
+    object QFacturacot_proyecto: TStringField
+      FieldName = 'cot_proyecto'
+      Size = 256
+    end
+    object QFacturaSubTotal: TFloatField
+      FieldKind = fkCalculated
+      FieldName = 'SubTotal'
+      DisplayFormat = '#,0.0000'
+      Calculated = True
+    end
+    object QFacturaFAC_NOTA: TMemoField
+      DisplayWidth = 255
+      FieldName = 'FAC_NOTA'
+      BlobType = ftMemo
+    end
+    object QFacturaRecargo: TCurrencyField
+      FieldName = 'Recargo'
+      DisplayFormat = '#,0.0000'
+    end
+    object QFacturaPedidoNo: TStringField
+      FieldName = 'PedidoNo'
+      Size = 30
+    end
+    object QFacturaReferencia: TStringField
+      FieldName = 'Referencia'
+      Size = 30
+    end
+    object QFacturaFAC_DESCUENTO: TBCDField
+      FieldName = 'FAC_DESCUENTO'
+      DisplayFormat = '#,0.00'
+      Precision = 15
+      Size = 2
+    end
+    object QFacturaFAC_ITBIS: TBCDField
+      FieldName = 'FAC_ITBIS'
+      DisplayFormat = '#,0.00'
+      Precision = 15
+    end
+    object QFacturaFAC_TOTAL: TBCDField
+      FieldName = 'FAC_TOTAL'
+      DisplayFormat = '#,0.00'
+      Precision = 15
+      Size = 2
+    end
+    object QFacturaFAC_PROPINA: TCurrencyField
+      FieldName = 'FAC_PROPINA'
+      DisplayFormat = '#,0.00'
+      currency = False
+    end
+    object QFacturaNUMERO_RESERVA: TIntegerField
+      FieldName = 'NUMERO_RESERVA'
+    end
+    object QFacturaFAC_SERVICIOS: TFloatField
+      DefaultExpression = '0.0000'
+      FieldKind = fkCalculated
+      FieldName = 'FAC_SERVICIOS'
+      DisplayFormat = '#,0.0000'
+      EditFormat = '#,0.0000'
+      Calculated = True
+    end
+    object QFacturaFAC_TASA: TFloatField
+      FieldName = 'FAC_TASA'
+      DisplayFormat = '#,0.00'
+    end
+    object QFacturaNIF: TStringField
+      FieldName = 'NIF'
+    end
+    object QFacturaTdesc_gral: TCurrencyField
+      FieldName = 'Tdesc_gral'
+      DisplayFormat = '#,0.00'
+    end
+    object QFacturaporc_desc_gral: TCurrencyField
+      FieldName = 'porc_desc_gral'
+      DisplayFormat = '#,0.00'
+    end
+    object QFacturaTdesc_gral_sin_Itbis: TCurrencyField
+      FieldKind = fkCalculated
+      FieldName = 'Tdesc_gral_sin_Itbis'
+      DisplayFormat = '#,0.00'
+      Calculated = True
+    end
+  end
+  object QSerie: TADOQuery
+    Connection = DM.ADOSigma
+    LockType = ltBatchOptimistic
+    DataSource = dsFactura
+    Parameters = <
+      item
+        Name = 'emp_codigo'
+        DataType = ftInteger
+        Size = -1
+        Value = Null
+      end
+      item
+        Name = 'fac_forma'
+        DataType = ftString
+        Size = -1
+        Value = Null
+      end
+      item
+        Name = 'tfa_codigo'
+        DataType = ftInteger
+        Size = -1
+        Value = Null
+      end
+      item
+        Name = 'fac_numero'
+        DataType = ftInteger
+        Size = -1
+        Value = Null
+      end
+      item
+        Name = 'suc_codigo'
+        DataType = ftInteger
+        Size = -1
+        Value = Null
+      end>
+    SQL.Strings = (
+      'select '
+      'EMP_CODIGO, FAC_FORMA, FAC_NUMERO, PRO_CODIGO, '
+      'SER_NUMERO, SER_SECUENCIA, TFA_CODIGO, SUC_CODIGO'
+      'from '
+      'FACSERIE'
+      'where'
+      'emp_codigo = :emp_codigo'
+      'and fac_forma = :fac_forma'
+      'and tfa_codigo = :tfa_codigo'
+      'and fac_numero = :fac_numero'
+      'and suc_codigo = :suc_codigo'
+      'order by'
+      'ser_secuencia')
+    Left = 79
+    Top = 24
+    object QSerieEMP_CODIGO: TIntegerField
+      FieldName = 'EMP_CODIGO'
+    end
+    object QSerieFAC_FORMA: TStringField
+      FieldName = 'FAC_FORMA'
+      Size = 1
+    end
+    object QSerieFAC_NUMERO: TIntegerField
+      FieldName = 'FAC_NUMERO'
+    end
+    object QSeriePRO_CODIGO: TIntegerField
+      FieldName = 'PRO_CODIGO'
+    end
+    object QSerieSER_NUMERO: TStringField
+      FieldName = 'SER_NUMERO'
+      Size = 30
+    end
+    object QSerieSER_SECUENCIA: TIntegerField
+      FieldName = 'SER_SECUENCIA'
+    end
+    object QSerieTFA_CODIGO: TIntegerField
+      FieldName = 'TFA_CODIGO'
+    end
+    object QSerieSUC_CODIGO: TIntegerField
+      FieldName = 'SUC_CODIGO'
+    end
+  end
+  object dsFactura: TDataSource
+    AutoEdit = False
+    DataSet = QFactura
+    Left = 176
+    Top = 40
   end
 end

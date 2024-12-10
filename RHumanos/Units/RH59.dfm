@@ -413,6 +413,7 @@ object frmRepEmpleados: TfrmRepEmpleados
   end
   object QEstado: TADOQuery
     Connection = DM.ADOSigma
+    DataSource = DM.dsEmpresas
     Parameters = <>
     SQL.Strings = (
       'select'

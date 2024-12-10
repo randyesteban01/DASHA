@@ -373,6 +373,7 @@ type
     procedure QConduceCON_ITBISChange(Sender: TField);
     procedure QConduceCON_TOTALChange(Sender: TField);
     procedure QCuentasAfterPost(DataSet: TDataSet);
+    procedure QConduceAfterOpen(DataSet: TDataSet);
   private
     vCantActual, vl_balance, vl_conduce: Double;
     vSer, DesactivarCargaProductos: Boolean;
@@ -460,6 +461,8 @@ begin
     chkMail.Checked := DM.QParametrosPar_Envio_Conduce_Correo.Value;
   end;
   QMsnExistencia.Active := true;
+
+ 
 end;
 
 procedure TfrmConduce.FormCreate(Sender: TObject);
@@ -521,6 +524,17 @@ begin
     Grid.Columns[Grid.Columns.Count - 2].Destroy;
     Grid.Columns[1].Width := Grid.Columns[1].Width + 55;
   end;
+
+  { if dm.QUsuariosusu_solo_conduce.Value = True then begin
+  rgtipo.ItemIndex := 1;
+  rgtipoClick(Sender);
+  frmConduce.rgtipo.Enabled := False;
+  end;
+  if dm.QUsuariosusu_solo_conduce.Value = False then begin
+  rgtipo.ItemIndex := 0;
+  rgtipoClick(Sender);
+  frmConduce.rgtipo.Enabled := True;
+  end;}
 end;
 
 procedure TfrmConduce.btBuscaCliClick(Sender: TObject);
@@ -628,6 +642,16 @@ begin
     btBuscaProd.Enabled       := DBLookupComboBox2.Enabled;
     Grid.Enabled              := DBLookupComboBox2.Enabled;
 
+  if dm.QUsuariosusu_solo_conduce.Value = True then begin
+  frmConduce.rgtipo.Enabled := False;
+  frmConduce.rgtipo.ItemIndex := 1;
+  end
+  else
+  begin
+  frmConduce.rgtipo.Enabled := True;
+  frmConduce.rgtipo.ItemIndex := 0;
+  end;
+
   VL_ACCION := 1;
   //unidades de medida
   if dm.QParametrospar_inv_unidad_medida.Value = 'True' then
@@ -684,6 +708,7 @@ begin
 
   QConduceSUC_CODIGO.Value := QSucursalsuc_codigo.Value;
   QConduceEMP_CODIGO.value := dm.vp_cia;
+  DBEdit5.ReadOnly := False;
   QConduceCON_FECHA.value := date;
   QConduceCON_FECHA_HORA.Value := DM.getFechaBDA;
   QConduceCON_STATUS.value := 'EMI';
@@ -722,6 +747,17 @@ begin
   QCentro.Parameters.parambyname('num').Value := -1;
   QCentro.Parameters.parambyname('suc').Value := -1;
   QCentro.open;
+
+ { if dm.QUsuariosusu_solo_conduce.Value = True then begin
+  rgtipo.ItemIndex := 1;
+  rgtipoClick(Self);
+  frmConduce.rgtipo.Enabled := False;
+  end;
+  if dm.QUsuariosusu_solo_conduce.Value = False then begin
+  rgtipo.ItemIndex := 0;
+  rgtipoClick(Self);
+  frmConduce.rgtipo.Enabled := True;
+  end;}
 end;
 
 procedure TfrmConduce.QConduceBeforePost(DataSet: TDataSet);
@@ -918,6 +954,9 @@ begin
     dbAlmacen.Enabled         := DBLookupComboBox2.Enabled;
     btalmacen.Enabled         := DBLookupComboBox2.Enabled;
   end;
+  IF QDetalle.RecordCount > 0 THEN
+  DBEdit5.ReadOnly := True ELSE
+  DBEdit5.ReadOnly := False;
 end;
 
 procedure TfrmConduce.QDetalleCalcFields(DataSet: TDataSet);
@@ -930,14 +969,14 @@ begin
   begin
     if QDetalleDET_CONITBIS.value = 'S' then
     begin
-      NumItbis := RoundTo((QDetalleDET_ITBIS.asfloat / 100) + 1, -2);
+      NumItbis := (QDetalleDET_ITBIS.asfloat / 100) + 1;
       if dm.QParametrospar_itbisincluido.Value = 'True' then
       begin
         Venta := QDetalleDET_PRECIO.value / NumItbis;
-        QDetallePrecioItbis.value := RoundTo(Venta, -2);
-        QDetalleCalcDesc.value := RoundTo((Venta * QDetalleDET_DESCUENTO.value) / 100, -2);
+        QDetallePrecioItbis.value := Venta;
+        QDetalleCalcDesc.value := (Venta * QDetalleDET_DESCUENTO.value) / 100;
         if QDetalleDET_CONITBIS.value = 'S' then
-          QDetalleCalcItbis.value := RoundTo(((Venta - QDetalleCalcDesc.value) * QDetalleDET_ITBIS.value) / 100, -2)
+          QDetalleCalcItbis.value := ((Venta - QDetalleCalcDesc.value) * QDetalleDET_ITBIS.value) / 100
         else
           QDetalleCalcItbis.value := 0;
 
@@ -947,9 +986,9 @@ begin
       begin
         Venta := QDetalleDET_PRECIO.value;
         QDetallePrecioItbis.value := Venta;
-        QDetalleCalcDesc.value := RoundTo((Venta * QDetalleDET_DESCUENTO.value) / 100, -2);
+        QDetalleCalcDesc.value := (Venta * QDetalleDET_DESCUENTO.value) / 100;
         if QDetalleDET_CONITBIS.value = 'S' then
-          QDetalleCalcItbis.value := RoundTo(((Venta - QDetalleCalcDesc.value) * QDetalleDET_ITBIS.value) / 100, -2)
+          QDetalleCalcItbis.value := ((Venta - QDetalleCalcDesc.value) * QDetalleDET_ITBIS.value) / 100
         else
           QDetalleCalcItbis.value := 0;
 
@@ -961,10 +1000,10 @@ begin
       if dm.QParametrospar_itbisincluido.Value = 'True' then
       begin
         Venta := QDetalleDET_PRECIO.value;
-        QDetallePrecioItbis.value := RoundTo(Venta, -2);
-        QDetalleCalcDesc.value := RoundTo((Venta * QDetalleDET_DESCUENTO.value) / 100, -2);
+        QDetallePrecioItbis.value := Venta;
+        QDetalleCalcDesc.value := (Venta * QDetalleDET_DESCUENTO.value) / 100;
         if QDetalleDET_CONITBIS.value = 'S' then
-          QDetalleCalcItbis.value := RoundTo(((Venta - QDetalleCalcDesc.value) * QDetalleDET_ITBIS.value) / 100, -2)
+          QDetalleCalcItbis.value := ((Venta - QDetalleCalcDesc.value) * QDetalleDET_ITBIS.value) / 100
         else
           QDetalleCalcItbis.value := 0;
 
@@ -974,9 +1013,9 @@ begin
       begin
         Venta := QDetalleDET_PRECIO.value;
         QDetallePrecioItbis.value := Venta;
-        QDetalleCalcDesc.value := RoundTo((Venta * QDetalleDET_DESCUENTO.value) / 100, -2);
+        QDetalleCalcDesc.value := (Venta * QDetalleDET_DESCUENTO.value) / 100;
         if QDetalleDET_CONITBIS.value = 'S' then
-          QDetalleCalcItbis.value := RoundTo(((Venta - QDetalleCalcDesc.value) * QDetalleDET_ITBIS.value) / 100, -2)
+          QDetalleCalcItbis.value := ((Venta - QDetalleCalcDesc.value) * QDetalleDET_ITBIS.value) / 100
         else
           QDetalleCalcItbis.value := 0;
 
@@ -991,16 +1030,16 @@ begin
     begin
       NumItbis := strtofloat(format('%10.2f', [(QDetalleDET_ITBIS.asfloat / 100) + 1]));
       Venta := QDetalleDET_PRECIO.value;
-      QDetallePrecioItbis.value := RoundTo(Venta, -2);
-      QDetalleCalcDesc.value := RoundTo((Venta * QDetalleDET_DESCUENTO.value) / 100, -2);
+      QDetallePrecioItbis.value := Venta;
+      QDetalleCalcDesc.value := (Venta * QDetalleDET_DESCUENTO.value) / 100;
       QDetalleCalcItbis.value := ((Venta - QDetalleCalcDesc.value) * (NumItbis - 1));
       QDetalleValor.value := (Venta - QDetalleCalcDesc.value + QDetalleCalcItbis.value) * QDetalleDET_CANTIDAD.value;
     end
     else
     begin
       Venta := QDetalleDET_PRECIO.value;
-      QDetallePrecioItbis.value := RoundTo(Venta, -2);
-      QDetalleCalcDesc.value := RoundTo((Venta * QDetalleDET_DESCUENTO.value) / 100, -2);
+      QDetallePrecioItbis.value := Venta;
+      QDetalleCalcDesc.value := (Venta * QDetalleDET_DESCUENTO.value) / 100;
       QDetalleValor.value := (Venta - QDetalleCalcDesc.value) * QDetalleDET_CANTIDAD.value;
       QDetalleCalcItbis.value := 0;
     end;
@@ -2438,7 +2477,7 @@ begin
     QDetalle.GotoBookmark(Punt);
     QDetalle.enablecontrols;
     QConduce.Edit;
-    QConduceCON_ITBIS.value := RoundTo(TItbis, -2);
+    QConduceCON_ITBIS.value := TItbis;
     QConduceCON_DESCUENTO.value := TDesc;
     SubTotal := Total;
     QConduceCON_TOTAL.value := Total - TDesc + TItbis;
@@ -3633,7 +3672,8 @@ procedure TfrmConduce.btfacturaClick(Sender: TObject);
 begin
   application.createform(tfrmBuscaFactura, frmBuscaFactura);
   frmBuscaFactura.DBLookupComboBox1.KeyValue := frmBuscaFactura.QTipoTFA_CODIGO.Value;
-  frmBuscaFactura.DBLookupComboBox2.KeyValue := QConduceSUC_CODIGO.Value;
+  frmBuscaFactura.DBLookupComboBox2.KeyValue := DBLookupComboBox2.KeyValue;
+  QConduceSUC_CODIGO.Value := DBLookupComboBox2.KeyValue;
   frmBuscaFactura.showmodal;
   if frmBuscaFactura.Busco = true then
   begin
@@ -3776,6 +3816,7 @@ begin
       else
         edCliente.text := Query1.fieldbyname('cli_referencia').asstring;
     end;
+    QConduceEMP_CODIGO.Value := DM.vp_cia;
     QConduceCON_NOMBRE.Value := Query1.fieldbyname('fac_nombre').asstring;
     QConduceCON_DIRECCION.value := Query1.fieldbyname('fac_direccion').asstring;
     QConduceCON_TELEFONO.value := Query1.fieldbyname('fac_telefono').asstring;
@@ -3800,7 +3841,7 @@ begin
     QUtil.sql.add('and fac_numero = :num');
     QUtil.sql.add('and suc_codigo = :suc');
     QUtil.sql.add('and tfa_codigo = :tfa');
-    QUtil.sql.add('and isnull(d.det_despachado,0) < isnull(d.det_cantidad,0)');
+    QUtil.sql.add('and d.pro_codigo=16374 and isnull(d.det_despachado,0) < isnull(d.det_cantidad,0)');
     QUtil.Parameters.parambyname('emp').Value := dm.vp_cia;
     QUtil.Parameters.parambyname('num').Value := num;
     QUtil.Parameters.parambyname('suc').Value := suc;
@@ -4957,6 +4998,22 @@ end;
 procedure TfrmConduce.QCuentasAfterPost(DataSet: TDataSet);
 begin
 TotalizarCuentas;
+end;
+
+procedure TfrmConduce.QConduceAfterOpen(DataSet: TDataSet);
+begin
+{DBLookupComboBox2.KeyValue := QConduceSUC_CODIGO.Value;
+  QCuentas.close;
+  QCuentas.Parameters.parambyname('emp').Value := dm.vp_cia;
+  QCuentas.Parameters.parambyname('con').Value := -1;
+  QCuentas.Parameters.parambyname('suc').Value := -1;
+  QCuentas.open;
+
+  QCentro.close;
+  QCentro.Parameters.parambyname('emp').Value := dm.vp_cia;
+  QCentro.Parameters.parambyname('num').Value := -1;
+  QCentro.Parameters.parambyname('suc').Value := -1;
+  QCentro.open;}
 end;
 
 end.

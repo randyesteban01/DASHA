@@ -50,7 +50,7 @@ var
 
 implementation
 
-uses RCONT11, SIGMA01, RCONT23, SIGMA00;
+uses RCONT11, SIGMA01, RCONT23, SIGMA00, RCONT33;
 
 {$R *.dfm}
 
@@ -68,6 +68,7 @@ end;
 procedure TfrmRepBalComprobacion.BitBtn2Click(Sender: TObject);
 var
   Mes : String;
+  Tipo : String;
 begin
   screen.Cursor := crHourGlass;
   if rgTipo.ItemIndex = 0 then
@@ -86,7 +87,7 @@ begin
       //RepBalanceComp.QCuentas.SQL.Add('SELECT * FROM');
       //RepBalanceComp.QCuentas.SQL.Add('CONTPR_BCE_COMP_CONS (:ANO, :suc, :mes)');
       //RepBalanceComp.QCuentas.Parameters.ParamByName('mes').Value := cbMes.ItemIndex+1;
-    RepBalanceComp.QCuentas.Parameters.ParamByName('TIPO').Value := 1;
+   RepBalanceComp.QCuentas.Parameters.ParamByName('TIPO').Value := 1;
     end
     else
     begin
@@ -94,7 +95,7 @@ begin
       //RepBalanceComp.QCuentas.SQL.Add('contprbalance_comprobacion (:EMP, :SUC, :ANO, :mes)');
       //RepBalanceComp.QCuentas.Parameters.ParamByName('emp').Value := dm.QEmpresasEMP_CODIGO.Value;
       //RepBalanceComp.QCuentas.Parameters.ParamByName('mes').Value := cbMes.ItemIndex+1;
-      RepBalanceComp.QCuentas.Parameters.ParamByName('TIPO').Value := 2;
+    RepBalanceComp.QCuentas.Parameters.ParamByName('TIPO').Value := 2;
     end;
     RepBalanceComp.QCuentas.Parameters.ParamByName('emp').Value := dm.QEmpresasEMP_CODIGO.Value;
     RepBalanceComp.QCuentas.Parameters.ParamByName('mes').Value := cbMes.ItemIndex+1;
@@ -136,7 +137,7 @@ begin
   end
   else
   begin
-    Application.CreateForm(tRepBceComparativo, RepBceComparativo);
+    {Application.CreateForm(tRepBceComparativo, RepBceComparativo);
     Mes := UpperCase(DMes[cbMes.ItemIndex+1]);
     RepBceComparativo.lbFecha.Caption := 'Al '+IntToStr(DaysInAMonth(spAno.Value,
                                       cbMes.ItemIndex+1))+' De '+
@@ -192,6 +193,40 @@ begin
       RepBceComparativo.PrinterSetup;
       RepBceComparativo.Preview;
       RepBceComparativo.Destroy;
+    end;                          }
+  Application.CreateForm(tRepBalanceCompAnual, RepBalanceCompAnual);
+    Mes := UpperCase(DMes[cbMes.ItemIndex+1]);
+    RepBalanceCompAnual.Detalle := ckDetallado.Checked;
+    case dm.QContabPAR_CONT_BALANU_COMPROB.Value of
+    0:RepBalanceCompAnual.lbFecha.Caption := 'Al 31 de Marzo '+IntToStr(spAno.Value);
+    1:RepBalanceCompAnual.lbFecha.Caption := 'Al 30 de Junio '+IntToStr(spAno.Value);
+    2:RepBalanceCompAnual.lbFecha.Caption := 'Al 30 de Septiembre '+IntToStr(spAno.Value);
+    3:RepBalanceCompAnual.lbFecha.Caption := 'Al 31 de Diciembre '+IntToStr(spAno.Value);
+    end;
+    RepBalanceCompAnual.QCuentas.Close;
+    //RepBalanceComp.QCuentas.SQL.Clear;
+    RepBalanceCompAnual.QCuentas.Parameters.ParamByName('TIPO').Value := dm.QContabPAR_CONT_BALANU_COMPROB.Value;
+    RepBalanceCompAnual.QCuentas.Parameters.ParamByName('emp').Value := dm.QEmpresasEMP_CODIGO.Value;
+    RepBalanceCompAnual.QCuentas.Parameters.ParamByName('ano').Value := spAno.Value;
+
+    if cksucursal.Checked then
+    RepBalanceCompAnual.QCuentas.Parameters.ParamByName('suc').Value := DBLookupComboBox2.KeyValue ELSE
+    RepBalanceCompAnual.QCuentas.Parameters.ParamByName('suc').Value := 1;
+    RepBalanceCompAnual.QCuentas.Open;
+
+    if ckmail.Checked then
+      try
+        screen.Cursor := crDefault;
+        EnvioMail(RepBalanceCompAnual);
+      finally
+        RepBalanceCompAnual.destroy;
+      end
+    else
+    begin
+      screen.Cursor := crDefault;
+      RepBalanceCompAnual.PrinterSetup;
+      RepBalanceCompAnual.Preview;
+      RepBalanceCompAnual.Destroy;
     end;
   end;
 end;
@@ -210,7 +245,7 @@ end;
 procedure TfrmRepBalComprobacion.EnvioMail(Rep: TQuickRep);
 var
    MailMsg : TIdMessage;
-   Archivo : TIdAttachment;
+   //Archivo : TIdAttachment;
    nArchivo : string;
 begin
    nArchivo := InputBox('Envio de Mail','Correo : ','');
@@ -226,7 +261,7 @@ begin
      MailMsg.ReplyTo.EMailAddresses :=  dm.QParametrospar_mailcorreo.Value;
      MailMsg.Recipients.Add;
      MailMsg.Recipients.Items[0].Address := nArchivo;
-     TIdAttachment.Create(MailMsg.MessageParts, 'c:\BalanceComprobacion.pdf');
+    // TIdAttachmentFile.Create(MailMsg.MessageParts, 'c:\BalanceComprobacion.pdf');
      frmMain.IdSMTP1.Host := dm.QParametrospar_mailservidor.Value;
      frmMain.IdSMTP1.Port := dm.QParametrospar_mailpuerto.AsInteger;
      frmMain.IdSMTP1.Username := dm.QParametrospar_mailusuario.Value;

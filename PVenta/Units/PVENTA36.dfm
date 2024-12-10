@@ -1,6 +1,6 @@
 object frmNota: TfrmNota
   Left = 353
-  Top = 276
+  Top = 310
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'Nota'

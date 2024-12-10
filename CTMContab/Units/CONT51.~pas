@@ -37,6 +37,7 @@ type
     ckconduce: TCheckBox;
     ckdevventa: TCheckBox;
     ckdevcompra: TCheckBox;
+    ckFactRes: TCheckBox;
     procedure btCloseClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
@@ -90,7 +91,7 @@ begin
   dm.Query1.SQL.Add('and ano = :ano');
   dm.Query1.SQL.Add('and mes = :mes');
   dm.Query1.SQL.Add('and status = '+#39+'C'+#39);
-  dm.Query1.Parameters.ParamByName('emp').Value := dm.QEmpresasEMP_CODIGO.Value;
+  dm.Query1.Parameters.ParamByName('emp').Value := dm.vp_cia;
   dm.Query1.Parameters.ParamByName('ano').Value := YearOf(Fecha1.Date);
   dm.Query1.Parameters.ParamByName('mes').Value := MonthOf(Fecha1.Date);
   dm.Query1.Open;
@@ -262,7 +263,19 @@ begin
         dm.Query1.ExecSQL;
       end;
 
-      
+       if ckFactRes.Checked then
+      begin
+        // Pasando Facturas del ResBar
+        dm.Query1.Close;
+        dm.Query1.SQL.Clear;
+        dm.Query1.SQL.Add('execute contpr_pase_facturasResBar :emp, :suc, :fec1, :fec2');
+        dm.Query1.Parameters.ParamByName('emp').Value := dm.QEmpresasEMP_CODIGO.Value;
+        dm.Query1.Parameters.ParamByName('fec1').Value   := fecha1.Date;
+        dm.Query1.Parameters.ParamByName('fec2').Value   := fecha2.Date;
+        dm.Query1.Parameters.ParamByName('suc').Value    := DBLookupComboBox2.KeyValue;
+        dm.Query1.ExecSQL;
+      end;
+
 
       if ckliq.Checked then
       begin

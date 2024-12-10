@@ -69,6 +69,11 @@ type
     QListadoItbisNC: TCurrencyField;
     QComprobantesCANT: TIntegerField;
     QListadoCANT: TIntegerField;
+    QComprobantesotras: TCurrencyField;
+    QListadootras: TCurrencyField;
+    QComprobantesPropina: TCurrencyField;
+    QListadoPropina: TCurrencyField;
+    QUpdNC: TADOQuery;
     procedure btCloseClick(Sender: TObject);
     procedure BitBtn3Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -99,6 +104,8 @@ end;
 procedure TfrmConsComprobantes.BitBtn3Click(Sender: TObject);
 begin
 Screen.cursor := crSQLWait;
+
+  QUpdNC.ExecSQL;
 
   QComprobantes.Close;
   QComprobantes.Parameters.ParamByName('emp').Value  := dm.QEmpresasEMP_CODIGO.Value;

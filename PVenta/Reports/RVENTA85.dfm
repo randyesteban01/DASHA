@@ -1,6 +1,6 @@
 object RCotizacionPreimpresa: TRCotizacionPreimpresa
-  Left = 322
-  Top = 185
+  Left = 412
+  Top = 266
   Width = 886
   Height = 564
   VertScrollBar.Position = 226

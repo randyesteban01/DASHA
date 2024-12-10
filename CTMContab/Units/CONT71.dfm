@@ -1,6 +1,6 @@
 object frmGenera607: TfrmGenera607
-  Left = 308
-  Top = 254
+  Left = 370
+  Top = 305
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Formato de envio de Datos 607'

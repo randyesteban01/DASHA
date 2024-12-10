@@ -22,8 +22,8 @@ object frmadhoc: Tfrmadhoc
   object QREditor1: TQREditor
     Left = 0
     Top = 0
-    Width = 862
-    Height = 471
+    Width = 854
+    Height = 461
     ShowMenu = False
     ShowStatusLine = True
     Align = alClient

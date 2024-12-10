@@ -728,6 +728,8 @@ object frmResumenVentaProducto: TfrmResumenVentaProducto
         ExportSource = esStringGrid
         DataSet = QReporte
         StringGrid = sgreporte
+        Header.Strings = (
+          '')
         Formats.DateTimeFormat = 'M/d/yyyy h:mm AMPM'
         Formats.IntegerFormat = '#,###,##0'
         Formats.CurrencyFormat = '00.00$'
@@ -738,6 +740,7 @@ object frmResumenVentaProducto: TfrmResumenVentaProducto
         Formats.BooleanFalse = 'false'
         Formats.NullString = 'null'
         OnlyVisibleFields = False
+        CaptionRow = 0
       end>
     Left = 184
     Top = 152

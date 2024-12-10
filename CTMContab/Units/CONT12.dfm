@@ -496,8 +496,7 @@ object frmTiposDoc: TfrmTiposDoc
       'n.NCF_Status, s.suc_nombre, n.NCF_Fecha_Creacion,'
       'n.tdo_codigo,'
       'n.FechaVenc,'
-      'n.VerificaVenc,'
-      'detenergeneracioncomprobante'
+      'n.VerificaVenc'
       'from'
       'NCF n, sucursales s'
       'where'
@@ -564,9 +563,6 @@ object frmTiposDoc: TfrmTiposDoc
     end
     object QNCFVerificaVenc: TBooleanField
       FieldName = 'VerificaVenc'
-    end
-    object QNCFdetenergeneracioncomprobante: TBooleanField
-      FieldName = 'detenergeneracioncomprobante'
     end
   end
   object dsNCF: TDataSource

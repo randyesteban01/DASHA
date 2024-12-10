@@ -1,10 +1,10 @@
 object DM: TDM
   OldCreateOrder = False
   OnCreate = DataModuleCreate
-  Left = 402
-  Top = 170
-  Height = 429
-  Width = 711
+  Left = 489
+  Top = 197
+  Height = 356
+  Width = 619
   object dsEmpresas: TDataSource
     DataSet = QEmpresas
     Left = 96
@@ -954,11 +954,29 @@ object DM: TDM
     object QParametrospar_digitos_banderita: TIntegerField
       FieldName = 'par_digitos_banderita'
     end
+    object QParametrosRestBar_FactConItbis: TBooleanField
+      FieldName = 'RestBar_FactConItbis'
+    end
     object QParametrospar_mostrarfacturadolares: TBooleanField
       FieldName = 'par_mostrarfacturadolares'
     end
     object QParametrosPAR_UnidadMedida_Producto: TBooleanField
       FieldName = 'PAR_UnidadMedida_Producto'
+    end
+    object QParametrospar_totalizardolaresPOS: TBooleanField
+      FieldName = 'par_totalizardolaresPOS'
+    end
+    object QParametrospar_codigobarrasdolares: TBooleanField
+      FieldName = 'par_codigobarrasdolares'
+    end
+    object QParametrospar_vouchercardnet: TBooleanField
+      FieldName = 'par_vouchercardnet'
+    end
+    object QParametrosPAR_MESERO: TBooleanField
+      FieldName = 'PAR_MESERO'
+    end
+    object QParametrosPAR_cantidadRecibosImprimir: TIntegerField
+      FieldName = 'PAR_cantidadRecibosImprimir'
     end
   end
   object QContab: TADOQuery
@@ -1775,7 +1793,7 @@ object DM: TDM
       
         'par_mailservidor, par_mailcorreo, par_mailusuario, par_mailpuert' +
         'o, par_mailclave, par_mailOK, usu_vendedor, usu_solo_conduce'
-      ',usu_modifica_nombreprod, usu_elimina_factura_temporal'
+      ',usu_modifica_nombreprod, usu_suc_default'
       'from'
       'USUARIOS'
       'where'
@@ -1892,8 +1910,8 @@ object DM: TDM
     object QUsuariosusu_modifica_nombreprod: TBooleanField
       FieldName = 'usu_modifica_nombreprod'
     end
-    object QUsuariosusu_elimina_factura_temporal: TBooleanField
-      FieldName = 'usu_elimina_factura_temporal'
+    object QUsuariosusu_suc_default: TIntegerField
+      FieldName = 'usu_suc_default'
     end
   end
   object QParamRH: TADOQuery

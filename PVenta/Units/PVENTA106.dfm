@@ -1,6 +1,6 @@
 object frmRepVentaMarca: TfrmRepVentaMarca
-  Left = 257
-  Top = 176
+  Left = 242
+  Top = 165
   ActiveControl = edMarca
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle

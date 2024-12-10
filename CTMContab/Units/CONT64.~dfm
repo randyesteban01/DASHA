@@ -261,10 +261,7 @@ object frmNCF: TfrmNCF
     Parameters = <
       item
         Name = 'emp_codigo'
-        Attributes = [paSigned]
-        DataType = ftInteger
-        Precision = 10
-        Size = 4
+        Size = -1
         Value = Null
       end
       item
@@ -283,7 +280,7 @@ object frmNCF: TfrmNCF
       'where'
       's.emp_codigo = a.emp_codigo'
       'and s.suc_codigo = a.suc_codigo'
-      'and a.emp_codigo = :emp_codigo'
+      'and a.emp_codigo =:emp_codigo'
       'and a.usu_codigo = :usu'
       'order by s.suc_codigo')
     Left = 216

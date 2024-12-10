@@ -1,6 +1,6 @@
 object frmBuscaTemporal: TfrmBuscaTemporal
-  Left = 360
-  Top = 256
+  Left = 362
+  Top = 259
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'Buscar Factura Temporal'
@@ -24,6 +24,7 @@ object frmBuscaTemporal: TfrmBuscaTemporal
     Align = alTop
     DataSource = dsFacturas
     Options = [dgTitles, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit]
+    PopupMenu = PopupMenu2
     TabOrder = 0
     TitleFont.Charset = ANSI_CHARSET
     TitleFont.Color = clWindowText
@@ -151,20 +152,19 @@ object frmBuscaTemporal: TfrmBuscaTemporal
         Value = Null
       end>
     SQL.Strings = (
-      
-        'Select fac_fecha, tfa_codigo, case when cli_codigo = 0 then NULL' +
-        ' ELSE cli_codigo END CLI_CODIGO, '
+      'Select fac_fecha, tfa_codigo, CLI_CODIGO, '
       'fac_nombre, fac_numero, fac_forma, suc_codigo, fac_total,'
       
         '(select top 1 rtrim(pro_nombre)+'#39' X '#39'+rtrim(det_cantidad) from d' +
-        'et_facturatmp where fac_numero = f.fac_numero and suc_codigo = f' +
-        '.suc_codigo '
+        'et_facturatmp d where d.id_facturatemporal = f.id_facturatempora' +
+        'l and suc_codigo = f.suc_codigo '
       
         'and tfa_codigo = f.tfa_codigo and fac_forma = f.fac_forma and em' +
         'p_codigo = f.emp_codigo'
       
         ' and pro_nombre is not null order by det_secuencia desc) product' +
-        'o'
+        'o,'
+      ' f.id_facturatemporal'
       'From facturastmp f'
       'Where f.emp_codigo = :emp_codigo and f.suc_codigo = :suc_codigo'
       'Order by f.fac_fecha')
@@ -200,10 +200,21 @@ object frmBuscaTemporal: TfrmBuscaTemporal
       FieldName = 'producto'
       Size = 255
     end
+    object QFacturasid_facturatemporal: TIntegerField
+      FieldName = 'id_facturatemporal'
+    end
   end
   object dsFacturas: TDataSource
     DataSet = QFacturas
-    Left = 192
-    Top = 152
+    Left = 240
+    Top = 136
+  end
+  object PopupMenu2: TPopupMenu
+    Left = 400
+    Top = 137
+    object MenuItem2: TMenuItem
+      Caption = 'Eliminar Factura temporal'
+      OnClick = MenuItem2Click
+    end
   end
 end

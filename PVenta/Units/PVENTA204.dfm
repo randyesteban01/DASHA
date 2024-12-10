@@ -689,6 +689,7 @@ object frmRepVentaGerenteProveedor: TfrmRepVentaGerenteProveedor
     Connection = DM.ADOSigma
     OnCalcFields = QReporteCalcFields
     CommandTimeout = 0
+    DataSource = DM.dsEmpresas
     Parameters = <
       item
         Name = 'emp'
@@ -780,6 +781,7 @@ object frmRepVentaGerenteProveedor: TfrmRepVentaGerenteProveedor
     CursorType = ctStatic
     OnCalcFields = QFamiliaCalcFields
     CommandTimeout = 0
+    DataSource = DM.dsEmpresas
     Parameters = <
       item
         Name = 'emp'
@@ -865,6 +867,7 @@ object frmRepVentaGerenteProveedor: TfrmRepVentaGerenteProveedor
     Connection = DM.ADOSigma
     OnCalcFields = QDepartamentoCalcFields
     CommandTimeout = 0
+    DataSource = DM.dsEmpresas
     Parameters = <
       item
         Name = 'emp'

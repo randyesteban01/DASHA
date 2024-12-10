@@ -1,6 +1,6 @@
 object frmNomina: TfrmNomina
-  Left = 320
-  Top = 131
+  Left = 288
+  Top = 36
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Nomina'
@@ -245,7 +245,7 @@ object frmNomina: TfrmNomina
         Left = 0
         Top = 0
         Width = 1061
-        Height = 496
+        Height = 475
         Align = alClient
         ColCount = 12
         DefaultColWidth = 30
@@ -616,7 +616,6 @@ object frmNomina: TfrmNomina
   end
   object QTipoNomina: TADOQuery
     Connection = DM.ADOSigma
-    DataSource = DM.dsEmpresas
     Parameters = <
       item
         Name = 'emp_codigo'
@@ -663,7 +662,6 @@ object frmNomina: TfrmNomina
   object QNomina: TADOQuery
     Connection = DM.ADOSigma
     LockType = ltBatchOptimistic
-    DataSource = DM.dsEmpresas
     Parameters = <
       item
         Name = 'emp_codigo'
@@ -701,18 +699,18 @@ object frmNomina: TfrmNomina
     object QNominanom_codigo: TIntegerField
       FieldName = 'nom_codigo'
     end
-    object QNominanom_fecha_desde: TDateTimeField
-      FieldName = 'nom_fecha_desde'
-    end
-    object QNominanom_fecha_hasta: TDateTimeField
-      FieldName = 'nom_fecha_hasta'
-    end
-    object QNominanom_fecha_acreditar: TDateTimeField
-      FieldName = 'nom_fecha_acreditar'
-    end
     object QNominanom_status: TStringField
       FieldName = 'nom_status'
       Size = 3
+    end
+    object QNominanom_fecha_desde: TDateField
+      FieldName = 'nom_fecha_desde'
+    end
+    object QNominanom_fecha_hasta: TDateField
+      FieldName = 'nom_fecha_hasta'
+    end
+    object QNominanom_fecha_acreditar: TDateField
+      FieldName = 'nom_fecha_acreditar'
     end
   end
   object dsNomina: TDataSource
@@ -724,7 +722,6 @@ object frmNomina: TfrmNomina
   object QDetalle: TADOQuery
     Connection = DM.ADOSigma
     LockType = ltBatchOptimistic
-    DataSource = DM.dsEmpresas
     Parameters = <
       item
         Name = 'emp_codigo'
@@ -796,7 +793,6 @@ object frmNomina: TfrmNomina
   object QNovedades: TADOQuery
     Connection = DM.ADOSigma
     LockType = ltBatchOptimistic
-    DataSource = DM.dsEmpresas
     Parameters = <
       item
         Name = 'emp_codigo'
@@ -892,7 +888,6 @@ object frmNomina: TfrmNomina
     Top = 368
   end
   object PopupMenu1: TPopupMenu
-    Images = DM.ImgMant
     OwnerDraw = True
     Left = 176
     Top = 304

@@ -1,6 +1,6 @@
 object frmTransferencia: TfrmTransferencia
-  Left = 258
-  Top = 196
+  Left = 277
+  Top = 96
   ActiveControl = edDesde
   BorderIcons = [biSystemMenu, biMinimize, biHelp]
   BorderStyle = bsSingle
@@ -285,6 +285,13 @@ object frmTransferencia: TfrmTransferencia
         777770000000}
       OnClick = SpeedButton3Click
     end
+    object Label6: TLabel
+      Left = 8
+      Top = 106
+      Width = 48
+      Height = 13
+      Caption = 'Ubicaci'#243'n'
+    end
     object edDesde: TEdit
       Left = 64
       Top = 8
@@ -355,9 +362,9 @@ object frmTransferencia: TfrmTransferencia
     end
     object Grid: TDBGrid
       Left = 1
-      Top = 104
+      Top = 136
       Width = 575
-      Height = 208
+      Height = 176
       Align = alBottom
       Ctl3D = False
       DataSource = dsDetalle
@@ -508,6 +515,24 @@ object frmTransferencia: TfrmTransferencia
       TabOrder = 10
       Visible = False
     end
+    object DBEdit4: TDBEdit
+      Left = 64
+      Top = 104
+      Width = 505
+      Height = 21
+      BevelKind = bkFlat
+      BorderStyle = bsNone
+      CharCase = ecUpperCase
+      DataField = 'Ubicacion'
+      DataSource = dsTrans
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 11
+    end
   end
   object QTrans: TADOQuery
     Connection = DM.ADOSigma
@@ -533,7 +558,10 @@ object frmTransferencia: TfrmTransferencia
       'select '
       'EMP_CODIGO, TRA_ALMACEN1, TRA_ALMACEN2, '
       'TRA_CONCEPTO, TRA_FECHA, TRA_NUMERO, TRA_STATUS, '
-      'USU_CODIGO, tra_medida_almacen1, tra_medida_almacen2, suc_codigo'
+      
+        'USU_CODIGO, tra_medida_almacen1, tra_medida_almacen2, suc_codigo' +
+        ','
+      'TRA_FECHA_HORA, Ubicacion'
       'from TRANSFER'
       'where emp_codigo = :emp'
       'and tra_numero = :numero')
@@ -589,6 +617,10 @@ object frmTransferencia: TfrmTransferencia
     object QTransTRA_FECHA_HORA: TDateTimeField
       FieldName = 'TRA_FECHA_HORA'
     end
+    object QTransUbicacion: TStringField
+      FieldName = 'Ubicacion'
+      Size = 255
+    end
   end
   object dsTrans: TDataSource
     DataSet = QTrans
@@ -617,12 +649,16 @@ object frmTransferencia: TfrmTransferencia
       end>
     SQL.Strings = (
       'select '
-      'DET_CANTIDAD, DET_SECUENCIA, EMP_CODIGO, PRO_CODIGO, '
-      'PRO_NOMBRE, PRO_RFABRIC, PRO_RORIGINAL, TRA_NUMERO,'
-      'DET_MEDIDA, det_medida2, pro_cantempaque, det_cantidad2,'
-      'det_costo, det_costound, det_costoemp, suc_codigo'
-      'from DET_TRANSFER'
-      'where emp_codigo = :EMP_CODIGO'
+      'DET_CANTIDAD, DET_SECUENCIA, d.EMP_CODIGO, d.PRO_CODIGO, '
+      'd.PRO_NOMBRE, d.PRO_RFABRIC, d.PRO_RORIGINAL, TRA_NUMERO,'
+      'DET_MEDIDA, det_medida2, d.pro_cantempaque, det_cantidad2,'
+      
+        'det_costo, det_costound, det_costoemp, suc_codigo, p.pro_ubicaci' +
+        'on'
+      
+        'from DET_TRANSFER d inner join Productos p on p.pro_codigo= d.pr' +
+        'o_codigo'
+      'where d.emp_codigo = :EMP_CODIGO'
       'and tra_numero = :numero'
       'order by det_secuencia')
     Left = 184
@@ -705,6 +741,10 @@ object frmTransferencia: TfrmTransferencia
     end
     object QDetallesuc_codigo: TIntegerField
       FieldName = 'suc_codigo'
+    end
+    object QDetalleppro_ubicacion: TStringField
+      FieldName = 'p.pro_ubicacion'
+      Size = 150
     end
   end
   object dsDetalle: TDataSource

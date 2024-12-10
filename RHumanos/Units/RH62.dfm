@@ -1,6 +1,6 @@
 object frmConsNomina: TfrmConsNomina
   Left = 466
-  Top = 290
+  Top = 280
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Consulta de Nominas'

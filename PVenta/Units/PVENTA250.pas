@@ -4,81 +4,88 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, Buttons, DB, ADODB, DBCtrls;
+  Dialogs, StdCtrls, Buttons, DB, ADODB;
 
 type
-  TfrmRepCxcGeneralSucursal = class(TForm)
-    Label8: TLabel;
-    DBLookupComboBox2: TDBLookupComboBox;
-    QSucursal: TADOQuery;
-    QSucursalsuc_codigo: TIntegerField;
-    QSucursalsuc_nombre: TStringField;
-    QSucursalalm_codigo: TIntegerField;
-    QSucursalemp_codigo: TIntegerField;
-    dsSuc: TDataSource;
-    btPrint: TBitBtn;
+  TFormAnularBoleto = class(TForm)
+    Label4: TLabel;
+    btAnular: TBitBtn;
     btClose: TBitBtn;
-    procedure FormActivate(Sender: TObject);
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
-    procedure FormKeyPress(Sender: TObject; var Key: Char);
-    procedure btPrintClick(Sender: TObject);
+    txtMotivo: TMemo;
+    procedure btAnularClick(Sender: TObject);
     procedure btCloseClick(Sender: TObject);
+    procedure btCloseKeyPress(Sender: TObject; var Key: Char);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
     { Public declarations }
+    numboleto: Integer;
+    motivo_anular: String;
+    guardado:Boolean
   end;
 
 var
-  frmRepCxcGeneralSucursal: TfrmRepCxcGeneralSucursal;
+  FormAnularBoleto: TFormAnularBoleto;
 
 implementation
 
-uses SIGMA01, RVENTA31;
+uses SIGMA01;
 
 {$R *.dfm}
 
-procedure TfrmRepCxcGeneralSucursal.FormActivate(Sender: TObject);
+procedure TFormAnularBoleto.btAnularClick(Sender: TObject);
 begin
- if not QSucursal.Active then
+ if txtMotivo.Text = '' then
   begin
-    QSucursal.Parameters.ParamByName('usu').Value := dm.Usuario;
-    QSucursal.Open;
-    DBLookupComboBox2.KeyValue := QSucursalsuc_codigo.Value;
+    MessageDlg('Debe especificar un Motivo de Anulación',mtError,[mbok],0);
+  end
+  else
+  begin
+  if MessageDlg('ESTA SEGURO?',mtConfirmation,[mbyes,mbno],0) = mryes then
+      begin
+        dm.Query1.Close;
+        dm.Query1.SQL.Clear;
+        dm.Query1.SQL.Add('execute pr_anula_boleto :emp, :boleto, :motivo, :usu ');
+        dm.Query1.Parameters.ParamByName('emp').Value   := dm.vp_cia;
+        dm.Query1.Parameters.ParamByName('boleto').Value   := numboleto;
+        dm.Query1.Parameters.ParamByName('usu').Value   := dm.NomUsu;
+        dm.Query1.Parameters.ParamByName('motivo').Value   := txtMotivo.Text;
+        dm.Query1.ExecSQL;
+        dm.Query1.Close;
+        DM.Query1.SQL.Clear;
+        MessageDlg('PROCESO DE ANULACION EJECUTADO',mtInformation,[mbok],0);
+        guardado:=true;
+        close();
+      end;
   end;
 end;
 
-procedure TfrmRepCxcGeneralSucursal.FormClose(Sender: TObject;
-  var Action: TCloseAction);
+procedure TFormAnularBoleto.btCloseClick(Sender: TObject);
 begin
-  Action := Cafree;
+  close;
 end;
 
-procedure TfrmRepCxcGeneralSucursal.FormKeyPress(Sender: TObject;
+procedure TFormAnularBoleto.btCloseKeyPress(Sender: TObject;
   var Key: Char);
 begin
- if key = chr(vk_return) then
+if key = chr(vk_return) then
      begin
        perform(wm_nextdlgctl, 0, 0);
        key := #0;
      end;
 end;
 
-procedure TfrmRepCxcGeneralSucursal.btPrintClick(Sender: TObject);
+procedure TFormAnularBoleto.FormClose(Sender: TObject;
+  var Action: TCloseAction);
 begin
-    Application.CreateForm(tRCxC, RCxC);
-    RCxC.QDocs.Parameters.ParamByName('suc_codigo').Value := DBLookupComboBox2.KeyValue;
-    RCxC.QClientes.Open;
-    RCxC.QDocs.Open;
-    RCxC.lbFecha.Caption := 'Al '+DateToStr(Date);
-    RCxC.PrinterSetup;
-    RCxC.Preview;
-    RCxC.Destroy;
+ action := cafree;
 end;
 
-procedure TfrmRepCxcGeneralSucursal.btCloseClick(Sender: TObject);
+procedure TFormAnularBoleto.FormCreate(Sender: TObject);
 begin
-  Close;
+ txtMotivo.Text:=motivo_anular;
 end;
 
 end.

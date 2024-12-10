@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ComCtrls, StdCtrls, Buttons, DateUtils,
-  QuerySearchDlgADO, IdMessageClient, IdAttachment,
+  QuerySearchDlgADO, IdMessageClient,
   IdSMTP, idMessage, QRPDFFilt, QuickRpt, QRCtrls, DBCtrls, DB, ADODB;
 
 type
@@ -251,7 +251,7 @@ end;
 procedure TfrmRepDiario.EnvioMail(Rep: TQuickRep);
 var
    MailMsg : TIdMessage;
-   Archivo : TIdAttachment;
+  // Archivo : TIdAttachmentFile;
    nArchivo : string;
 begin
    nArchivo := InputBox('Envio de Mail','Correo : ','');
@@ -268,6 +268,9 @@ begin
      MailMsg.Recipients.Add;
      MailMsg.Recipients.Items[0].Address := nArchivo;
      //TIdAttachment.Create(MailMsg.MessageParts, 'c:\DiarioGeneral.pdf');
+     
+     //TIdAttachmentFile.Create(MailMsg.MessageParts, 'c:\DiarioGeneral.pdf');
+
      frmMain.IdSMTP1.Host := dm.QParametrospar_mailservidor.Value;
      frmMain.IdSMTP1.Port := dm.QParametrospar_mailpuerto.AsInteger;
      frmMain.IdSMTP1.Username := dm.QParametrospar_mailusuario.Value;

@@ -175,6 +175,7 @@ object frmRepFacVencCxP: TfrmRepFacVencCxP
   object QFacturas: TADOQuery
     Connection = DM.ADOSigma
     CursorType = ctStatic
+    DataSource = DM.dsEmpresas
     Parameters = <
       item
         Name = 'FECHA'

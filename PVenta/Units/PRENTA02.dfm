@@ -1028,6 +1028,7 @@ object frmAlquiler: TfrmAlquiler
     BeforePost = QAlquilerBeforePost
     OnCalcFields = QAlquilerCalcFields
     OnNewRecord = QAlquilerNewRecord
+    DataSource = DM.dsEmpresas
     Parameters = <
       item
         Name = 'emp'
@@ -1185,6 +1186,7 @@ object frmAlquiler: TfrmAlquiler
     AfterDelete = QDetalleAfterDelete
     OnCalcFields = QDetalleCalcFields
     OnNewRecord = QDetalleNewRecord
+    DataSource = DM.dsEmpresas
     Parameters = <
       item
         Name = 'emp'
@@ -1478,6 +1480,7 @@ object frmAlquiler: TfrmAlquiler
   end
   object Query1: TADOQuery
     Connection = DM.ADOSigma
+    DataSource = DM.dsEmpresas
     Parameters = <>
     Left = 248
     Top = 250
@@ -1511,6 +1514,7 @@ object frmAlquiler: TfrmAlquiler
   object QUnidades: TADOQuery
     Connection = DM.ADOSigma
     LockType = ltBatchOptimistic
+    DataSource = DM.dsEmpresas
     Parameters = <
       item
         Name = 'emp'

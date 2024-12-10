@@ -7,7 +7,7 @@ uses
   Dialogs, ExtCtrls, StdCtrls, Buttons, Grids, DBGrids, DB, DateUtils, 
   IBCustomDataSet, IBQuery, ComCtrls, QRPDFFilt, QuickRpt, QRCtrls,
   ADODB, QuerySearchDlgADO, DBCtrls, Menus, Math, frxClass, frxDBSet,
-  frxExportPDF;
+  frxExportPDF, DateUtil;
 
 type
   TfrmConsFacturas = class(TForm)
@@ -380,6 +380,7 @@ type
     AplicarNC1: TMenuItem;
     QFacturastdesc_gral: TCurrencyField;
     QFacturasTipoPago: TStringField;
+    QFacturasRECARGO: TCurrencyField;
     procedure QDetalleCalcFields(DataSet: TDataSet);
     procedure FormCreate(Sender: TObject);
     procedure btCloseClick(Sender: TObject);
@@ -488,7 +489,8 @@ var
 implementation
 
 uses RVENTA04, SIGMA01, SIGMA00, RVENTA71, RVENTA02, RVENTA64, RVENTA79,
-  PVENTA83, RVENTA115, RVENTA122, RVENTA126, RVENTA128, RVENTA130;
+  PVENTA83, RVENTA115, RVENTA122, RVENTA126, RVENTA128, RVENTA130,
+  RVENTA134;
 
 {$R *.dfm}
 
@@ -782,7 +784,7 @@ begin
   QFacturas.SQL.Add('usu_nombre, CAJ_NOMBRE, CAJA, fac_vence, FAC_COMISION, FAC_CUOTAS, con_numero, fac_devuelto,');
   QFacturas.SQL.Add('suc_codigo, fac_conitbis, NCF_Fijo, NCF_Secuencia, fac_selectivo_ad,');
   QFacturas.SQL.Add('fac_selectivo_con, ven_nombre, fac_rnc, fac_domicilio, fac_tasa, tfa_actbalance, fac_interes, tip_codigo');
-  QFacturas.SQL.Add(',FAC_PROYECTO, FAC_SERVICIOS, fac_usuario_anulo, tdesc_gral');
+  QFacturas.SQL.Add(',FAC_PROYECTO, FAC_SERVICIOS, fac_usuario_anulo, tdesc_gral, RECARGO');
 
   if cbOrden.ItemIndex = 0 then
      QFacturas.sql.add('order by fac_forma, tfa_codigo, fac_numero desc')
@@ -795,6 +797,7 @@ begin
 
   QFacturas.Parameters.parambyname('suc_codigo').Value := DBLookupComboBox2.KeyValue;
   QFacturas.Parameters.parambyname('emp').Value := dm.vp_cia;
+  //QFacturas.SQL.SaveToFile('.\ConsFacturas.txt');
   QFacturas.open;
 
   lbCantidad.caption := inttostr(QFacturas.recordcount)+' Facturas';
@@ -1474,7 +1477,7 @@ end;
 procedure TfrmConsFacturas.QFacturasCalcFields(DataSet: TDataSet);
 begin
   if not QFacturasNCF_Fijo.IsNull then
-    QfacturasNCF.Value := QFacturasNCF_Fijo.Value + formatfloat('00000000',QFacturasNCF_Secuencia.Value)
+    QfacturasNCF.Value := Trim(QFacturasNCF_Fijo.Value) + formatfloat('00000000',QFacturasNCF_Secuencia.Value)
   else
     QfacturasNCF.Value := '';
 
@@ -2983,7 +2986,22 @@ begin
       RFacturaSteelTec.Preview;
       RFacturaSteelTec.Destroy;
       end else
-
+      if dm.QParametrospar_formato_preimpreso.Value = 'FUNDGRUBEL' then
+       begin
+       application.createform(tRFacturaFUNDGRUBEL, RFacturaFUNDGRUBEL);
+       RFacturaFUNDGRUBEL.QFactura.Parameters.ParamByName('emp').Value    := dm.vp_cia;
+       RFacturaFUNDGRUBEL.QFactura.Parameters.ParamByName('tipo').Value   := QFacturasTFA_CODIGO.value;
+       RFacturaFUNDGRUBEL.QFactura.Parameters.ParamByName('forma').Value  := QFacturasFAC_FORMA.value;
+       RFacturaFUNDGRUBEL.QFactura.Parameters.ParamByName('numero').Value := QFacturasFAC_NUMERO.value;
+       RFacturaFUNDGRUBEL.QFactura.Parameters.ParamByName('suc').Value    := QFacturasSUC_CODIGO.Value;
+       RFacturaFUNDGRUBEL.QFactura.open;
+       RFacturaFUNDGRUBEL.QDetalle.Parameters.ParamByName('par_invempresa').Value := dm.QParametrosPAR_INVEMPRESA.Value;
+       RFacturaFUNDGRUBEL.QDetalle.open;
+       RFacturaFUNDGRUBEL.PrinterSetup;
+       RFacturaFUNDGRUBEL.lbReimpresion.Enabled := True;
+       RFacturaFUNDGRUBEL.Preview;
+       RFacturaFUNDGRUBEL.Destroy;
+       end;
     if dm.QParametrospar_formato_preimpreso.Value = 'QClinico' then
     begin
     if MessageDlg('Desea imprimir el detalle de facturas y records?',mtConfirmation, [mbyes,mbno], 0) = mryes then

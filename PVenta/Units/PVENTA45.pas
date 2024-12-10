@@ -317,7 +317,6 @@ type
     QFacturacont_numeroSucursal: TStringField;
     QFacturaFAC_FECHA_EFECTIVA: TDateTimeField;
     QFacturanumero_orden: TStringField;
-    QDetallecod_UnidadMedida: TStringField;
     procedure QFacturaNewRecord(DataSet: TDataSet);
     procedure QFacturaFAC_DIASChange(Sender: TField);
     procedure QFacturaFAC_NUMEROChange(Sender: TField);
@@ -733,8 +732,8 @@ procedure TfrmFacProvee.GridEnter(Sender: TObject);
 var
   a : integer;
 begin
-//  for a := 0 to Grid.Columns.Count - 1 do
-//    Grid.Columns[a].ReadOnly := QFacturaPED_NUMERO.AsInteger > 0;
+  for a := 0 to Grid.Columns.Count - 1 do
+    Grid.Columns[a].ReadOnly := QFacturaPED_NUMERO.AsInteger > 0;
 
   Grid.Columns[2].ReadOnly := false;
   
@@ -793,12 +792,10 @@ begin
     if QFacturaPED_NUMERO.IsNull then
     begin
       QDetalle.Edit;
-      
       if uppercase(key) = 'E' then
         QDetalleDET_MEDIDA.Value := 'Emp'
       else if uppercase(key) = 'U' then
         QDetalleDET_MEDIDA.Value := 'Und';
-
     end;
   end;
   if uppercase(Grid.Columns[Grid.selectedindex].FieldName) = 'PRO_UNIDAD_MEDIDA' then
@@ -874,7 +871,10 @@ begin
       else if dm.QParametrosPAR_CODIGOPRODUCTO.value = 'F' then
          QDetallePRO_RFABRIC.value := frmBuscaProducto.QProductosPRO_RFABRIC.value
       else if dm.QParametrosPAR_CODIGOPRODUCTO.value = 'O' then
-         QDetallePRO_RORIGINAL.value := frmBuscaProducto.QProductosPRO_RORIGINAL.value;
+      begin
+        QDetallePRO_RORIGINAL.value := frmBuscaProducto.QProductosPRO_RORIGINAL.value
+      end;
+
 
       if frmBuscaProducto.ckactiva.Checked then
       begin
@@ -893,7 +893,7 @@ procedure TfrmFacProvee.QDetallePRO_CODIGOChange(Sender: TField);
 var
   cod : integer;
 begin
- if dm.QParametrosPAR_CODIGOPRODUCTO.value = 'I' then
+ if ((dm.QParametrosPAR_CODIGOPRODUCTO.value = 'I') ) then
   begin
     if not QDetallePRO_CODIGO.isnull then
     begin
@@ -994,7 +994,7 @@ begin
   vRetencion := QFacturaFAC_retencion.value;
   vRetencionISR := QFacturafac_retencion_isr.value;
   vSubtotal := (vGrabado + vExento + vFlete + vSelectivo_ad + vSelectivo + vServicios+ vPropinaLegal);
-  QfacturaTotal.Value := (vSubtotal- vDescuento) + vItbis + vOtrosImp - (vRetencion + vRetencionISR);
+  QfacturaTotal.Value := (vSubtotal- vDescuento) + vItbis + vOtrosImp- (vRetencion + vRetencionISR);
   lbdiferencia.Caption := format('%n',[Creditos-Debitos-vDescuento]);
 end;
 
@@ -1002,6 +1002,7 @@ procedure TfrmFacProvee.btGRabarClick(Sender: TObject);
 var
   a : integer;
   realiza, Grabar : boolean;
+  costo, codigo, empCodigo: String;
 begin
   //Verificar fecha de factura
   dm.Query1.Close;
@@ -1161,11 +1162,26 @@ begin
             QDetalleFAC_NUMERO.Value    := QFacturaFAC_NUMERO.Value;
             QDetalleSUP_CODIGO.Value    := QFacturaSUP_CODIGO.Value;
 
-            dm.ADOSigma.Execute('update productos '+
+              // Asegurarse de que el costo no sea vacío y asignar un valor por defecto
+              if Trim(QDetalleDET_COSTO.Text) = '' then
+                costo := '0'  // O el valor predeterminado que consideres apropiado
+              else
+                costo := QDetalleDET_COSTO.Text;
+
+              // Asignar valores de los otros campos
+              codigo := QDetallePRO_CODIGO.Text;
+              empCodigo := QDetalleEMP_CODIGO.Text;
+
+              // Ejecutar la consulta SQL con los valores verificados
+              dm.ADOSigma.Execute('update productos set pro_costo = case when ' + costo +
+                      ' <> pro_costo then ' + costo + ' else pro_costo end' +
+                      ' where pro_codigo = ' + codigo + ' and emp_codigo = ' + empCodigo);
+
+            {dm.ADOSigma.Execute('update productos '+
             '  set pro_costo = case when '+QDetalleDET_COSTO.Text+ ' <> pro_costo then '+QDetalleDET_COSTO.Text +' else pro_costo end'+
             ' where pro_codigo ='+QDetallePRO_CODIGO.Text + ' and emp_codigo = '+QDetalleEMP_CODIGO.Text);
 
-
+                     }
             {IF DM.QParametrospar_modifica_precio_automatico.Value = 'True'  then begin
             dm.ADOSigma.Execute('update productos '+
             '  set pro_beneficio = case when '+QDetallePRO_BENEFICIO.Text+ ' <> pro_beneficio then '+QDetallePRO_BENEFICIO.Text +' else pro_beneficio end'+
@@ -1497,12 +1513,6 @@ begin
     Grid.Columns[1].Width := Grid.Columns[1].Width + 30;
   end;
 
-  if dm.QParametrosPAR_UnidadMedida_Producto.Value <> true then
-  begin
-    Grid.Columns[4].Visible := False;
-    Grid.Columns[1].Width := Grid.Columns[1].Width + 30;
-  end;
-
   if dm.QParametrosPAR_FACMEDIDA.Value <> 'True' then
   begin
     Grid.Columns[5].Visible := False;
@@ -1540,8 +1550,8 @@ begin
   end
   else
   begin
-    QDetalleCalcCosto.Value    := 0;
-    QDetalleCalcCostoemp.Value := 0;
+    QDetalleCalcCosto.Value    := QDetalleDET_COSTOUND.Value;//0;
+    QDetalleCalcCostoemp.Value := QDetalleDET_COSTOEMP.Value;//0;
   end;
   QDetalleValorItbisUnd.value := QDetalleCalcCosto.Value + QDetalleDET_COSTOUND.Value;
   QDetalleValorItbisEmp.value := QDetalleCalcCostoemp.Value + QDetalleDET_COSTOEMP.Value;
@@ -2444,7 +2454,7 @@ begin
       CantLineas := CantLineas + 1;
       if dm.QParametrospar_inv_unidad_medida.Value <> 'True' then
       begin
-        if QDetalledet_medida.Value = 'Und' then
+        if (QDetalledet_medida.Value = 'Und') or (QDetalledet_medida.Value = 'UND') then
         begin
           if QDetalleDET_ITBIS.AsFloat = 0 then
             Exento := Exento + (QDetallePrecioItbis.Value * QDetalleDET_CANTIDAD.Value)
@@ -3900,7 +3910,7 @@ begin
     Totaliza := True;
     QDetalle.close;
     QDetalle.open;
-    //QDetalle.disablecontrols;
+    QDetalle.disablecontrols;
     QDetalle.First;
     while not QUtil.Eof do
     begin
@@ -4824,8 +4834,7 @@ begin
       QCuentasDET_ORIGEN.Value := 'Credito';
       QCuentasDET_MONTO.Value  := (QFacturaFAC_EXENTO.Value + QFacturaFAC_GRABADO.Value +
       QFacturafac_flete.Value + QFacturafac_selectivo.Value + QFacturafac_servicios.Value+
-      QFacturaFAC_ITBIS.Value +
-      QFacturafac_proplegal.Value + QFacturafac_otrosimpuestos.Value)-
+      QFacturaFAC_ITBIS.Value + QFacturafac_proplegal.Value + QFacturafac_otrosimpuestos.Value)-
       (QFacturaFAC_DESCUENTO.Value + QFacturafac_retencion.Value + QFacturafac_retencion_isr.Value);
       QCuentas.Post;
     End;

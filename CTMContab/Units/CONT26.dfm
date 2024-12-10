@@ -1,6 +1,6 @@
 object frmConsBalances: TfrmConsBalances
-  Left = 309
-  Top = 160
+  Left = 308
+  Top = 159
   ActiveControl = edCuenta
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle

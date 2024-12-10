@@ -1,6 +1,6 @@
 object frmRepConciliacion: TfrmRepConciliacion
-  Left = 391
-  Top = 263
+  Left = 390
+  Top = 262
   ActiveControl = edBanco
   BorderStyle = bsSingle
   Caption = 'Reporte de Conciliaci'#243'n'
@@ -1903,6 +1903,7 @@ object frmRepConciliacion: TfrmRepConciliacion
   object QConciliacion: TADOQuery
     Connection = DM.ADOSigma
     AfterPost = QConciliacionAfterPost
+    DataSource = DM.dsEmpresas
     Parameters = <
       item
         Name = 'emp'
@@ -2029,6 +2030,7 @@ object frmRepConciliacion: TfrmRepConciliacion
   end
   object Query2: TADOQuery
     Connection = DM.ADOSigma
+    DataSource = DM.dsEmpresas
     Parameters = <>
     Left = 232
     Top = 184
@@ -2187,6 +2189,7 @@ object frmRepConciliacion: TfrmRepConciliacion
   end
   object qChequesTrans: TADOQuery
     Connection = DM.ADOSigma
+    DataSource = DM.dsEmpresas
     Parameters = <
       item
         Name = 'EMP'

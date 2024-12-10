@@ -323,7 +323,26 @@ object frmRepResultadoAnual: TfrmRepResultadoAnual
     Options.CaptionsFormat.Font.Style = [xfsBold]
     FieldFormats = <>
     StripStyles = <>
-    Sheets = <>
+    Sheets = <
+      item
+        Title = 'Sheet 1'
+        Options.PageFooter = 'Page &P of &N'
+        Options.SheetTitle = 'Sheet 1'
+        Options.CaptionsFormat.Font.Style = [xfsBold]
+        FieldFormats = <>
+        StripStyles = <>
+        DataSet = QEstado
+        Formats.DateTimeFormat = 'M/d/yyyy h:mm AMPM'
+        Formats.IntegerFormat = '#,###,##0'
+        Formats.CurrencyFormat = '00.00$'
+        Formats.FloatFormat = '#,###,##0.00'
+        Formats.DateFormat = 'M/d/yyyy'
+        Formats.TimeFormat = 'h:mm AMPM'
+        Formats.BooleanTrue = 'true'
+        Formats.BooleanFalse = 'false'
+        Formats.NullString = 'null'
+        OnlyVisibleFields = False
+      end>
     Left = 216
     Top = 168
   end

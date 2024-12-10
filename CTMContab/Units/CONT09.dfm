@@ -1,6 +1,6 @@
 object frmBancos: TfrmBancos
-  Left = 552
-  Top = 225
+  Left = 483
+  Top = 159
   BorderIcons = [biSystemMenu, biMinimize, biHelp]
   BorderStyle = bsSingle
   Caption = 'Bancos'
@@ -196,6 +196,13 @@ object frmBancos: TfrmBancos
         Height = 13
         Caption = 'Balance m'#237'nimo'
         FocusControl = DBEdit3
+      end
+      object Label18: TLabel
+        Left = 184
+        Top = 179
+        Width = 33
+        Height = 14
+        Caption = 'C'#243'digo'
       end
       object DBEdit2: TDBEdit
         Left = 96
@@ -486,6 +493,24 @@ object frmBancos: TfrmBancos
         TabOrder = 17
         ValueChecked = 'True'
         ValueUnchecked = 'False'
+      end
+      object DBEdit16: TDBEdit
+        Left = 233
+        Top = 176
+        Width = 120
+        Height = 21
+        BevelKind = bkFlat
+        BorderStyle = bsNone
+        CharCase = ecUpperCase
+        DataField = 'codigo_banco'
+        DataSource = dsBancos
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 18
       end
     end
     object TabSheet2: TTabSheet
@@ -785,7 +810,7 @@ object frmBancos: TfrmBancos
         'mon_codigo, ban_idioma_numeracion, ban_tarjeta, ban_tipo_secuenc' +
         'ia,'
       'ban_permite_sobregiro, ban_monto_sobregiro, ban_balance_minimo,'
-      'ban_tipo_cuenta, ban_imprime_negritas'
+      'ban_tipo_cuenta, ban_imprime_negritas,codigo_banco'
       'FROM'
       'BANCOS'
       'WHERE '
@@ -891,6 +916,10 @@ object frmBancos: TfrmBancos
     end
     object QBancosban_imprime_negritas: TBooleanField
       FieldName = 'ban_imprime_negritas'
+    end
+    object QBancoscodigo_banco: TStringField
+      FieldName = 'codigo_banco'
+      Size = 60
     end
   end
   object dsBancos: TDataSource

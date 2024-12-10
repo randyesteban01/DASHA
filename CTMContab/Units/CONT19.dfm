@@ -328,14 +328,13 @@ object frmRepDiario: TfrmRepDiario
     TabOrder = 0
   end
   object Search: TQrySearchDlgADO
-    AliasName = DM.ADOSigma
     Left = 304
     Top = 40
   end
   object QSucursal: TADOQuery
     Connection = DM.ADOSigma
     LockType = ltReadOnly
-    DataSource = DM.dsEmpresas
+    DataSource = DM.dsParametros
     Parameters = <
       item
         Name = 'emp_codigo'

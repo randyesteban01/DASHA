@@ -1,6 +1,6 @@
 object frmProductos: TfrmProductos
-  Left = 347
-  Top = 176
+  Left = 381
+  Top = 158
   HelpContext = 5
   BorderIcons = [biSystemMenu, biMinimize, biHelp]
   BorderStyle = bsSingle
@@ -36,8 +36,8 @@ object frmProductos: TfrmProductos
     BevelOuter = bvLowered
     TabOrder = 1
     object btPost: TBitBtn
-      Left = 7
-      Top = 8
+      Left = 6
+      Top = 11
       Width = 75
       Height = 25
       Caption = '&Grabar'
@@ -107,7 +107,7 @@ object frmProductos: TfrmProductos
       Top = 72
       Width = 75
       Height = 25
-      Caption = '&Buscar'
+      Caption = 'Buscar'
       TabOrder = 3
       TabStop = False
       OnClick = btFindClick
@@ -201,6 +201,7 @@ object frmProductos: TfrmProductos
       Height = 25
       Caption = 'Vencimiento'
       TabOrder = 7
+      Visible = False
       OnClick = btvenceClick
     end
     object lbcomentario: TStaticText
@@ -498,8 +499,8 @@ object frmProductos: TfrmProductos
       object Label38: TLabel
         Left = 280
         Top = 0
-        Width = 50
-        Height = 26
+        Width = 44
+        Height = 39
         Caption = 'Inv. Inicial Empaque'
         FocusControl = DBEdit18
         WordWrap = True
@@ -652,7 +653,7 @@ object frmProductos: TfrmProductos
         Font.Name = 'Tahoma'
         Font.Style = [fsBold]
         ParentFont = False
-        TabOrder = 27
+        TabOrder = 25
       end
       object DBEdit20: TDBEdit
         Left = 88
@@ -686,7 +687,7 @@ object frmProductos: TfrmProductos
         Font.Name = 'Tahoma'
         Font.Style = [fsBold]
         ParentFont = False
-        TabOrder = 28
+        TabOrder = 26
       end
       object DBEdit24: TDBEdit
         Left = 280
@@ -718,7 +719,7 @@ object frmProductos: TfrmProductos
         DataSource = dsProductos
         ParentShowHint = False
         ShowHint = True
-        TabOrder = 29
+        TabOrder = 27
         ValueChecked = 'True'
         ValueUnchecked = 'False'
       end
@@ -754,7 +755,7 @@ object frmProductos: TfrmProductos
         Font.Name = 'Tahoma'
         Font.Style = [fsBold]
         ParentFont = False
-        TabOrder = 31
+        TabOrder = 29
       end
       object DBEdit13: TDBEdit
         Left = 88
@@ -788,7 +789,7 @@ object frmProductos: TfrmProductos
         Font.Name = 'Tahoma'
         Font.Style = [fsBold]
         ParentFont = False
-        TabOrder = 32
+        TabOrder = 30
       end
       object DBEdit21: TDBEdit
         Left = 448
@@ -805,7 +806,7 @@ object frmProductos: TfrmProductos
         Font.Name = 'Tahoma'
         Font.Style = []
         ParentFont = False
-        TabOrder = 25
+        TabOrder = 23
       end
       object ckVecimiento: TDBCheckBox
         Left = 392
@@ -816,7 +817,7 @@ object frmProductos: TfrmProductos
         Caption = 'Tiene fecha de vencimiento'
         DataField = 'PRO_VENCE'
         DataSource = dsProductos
-        TabOrder = 30
+        TabOrder = 28
         ValueChecked = 'True'
         ValueUnchecked = 'False'
       end
@@ -871,7 +872,7 @@ object frmProductos: TfrmProductos
         Font.Name = 'Tahoma'
         Font.Style = [fsBold]
         ParentFont = False
-        TabOrder = 33
+        TabOrder = 31
       end
       object DBEdit31: TDBEdit
         Left = 88
@@ -918,7 +919,7 @@ object frmProductos: TfrmProductos
         Caption = 'El producto maneja escalas'
         DataField = 'PRO_ESCALA'
         DataSource = dsProductos
-        TabOrder = 34
+        TabOrder = 32
         ValueChecked = 'True'
         ValueUnchecked = 'False'
       end
@@ -937,7 +938,7 @@ object frmProductos: TfrmProductos
         Font.Name = 'Tahoma'
         Font.Style = []
         ParentFont = False
-        TabOrder = 19
+        TabOrder = 18
       end
       object DBEdit14: TDBEdit
         Left = 88
@@ -957,7 +958,7 @@ object frmProductos: TfrmProductos
         Font.Name = 'Tahoma'
         Font.Style = [fsBold]
         ParentFont = False
-        TabOrder = 35
+        TabOrder = 33
       end
       object DBEdit34: TDBEdit
         Left = 256
@@ -977,24 +978,7 @@ object frmProductos: TfrmProductos
         Font.Name = 'Tahoma'
         Font.Style = [fsBold]
         ParentFont = False
-        TabOrder = 36
-      end
-      object DBEdit35: TDBEdit
-        Left = 88
-        Top = 348
-        Width = 87
-        Height = 21
-        BevelKind = bkFlat
-        BorderStyle = bsNone
-        DataField = 'PRO_COSTOEMPAQUE'
-        DataSource = dsProductos
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -11
-        Font.Name = 'Tahoma'
-        Font.Style = []
-        ParentFont = False
-        TabOrder = 20
+        TabOrder = 34
       end
       object DBCheckBox1: TDBCheckBox
         Left = 392
@@ -1005,7 +989,7 @@ object frmProductos: TfrmProductos
         Caption = 'El producto tiene combo'
         DataField = 'PRO_COMBO'
         DataSource = dsProductos
-        TabOrder = 37
+        TabOrder = 35
         ValueChecked = 'True'
         ValueUnchecked = 'False'
       end
@@ -1036,7 +1020,7 @@ object frmProductos: TfrmProductos
         Caption = 'Controlado por DNCD'
         DataField = 'PRO_CONTROLADO'
         DataSource = dsProductos
-        TabOrder = 38
+        TabOrder = 36
         ValueChecked = 'True'
         ValueUnchecked = 'False'
       end
@@ -1049,7 +1033,7 @@ object frmProductos: TfrmProductos
         Caption = 'Se vende detallado'
         DataField = 'PRO_DETALLADO'
         DataSource = dsProductos
-        TabOrder = 39
+        TabOrder = 37
         ValueChecked = 'True'
         ValueUnchecked = 'False'
       end
@@ -1070,7 +1054,7 @@ object frmProductos: TfrmProductos
         Font.Name = 'Tahoma'
         Font.Style = [fsBold]
         ParentFont = False
-        TabOrder = 18
+        TabOrder = 17
       end
       object DBEdit44: TDBEdit
         Left = 184
@@ -1089,26 +1073,7 @@ object frmProductos: TfrmProductos
         Font.Name = 'Tahoma'
         Font.Style = [fsBold]
         ParentFont = False
-        TabOrder = 40
-      end
-      object DBEdit45: TDBEdit
-        Left = 256
-        Top = 348
-        Width = 129
-        Height = 21
-        BevelKind = bkFlat
-        BorderStyle = bsNone
-        Color = clInfoBk
-        DataField = 'ValorEmp'
-        DataSource = dsProductos
-        Enabled = False
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -11
-        Font.Name = 'Tahoma'
-        Font.Style = [fsBold]
-        ParentFont = False
-        TabOrder = 41
+        TabOrder = 38
       end
       object tUsuario: TEdit
         Left = 392
@@ -1126,7 +1091,7 @@ object frmProductos: TfrmProductos
         Font.Style = [fsBold]
         ParentFont = False
         ReadOnly = True
-        TabOrder = 42
+        TabOrder = 39
       end
       object DBEdit47: TDBEdit
         Left = 88
@@ -1137,7 +1102,7 @@ object frmProductos: TfrmProductos
         BorderStyle = bsNone
         DataField = 'pro_selectivo_con'
         DataSource = dsProductos
-        TabOrder = 21
+        TabOrder = 19
       end
       object DBEdit51: TDBEdit
         Left = 88
@@ -1189,7 +1154,7 @@ object frmProductos: TfrmProductos
         Font.Name = 'Tahoma'
         Font.Style = [fsBold]
         ParentFont = False
-        TabOrder = 43
+        TabOrder = 40
       end
       object DBEdit27: TDBEdit
         Left = 88
@@ -1223,7 +1188,7 @@ object frmProductos: TfrmProductos
         Font.Name = 'Tahoma'
         Font.Style = [fsBold]
         ParentFont = False
-        TabOrder = 44
+        TabOrder = 41
       end
       object DBCheckBox4: TDBCheckBox
         Left = 392
@@ -1234,7 +1199,7 @@ object frmProductos: TfrmProductos
         Caption = 'Es un producto patrocinador'
         DataField = 'pro_patrocinador'
         DataSource = dsProductos
-        TabOrder = 45
+        TabOrder = 42
         ValueChecked = 'True'
         ValueUnchecked = 'False'
       end
@@ -1244,7 +1209,7 @@ object frmProductos: TfrmProductos
         Width = 177
         Height = 25
         Caption = '[F2] - Precios x Unidad de Medida'
-        TabOrder = 46
+        TabOrder = 43
         OnClick = btpreciosClick
       end
       object DBCheckBox5: TDBCheckBox
@@ -1256,7 +1221,7 @@ object frmProductos: TfrmProductos
         Caption = 'Utiliza medidor'
         DataField = 'pro_utilizamedidor'
         DataSource = dsProductos
-        TabOrder = 47
+        TabOrder = 44
         ValueChecked = 'True'
         ValueUnchecked = 'False'
       end
@@ -1276,7 +1241,7 @@ object frmProductos: TfrmProductos
         Font.Name = 'Tahoma'
         Font.Style = []
         ParentFont = False
-        TabOrder = 24
+        TabOrder = 22
       end
       object DBCheckBox6: TDBCheckBox
         Left = 392
@@ -1287,7 +1252,7 @@ object frmProductos: TfrmProductos
         Caption = 'Utiliza Envios'
         DataField = 'pro_UtilizaEnvio'
         DataSource = dsProductos
-        TabOrder = 48
+        TabOrder = 45
         ValueChecked = 'True'
         ValueUnchecked = 'False'
       end
@@ -1300,7 +1265,7 @@ object frmProductos: TfrmProductos
         Caption = 'Tiene Garantia'
         DataField = 'pro_Garantia'
         DataSource = dsProductos
-        TabOrder = 49
+        TabOrder = 46
         ValueChecked = 'S'
         ValueUnchecked = 'N'
       end
@@ -1313,7 +1278,7 @@ object frmProductos: TfrmProductos
         BorderStyle = bsNone
         DataField = 'pro_Garantia_Cantidad'
         DataSource = dsProductos
-        TabOrder = 23
+        TabOrder = 21
       end
       object DBComboBox1: TDBComboBox
         Left = 88
@@ -1328,7 +1293,7 @@ object frmProductos: TfrmProductos
           'DIA'
           'MES'
           'A'#209'O')
-        TabOrder = 22
+        TabOrder = 20
       end
       object DBCheckBox8: TDBCheckBox
         Left = 256
@@ -1346,7 +1311,7 @@ object frmProductos: TfrmProductos
         Font.Name = 'Tahoma'
         Font.Style = [fsBold]
         ParentFont = False
-        TabOrder = 50
+        TabOrder = 47
         ValueChecked = 'S'
         ValueUnchecked = 'N'
       end
@@ -1359,7 +1324,7 @@ object frmProductos: TfrmProductos
         Caption = 'Utiliza Alquiler'
         DataField = 'pro_UtilizaAlquiler'
         DataSource = dsProductos
-        TabOrder = 51
+        TabOrder = 48
         ValueChecked = 'True'
         ValueUnchecked = 'False'
       end
@@ -1369,7 +1334,7 @@ object frmProductos: TfrmProductos
         Width = 173
         Height = 162
         ActivePage = TabSheet8
-        TabOrder = 26
+        TabOrder = 24
         OnChange = PageControl3Change
         object TabSheet8: TTabSheet
           Caption = 'Precios y %Beneficio'
@@ -1460,12 +1425,13 @@ object frmProductos: TfrmProductos
             Top = 0
             DataBinding.DataField = 'PRO_BENEFICIO'
             DataBinding.DataSource = dsProductos
-            Properties.AssignedValues.EditFormat = True
             Properties.AssignedValues.MinValue = True
             Properties.DisplayFormat = '#,0.00'
+            Properties.EditFormat = '#,0.00'
             Properties.NullString = '0.00'
+            Properties.UseDisplayFormatWhenEditing = True
             TabOrder = 0
-            OnKeyDown = CEdt_Ben1KeyDown
+            OnExit = CEdt_Ben1Exit
             Width = 44
           end
           object CEdt_BEN2: TcxDBCurrencyEdit
@@ -1473,12 +1439,13 @@ object frmProductos: TfrmProductos
             Top = 22
             DataBinding.DataField = 'PRO_BENEFICIO2'
             DataBinding.DataSource = dsProductos
-            Properties.AssignedValues.EditFormat = True
             Properties.AssignedValues.MinValue = True
             Properties.DisplayFormat = '#,0.00'
+            Properties.EditFormat = '#,0.00'
             Properties.NullString = '0.00'
+            Properties.UseDisplayFormatWhenEditing = True
             TabOrder = 2
-            OnKeyDown = CEdt_BEN2KeyDown
+            OnExit = CEdt_BEN2Exit
             Width = 44
           end
           object CEdt_BEN3: TcxDBCurrencyEdit
@@ -1486,12 +1453,13 @@ object frmProductos: TfrmProductos
             Top = 44
             DataBinding.DataField = 'PRO_BENEFICIO3'
             DataBinding.DataSource = dsProductos
-            Properties.AssignedValues.EditFormat = True
             Properties.AssignedValues.MinValue = True
             Properties.DisplayFormat = '#,0.00'
+            Properties.EditFormat = '#,0.00'
             Properties.NullString = '0.00'
+            Properties.UseDisplayFormatWhenEditing = True
             TabOrder = 4
-            OnKeyDown = CEdt_BEN3KeyDown
+            OnExit = CEdt_BEN3Exit
             Width = 44
           end
           object CEdt_BEN4: TcxDBCurrencyEdit
@@ -1499,12 +1467,13 @@ object frmProductos: TfrmProductos
             Top = 66
             DataBinding.DataField = 'PRO_BENEFICIO4'
             DataBinding.DataSource = dsProductos
-            Properties.AssignedValues.EditFormat = True
             Properties.AssignedValues.MinValue = True
             Properties.DisplayFormat = '#,0.00'
+            Properties.EditFormat = '#,0.00'
             Properties.NullString = '0.00'
+            Properties.UseDisplayFormatWhenEditing = True
             TabOrder = 6
-            OnKeyDown = CEdt_BEN4KeyDown
+            OnExit = CEdt_BEN4Exit
             Width = 44
           end
           object CEdt_PRECIO1: TcxDBCurrencyEdit
@@ -1512,10 +1481,11 @@ object frmProductos: TfrmProductos
             Top = 0
             DataBinding.DataField = 'PRO_PRECIO1'
             DataBinding.DataSource = dsProductos
-            Properties.AssignedValues.EditFormat = True
             Properties.AssignedValues.MinValue = True
             Properties.DisplayFormat = '#,0.00'
+            Properties.EditFormat = '#,0.00'
             Properties.NullString = '0.00'
+            Properties.UseDisplayFormatWhenEditing = True
             TabOrder = 1
             OnExit = CEdt_PRECIO1Exit
             OnKeyDown = CEdt_PRECIO1KeyDown
@@ -1526,13 +1496,13 @@ object frmProductos: TfrmProductos
             Top = 22
             DataBinding.DataField = 'PRO_PRECIO2'
             DataBinding.DataSource = dsProductos
-            Properties.AssignedValues.EditFormat = True
             Properties.AssignedValues.MinValue = True
             Properties.DisplayFormat = '#,0.00'
+            Properties.EditFormat = '#,0.00'
             Properties.NullString = '0.00'
+            Properties.UseDisplayFormatWhenEditing = True
             TabOrder = 3
             OnExit = CEdt_PRECIO2Exit
-            OnKeyDown = CEdt_PRECIO2KeyDown
             Width = 73
           end
           object CEdt_PRECIO3: TcxDBCurrencyEdit
@@ -1540,13 +1510,13 @@ object frmProductos: TfrmProductos
             Top = 44
             DataBinding.DataField = 'PRO_PRECIO3'
             DataBinding.DataSource = dsProductos
-            Properties.AssignedValues.EditFormat = True
             Properties.AssignedValues.MinValue = True
             Properties.DisplayFormat = '#,0.00'
+            Properties.EditFormat = '#,0.00'
             Properties.NullString = '0.00'
+            Properties.UseDisplayFormatWhenEditing = True
             TabOrder = 5
             OnExit = CEdt_PRECIO3Exit
-            OnKeyDown = CEdt_PRECIO3KeyDown
             Width = 73
           end
           object CEdt_PRECIO4: TcxDBCurrencyEdit
@@ -1554,13 +1524,13 @@ object frmProductos: TfrmProductos
             Top = 66
             DataBinding.DataField = 'PRO_PRECIO4'
             DataBinding.DataSource = dsProductos
-            Properties.AssignedValues.EditFormat = True
             Properties.AssignedValues.MinValue = True
             Properties.DisplayFormat = '#,0.00'
+            Properties.EditFormat = '#,0.00'
             Properties.NullString = '0.00'
+            Properties.UseDisplayFormatWhenEditing = True
             TabOrder = 7
             OnExit = CEdt_PRECIO4Exit
-            OnKeyDown = CEdt_PRECIO4KeyDown
             Width = 73
           end
         end
@@ -1699,7 +1669,7 @@ object frmProductos: TfrmProductos
         Style.Font.Name = 'Tahoma'
         Style.Font.Style = [fsBold]
         Style.IsFontAssigned = True
-        TabOrder = 52
+        TabOrder = 49
         Width = 113
       end
       object CEdt_Costo: TcxDBCurrencyEdit
@@ -1722,7 +1692,7 @@ object frmProductos: TfrmProductos
         Style.Font.Name = 'Tahoma'
         Style.Font.Style = [fsBold]
         Style.IsFontAssigned = True
-        TabOrder = 17
+        TabOrder = 16
         OnExit = CEdt_CostoExit
         Width = 86
       end
@@ -1759,16 +1729,74 @@ object frmProductos: TfrmProductos
           '13'
           '16'
           '18')
+        Properties.MaxLength = 0
         TabOrder = 15
         Width = 54
       end
-      object cxDBSpinEdit1: TcxDBSpinEdit
+      object dbedtPRO_DESCMAX: TDBEdit
         Left = 333
         Top = 274
-        DataBinding.DataField = 'PRO_DESCMAX'
+        Width = 51
+        Height = 20
+        BevelKind = bkFlat
+        BorderStyle = bsNone
+        DataField = 'PRO_DESCMAX'
+        DataSource = dsProductos
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 50
+        OnKeyPress = dbedtPRO_DESCMAXKeyPress
+      end
+      object CEdt_ValorEmp: TcxDBCurrencyEdit
+        Left = 272
+        Top = 347
+        DataBinding.DataField = 'ValorEmp'
         DataBinding.DataSource = dsProductos
-        TabOrder = 16
-        Width = 49
+        ParentFont = False
+        Properties.Alignment.Horz = taRightJustify
+        Properties.AssignedValues.EditFormat = True
+        Properties.AssignedValues.MinValue = True
+        Properties.DisplayFormat = '#,0.00'
+        Properties.NullString = '0.00'
+        Properties.UseDisplayFormatWhenEditing = True
+        Properties.OnChange = CEdt_ValorPropertiesChange
+        Style.Color = clInfoBk
+        Style.Font.Charset = ANSI_CHARSET
+        Style.Font.Color = clWindowText
+        Style.Font.Height = -11
+        Style.Font.Name = 'Tahoma'
+        Style.Font.Style = [fsBold]
+        Style.IsFontAssigned = True
+        TabOrder = 51
+        Width = 113
+      end
+      object CEdt_CostoEmp: TcxDBCurrencyEdit
+        Left = 88
+        Top = 348
+        DataBinding.DataField = 'PRO_COSTOEMPAQUE'
+        DataBinding.DataSource = dsProductos
+        ParentFont = False
+        Properties.Alignment.Horz = taRightJustify
+        Properties.AssignedValues.EditFormat = True
+        Properties.AssignedValues.MinValue = True
+        Properties.DisplayFormat = '#,0.00'
+        Properties.NullString = '0.00'
+        Properties.UseDisplayFormatWhenEditing = True
+        Properties.OnChange = CEdt_ValorPropertiesChange
+        Style.Color = clWhite
+        Style.Font.Charset = ANSI_CHARSET
+        Style.Font.Color = clWindowText
+        Style.Font.Height = -11
+        Style.Font.Name = 'Tahoma'
+        Style.Font.Style = [fsBold]
+        Style.IsFontAssigned = True
+        TabOrder = 52
+        OnExit = CEdt_CostoExit
+        Width = 86
       end
     end
     object TabSheet15: TTabSheet
@@ -1948,7 +1976,6 @@ object frmProductos: TfrmProductos
             ReadOnly = True
             Title.Alignment = taCenter
             Title.Caption = 'Exist. Emp.'
-            Width = 74
             Visible = True
           end>
       end
@@ -4262,11 +4289,11 @@ object frmProductos: TfrmProductos
     Connection = DM.ADOSigma
     CursorType = ctStatic
     LockType = ltBatchOptimistic
-    BeforeOpen = QProductosBeforeOpen
     AfterInsert = QProductosAfterInsert
     AfterEdit = QProductosAfterEdit
     BeforePost = QProductosBeforePost
     AfterPost = QProductosAfterPost
+    AfterCancel = QCompetenciaAfterPost
     AfterDelete = QProductosAfterDelete
     OnCalcFields = QProductosCalcFields
     OnNewRecord = QProductosNewRecord
@@ -4327,7 +4354,7 @@ object frmProductos: TfrmProductos
       
         'pro_UtilizaAlquiler,pro_Uni_AlquilerID,pro_Alq_recargo,pro_Alq_s' +
         'tatus,pro_Uni_Alq_cantidad, '
-      'modulo_anterior, modulo_actual'
+      'modulo_anterior, modulo_actual, FECHA_CREACION'
       'from '
       'PRODUCTOS'
       'where '
@@ -4371,11 +4398,9 @@ object frmProductos: TfrmProductos
     end
     object QProductosPRO_DESCMAX: TFloatField
       FieldName = 'PRO_DESCMAX'
-      currency = True
     end
     object QProductosPRO_ULTCOSTO: TFloatField
       FieldName = 'PRO_ULTCOSTO'
-      currency = True
     end
     object QProductosPRO_DISPLAY: TIBStringField
       FieldName = 'PRO_DISPLAY'
@@ -4429,7 +4454,7 @@ object frmProductos: TfrmProductos
     object QProductosPRO_BENEFICIO: TFloatField
       FieldName = 'PRO_BENEFICIO'
       Origin = 'PRODUCTOS.PRO_BENEFICIO'
-      currency = True
+      EditFormat = '#,0.00'
     end
     object QProductosPRO_ESCALA: TIBStringField
       FieldName = 'PRO_ESCALA'
@@ -4449,7 +4474,6 @@ object frmProductos: TfrmProductos
     object QProductosPRO_COMISION: TFloatField
       FieldName = 'PRO_COMISION'
       Origin = 'PRODUCTOS.PRO_COMISION'
-      currency = True
     end
     object QProductosPRO_VENCE: TIBStringField
       FieldName = 'PRO_VENCE'
@@ -4459,17 +4483,17 @@ object frmProductos: TfrmProductos
     object QProductosPRO_BENEFICIO2: TFloatField
       FieldName = 'PRO_BENEFICIO2'
       Origin = 'PRODUCTOS.PRO_BENEFICIO2'
-      currency = True
+      EditFormat = '#,0.00'
     end
     object QProductosPRO_BENEFICIO3: TFloatField
       FieldName = 'PRO_BENEFICIO3'
       Origin = 'PRODUCTOS.PRO_BENEFICIO3'
-      currency = True
+      EditFormat = '#,0.00'
     end
     object QProductosPRO_BENEFICIO4: TFloatField
       FieldName = 'PRO_BENEFICIO4'
       Origin = 'PRODUCTOS.PRO_BENEFICIO4'
-      currency = True
+      EditFormat = '#,0.00'
     end
     object QProductosPRO_USO: TIBStringField
       FieldName = 'PRO_USO'
@@ -4484,22 +4508,18 @@ object frmProductos: TfrmProductos
     object QProductosPRO_COSTOUS: TFloatField
       FieldName = 'PRO_COSTOUS'
       Origin = 'PRODUCTOS.PRO_COSTOUS'
-      currency = True
     end
     object QProductosPRO_TASACOMPRA: TFloatField
       FieldName = 'PRO_TASACOMPRA'
       Origin = 'PRODUCTOS.PRO_TASACOMPRA'
-      currency = True
-    end
-    object QProductosPRO_TASAVENTA: TFloatField
-      FieldName = 'PRO_TASAVENTA'
-      Origin = 'PRODUCTOS.PRO_TASAVENTA'
-      currency = True
     end
     object QProductosPRO_PRECIOMENOR: TFloatField
       FieldName = 'PRO_PRECIOMENOR'
       Origin = 'PRODUCTOS.PRO_PRECIOMENOR'
-      currency = True
+    end
+    object QProductosPRO_TASAVENTA: TFloatField
+      FieldName = 'PRO_TASAVENTA'
+      Origin = 'PRODUCTOS.PRO_TASAVENTA'
     end
     object QProductosPRO_EXISTEMPAQUE: TFloatField
       FieldName = 'PRO_EXISTEMPAQUE'
@@ -4514,7 +4534,6 @@ object frmProductos: TfrmProductos
       FieldName = 'PRO_COSTOEMPAQUE'
       Origin = 'PRODUCTOS.PRO_COSTOEMPAQUE'
       OnChange = QProductosPRO_COSTOEMPAQUEChange
-      currency = True
     end
     object QProductosPRO_COMBO: TIBStringField
       FieldName = 'PRO_COMBO'
@@ -4536,7 +4555,6 @@ object frmProductos: TfrmProductos
     object QProductosPRO_PRECIOMENOREMP: TFloatField
       FieldName = 'PRO_PRECIOMENOREMP'
       Origin = 'PRODUCTOS.PRO_PRECIOMENOREMP'
-      currency = True
     end
     object QProductosPRO_ALMACENBAR: TIntegerField
       FieldName = 'PRO_ALMACENBAR'
@@ -4547,7 +4565,6 @@ object frmProductos: TfrmProductos
     end
     object QProductosPRO_COMISIONDESCUENTO: TBCDField
       FieldName = 'PRO_COMISIONDESCUENTO'
-      currency = True
       Precision = 15
       Size = 2
     end
@@ -4568,7 +4585,6 @@ object frmProductos: TfrmProductos
       FieldKind = fkCalculated
       FieldName = 'CalcCosto'
       DisplayFormat = '#,0.00'
-      currency = True
       Calculated = True
     end
     object QProductosCalcCostoEmp: TFloatField
@@ -4576,7 +4592,6 @@ object frmProductos: TfrmProductos
       FieldKind = fkCalculated
       FieldName = 'CalcCostoEmp'
       DisplayFormat = '#,0.00'
-      currency = True
       Calculated = True
     end
     object QProductosValor: TFloatField
@@ -4593,7 +4608,6 @@ object frmProductos: TfrmProductos
       FieldName = 'ValorEmp'
       DisplayFormat = '#,0.00'
       EditFormat = '#,0.00'
-      currency = True
       Calculated = True
     end
     object QProductosusu_codigo: TIntegerField
@@ -4702,20 +4716,23 @@ object frmProductos: TfrmProductos
       DefaultExpression = '0'
       FieldName = 'PRO_COSTO'
       OnValidate = QProductosPRO_COSTOValidate
-      DisplayFormat = '#,0.00'
       EditFormat = '#,0.00'
     end
     object QProductosPRO_PRECIO1: TFloatField
       FieldName = 'PRO_PRECIO1'
+      EditFormat = '#,0.00'
     end
     object QProductosPRO_PRECIO2: TFloatField
       FieldName = 'PRO_PRECIO2'
+      EditFormat = '#,0.00'
     end
     object QProductosPRO_PRECIO3: TFloatField
       FieldName = 'PRO_PRECIO3'
+      EditFormat = '#,0.00'
     end
     object QProductosPRO_PRECIO4: TFloatField
       FieldName = 'PRO_PRECIO4'
+      EditFormat = '#,0.00'
     end
     object QProductosmodulo_actual: TStringField
       FieldName = 'modulo_actual'
@@ -4724,6 +4741,9 @@ object frmProductos: TfrmProductos
     object QProductosmodulo_anterior: TStringField
       FieldName = 'modulo_anterior'
       Size = 30
+    end
+    object QProductosFECHA_CREACION: TDateTimeField
+      FieldName = 'FECHA_CREACION'
     end
   end
   object dsProductos: TDataSource
@@ -6417,5 +6437,40 @@ object frmProductos: TfrmProductos
     DataSet = QVentas
     Left = 288
     Top = 246
+  end
+  object spUptProducto: TADOStoredProc
+    Connection = DM.ADOSigma
+    ProcedureName = 'PR_UPD_EXISTENCIAS;1'
+    Parameters = <
+      item
+        Name = '@RETURN_VALUE'
+        DataType = ftInteger
+        Direction = pdReturnValue
+        Precision = 10
+        Value = Null
+      end
+      item
+        Name = '@EMP'
+        Attributes = [paNullable]
+        DataType = ftInteger
+        Precision = 10
+        Value = Null
+      end
+      item
+        Name = '@ALM'
+        Attributes = [paNullable]
+        DataType = ftInteger
+        Precision = 10
+        Value = 0
+      end
+      item
+        Name = '@PROD'
+        Attributes = [paNullable]
+        DataType = ftInteger
+        Precision = 10
+        Value = Null
+      end>
+    Left = 615
+    Top = 320
   end
 end

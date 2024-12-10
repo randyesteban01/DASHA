@@ -249,6 +249,10 @@ type
     QRMemo7: TQRMemo;
     QRMemo8: TQRMemo;
     QRMemo9: TQRMemo;
+    QRLabel2: TQRLabel;
+    QRDBText1: TQRDBText;
+    QRLabel31: TQRLabel;
+    QFacturaRNC: TStringField;
     procedure QRBand3BeforePrint(Sender: TQRCustomBand;
       var PrintBand: Boolean);
     procedure QuickRepBeforePrint(Sender: TCustomQuickRep;
@@ -639,7 +643,7 @@ begin
                         format('%n',[(QFormasPagoFOR_MONTO.value/QFacturafac_tasa.AsFloat)]);
     QFormasPago.next;
   end;
-//  lbForma.Caption := copy(lbForma.Caption, 1, length(lbForma.Caption)-2);
+  lbForma.Caption := copy(lbForma.Caption, 1, length(lbForma.Caption)-2);
 end;
 
 procedure TRFacturaCaceresEquipos.QDetalleCalcFields(DataSet: TDataSet);

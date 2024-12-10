@@ -1558,8 +1558,8 @@ begin
       end
       else
       begin
-       // edTipo.Enabled := False;
-        //btTipo.Enabled := False;
+        edTipo.Enabled := False;
+        btTipo.Enabled := False;
         if Precio = '' then
         begin
           if not Query1.fieldbyname('cli_Precio').IsNull then
@@ -1797,8 +1797,8 @@ begin
     end
     else
     begin
-      //edTipo.Enabled := False;
-      //btTipo.Enabled := False;
+      edTipo.Enabled := False;
+      btTipo.Enabled := False;
       if Precio = '' then
       begin
         if not Query1.fieldbyname('cli_Precio').IsNull then
@@ -7586,11 +7586,7 @@ begin
       tmoneda.Text := '';
       QFacturaFAC_TASA.Value := 1;
     end;
-
-  
   end;
-
-
 end;
 
 procedure TfrmFacturaRenta.QFacturafac_cajaChange(Sender: TField);

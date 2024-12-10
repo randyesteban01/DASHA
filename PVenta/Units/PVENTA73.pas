@@ -82,7 +82,6 @@ type
     procedure btConsolidadoClick(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure ckMovClick(Sender: TObject);
-    procedure ChkB_cksucursalClick(Sender: TObject);
   private
     vl_destino : String;
     { Private declarations }
@@ -843,19 +842,6 @@ procedure TfrmEstadoCtaCli.ckMovClick(Sender: TObject);
 begin
 IF ckMov.Checked THEN 
 cbBalance.ItemIndex := 2;
-end;
-
-procedure TfrmEstadoCtaCli.ChkB_cksucursalClick(Sender: TObject);
-begin
-IF ChkB_cksucursal.Checked THEN
-begin
-dblkcbb1.Enabled := true;
- end
-else
-begin
-  dblkcbb1.Enabled :=false;
-  dblkcbb1.KeyValue :=0;
-end
 end;
 
 end.

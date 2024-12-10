@@ -53,6 +53,8 @@ var
   s,s1,s2,s3,s5 : array [0..40] of char;
   s4,s6 : array [0..136] of char;
    i,i2 : integer;
+   idValue, strtipo, strcodigobanco, strtipocuenta: string;
+
 begin
   with dm.Query1,SQL do
   begin
@@ -60,8 +62,8 @@ begin
     clear;
     Add('select e.* ');
     add(' from Nomina_Detalle n, empleados e , Param_RHumanos p');
-    Add('where n.emp_numero=e.emp_numero');
-    Add('  and e.ban_codigo=p.par_rrhh_codigo_banco_popular');
+    Add('where n.emp_numero=e.emp_numero ');
+   // Add('  and e.ban_codigo=p.par_rrhh_codigo_banco_popular');
     Add('  and n.emp_codigo=p.emp_codigo');
     Add('  and e.emp_cuenta_bancaria <> '+QuotedStr(''));
     Add('  and e.emp_tipo_cuenta <> '+QuotedStr(''));
@@ -111,13 +113,13 @@ try
            begin
             qryTemp.Parameters.ParamByName('cod').Value := frmNomina.sgnomina.Cells[0, i];
             qryTemp.Open;
-            if (QParam_RHumanospar_rrhh_codigo_banco_popular.Asinteger = qryTemp.FieldByName('ban_codigo').AsInteger)
+           { if (QParam_RHumanospar_rrhh_codigo_banco_popular.Asinteger = qryTemp.FieldByName('ban_codigo').AsInteger)
                and (not qryTemp.FieldByName('emp_cuenta_bancaria').IsNull)
-               and (not qryTemp.FieldByName('emp_tipo_cuenta').IsNull) then begin
+               and (not qryTemp.FieldByName('emp_tipo_cuenta').IsNull) then begin }
                 Bco_MontoTCR := Bco_MontoTCR + StrToCurr(StringReplace(trim(frmNomina.sgnomina.Cells[frmNomina.sgnomina.ColCount-1, i]),',','',[rfReplaceAll]));
 //                Bco_MontoTCR := Bco_MontoTCR + StrToCurr(StringReplace(trim(frmNomina.sgnomina.Cells[9, i]),',','',[rfReplaceAll]));
                 inc(Bco_CantCR,1);
-                end;
+               // end;
            END;
         End;
         inc(i,1);
@@ -138,8 +140,8 @@ try
 
     qryTemp.Close;   //emp_cuenta_bancaria
     qryTemp.SQL.Clear;
-    qryTemp.SQL.Add('select emp_email,emp_cuenta_bancaria,ban_codigo,emp_tipo_cuenta from empleados where emp_codigo = :emp');
-    qryTemp.SQL.Add('and emp_numero = :cod');
+    qryTemp.SQL.Add('select e.emp_email,e.emp_cuenta_bancaria,e.ban_codigo,e.emp_tipo_cuenta,b.codigo_banco from empleados e inner join  Bancos b on b.ban_codigo= e.ban_codigo  where e.emp_codigo = :emp');
+    qryTemp.SQL.Add('and e.emp_numero = :cod');
     qryTemp.Parameters.ParamByName('emp').Value := dm.QEmpresasEMP_CODIGO.Value;
     i := 1; i2 := 1;
     while i <= frmNomina.sgnomina.RowCount-1 do
@@ -151,7 +153,15 @@ try
            begin
            qryTemp.Parameters.ParamByName('cod').Value := frmNomina.sgnomina.Cells[0, i];
            qryTemp.Open;
+
            EMail := trim(qryTemp.FieldByName('emp_email').AsString);
+           strcodigobanco:=trim(qryTemp.FieldByName('codigo_banco').AsString);
+
+           if (trim(qryTemp.FieldByName('emp_tipo_cuenta').AsString)='Corriente') then
+           begin
+            strtipocuenta:='22'  
+           end else strtipocuenta:='32';
+
            if EMail <>'' then
               fc := '01'
            else
@@ -165,9 +175,23 @@ try
            fillchar(s5, 40-length(copy(EMail,1,40)),' ');
            fillchar(s6, 52,' ');
 
-if (QParam_RHumanospar_rrhh_codigo_banco_popular.Asinteger = qryTemp.FieldByName('ban_codigo').AsInteger)
+           
+
+{if (QParam_RHumanospar_rrhh_codigo_banco_popular.Asinteger = qryTemp.FieldByName('ban_codigo').AsInteger)
    and (not qryTemp.FieldByName('emp_cuenta_bancaria').IsNull)
-   and (not qryTemp.FieldByName('emp_tipo_cuenta').IsNull) then begin
+   and (not qryTemp.FieldByName('emp_tipo_cuenta').IsNull) then begin    }
+
+           idValue := StringReplace(copy(frmNomina.sgnomina.Cells[2, i], 1, 15), '-', '', [rfReplaceAll]);
+           if length(idValue) <10 then strtipo:='PS' else strtipo:='CE';
+
+           if length(idValue) <10 then idValue := StringReplace(copy(frmNomina.sgnomina.Cells[2, i],1,15),'-','',[rfReplaceAll])+'     '
+           else  idValue := StringReplace(copy(frmNomina.sgnomina.Cells[2, i],1,15),'-','',[rfReplaceAll])+'    ' ;
+
+           IF (strtipo='PS') then
+           begin
+            idValue:= idValue+pchar(' ');
+           end;
+
            inc(i2,1);
            if (s2+copy(MTrans,1,13)) <> '0000000000000' then begin
            writeln(arch,'N'+Copy(dm.QEmpresasEMP_RNC.asstring,1,15)+s
@@ -175,12 +199,20 @@ if (QParam_RHumanospar_rrhh_codigo_banco_popular.Asinteger = qryTemp.FieldByName
            +FormatFloat('0000000',i2)
            +cta_Bancaria(frmNomina.sgnomina.Cells[0, i],QParam_RHumanospar_rrhh_codigo_banco_popular.Asinteger)
            +'214' {codigo de la moneda pesos}
-           +'10101070'
+           +strcodigobanco
+           //Esto estaba en duro +'10101070' ahora se traslado este codigo a la tabla de bancos
            +'8'
-           +copy(QParam_RHumanostipo_cuenta.asstring,1,2)+s1
+           +strtipocuenta+s1
+          // +copy(QParam_RHumanostipo_cuenta.asstring,1,2)+s1
            +s2+copy(MTrans,1,13) //MONTO DE LA TRANSACION
-           +pchar('  ')
-           +pchar('               ')
+          // +'CE'
+           + strtipo
+           +idValue
+
+
+           //+StringReplace(copy(frmNomina.sgnomina.Cells[2, i],1,15),'-','',[rfReplaceAll])+'    '
+
+
            +copy(frmNomina.sgnomina.Cells[1, i],1,35)+s3
            +pchar(' PAGO NOMINA')
            +copy('PAGO '+frmNomina.DBLookupComboBox1.Text+' '+dm.NombreEmp,1,40)+s4
@@ -194,7 +226,7 @@ if (QParam_RHumanospar_rrhh_codigo_banco_popular.Asinteger = qryTemp.FieldByName
            +pchar('      '){Codigo Razon Interno, Procesador Transaccion, Estatus Transacción}
            +s6          {Filler}
           );
-          end;
+         // end;
           end;
           end;
         inc(i,1);
@@ -254,10 +286,10 @@ begin
   dm.Query1.SQL.Add(', case upper(emp_tipo_cuenta)when '+QuotedStr('CORRIENTE')+' THEN 1 WHEN '+QuotedStr('AHORRO')+' THEN 2 END tipo_cuenta');
   dm.Query1.SQL.Add(' from empleados where emp_codigo = :emp');
   dm.Query1.SQL.Add('and emp_numero = :cod');
-  dm.Query1.SQL.Add('and ban_codigo = :codBanc');
+  //dm.Query1.SQL.Add('and ban_codigo = :codBanc');
   dm.Query1.Parameters.ParamByName('emp').Value     := dm.QEmpresasEMP_CODIGO.Value;
   dm.Query1.Parameters.ParamByName('cod').Value     := StrToInt(Cod);
-  dm.Query1.Parameters.ParamByName('codBanc').Value := CodBanc;
+  //dm.Query1.Parameters.ParamByName('codBanc').Value := CodBanc;
   dm.Query1.Open;
   if not dm.Query1.IsEmpty then
      begin

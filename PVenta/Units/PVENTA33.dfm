@@ -1,12 +1,12 @@
 object frmBuscaProducto: TfrmBuscaProducto
-  Left = 202
-  Top = 60
+  Left = 260
+  Top = 0
   ActiveControl = edOpcion
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'Buscar productos'
-  ClientHeight = 659
-  ClientWidth = 1022
+  ClientHeight = 749
+  ClientWidth = 1188
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -25,8 +25,8 @@ object frmBuscaProducto: TfrmBuscaProducto
   object DBGrid1: TDBGrid
     Left = 0
     Top = 0
-    Width = 1022
-    Height = 463
+    Width = 1188
+    Height = 553
     Align = alClient
     Color = clInfoBk
     Ctl3D = False
@@ -52,8 +52,8 @@ object frmBuscaProducto: TfrmBuscaProducto
   end
   object Panel1: TPanel
     Left = 0
-    Top = 463
-    Width = 1022
+    Top = 553
+    Width = 1188
     Height = 196
     Align = alBottom
     BevelInner = bvRaised
@@ -794,7 +794,7 @@ object frmBuscaProducto: TfrmBuscaProducto
     end
     object QProductoscostoitbis: TCurrencyField
       FieldName = 'costoitbis'
-      DisplayFormat = '#,0.00;-0.00'
+      DisplayFormat = '#,0.0000;-0.0000'
     end
     object QProductosPRO_COMENTARIO: TStringField
       FieldName = 'PRO_COMENTARIO'

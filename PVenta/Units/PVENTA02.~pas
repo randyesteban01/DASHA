@@ -309,7 +309,9 @@ begin
       dm.QUsuarios.Open;
 
       dm.Usuario   := dm.Query1.fieldbyname('usu_codigo').asinteger;
-      dm.vp_cia := QEmpresasEMP_CODIGO.Value;
+      dm.suc_default   := dm.Query1.fieldbyname('usu_suc_default').asinteger;
+
+      dm.vp_cia :=  cbemp.KeyValue;//QEmpresasEMP_CODIGO.Value;
       dm.NombreEmp := dm.QEmpresasEMP_NOMBRE.Value;
       dm.NomUsu  := edUsr.text;
       frmMain.stBar1.Panels[0].Text := 'USUARIO : '+edUsr.text;

@@ -1,6 +1,6 @@
 object frmUsuarios: TfrmUsuarios
-  Left = 355
-  Top = 42
+  Left = 292
+  Top = 29
   BorderIcons = [biSystemMenu, biMinimize, biHelp]
   BorderStyle = bsSingle
   Caption = 'Usuarios y Claves'
@@ -109,10 +109,10 @@ object frmUsuarios: TfrmUsuarios
       end
       object PageControl2: TPageControl
         Left = 304
-        Top = 64
+        Top = 56
         Width = 401
-        Height = 289
-        ActivePage = TabSheet4
+        Height = 313
+        ActivePage = TabSheet5
         TabOrder = 3
         object TabSheet4: TTabSheet
           Caption = 'Opci'#243'nes'
@@ -248,6 +248,13 @@ object frmUsuarios: TfrmUsuarios
         object TabSheet5: TTabSheet
           Caption = 'Empresas / Sucursales'
           ImageIndex = 1
+          object Label8: TLabel
+            Left = 1
+            Top = 224
+            Width = 103
+            Height = 13
+            Caption = 'Sucursal por defecto:'
+          end
           object GroupBox2: TGroupBox
             Left = 0
             Top = 8
@@ -331,6 +338,26 @@ object frmUsuarios: TfrmUsuarios
                   Visible = True
                 end>
             end
+          end
+          object DBLookupComboBox2: TDBLookupComboBox
+            Left = 39
+            Top = 246
+            Width = 266
+            Height = 21
+            DataField = 'usu_suc_default'
+            DataSource = dsUsuarios
+            DropDownRows = 20
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            KeyField = 'suc_codigo'
+            ListField = 'suc_nombre'
+            ListSource = dsSucursalDefault
+            ParentFont = False
+            TabOrder = 2
+            TabStop = False
           end
         end
         object TabSheet6: TTabSheet
@@ -537,18 +564,6 @@ object frmUsuarios: TfrmUsuarios
             DataField = 'usu_modifica_nombreprod'
             DataSource = dsUsuarios
             TabOrder = 16
-            ValueChecked = 'True'
-            ValueUnchecked = 'False'
-          end
-          object DBCheckBox16: TDBCheckBox
-            Left = 8
-            Top = 232
-            Width = 247
-            Height = 21
-            Caption = 'Eliminar facturas temporales'
-            DataField = 'usu_elimina_factura_temporal'
-            DataSource = dsUsuarios
-            TabOrder = 17
             ValueChecked = 'True'
             ValueUnchecked = 'False'
           end
@@ -860,8 +875,7 @@ object frmUsuarios: TfrmUsuarios
       
         'usu_supervisor, usu_Cajero, usu_camarero, usu_vendedor, usu_solo' +
         '_conduce'
-      ',usu_modifica_nombreprod,'
-      'usu_elimina_factura_temporal'
+      ',usu_modifica_nombreprod,usu_suc_default'
       'from'
       'USUARIOS '
       'WHERE USU_STATUS <> '#39'INA'#39
@@ -984,8 +998,8 @@ object frmUsuarios: TfrmUsuarios
     object QUsuariosusu_modifica_nombreprod: TBooleanField
       FieldName = 'usu_modifica_nombreprod'
     end
-    object QUsuariosusu_elimina_factura_temporal: TBooleanField
-      FieldName = 'usu_elimina_factura_temporal'
+    object QUsuariosusu_suc_default: TIntegerField
+      FieldName = 'usu_suc_default'
     end
   end
   object dsUsuarios: TDataSource
@@ -2819,5 +2833,52 @@ object frmUsuarios: TfrmUsuarios
         Action = frmMain.param_rep_balancefact
       end
     end
+  end
+  object QSucursalesDefault: TADOQuery
+    Connection = DM.ADOSigma
+    DataSource = dsEmpresas
+    Parameters = <
+      item
+        Name = 'emp_codigo'
+        Attributes = [paSigned]
+        DataType = ftInteger
+        Precision = 10
+        Size = 4
+        Value = Null
+      end
+      item
+        Name = 'usu_codigo'
+        Attributes = [paSigned]
+        DataType = ftInteger
+        Precision = 10
+        Size = 4
+        Value = Null
+      end>
+    SQL.Strings = (
+      'select'
+      's.suc_codigo, s.suc_nombre'
+      'from'
+      'Sucursales s, Sucursal_acceso a'
+      'where'
+      's.emp_codigo = a.emp_codigo'
+      'and s.suc_codigo = a.suc_codigo'
+      'and a.emp_codigo = :emp_codigo'
+      'and a.usu_codigo = :usu_codigo'
+      'order by'
+      's.suc_codigo')
+    Left = 224
+    Top = 216
+    object IntegerField1: TIntegerField
+      FieldName = 'suc_codigo'
+    end
+    object StringField1: TStringField
+      FieldName = 'suc_nombre'
+      Size = 60
+    end
+  end
+  object dsSucursalDefault: TDataSource
+    DataSet = QSucursalesDefault
+    Left = 256
+    Top = 216
   end
 end

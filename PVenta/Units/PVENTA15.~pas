@@ -201,7 +201,6 @@ type
     DBGrid4: TDBGrid;
     QProductosPRO_COSTOEMPAQUE: TFloatField;
     Label36: TLabel;
-    DBEdit35: TDBEdit;
     QListadoPRO_COSTOEMPAQUE: TFloatField;
     QListadoPRO_EXISTEMPAQUE: TFloatField;
     QComprasDET_MEDIDA: TIBStringField;
@@ -308,7 +307,6 @@ type
     QProductosValor: TFloatField;
     QProductosValorEmp: TFloatField;
     DBEdit44: TDBEdit;
-    DBEdit45: TDBEdit;
     Label4: TLabel;
     tUsuario: TEdit;
     QProductosusu_codigo: TIntegerField;
@@ -546,7 +544,11 @@ type
     edtProv: TEdit;
     QProductosmodulo_anterior: TStringField;
     cxDBComboBox1: TcxDBComboBox;
-    cxDBSpinEdit1: TcxDBSpinEdit;
+    QProductosFECHA_CREACION: TDateTimeField;
+    dbedtPRO_DESCMAX: TDBEdit;
+    CEdt_ValorEmp: TcxDBCurrencyEdit;
+    CEdt_CostoEmp: TcxDBCurrencyEdit;
+    spUptProducto: TADOStoredProc;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btCloseClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
@@ -674,33 +676,31 @@ type
     procedure DBEdit43Change(Sender: TObject);
     procedure CEdt_PRECIO1KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
-    procedure CEdt_PRECIO2KeyDown(Sender: TObject; var Key: Word;
-      Shift: TShiftState);
-    procedure CEdt_PRECIO3KeyDown(Sender: TObject; var Key: Word;
-      Shift: TShiftState);
-    procedure CEdt_PRECIO4KeyDown(Sender: TObject; var Key: Word;
-      Shift: TShiftState);
-    procedure CEdt_Ben1KeyDown(Sender: TObject; var Key: Word;
-      Shift: TShiftState);
     procedure CEdt_ValorPropertiesChange(Sender: TObject);
     procedure CEdt_PRECIO2Exit(Sender: TObject);
     procedure CEdt_PRECIO1Exit(Sender: TObject);
     procedure CEdt_PRECIO3Exit(Sender: TObject);
     procedure CEdt_PRECIO4Exit(Sender: TObject);
-    procedure CEdt_BEN2KeyDown(Sender: TObject; var Key: Word;
-      Shift: TShiftState);
-    procedure CEdt_BEN3KeyDown(Sender: TObject; var Key: Word;
-      Shift: TShiftState);
-    procedure CEdt_BEN4KeyDown(Sender: TObject; var Key: Word;
-      Shift: TShiftState);
     procedure CEdt_CostoExit(Sender: TObject);
     procedure DBEdit7Exit(Sender: TObject);
     procedure edtProvKeyPress(Sender: TObject; var Key: Char);
     procedure QExistBeforeOpen(DataSet: TDataSet);
     procedure edtProvExit(Sender: TObject);
-    procedure QProductosBeforeOpen(DataSet: TDataSet);
+    procedure dbedtPRO_DESCMAXKeyPress(Sender: TObject; var Key: Char);
+    procedure CEdt_Ben1Exit(Sender: TObject);
+    procedure CEdt_BEN2Exit(Sender: TObject);
+    procedure CEdt_BEN3Exit(Sender: TObject);
+    procedure CEdt_BEN4Exit(Sender: TObject);
   private
     { Private declarations }
+    procedure VerificarBeneficio1;
+    procedure VerificarPrecio1;
+    procedure VerificarBeneficio2;
+    procedure VerificarPrecio2;
+    procedure VerificarBeneficio3;
+    procedure VerificarPrecio3;
+    procedure VerificarBeneficio4;
+    procedure VerificarPrecio4;
   public
     { Public declarations }
     accion, TipoBusqueda, vl_sup : integer;
@@ -1087,6 +1087,7 @@ begin
   QProductosPRO_CTACOSTO.Value        := dm.QContabPAR_CTACOSTO.Value;
   QProductospro_Serializado.value     := 'N';
   QProductospro_Garantia.value        := 'N';
+  QProductosFECHA_CREACION.Value      := DM.getFechaBDA;
 
 
   tFamilia.text := '';
@@ -1096,7 +1097,7 @@ end;
 procedure TfrmProductos.btPostClick(Sender: TObject);
 begin
   Qproductos.post;
-  
+
 
 end;
 
@@ -1206,21 +1207,20 @@ begin
   if frmBuscaProducto.seleccion = 1 then
   begin
     QProductos.Close;
-    QProductos.Parameters.ParamByName('par_invempresa').Value := frmBuscaProducto.QProductosEMP_CODIGO.value;
+    QProductos.Parameters.ParamByName('par_invempresa').Value := DM.QParametrosPAR_INVEMPRESA.value;
     QProductos.Parameters.ParamByName('prod').Value           := frmBuscaProducto.QProductosPRO_CODIGO.value;
     QProductos.Open;
-
-
 
     QProvee.Close;
     QProvee.Parameters.ParamByName('emp_codigo').Value := dm.vp_cia;
     QProvee.Parameters.ParamByName('pro_codigo').Value := frmBuscaProducto.QProductosPRO_CODIGO.value;
     QProvee.Open;
     if QProvee.RecordCount > 0 then begin
-    vl_sup       := QProveeSUP_CODIGO.Value; 
+    vl_sup       := QProveeSUP_CODIGO.Value;
     edtProv.Text := QProveeSUP_CODIGO.Text;
     tProv.Text   := QProveeSUP_NOMBRE.Text;
     end;
+
   end;
   frmBuscaProducto.release;
   PageControl1.ActivePageIndex := 0;
@@ -2002,33 +2002,33 @@ if QProductos.State <> dsbrowse then begin
     if QProductosPRO_BENEFICIO.Value <> 0 then
       if dm.QParametrosPAR_PRECIOUND.Value = 'Precio1' then
          if dm.QParametrospar_itbisincluido.Value = 'True' then
-           QProductosPRO_PRECIO1.Value := StrToFloat(Format('%10.2F',[(QProductosValor.Value+((QProductosValor.Value*QProductosPRO_BENEFICIO.Value)/100))]))
+           QProductosPRO_PRECIO1.Value := (QProductosValor.Value+((QProductosValor.Value*QProductosPRO_BENEFICIO.Value)/100))
          else
-           QProductosPRO_PRECIO1.Value := StrToFloat(Format('%10.2F',[(QProductosPRO_COSTO.Value+((QProductosPRO_COSTO.Value*QProductosPRO_BENEFICIO.Value)/100))]));
+           QProductosPRO_PRECIO1.Value := (QProductosPRO_COSTO.Value+((QProductosPRO_COSTO.Value*QProductosPRO_BENEFICIO.Value)/100));
 
     //Precio2
     if QProductosPRO_BENEFICIO2.Value <> 0 then
       if dm.QParametrosPAR_PRECIOUND.Value = 'Precio2' then
          if dm.QParametrospar_itbisincluido.Value = 'True' then
-           QProductosPRO_PRECIO2.Value := StrToFloat(Format('%10.2F',[(QProductosValor.Value+((QProductosValor.Value*QProductosPRO_BENEFICIO2.Value)/100))]))
+           QProductosPRO_PRECIO2.Value := (QProductosValor.Value+((QProductosValor.Value*QProductosPRO_BENEFICIO2.Value)/100))
          else
-           QProductosPRO_PRECIO2.Value := StrToFloat(Format('%10.2F',[(QProductosPRO_COSTO.Value+((QProductosPRO_COSTO.Value*QProductosPRO_BENEFICIO2.Value)/100))]));
+           QProductosPRO_PRECIO2.Value := (QProductosPRO_COSTO.Value+((QProductosPRO_COSTO.Value*QProductosPRO_BENEFICIO2.Value)/100));
 
     //Precio3
     if QProductosPRO_BENEFICIO3.Value <> 0 then
       if dm.QParametrosPAR_PRECIOUND.Value = 'Precio3' then
          if dm.QParametrospar_itbisincluido.Value = 'True' then
-           QProductosPRO_PRECIO3.Value := StrToFloat(Format('%10.2F',[(QProductosValor.Value+((QProductosValor.Value*QProductosPRO_BENEFICIO3.Value)/100))]))
+           QProductosPRO_PRECIO3.Value := (QProductosValor.Value+((QProductosValor.Value*QProductosPRO_BENEFICIO3.Value)/100))
          else
-           QProductosPRO_PRECIO3.Value := StrToFloat(Format('%10.2F',[(QProductosPRO_COSTO.Value+((QProductosPRO_COSTO.Value*QProductosPRO_BENEFICIO3.Value)/100))]));
+           QProductosPRO_PRECIO3.Value := (QProductosPRO_COSTO.Value+((QProductosPRO_COSTO.Value*QProductosPRO_BENEFICIO3.Value)/100));
 
     //Precio4
     if QProductosPRO_BENEFICIO4.Value <> 0 then
       if dm.QParametrosPAR_PRECIOUND.Value = 'Precio4' then
          if dm.QParametrospar_itbisincluido.Value = 'True' then
-           QProductosPRO_PRECIO3.Value := StrToFloat(Format('%10.2F',[(QProductosValor.Value+((QProductosValor.Value*QProductosPRO_BENEFICIO4.Value)/100))]))
+           QProductosPRO_PRECIO3.Value := (QProductosValor.Value+((QProductosValor.Value*QProductosPRO_BENEFICIO4.Value)/100))
          else
-           QProductosPRO_PRECIO3.Value := StrToFloat(Format('%10.2F',[(QProductosPRO_COSTO.Value+((QProductosPRO_COSTO.Value*QProductosPRO_BENEFICIO4.Value)/100))]));
+           QProductosPRO_PRECIO3.Value := (QProductosPRO_COSTO.Value+((QProductosPRO_COSTO.Value*QProductosPRO_BENEFICIO4.Value)/100));
 
     //Empaque
     //Precio1
@@ -2037,16 +2037,16 @@ if QProductos.State <> dsbrowse then begin
       if dm.QParametrosPAR_PRECIOEMP.Value = 'Ninguno' then
       begin
         if dm.QParametrospar_itbisincluido.Value = 'True' then
-          QProductosPRO_PRECIO1.Value := StrToFloat(Format('%10.2F',[(QProductosValor.Value+((QProductosValor.Value*QProductosPRO_BENEFICIO.Value)/100))]))
+          QProductosPRO_PRECIO1.Value := (QProductosValor.Value+((QProductosValor.Value*QProductosPRO_BENEFICIO.Value)/100))
         else
-          QProductosPRO_PRECIO1.Value := StrToFloat(Format('%10.2F',[(QProductosPRO_COSTO.Value+((QProductosPRO_COSTO.Value*QProductosPRO_BENEFICIO.Value)/100))]));
+          QProductosPRO_PRECIO1.Value := (QProductosPRO_COSTO.Value+((QProductosPRO_COSTO.Value*QProductosPRO_BENEFICIO.Value)/100));
       end
       else if dm.QParametrosPAR_PRECIOEMP.Value = 'Precio1' then
       begin
         if dm.QParametrospar_itbisincluido.Value = 'True' then
-          QProductosPRO_PRECIO1.Value := StrToFloat(Format('%10.2F',[(QProductosValorEMp.Value+((QProductosValorEMp.Value*QProductosPRO_BENEFICIO.Value)/100))]))
+          QProductosPRO_PRECIO1.Value := (QProductosValorEMp.Value+((QProductosValorEMp.Value*QProductosPRO_BENEFICIO.Value)/100))
         else
-          QProductosPRO_PRECIO1.Value := StrToFloat(Format('%10.2F',[(QProductosPRO_COSTOEMPAQUE.Value+((QProductosPRO_COSTOEMPAQUE.Value*QProductosPRO_BENEFICIO.Value)/100))]));
+          QProductosPRO_PRECIO1.Value := (QProductosPRO_COSTOEMPAQUE.Value+((QProductosPRO_COSTOEMPAQUE.Value*QProductosPRO_BENEFICIO.Value)/100));
       end;
     end;
 
@@ -2056,16 +2056,16 @@ if QProductos.State <> dsbrowse then begin
       if dm.QParametrosPAR_PRECIOEMP.Value = 'Ninguno' then
       begin
         if dm.QParametrospar_itbisincluido.Value = 'True' then
-          QProductosPRO_PRECIO2.Value := StrToFloat(Format('%10.2F',[(QProductosValor.Value+((QProductosValor.Value*QProductosPRO_BENEFICIO2.Value)/100))]))
+          QProductosPRO_PRECIO2.Value := (QProductosValor.Value+((QProductosValor.Value*QProductosPRO_BENEFICIO2.Value)/100))
         else
-          QProductosPRO_PRECIO2.Value := StrToFloat(Format('%10.2F',[(QProductosPRO_COSTO.Value+((QProductosPRO_COSTO.Value*QProductosPRO_BENEFICIO2.Value)/100))]));
+          QProductosPRO_PRECIO2.Value := (QProductosPRO_COSTO.Value+((QProductosPRO_COSTO.Value*QProductosPRO_BENEFICIO2.Value)/100));
       end
       else if dm.QParametrosPAR_PRECIOEMP.Value = 'Precio2' then
       begin
         if dm.QParametrospar_itbisincluido.Value = 'True' then
-          QProductosPRO_PRECIO2.Value := StrToFloat(Format('%10.2F',[(QProductosValorEMp.Value+((QProductosValorEMp.Value*QProductosPRO_BENEFICIO2.Value)/100))]))
+          QProductosPRO_PRECIO2.Value := (QProductosValorEMp.Value+((QProductosValorEMp.Value*QProductosPRO_BENEFICIO2.Value)/100))
         else
-          QProductosPRO_PRECIO2.Value := StrToFloat(Format('%10.2F',[(QProductosPRO_COSTOEMPAQUE.Value+((QProductosPRO_COSTOEMPAQUE.Value*QProductosPRO_BENEFICIO2.Value)/100))]));
+          QProductosPRO_PRECIO2.Value := (QProductosPRO_COSTOEMPAQUE.Value+((QProductosPRO_COSTOEMPAQUE.Value*QProductosPRO_BENEFICIO2.Value)/100));
       end;
     end;
 
@@ -2075,16 +2075,16 @@ if QProductos.State <> dsbrowse then begin
       if dm.QParametrosPAR_PRECIOEMP.Value = 'Ninguno' then
       begin
         if dm.QParametrospar_itbisincluido.Value = 'True' then
-          QProductosPRO_PRECIO3.Value := StrToFloat(Format('%10.2F',[(QProductosValor.Value+((QProductosValor.Value*QProductosPRO_BENEFICIO3.Value)/100))]))
+          QProductosPRO_PRECIO3.Value := (QProductosValor.Value+((QProductosValor.Value*QProductosPRO_BENEFICIO3.Value)/100))
         else
-          QProductosPRO_PRECIO3.Value := StrToFloat(Format('%10.2F',[(QProductosPRO_COSTO.Value+((QProductosPRO_COSTO.Value*QProductosPRO_BENEFICIO3.Value)/100))]));
+          QProductosPRO_PRECIO3.Value := (QProductosPRO_COSTO.Value+((QProductosPRO_COSTO.Value*QProductosPRO_BENEFICIO3.Value)/100));
       end
       else if dm.QParametrosPAR_PRECIOEMP.Value = 'Precio3' then
       begin
         if dm.QParametrospar_itbisincluido.Value = 'True' then
-          QProductosPRO_PRECIO3.Value := StrToFloat(Format('%10.2F',[(QProductosValorEMp.Value+((QProductosValorEMp.Value*QProductosPRO_BENEFICIO3.Value)/100))]))
+          QProductosPRO_PRECIO3.Value := (QProductosValorEMp.Value+((QProductosValorEMp.Value*QProductosPRO_BENEFICIO3.Value)/100))
         else
-          QProductosPRO_PRECIO3.Value := StrToFloat(Format('%10.2F',[(QProductosPRO_COSTOEMPAQUE.Value+((QProductosPRO_COSTOEMPAQUE.Value*QProductosPRO_BENEFICIO3.Value)/100))]));
+          QProductosPRO_PRECIO3.Value := (QProductosPRO_COSTOEMPAQUE.Value+((QProductosPRO_COSTOEMPAQUE.Value*QProductosPRO_BENEFICIO3.Value)/100));
       end;
     end;
 
@@ -2094,16 +2094,16 @@ if QProductos.State <> dsbrowse then begin
       if dm.QParametrosPAR_PRECIOEMP.Value = 'Ninguno' then
       begin
         if dm.QParametrospar_itbisincluido.Value = 'True' then
-          QProductosPRO_PRECIO4.Value := StrToFloat(Format('%10.2F',[(QProductosValor.Value+((QProductosValor.Value*QProductosPRO_BENEFICIO4.Value)/100))]))
+          QProductosPRO_PRECIO4.Value := (QProductosValor.Value+((QProductosValor.Value*QProductosPRO_BENEFICIO4.Value)/100))
         else
-          QProductosPRO_PRECIO4.Value := StrToFloat(Format('%10.2F',[(QProductosPRO_COSTO.Value+((QProductosPRO_COSTO.Value*QProductosPRO_BENEFICIO4.Value)/100))]));
+          QProductosPRO_PRECIO4.Value := (QProductosPRO_COSTO.Value+((QProductosPRO_COSTO.Value*QProductosPRO_BENEFICIO4.Value)/100));
       end
       else if dm.QParametrosPAR_PRECIOEMP.Value = 'Precio4' then
       begin
         if dm.QParametrospar_itbisincluido.Value = 'True' then
-          QProductosPRO_PRECIO4.Value := StrToFloat(Format('%10.2F',[(QProductosValorEMp.Value+((QProductosValorEMp.Value*QProductosPRO_BENEFICIO4.Value)/100))]))
+          QProductosPRO_PRECIO4.Value := (QProductosValorEMp.Value+((QProductosValorEMp.Value*QProductosPRO_BENEFICIO4.Value)/100))
         else
-          QProductosPRO_PRECIO4.Value := StrToFloat(Format('%10.2F',[(QProductosPRO_COSTOEMPAQUE.Value+((QProductosPRO_COSTOEMPAQUE.Value*QProductosPRO_BENEFICIO4.Value)/100))]));
+          QProductosPRO_PRECIO4.Value := (QProductosPRO_COSTOEMPAQUE.Value+((QProductosPRO_COSTOEMPAQUE.Value*QProductosPRO_BENEFICIO4.Value)/100));
       end;
     end;
 
@@ -2115,16 +2115,16 @@ if QProductos.State <> dsbrowse then begin
       if dm.QParametrospar_preciound_m.Value = 'Ninguno' then
       begin
         if dm.QParametrospar_itbisincluido.Value = 'True' then
-          QProductosPRO_PRECIO1.Value := StrToFloat(Format('%10.2F',[(QProductosValor.Value+((QProductosValor.Value*QProductosPRO_BENEFICIO.Value)/100))]))
+          QProductosPRO_PRECIO1.Value := (QProductosValor.Value+((QProductosValor.Value*QProductosPRO_BENEFICIO.Value)/100))
         else
-          QProductosPRO_PRECIO1.Value := StrToFloat(Format('%10.2F',[(QProductosPRO_COSTO.Value+((QProductosPRO_COSTO.Value*QProductosPRO_BENEFICIO.Value)/100))]));
+          QProductosPRO_PRECIO1.Value := (QProductosPRO_COSTO.Value+((QProductosPRO_COSTO.Value*QProductosPRO_BENEFICIO.Value)/100));
       end
       else if dm.QParametrospar_preciound_m.Value = 'Precio1' then
       begin
         if dm.QParametrospar_itbisincluido.Value = 'True' then
-          QProductosPRO_PRECIO1.Value := StrToFloat(Format('%10.2F',[(QProductosValor.Value+((QProductosValor.Value*QProductosPRO_BENEFICIO.Value)/100))]))
+          QProductosPRO_PRECIO1.Value := (QProductosValor.Value+((QProductosValor.Value*QProductosPRO_BENEFICIO.Value)/100))
         else
-          QProductosPRO_PRECIO1.Value := StrToFloat(Format('%10.2F',[(QProductosPRO_COSTO.Value+((QProductosPRO_COSTO.Value*QProductosPRO_BENEFICIO.Value)/100))]));
+          QProductosPRO_PRECIO1.Value := (QProductosPRO_COSTO.Value+((QProductosPRO_COSTO.Value*QProductosPRO_BENEFICIO.Value)/100));
       end;
     end;
 
@@ -2134,16 +2134,16 @@ if QProductos.State <> dsbrowse then begin
       if dm.QParametrospar_preciound_m.Value = 'Ninguno' then
       begin
         if dm.QParametrospar_itbisincluido.Value = 'True' then
-          QProductosPRO_PRECIO2.Value := StrToFloat(Format('%10.2F',[(QProductosValor.Value+((QProductosValor.Value*QProductosPRO_BENEFICIO2.Value)/100))]))
+          QProductosPRO_PRECIO2.Value := (QProductosValor.Value+((QProductosValor.Value*QProductosPRO_BENEFICIO2.Value)/100))
         else
-          QProductosPRO_PRECIO2.Value := StrToFloat(Format('%10.2F',[(QProductosPRO_COSTO.Value+((QProductosPRO_COSTO.Value*QProductosPRO_BENEFICIO2.Value)/100))]));
+          QProductosPRO_PRECIO2.Value := (QProductosPRO_COSTO.Value+((QProductosPRO_COSTO.Value*QProductosPRO_BENEFICIO2.Value)/100));
       end
       else if dm.QParametrospar_preciound_m.Value = 'Precio2' then
       begin
         if dm.QParametrospar_itbisincluido.Value = 'True' then
-          QProductosPRO_PRECIO2.Value := StrToFloat(Format('%10.2F',[(QProductosValor.Value+((QProductosValor.Value*QProductosPRO_BENEFICIO2.Value)/100))]))
+          QProductosPRO_PRECIO2.Value := (QProductosValor.Value+((QProductosValor.Value*QProductosPRO_BENEFICIO2.Value)/100))
         else
-          QProductosPRO_PRECIO2.Value := StrToFloat(Format('%10.2F',[(QProductosPRO_COSTO.Value+((QProductosPRO_COSTO.Value*QProductosPRO_BENEFICIO2.Value)/100))]));
+          QProductosPRO_PRECIO2.Value := (QProductosPRO_COSTO.Value+((QProductosPRO_COSTO.Value*QProductosPRO_BENEFICIO2.Value)/100));
       end;
     end;
 
@@ -2153,16 +2153,16 @@ if QProductos.State <> dsbrowse then begin
       if dm.QParametrospar_preciound_m.Value = 'Ninguno' then
       begin
         if dm.QParametrospar_itbisincluido.Value = 'True' then
-          QProductosPRO_PRECIO3.Value := StrToFloat(Format('%10.2F',[(QProductosValor.Value+((QProductosValor.Value*QProductosPRO_BENEFICIO3.Value)/100))]))
+          QProductosPRO_PRECIO3.Value := (QProductosValor.Value+((QProductosValor.Value*QProductosPRO_BENEFICIO3.Value)/100))
         else
-          QProductosPRO_PRECIO3.Value := StrToFloat(Format('%10.2F',[(QProductosPRO_COSTO.Value+((QProductosPRO_COSTO.Value*QProductosPRO_BENEFICIO3.Value)/100))]));
+          QProductosPRO_PRECIO3.Value := (QProductosPRO_COSTO.Value+((QProductosPRO_COSTO.Value*QProductosPRO_BENEFICIO3.Value)/100));
       end
       else if dm.QParametrospar_preciound_m.Value = 'Precio3' then
       begin
         if dm.QParametrospar_itbisincluido.Value = 'True' then
-          QProductosPRO_PRECIO3.Value := StrToFloat(Format('%10.2F',[(QProductosValor.Value+((QProductosValor.Value*QProductosPRO_BENEFICIO3.Value)/100))]))
+          QProductosPRO_PRECIO3.Value := (QProductosValor.Value+((QProductosValor.Value*QProductosPRO_BENEFICIO3.Value)/100))
         else
-          QProductosPRO_PRECIO3.Value := StrToFloat(Format('%10.2F',[(QProductosPRO_COSTO.Value+((QProductosPRO_COSTO.Value*QProductosPRO_BENEFICIO3.Value)/100))]));
+          QProductosPRO_PRECIO3.Value := (QProductosPRO_COSTO.Value+((QProductosPRO_COSTO.Value*QProductosPRO_BENEFICIO3.Value)/100));
       end;
     end;
 
@@ -2172,16 +2172,16 @@ if QProductos.State <> dsbrowse then begin
       if dm.QParametrospar_preciound_m.Value = 'Ninguno' then
       begin
         if dm.QParametrospar_itbisincluido.Value = 'True' then
-          QProductosPRO_PRECIO4.Value := StrToFloat(Format('%10.2F',[(QProductosValor.Value+((QProductosValor.Value*QProductosPRO_BENEFICIO4.Value)/100))]))
+          QProductosPRO_PRECIO4.Value := (QProductosValor.Value+((QProductosValor.Value*QProductosPRO_BENEFICIO4.Value)/100))
         else
-          QProductosPRO_PRECIO4.Value := StrToFloat(Format('%10.2F',[(QProductosPRO_COSTO.Value+((QProductosPRO_COSTO.Value*QProductosPRO_BENEFICIO4.Value)/100))]));
+          QProductosPRO_PRECIO4.Value := (QProductosPRO_COSTO.Value+((QProductosPRO_COSTO.Value*QProductosPRO_BENEFICIO4.Value)/100));
       end
       else if dm.QParametrospar_preciound_m.Value = 'Precio4' then
       begin
         if dm.QParametrospar_itbisincluido.Value = 'True' then
-          QProductosPRO_PRECIO4.Value := StrToFloat(Format('%10.2F',[(QProductosValor.Value+((QProductosValor.Value*QProductosPRO_BENEFICIO4.Value)/100))]))
+          QProductosPRO_PRECIO4.Value := (QProductosValor.Value+((QProductosValor.Value*QProductosPRO_BENEFICIO4.Value)/100))
         else
-          QProductosPRO_PRECIO4.Value := StrToFloat(Format('%10.2F',[(QProductosPRO_COSTO.Value+((QProductosPRO_COSTO.Value*QProductosPRO_BENEFICIO4.Value)/100))]));
+          QProductosPRO_PRECIO4.Value := (QProductosPRO_COSTO.Value+((QProductosPRO_COSTO.Value*QProductosPRO_BENEFICIO4.Value)/100));
       end;
     end;
 
@@ -2192,16 +2192,16 @@ if QProductos.State <> dsbrowse then begin
       if dm.QParametrospar_precioemp_m.Value = 'Ninguno' then
       begin
         if dm.QParametrospar_itbisincluido.Value = 'True' then
-          QProductosPRO_PRECIO1.Value := StrToFloat(Format('%10.2F',[(QProductosValor.Value+((QProductosValor.Value*QProductosPRO_BENEFICIO.Value)/100))]))
+          QProductosPRO_PRECIO1.Value := (QProductosValor.Value+((QProductosValor.Value*QProductosPRO_BENEFICIO.Value)/100))
         else
-          QProductosPRO_PRECIO1.Value := StrToFloat(Format('%10.2F',[(QProductosPRO_COSTO.Value+((QProductosPRO_COSTO.Value*QProductosPRO_BENEFICIO.Value)/100))]));
+          QProductosPRO_PRECIO1.Value := (QProductosPRO_COSTO.Value+((QProductosPRO_COSTO.Value*QProductosPRO_BENEFICIO.Value)/100));
       end
       else if dm.QParametrospar_precioemp_m.Value = 'Precio1' then
       begin
         if dm.QParametrospar_itbisincluido.Value = 'True' then
-          QProductosPRO_PRECIO1.Value := StrToFloat(Format('%10.2F',[(QProductosValorEmp.Value+((QProductosValorEmp.Value*QProductosPRO_BENEFICIO.Value)/100))]))
+          QProductosPRO_PRECIO1.Value := (QProductosValorEmp.Value+((QProductosValorEmp.Value*QProductosPRO_BENEFICIO.Value)/100))
         else
-          QProductosPRO_PRECIO1.Value := StrToFloat(Format('%10.2F',[(QProductosPRO_COSTOEMPAQUE.Value+((QProductosPRO_COSTOEMPAQUE.Value*QProductosPRO_BENEFICIO.Value)/100))]));
+          QProductosPRO_PRECIO1.Value := (QProductosPRO_COSTOEMPAQUE.Value+((QProductosPRO_COSTOEMPAQUE.Value*QProductosPRO_BENEFICIO.Value)/100));
       end;
     end;
 
@@ -2211,16 +2211,16 @@ if QProductos.State <> dsbrowse then begin
       if dm.QParametrospar_precioemp_m.Value = 'Ninguno' then
       begin
         if dm.QParametrospar_itbisincluido.Value = 'True' then
-          QProductosPRO_PRECIO2.Value := StrToFloat(Format('%10.2F',[(QProductosValor.Value+((QProductosValor.Value*QProductosPRO_BENEFICIO2.Value)/100))]))
+          QProductosPRO_PRECIO2.Value := (QProductosValor.Value+((QProductosValor.Value*QProductosPRO_BENEFICIO2.Value)/100))
         else
-          QProductosPRO_PRECIO2.Value := StrToFloat(Format('%10.2F',[(QProductosPRO_COSTO.Value+((QProductosPRO_COSTO.Value*QProductosPRO_BENEFICIO2.Value)/100))]));
+          QProductosPRO_PRECIO2.Value := (QProductosPRO_COSTO.Value+((QProductosPRO_COSTO.Value*QProductosPRO_BENEFICIO2.Value)/100));
       end
       else if dm.QParametrospar_precioemp_m.Value = 'Precio2' then
       begin
         if dm.QParametrospar_itbisincluido.Value = 'True' then
-          QProductosPRO_PRECIO2.Value := StrToFloat(Format('%10.2F',[(QProductosValorEmp.Value+((QProductosValorEmp.Value*QProductosPRO_BENEFICIO2.Value)/100))]))
+          QProductosPRO_PRECIO2.Value := (QProductosValorEmp.Value+((QProductosValorEmp.Value*QProductosPRO_BENEFICIO2.Value)/100))
         else
-          QProductosPRO_PRECIO2.Value := StrToFloat(Format('%10.2F',[(QProductosPRO_COSTOEMPAQUE.Value+((QProductosPRO_COSTOEMPAQUE.Value*QProductosPRO_BENEFICIO2.Value)/100))]));
+          QProductosPRO_PRECIO2.Value := (QProductosPRO_COSTOEMPAQUE.Value+((QProductosPRO_COSTOEMPAQUE.Value*QProductosPRO_BENEFICIO2.Value)/100));
       end;
     end;
 
@@ -2230,16 +2230,16 @@ if QProductos.State <> dsbrowse then begin
       if dm.QParametrospar_precioemp_m.Value = 'Ninguno' then
       begin
         if dm.QParametrospar_itbisincluido.Value = 'True' then
-          QProductosPRO_PRECIO3.Value := StrToFloat(Format('%10.2F',[(QProductosValor.Value+((QProductosValor.Value*QProductosPRO_BENEFICIO3.Value)/100))]))
+          QProductosPRO_PRECIO3.Value := (QProductosValor.Value+((QProductosValor.Value*QProductosPRO_BENEFICIO3.Value)/100))
         else
-          QProductosPRO_PRECIO3.Value := StrToFloat(Format('%10.2F',[(QProductosPRO_COSTO.Value+((QProductosPRO_COSTO.Value*QProductosPRO_BENEFICIO3.Value)/100))]));
+          QProductosPRO_PRECIO3.Value := (QProductosPRO_COSTO.Value+((QProductosPRO_COSTO.Value*QProductosPRO_BENEFICIO3.Value)/100));
       end
       else if dm.QParametrospar_precioemp_m.Value = 'Precio3' then
       begin
         if dm.QParametrospar_itbisincluido.Value = 'True' then
-          QProductosPRO_PRECIO3.Value := StrToFloat(Format('%10.2F',[(QProductosValorEmp.Value+((QProductosValorEmp.Value*QProductosPRO_BENEFICIO3.Value)/100))]))
+          QProductosPRO_PRECIO3.Value := (QProductosValorEmp.Value+((QProductosValorEmp.Value*QProductosPRO_BENEFICIO3.Value)/100))
         else
-          QProductosPRO_PRECIO3.Value := StrToFloat(Format('%10.2F',[(QProductosPRO_COSTOEMPAQUE.Value+((QProductosPRO_COSTOEMPAQUE.Value*QProductosPRO_BENEFICIO3.Value)/100))]));
+          QProductosPRO_PRECIO3.Value := (QProductosPRO_COSTOEMPAQUE.Value+((QProductosPRO_COSTOEMPAQUE.Value*QProductosPRO_BENEFICIO3.Value)/100));
       end;
     end;
 
@@ -2249,16 +2249,16 @@ if QProductos.State <> dsbrowse then begin
       if dm.QParametrospar_precioemp_m.Value = 'Ninguno' then
       begin
         if dm.QParametrospar_itbisincluido.Value = 'True' then
-          QProductosPRO_PRECIO4.Value := StrToFloat(Format('%10.2F',[(QProductosValor.Value+((QProductosValor.Value*QProductosPRO_BENEFICIO4.Value)/100))]))
+          QProductosPRO_PRECIO4.Value := (QProductosValor.Value+((QProductosValor.Value*QProductosPRO_BENEFICIO4.Value)/100))
         else
-          QProductosPRO_PRECIO4.Value := StrToFloat(Format('%10.2F',[(QProductosPRO_COSTO.Value+((QProductosPRO_COSTO.Value*QProductosPRO_BENEFICIO4.Value)/100))]));
+          QProductosPRO_PRECIO4.Value := (QProductosPRO_COSTO.Value+((QProductosPRO_COSTO.Value*QProductosPRO_BENEFICIO4.Value)/100));
       end
       else if dm.QParametrospar_precioemp_m.Value = 'Precio4' then
       begin
         if dm.QParametrospar_itbisincluido.Value = 'True' then
-          QProductosPRO_PRECIO4.Value := StrToFloat(Format('%10.2F',[(QProductosValorEmp.Value+((QProductosValorEmp.Value*QProductosPRO_BENEFICIO4.Value)/100))]))
+          QProductosPRO_PRECIO4.Value := (QProductosValorEmp.Value+((QProductosValorEmp.Value*QProductosPRO_BENEFICIO4.Value)/100))
         else
-          QProductosPRO_PRECIO4.Value := StrToFloat(Format('%10.2F',[(QProductosPRO_COSTOEMPAQUE.Value+((QProductosPRO_COSTOEMPAQUE.Value*QProductosPRO_BENEFICIO4.Value)/100))]));
+          QProductosPRO_PRECIO4.Value := (QProductosPRO_COSTOEMPAQUE.Value+((QProductosPRO_COSTOEMPAQUE.Value*QProductosPRO_BENEFICIO4.Value)/100));
       end;
     end;
   end
@@ -2269,30 +2269,30 @@ if QProductos.State <> dsbrowse then begin
       if dm.QParametrospar_itbisincluido.Value = 'True' then
       begin
         if QProductosPRO_BENEFICIO.Value > 0 then
-          QProductosPRO_PRECIO1.Value := StrToFloat(Format('%10.2F',[(QProductosValor.Value+((QProductosValor.Value*QProductosPRO_BENEFICIO.Value)/100))]));
+          QProductosPRO_PRECIO1.Value := (QProductosValor.Value+((QProductosValor.Value*QProductosPRO_BENEFICIO.Value)/100));
 
         if QProductosPRO_BENEFICIO2.Value > 0 then
-          QProductosPRO_PRECIO2.Value := StrToFloat(Format('%10.2F',[(QProductosValor.Value+((QProductosValor.Value*QProductosPRO_BENEFICIO2.Value)/100))]));
+          QProductosPRO_PRECIO2.Value := (QProductosValor.Value+((QProductosValor.Value*QProductosPRO_BENEFICIO2.Value)/100));
 
         if QProductosPRO_BENEFICIO3.Value > 0 then
-          QProductosPRO_PRECIO3.Value := StrToFloat(Format('%10.2F',[(QProductosValor.Value+((QProductosValor.Value*QProductosPRO_BENEFICIO3.Value)/100))]));
+          QProductosPRO_PRECIO3.Value := (QProductosValor.Value+((QProductosValor.Value*QProductosPRO_BENEFICIO3.Value)/100));
 
         if QProductosPRO_BENEFICIO4.Value > 0 then
-          QProductosPRO_PRECIO4.Value := StrToFloat(Format('%10.2F',[(QProductosValor.Value+((QProductosValor.Value*QProductosPRO_BENEFICIO4.Value)/100))]));
+          QProductosPRO_PRECIO4.Value := (QProductosValor.Value+((QProductosValor.Value*QProductosPRO_BENEFICIO4.Value)/100));
       end
       else
       begin
         if QProductosPRO_BENEFICIO.Value > 0 then
-          QProductosPRO_PRECIO1.Value := StrToFloat(Format('%10.2F',[(QProductosPRO_COSTO.Value+((QProductosPRO_COSTO.Value*QProductosPRO_BENEFICIO.Value)/100))]));
+          QProductosPRO_PRECIO1.Value := (QProductosPRO_COSTO.Value+((QProductosPRO_COSTO.Value*QProductosPRO_BENEFICIO.Value)/100));
 
         if QProductosPRO_BENEFICIO2.Value > 0 then
-          QProductosPRO_PRECIO2.Value := StrToFloat(Format('%10.2F',[(QProductosPRO_COSTO.Value+((QProductosPRO_COSTO.Value*QProductosPRO_BENEFICIO2.Value)/100))]));
+          QProductosPRO_PRECIO2.Value := (QProductosPRO_COSTO.Value+((QProductosPRO_COSTO.Value*QProductosPRO_BENEFICIO2.Value)/100));
 
         if QProductosPRO_BENEFICIO3.Value > 0 then
-          QProductosPRO_PRECIO3.Value := StrToFloat(Format('%10.2F',[(QProductosPRO_COSTO.Value+((QProductosPRO_COSTO.Value*QProductosPRO_BENEFICIO3.Value)/100))]));
+          QProductosPRO_PRECIO3.Value := (QProductosPRO_COSTO.Value+((QProductosPRO_COSTO.Value*QProductosPRO_BENEFICIO3.Value)/100));
 
         if QProductosPRO_BENEFICIO4.Value > 0 then
-          QProductosPRO_PRECIO4.Value := StrToFloat(Format('%10.2F',[(QProductosPRO_COSTO.Value+((QProductosPRO_COSTO.Value*QProductosPRO_BENEFICIO4.Value)/100))]));
+          QProductosPRO_PRECIO4.Value := (QProductosPRO_COSTO.Value+((QProductosPRO_COSTO.Value*QProductosPRO_BENEFICIO4.Value)/100));
       end;
     end;
   end;
@@ -2309,8 +2309,8 @@ if QProductos.State <> dsbrowse then begin
     while not Query1.Eof do
     begin
       //Precio1
-      if (Frac(CEdt_PRECIO1.Value) >= StrToFloat(Format('%10.2F',[Query1.FieldByName('par_desde').AsFloat]))) and
-      (Frac(CEdt_PRECIO1.Value) <= StrToFloat(Format('%10.2F',[Query1.FieldByName('par_hasta').AsFloat]))) then
+      if (Frac(CEdt_PRECIO1.Value) >= Query1.FieldByName('par_desde').AsFloat) and
+      (Frac(CEdt_PRECIO1.Value) <= Query1.FieldByName('par_hasta').AsFloat) then
       begin
         if UpperCase(Query1.FieldByName('par_sumar').Value) <> 'S' then
         begin
@@ -2331,8 +2331,8 @@ if QProductos.State <> dsbrowse then begin
       end;
 
       //Precio2
-      if (Frac(CEdt_PRECIO2.Value) >= StrToFloat(Format('%10.2F',[Query1.FieldByName('par_desde').AsFloat]))) and
-      (Frac(CEdt_PRECIO2.Value) <= StrToFloat(Format('%10.2F',[Query1.FieldByName('par_hasta').AsFloat]))) then
+      if (Frac(CEdt_PRECIO2.Value) >= Query1.FieldByName('par_desde').AsFloat) and
+      (Frac(CEdt_PRECIO2.Value) <= Query1.FieldByName('par_hasta').AsFloat) then
       begin
         if UpperCase(Query1.FieldByName('par_sumar').Value) <> 'S' then
         begin
@@ -2353,8 +2353,8 @@ if QProductos.State <> dsbrowse then begin
       end;
 
       //Precio3
-      if (Frac(CEdt_PRECIO3.Value) >= StrToFloat(Format('%10.2F',[Query1.FieldByName('par_desde').AsFloat]))) and
-      (Frac(CEdt_PRECIO3.Value) <= StrToFloat(Format('%10.2F',[Query1.FieldByName('par_hasta').AsFloat]))) then
+      if (Frac(CEdt_PRECIO3.Value) >= Query1.FieldByName('par_desde').AsFloat) and
+      (Frac(CEdt_PRECIO3.Value) <= Query1.FieldByName('par_hasta').AsFloat) then
       begin
         if UpperCase(Query1.FieldByName('par_sumar').Value) <> 'S' then
         begin
@@ -2375,8 +2375,8 @@ if QProductos.State <> dsbrowse then begin
       end;
 
       //Precio4
-      if (Frac(CEdt_PRECIO4.Value) >= StrToFloat(Format('%10.2F',[Query1.FieldByName('par_desde').AsFloat]))) and
-      (Frac(CEdt_PRECIO4.Value) <= StrToFloat(Format('%10.2F',[Query1.FieldByName('par_hasta').AsFloat]))) then
+      if (Frac(CEdt_PRECIO4.Value) >= Query1.FieldByName('par_desde').AsFloat) and
+      (Frac(CEdt_PRECIO4.Value) <= Query1.FieldByName('par_hasta').AsFloat) then
       begin
         if UpperCase(Query1.FieldByName('par_sumar').Value) <> 'S' then
         begin
@@ -3346,94 +3346,6 @@ begin
   end;}
 end;
 
-procedure TfrmProductos.CEdt_PRECIO2KeyDown(Sender: TObject; var Key: Word;
-  Shift: TShiftState);
-begin
-{if key = vk_return then
-  begin
-    if QProductos.State <> dsbrowse then
-    begin
-      QProductosPRO_BENEFICIO2.Value := CEdt_Ben2.Value;
-      if (CEdt_Ben1.Value > 0) and (CEdt_Valor.Value > 0) then
-      begin
-        if dm.QParametrospar_itbisincluido.Value = 'True' then
-           CEdt_PRECIO2.Value := (CEdt_Valor.Value+((CEdt_Valor.Value*CEdt_Ben2.Value)/100))
-         else
-           CEdt_PRECIO2.Value := (CEdt_Costo.Value+((CEdt_Costo.Value*CEdt_Ben2.Value)/100));
-
-      QProductosPRO_PRECIO2.Value := CEdt_PRECIO2.Value;
-      end;
-    end;
-  end;
- }
-
-end;
-
-procedure TfrmProductos.CEdt_PRECIO3KeyDown(Sender: TObject; var Key: Word;
-  Shift: TShiftState);
-begin
-{f key = vk_return then
-  begin
-    if QProductos.State <> dsbrowse then
-    begin
-      QProductosPRO_BENEFICIO3.Value := CEdt_Ben3.Value;
-      if (CEdt_Ben3.Value > 0) and (CEdt_Valor.Value > 0) then
-      begin
-        if dm.QParametrospar_itbisincluido.Value = 'True' then
-           CEdt_PRECIO3.Value := (CEdt_Valor.Value+((CEdt_Valor.Value*CEdt_Ben3.Value)/100))
-         else
-           CEdt_PRECIO3.Value := (CEdt_Costo.Value+((CEdt_Costo.Value*CEdt_Ben3.Value)/100));
-
-      QProductosPRO_PRECIO3.Value := CEdt_PRECIO3.Value;
-      end;
-    end;
-  end;}
-end;
-
-procedure TfrmProductos.CEdt_PRECIO4KeyDown(Sender: TObject; var Key: Word;
-  Shift: TShiftState);
-begin
-{f key = vk_return then
-  begin
-    if QProductos.State <> dsbrowse then
-    begin
-      QProductosPRO_BENEFICIO4.Value := CEdt_Ben4.Value;
-      if (CEdt_Ben4.Value > 0) and (CEdt_Valor.Value > 0) then
-      begin
-        if dm.QParametrospar_itbisincluido.Value = 'True' then
-           CEdt_PRECIO4.Value := (CEdt_Valor.Value+((CEdt_Valor.Value*CEdt_Ben4.Value)/100))
-         else
-           CEdt_PRECIO4.Value := (CEdt_Costo.Value+((CEdt_Costo.Value*CEdt_Ben4.Value)/100));
-
-      QProductosPRO_PRECIO4.Value := CEdt_PRECIO4.Value;
-      end;
-    end;
-  end;}
-end;
-
-procedure TfrmProductos.CEdt_Ben1KeyDown(Sender: TObject; var Key: Word;
-  Shift: TShiftState);
-begin
- if key = vk_return then
-  begin
-    if QProductos.State <> dsbrowse then
-    begin
-      if Trim(CEdt_Ben1.Text)<>'' then begin
-      if (StrToFloat(CEdt_Ben1.Text) > 0) and (CEdt_Valor.Value > 0) then
-      begin
-        QProductosPRO_BENEFICIO.Value := StrToFloat(CEdt_Ben1.Text);
-        if dm.QParametrospar_itbisincluido.Value = 'True' then
-           CEdt_PRECIO1.Value := (CEdt_Valor.Value+((CEdt_Valor.Value*CEdt_Ben1.Value)/100))
-         else
-           CEdt_PRECIO1.Value := (CEdt_Costo.Value+((CEdt_Costo.Value*CEdt_Ben1.Value)/100));
-
-      QProductosPRO_PRECIO1.Value := CEdt_PRECIO1.Value;
-      end;
-    end;
-    end;
-  end;
-end;
-
 procedure TfrmProductos.CEdt_ValorPropertiesChange(Sender: TObject);
 begin
   precios;
@@ -3441,161 +3353,24 @@ end;
 
 procedure TfrmProductos.CEdt_PRECIO2Exit(Sender: TObject);
 begin
-IF QProductos.State <> dsBrowse then begin
-IF (CEdt_Costo.Value > 0) and (QProductosPRO_COSTOEMPAQUE.Value = 0) and (QProductosPRO_CANTEMPAQUE.Value = 0) THEN BEGIN
-if (CEdt_PRECIO2.Value > 0) and (CEdt_Valor.Value > 0) then
-      begin
-           if dm.QParametrospar_itbisincluido.Text = 'True' then
-           CEdt_BEN2.Value := ((CEdt_PRECIO2.Value/CEdt_Valor.Value)-1)*100 else
-           CEdt_Ben2.Value := ((CEdt_PRECIO2.Value/CEdt_Costo.Value)-1)*100;
-           QProductosPRO_BENEFICIO2.Value := StrToFloat(CEdt_BEN2.Text);
-      end;
-end
-else
-if (CEdt_PRECIO2.Value > 0) and (QProductosValorEmp.Value > 0) then
-      begin
-           if dm.QParametrospar_itbisincluido.Text = 'True' then
-           CEdt_BEN2.Value := ((CEdt_PRECIO2.Value/(QProductosValorEmp.Value))-1)*100 else
-           CEdt_Ben2.Value := ((CEdt_PRECIO2.Value/(QProductosValorEmp.Value))-1)*100;
-           QProductosPRO_BENEFICIO2.Value := StrToFloat(CEdt_BEN2.Text);
-      end;
-end;
+VerificarBeneficio2;
 end;
 
 
 procedure TfrmProductos.CEdt_PRECIO1Exit(Sender: TObject);
 begin
-IF QProductos.State <> dsBrowse then begin
-IF CEdt_Costo.Value > 0 THEN BEGIN
-if (CEdt_PRECIO1.Value > 0) and (CEdt_Valor.Value > 0) then
-      begin
-           if dm.QParametrospar_itbisincluido.Text = 'True' then
-           CEdt_Ben1.Value := ((CEdt_PRECIO1.Value/CEdt_Valor.Value)-1)*100 else
-           CEdt_Ben1.Value := ((CEdt_PRECIO1.Value/CEdt_Costo.Value)-1)*100;
-           QProductosPRO_BENEFICIO.Value := StrToFloat(CEdt_Ben1.Text);
-      end;
-end;
-end;
+VerificarBeneficio1;
+
 end;
 
 procedure TfrmProductos.CEdt_PRECIO3Exit(Sender: TObject);
 begin
-IF QProductos.State <> dsBrowse then begin
-IF CEdt_Costo.Value > 0 THEN BEGIN
-if (CEdt_PRECIO3.Value > 0) and (CEdt_Valor.Value > 0) then
-      begin
-           if dm.QParametrospar_itbisincluido.Text = 'True' then
-           CEdt_BEN3.Value := ((CEdt_PRECIO3.Value/CEdt_Valor.Value)-1)*100 else
-           CEdt_Ben3.Value := ((CEdt_PRECIO3.Value/CEdt_Costo.Value)-1)*100;
-           QProductosPRO_BENEFICIO3.Value := StrToFloat(CEdt_BEN3.Text);
-      end;
-end;
-end;
-
+VerificarBeneficio3;
 end;
 
 procedure TfrmProductos.CEdt_PRECIO4Exit(Sender: TObject);
 begin
-IF QProductos.State <> dsBrowse then begin
-IF CEdt_Costo.Value > 0 THEN BEGIN
-if (CEdt_PRECIO4.Value > 0) and (CEdt_Valor.Value > 0) then
-      begin
-           if dm.QParametrospar_itbisincluido.Text = 'True' then
-           CEdt_BEN4.Value := ((CEdt_PRECIO4.Value/CEdt_Valor.Value)-1)*100 else
-           CEdt_Ben4.Value := ((CEdt_PRECIO4.Value/CEdt_Costo.Value)-1)*100;
-           QProductosPRO_BENEFICIO4.Value := StrToFloat(CEdt_BEN4.Text);
-      end;
-end;
-end;
-end;
-
-procedure TfrmProductos.CEdt_BEN2KeyDown(Sender: TObject; var Key: Word;
-  Shift: TShiftState);
-begin
- if key = vk_return then
-  begin
-    if QProductos.State <> dsbrowse then
-    begin
-      IF CEdt_Costo.Value > 0 THEN BEGIN
-      if Trim(CEdt_Ben2.Text)<>'' then begin
-      if (StrToFloat(CEdt_Ben2.Text) > 0) and (CEdt_Valor.Value > 0) and (QProductosPRO_COSTOEMPAQUE.Value = 0)
-      and (QProductosValorEmp.Value = 0) then
-      begin
-        QProductosPRO_BENEFICIO2.Value := StrToFloat(CEdt_Ben2.Text);
-        if dm.QParametrospar_itbisincluido.Value = 'True' then
-           CEdt_PRECIO2.Value := (CEdt_Valor.Value+((CEdt_Valor.Value*CEdt_Ben2.Value)/100))
-         else
-           CEdt_PRECIO2.Value := (CEdt_Costo.Value+((CEdt_Costo.Value*CEdt_Ben2.Value)/100));
-
-      QProductosPRO_PRECIO2.Value := CEdt_PRECIO2.Value;
-      end;
-      if (StrToFloat(CEdt_Ben2.Text) > 0) and (CEdt_Valor.Value > 0) and (QProductosPRO_COSTOEMPAQUE.Value > 0)
-      and (QProductosValorEmp.Value > 0) then
-      begin
-        QProductosPRO_BENEFICIO2.Value := StrToFloat(CEdt_Ben2.Text);
-        if dm.QParametrospar_itbisincluido.Value = 'True' then
-           CEdt_PRECIO2.Value := (QProductosValorEmp.Value+((QProductosValorEmp.Value*CEdt_Ben2.Value)/100))
-         else
-           CEdt_PRECIO2.Value := (QProductosPRO_COSTOEMPAQUE.Value+((QProductosPRO_COSTOEMPAQUE.Value*CEdt_Ben2.Value)/100));
-
-      QProductosPRO_PRECIO2.Value := CEdt_PRECIO2.Value;
-      end;
-
-      end;
-    end;
-  end;
-  end;
-end;
-
-procedure TfrmProductos.CEdt_BEN3KeyDown(Sender: TObject; var Key: Word;
-  Shift: TShiftState);
-begin
-if key = vk_return then
-  begin
-    if QProductos.State <> dsbrowse then
-    begin
-      IF CEdt_Costo.Value > 0 THEN BEGIN
-      if Trim(CEdt_Ben3.Text)<>'' then begin
-      if (StrToFloat(CEdt_Ben3.Text) > 0) and (CEdt_Valor.Value > 0) then
-      begin
-        QProductosPRO_BENEFICIO3.Value := StrToFloat(CEdt_Ben3.Text);
-        if dm.QParametrospar_itbisincluido.Value = 'True' then
-           CEdt_PRECIO3.Value := (CEdt_Valor.Value+((CEdt_Valor.Value*CEdt_Ben3.Value)/100))
-         else
-           CEdt_PRECIO3.Value := (CEdt_Costo.Value+((CEdt_Costo.Value*CEdt_Ben3.Value)/100));
-
-      QProductosPRO_PRECIO3.Value := CEdt_PRECIO3.Value;
-      end;
-      end;
-    end;
-  end;
-
-  end;
-end;
-
-procedure TfrmProductos.CEdt_BEN4KeyDown(Sender: TObject; var Key: Word;
-  Shift: TShiftState);
-begin
- if key = vk_return then
-  begin
-    if QProductos.State <> dsbrowse then
-    begin
-      if Trim(CEdt_Ben4.Text)<>'' then begin
-      if (StrToFloat(CEdt_Ben4.Text) > 0) and (CEdt_Valor.Value > 0) then
-      begin
-        QProductosPRO_BENEFICIO4.Value := StrToFloat(CEdt_Ben4.Text);
-        if dm.QParametrospar_itbisincluido.Value = 'True' then
-           CEdt_PRECIO4.Value := (CEdt_Valor.Value+((CEdt_Valor.Value*CEdt_Ben4.Value)/100))
-         else
-           CEdt_PRECIO4.Value := (CEdt_Costo.Value+((CEdt_Costo.Value*CEdt_Ben4.Value)/100));
-
-      QProductosPRO_PRECIO4.Value := CEdt_PRECIO4.Value;
-      end;
-    end;
-    end;
-  end;
-
-
+VerificarBeneficio4;
 end;
 
 procedure TfrmProductos.CEdt_CostoExit(Sender: TObject);
@@ -3655,11 +3430,183 @@ vl_sup := 0;
 end;
 end;
 
-procedure TfrmProductos.QProductosBeforeOpen(DataSet: TDataSet);
+procedure TfrmProductos.dbedtPRO_DESCMAXKeyPress(Sender: TObject;
+  var Key: Char);
 begin
-QProductos.Parameters.ParamByName('par_invempresa').Value := DM.QParametrosEMP_CODIGO.value;
+if not( key in ['0'..'9',#8,SysUtils.DecimalSeparator]) then
+   key := #0;
 end;
 
+procedure TfrmProductos.VerificarBeneficio1;
+begin
+    if QProductos.State <> dsbrowse then
+    begin
+      if (CEdt_PRECIO1.Value<>0) and (CEdt_Valor.Value > 0) and (CEdt_Costo.Value>0) then
+      begin
+        if dm.QParametrospar_itbisincluido.Value = 'True' then
+           CEdt_Ben1.Value := ((CEdt_PRECIO1.Value/CEdt_Valor.Value)-1)*100
+         else
+           CEdt_Ben1.Value := ((CEdt_PRECIO1.Value/CEdt_Costo.Value)-1)*100;
+          // CEdt_Ben1.Value := ((CEdt_Costo.Value/CEdt_PRECIO1.Value)-1)*100;
+      QProductosPRO_BENEFICIO.Value := CEdt_Ben1.Value;
+      end;
+    end;
+  end;
 
+
+procedure TfrmProductos.VerificarBeneficio2;
+begin
+    if QProductos.State <> dsbrowse then
+    begin
+      if (CEdt_PRECIO2.Value<>0) and (CEdt_Valor.Value > 0) and (CEdt_Costo.Value>0) and (QProductosPRO_CANTEMPAQUE.Value = 0) then
+      begin
+        if dm.QParametrospar_itbisincluido.Value = 'True' then
+           CEdt_Ben2.Value := ((CEdt_PRECIO2.Value/CEdt_Valor.Value)-1)*100
+         else
+           CEdt_Ben2.Value := ((CEdt_PRECIO2.Value/CEdt_Costo.Value)-1)*100;
+           //CEdt_Ben2.Value := ((CEdt_Costo.Value/CEdt_Valor.Value)-1)*100;
+      QProductosPRO_BENEFICIO2.Value := CEdt_Ben2.Value;
+      end;
+
+      if (CEdt_PRECIO2.Value<>0) and (CEdt_Valor.Value > 0) and (QProductosPRO_CANTEMPAQUE.Value > 0) then
+      begin
+        if dm.QParametrospar_itbisincluido.Value = 'True' then
+           CEdt_Ben2.Value := ((CEdt_PRECIO2.Value/CEdt_ValorEmp.Value)-1)*100
+         else
+           CEdt_Ben2.Value := ((CEdt_CostoEmp.Value/CEdt_ValorEmp.Value)-1)*100;
+
+      QProductosPRO_BENEFICIO2.Value := CEdt_Ben2.Value;
+      end;
+    end;
+
+end;
+
+procedure TfrmProductos.VerificarBeneficio3;
+begin
+    if QProductos.State <> dsbrowse then
+    begin
+      if (CEdt_PRECIO3.Value<>0) and (CEdt_Valor.Value > 0) and (CEdt_Costo.Value>0) then
+      begin
+        if dm.QParametrospar_itbisincluido.Value = 'True' then
+           CEdt_Ben3.Value := ((CEdt_PRECIO3.Value/CEdt_Valor.Value)-1)*100
+         else
+           //CEdt_Ben3.Value := ((CEdt_Costo.Value/CEdt_Valor.Value)-1)*100;
+           CEdt_Ben3.Value := ((CEdt_PRECIO3.Value/CEdt_Costo.Value)-1)*100;
+      QProductosPRO_BENEFICIO3.Value := CEdt_Ben3.Value;
+      end;
+    end;
+end;
+
+procedure TfrmProductos.VerificarBeneficio4;
+begin
+    if QProductos.State <> dsbrowse then
+    begin
+      if (CEdt_PRECIO4.Value<>0) and (CEdt_Valor.Value > 0) and (CEdt_Costo.Value>0) then
+      begin
+        if dm.QParametrospar_itbisincluido.Value = 'True' then
+           CEdt_Ben4.Value := ((CEdt_PRECIO4.Value/CEdt_Valor.Value)-1)*100
+         else
+           //CEdt_Ben4.Value := ((CEdt_Costo.Value/CEdt_Valor.Value)-1)*100;
+           CEdt_Ben4.Value := ((CEdt_PRECIO4.Value/CEdt_Costo.Value)-1)*100;
+           
+      QProductosPRO_BENEFICIO4.Value := CEdt_BEN4.Value;
+      end;
+    end;
+
+end;
+
+procedure TfrmProductos.VerificarPrecio1;
+begin
+    if QProductos.State <> dsbrowse then
+    begin
+      if (CEdt_Ben1.Value<>0) and (CEdt_Valor.Value > 0) then
+      begin
+     //
+        if dm.QParametrospar_itbisincluido.Value = 'True' then
+           CEdt_PRECIO1.Value := (CEdt_Valor.Value*(1+(CEdt_Ben1.Value/100)))
+         else
+           CEdt_PRECIO1.Value := (CEdt_Costo.Value*(1+(CEdt_Ben1.Value/100)));
+      QProductosPRO_PRECIO1.Value := CEdt_PRECIO1.Value;
+      end;
+    end;
+end;
+
+procedure TfrmProductos.CEdt_Ben1Exit(Sender: TObject);
+begin
+ VerificarPrecio1;
+end;
+
+procedure TfrmProductos.VerificarPrecio2;
+begin
+ if QProductos.State <> dsbrowse then
+    begin
+      if (CEdt_BEN2.Value<>0) and (CEdt_Valor.Value > 0) and (QProductosPRO_CANTEMPAQUE.Value = 0) then
+      begin
+        if dm.QParametrospar_itbisincluido.Value = 'True' then
+           CEdt_PRECIO2.Value := (CEdt_Valor.Value*(1+(CEdt_BEN2.Value/100)))
+         else
+           CEdt_PRECIO2.Value := (CEdt_Costo.Value*(1+(CEdt_BEN2.Value/100)));
+
+      QProductosPRO_PRECIO2.Value := CEdt_PRECIO2.Value;
+      end;
+
+      if (CEdt_BEN2.Value<>0) and (CEdt_ValorEmp.Value > 0) and (QProductosPRO_CANTEMPAQUE.Value > 0) then
+      begin
+        if dm.QParametrospar_itbisincluido.Value = 'True' then
+           CEdt_PRECIO2.Value := (CEdt_ValorEmp.Value*(1+(CEdt_BEN2.Value/100)))
+         else
+           CEdt_PRECIO2.Value := (CEdt_CostoEmp.Value*(1+(CEdt_BEN2.Value/100)));
+
+      QProductosPRO_PRECIO2.Value := CEdt_PRECIO2.Value;
+      end;
+    end;
+end;
+
+procedure TfrmProductos.VerificarPrecio3;
+begin
+    if QProductos.State <> dsbrowse then
+    begin
+      if (CEdt_Ben3.Value<>0) and (CEdt_Valor.Value > 0) then
+      begin
+     if dm.QParametrospar_itbisincluido.Value = 'True' then
+           CEdt_PRECIO3.Value := (CEdt_Valor.Value*(1+(CEdt_Ben3.Value/100)))
+         else
+           CEdt_PRECIO3.Value := (CEdt_Costo.Value*(1+(CEdt_Ben3.Value/100)));
+      QProductosPRO_PRECIO3.Value := CEdt_PRECIO3.Value;
+      end;
+    end;
+
+end;
+
+procedure TfrmProductos.VerificarPrecio4;
+begin
+if QProductos.State <> dsbrowse then
+    begin
+      if (CEdt_Ben4.Value<>0) and (CEdt_Valor.Value > 0) then
+      begin
+     if dm.QParametrospar_itbisincluido.Value = 'True' then
+           CEdt_PRECIO4.Value := (CEdt_Valor.Value*(1+(CEdt_Ben4.Value/100)))
+         else
+           CEdt_PRECIO4.Value := (CEdt_Costo.Value*(1+(CEdt_Ben4.Value/100)));
+      QProductosPRO_PRECIO4.Value := CEdt_PRECIO4.Value;
+      end;
+    end;
+
+end;
+
+procedure TfrmProductos.CEdt_BEN2Exit(Sender: TObject);
+begin
+VerificarPrecio2;
+end;
+
+procedure TfrmProductos.CEdt_BEN3Exit(Sender: TObject);
+begin
+VerificarPrecio3;
+end;
+
+procedure TfrmProductos.CEdt_BEN4Exit(Sender: TObject);
+begin
+VerificarPrecio4;
+end;
 
 end.

@@ -1,11 +1,11 @@
 object frmConduce: TfrmConduce
-  Left = 346
-  Top = 22
+  Left = 426
+  Top = 26
   ActiveControl = DBEdit5
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Conduce [Salida de Almacen]'
-  ClientHeight = 599
+  ClientHeight = 624
   ClientWidth = 788
   Color = clBtnFace
   Font.Charset = ANSI_CHARSET
@@ -210,9 +210,9 @@ object frmConduce: TfrmConduce
       ParentFont = False
     end
     object btfactura: TSpeedButton
-      Left = 278
+      Left = 280
       Top = 128
-      Width = 73
+      Width = 71
       Height = 21
       Caption = 'Factura'
       Enabled = False
@@ -451,7 +451,7 @@ object frmConduce: TfrmConduce
     object PageControl1: TPageControl
       Left = 276
       Top = 4
-      Width = 500
+      Width = 409
       Height = 117
       ActivePage = TabSheet2
       TabOrder = 9
@@ -526,7 +526,7 @@ object frmConduce: TfrmConduce
         object DBEdit4: TDBEdit
           Left = 64
           Top = 32
-          Width = 420
+          Width = 337
           Height = 21
           BevelKind = bkFlat
           BorderStyle = bsNone
@@ -580,7 +580,7 @@ object frmConduce: TfrmConduce
         object DBEdit15: TDBEdit
           Left = 136
           Top = 8
-          Width = 345
+          Width = 265
           Height = 21
           BevelKind = bkFlat
           BorderStyle = bsNone
@@ -668,7 +668,7 @@ object frmConduce: TfrmConduce
         object DBEdit1: TDBEdit
           Left = 64
           Top = 32
-          Width = 420
+          Width = 337
           Height = 21
           BevelKind = bkFlat
           BorderStyle = bsNone
@@ -722,7 +722,7 @@ object frmConduce: TfrmConduce
         object DBEdit6: TDBEdit
           Left = 136
           Top = 8
-          Width = 347
+          Width = 265
           Height = 21
           BevelKind = bkFlat
           BorderStyle = bsNone
@@ -901,7 +901,7 @@ object frmConduce: TfrmConduce
   end
   object Panel5: TPanel
     Left = 0
-    Top = 506
+    Top = 531
     Width = 788
     Height = 93
     Align = alBottom
@@ -1246,7 +1246,7 @@ object frmConduce: TfrmConduce
     Left = 0
     Top = 227
     Width = 788
-    Height = 279
+    Height = 304
     ActivePage = TabSheet4
     Align = alClient
     TabOrder = 2
@@ -1256,7 +1256,7 @@ object frmConduce: TfrmConduce
         Left = 0
         Top = 0
         Width = 780
-        Height = 251
+        Height = 276
         Align = alClient
         Ctl3D = False
         DataSource = dsDetalle
@@ -1444,7 +1444,7 @@ object frmConduce: TfrmConduce
         Left = 0
         Top = 0
         Width = 30
-        Height = 219
+        Height = 244
         Align = alLeft
         BevelInner = bvRaised
         BevelOuter = bvLowered
@@ -1498,7 +1498,7 @@ object frmConduce: TfrmConduce
       end
       object Panel1: TPanel
         Left = 0
-        Top = 219
+        Top = 244
         Width = 780
         Height = 32
         Align = alBottom
@@ -1609,7 +1609,7 @@ object frmConduce: TfrmConduce
         Left = 30
         Top = 0
         Width = 750
-        Height = 219
+        Height = 244
         Align = alClient
         Ctl3D = False
         DataSource = dsCuentas
@@ -1768,10 +1768,9 @@ object frmConduce: TfrmConduce
       Size = 10
     end
     object QConduceCON_DIRECCION: TIBStringField
-      DisplayWidth = 200
       FieldName = 'CON_DIRECCION'
       Origin = 'CONDUCE.CON_DIRECCION'
-      Size = 200
+      Size = 60
     end
     object QConduceCON_FAX: TIBStringField
       FieldName = 'CON_FAX'
@@ -2893,7 +2892,7 @@ object frmConduce: TfrmConduce
     SQL.Strings = (
       'DECLARE @CANTCOT NUMERIC(18,2),'
       '        @CANTENT NUMERIC(18,2),'
-      '        @CANT NUMERIC(18,2),'#9
+      '        @CANT NUMERIC(18,2),'
       '        @PROD INT,'
       '        @DEP INT,'
       '        @COT INT,'
@@ -2904,7 +2903,6 @@ object frmConduce: TfrmConduce
       'SET @COT = :COT'
       'SET @CANT = 0'
       'DECLARE ProdInfo CURSOR FOR '
-      ''
       'SELECT DC.PRO_CODIGO , DC.DET_CANTIDAD'
       'FROM COTIZACION C '
       
@@ -2913,7 +2911,6 @@ object frmConduce: TfrmConduce
       
         'WHERE C.DEP_CODIGO = @DEP AND C.COT_STATUS = '#39'EMI'#39' AND C.COT_NUM' +
         'ERO = @COT'
-      ''
       'OPEN ProdInfo'
       'FETCH NEXT FROM ProdInfo INTO @PROD, @CANTCOT'
       'WHILE @@fetch_status = 0'
@@ -2931,18 +2928,17 @@ object frmConduce: TfrmConduce
       ''
       'SET @CANT = @CANT+(@CANTCOT-@CANTENT)'
       ''
-      'UPDATE DET_COTIZACION '
-      'SET det_cantidad_disponible =det_cantidad - @CANTENT'
-      
-        'WHERE cot_numero = @COT AND emp_codigo = @EMP and pro_codigo=@PR' +
-        'OD'
-      ''
-      'print @CANTENT '
-      ''
       'FETCH NEXT FROM ProdInfo INTO @PROD, @CANTCOT'
       'END'
       'CLOSE ProdInfo'
-      'DEALLOCATE ProdInfo')
+      'DEALLOCATE ProdInfo'
+      ''
+      'IF @CANT <=0 BEGIN '
+      'UPDATE Cotizacion '
+      'SET cot_status = '#39'COM'#39
+      'WHERE cot_numero = @COT AND emp_codigo = @EMP'
+      'END'
+      '')
     Left = 312
     Top = 328
   end

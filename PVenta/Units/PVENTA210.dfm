@@ -507,6 +507,7 @@ object frmResumenVentaProducto: TfrmResumenVentaProducto
     CursorType = ctStatic
     LockType = ltBatchOptimistic
     CommandTimeout = 0
+    DataSource = DM.dsEmpresas
     ProcedureName = 'pr_venta_producto_anual;1'
     Parameters = <
       item

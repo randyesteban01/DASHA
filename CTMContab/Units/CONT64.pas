@@ -30,7 +30,6 @@ type
     LB_1: TLabel;
     DEdt_Venc: TcxDateEdit;
     ChkB_Vencimiento: TCheckBox;
-    chkDetenerNCF: TCheckBox;
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure FormCreate(Sender: TObject);
     procedure edFijoChange(Sender: TObject);
@@ -63,6 +62,7 @@ end;
 procedure TfrmNCF.FormCreate(Sender: TObject);
 begin
   QSucursal.Parameters.ParamByName('usu').Value := dm.Usuario;
+    QSucursal.Parameters.ParamByName('emp_codigo').Value := dm.vp_cia;
   QSucursal.Open;
 end;
 

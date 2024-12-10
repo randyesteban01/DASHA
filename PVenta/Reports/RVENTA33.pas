@@ -104,6 +104,7 @@ type
     dsSucursal: TDataSource;
     QNotasuc_codigo: TIntegerField;
     dsNota: TDataSource;
+    QNotaNCR_MONTO2: TFloatField;
     procedure QNotaCalcFields(DataSet: TDataSet);
     procedure QNotaAfterOpen(DataSet: TDataSet);
   private

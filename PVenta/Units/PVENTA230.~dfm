@@ -1,6 +1,6 @@
 object frmConsFTEnvios: TfrmConsFTEnvios
-  Left = 247
-  Top = 277
+  Left = 265
+  Top = 175
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Consulta de Envios'

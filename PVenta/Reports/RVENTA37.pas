@@ -145,8 +145,6 @@ type
     StringField12: TStringField;
     BlobField1: TBlobField;
     dsSucursal: TDataSource;
-    QRLabel15: TQRLabel;
-    QRShape1: TQRShape;
     procedure QDetalleCalcFields(DataSet: TDataSet);
     procedure QuickRepBeforePrint(Sender: TCustomQuickRep;
       var PrintReport: Boolean);

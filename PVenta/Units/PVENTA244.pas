@@ -4,7 +4,9 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, Buttons, Mask, DBCtrls, ExtCtrls, DB, ADODB, DIMime;
+  Dialogs, StdCtrls, Buttons, Mask, DBCtrls, ExtCtrls, DB, ADODB, DIMime,
+  IdBaseComponent, IdComponent, IdTCPConnection, IdTCPClient,
+  IdMessageClient, IdSMTP, ShellAPI;
 
 type
   TFrmConfCorreo = class(TForm)
@@ -54,19 +56,50 @@ EdtPassMail.Text := MimeDecodeString(DM.QUsuariospar_mailclave.Text);
 end;
 
 procedure TFrmConfCorreo.btnPruebaEmailClick(Sender: TObject);
+ var
+ Server, Email, Port, User, Password, EmpresaCodigo, SucursalCodigo, Params, ExePath, AppPath: string;
+
 begin
-if DM.QUsuarios.State in [dsedit] then
+//if DM.QUsuarios.State in [dsedit] then
 btnGrabarClick(Sender);
 frmMain.EnviarCorreo(dm.QUsuariospar_mailusuario.Text,'Prueba del Correo','','Prueba del Sistema!');
+
+ { Server := trim(DM.QParametrospar_mailservidor.Text);
+  Email := DM.QParametrospar_mailcorreo.Text;
+  Port := dm.QParametrospar_mailpuerto.Text;
+  User :=trim(dm.QParametrospar_mailusuario.Text);
+  Password := MimeDecodeString(dm.QParametrospar_mailclave.Text);
+  EmpresaCodigo := '1' ;
+  SucursalCodigo := '1';
+
+  Params := Format('%s %s %s %s %s %s %s', [Server, Email, Port, User, Password, EmpresaCodigo, SucursalCodigo]);
+  
+  // Obtener la ruta del ejecutable actual y combinarla con el nombre del ejecutable de C#
+  AppPath := ExtractFilePath(ParamStr(0));
+  ExePath := AppPath + 'CorreoDasha.exe';  // Asegúrate de que el nombre del ejecutable de C# sea 'correo.exe'
+
+  ShellExecute(0, 'open', PChar(ExePath), PChar(Params), nil, SW_SHOWNORMAL);}
 end;
 
 procedure TFrmConfCorreo.btnGrabarClick(Sender: TObject);
 begin
-if dm.QUsuarios.State in [dsedit] then begin ;
+//if dm.QUsuarios.State in [dsedit] then begin ;
+
+DM.QUsuarios.Edit;
 DM.QUsuariospar_mailclave.Value := MimeEncodeString(EdtPassMail.Text);
 DM.QUsuariospar_mailOK.Value    := dm.vp_usermailok;
 DM.QUsuarios.Post;
-end;
-end;
+  {
+if dm.QParametros.State in [dsedit] then begin ;
+ Dm.QParametrospar_mailservidor.Value := DM.QUsuariospar_mailservidor.Value;
+ DM.QParametrospar_mailcorreo.Value := DM.QUsuariospar_mailcorreo.Value;
+ DM.QParametrospar_mailpuerto.Value := DM.QUsuariospar_mailpuerto.Value;
 
+
+
+ Dm.QParametrospar_mailservidor.Value := DM.QUsuariospar_mailservidor.Value;
+
+     }
+//end;
+end;
 end.

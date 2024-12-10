@@ -1,6 +1,6 @@
 object frmConsComprobantes: TfrmConsComprobantes
-  Left = 349
-  Top = 300
+  Left = 308
+  Top = 228
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Comprobantes fiscales'
@@ -221,6 +221,12 @@ object frmConsComprobantes: TfrmConsComprobantes
             FieldName = 'Descuento'
             Title.Caption = 'DESCUENTO'
             Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'Propina'
+            Title.Caption = 'PROPINA'
+            Visible = True
           end>
       end
     end
@@ -297,6 +303,12 @@ object frmConsComprobantes: TfrmConsComprobantes
             Title.Caption = 'EXENTO'
             Width = 89
             Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'Propina'
+            Title.Caption = 'PROPINA'
+            Visible = True
           end>
       end
     end
@@ -358,7 +370,8 @@ object frmConsComprobantes: TfrmConsComprobantes
         't(sec2 as varchar(8))) as Hasta,'
       
         'sum(Total) as Total, sum(Itbis) as Itbis, sum(Grabado) as Grabad' +
-        'o, sum(Exento) as Exento, sum(Descuento) Descuento,'
+        'o, sum(Exento) as Exento, sum(Descuento) Descuento, sum(Propina)' +
+        ' Propina,'
       
         '0.00 Itbis0, sum(monto_8) Itbis8, sum(monto_11) Itbis11, sum(mon' +
         'to_13) Itbis13, sum(monto_16) Itbis16, sum(monto_18) Itbis18,'
@@ -367,9 +380,10 @@ object frmConsComprobantes: TfrmConsComprobantes
         ') ELSE 0 END ItbisNC, '
       
         'sum(efectivo) efectivo, sum(cheqtransfdep) ckdep, sum(ventacredi' +
-        'to)credito, sum(tarjetadebcred) tarjetas'
+        'to)credito, sum(tarjetadebcred) tarjetas, sum(otrasformpag) otra' +
+        's'
       'from'#9'pr_comprobantes (:emp, :tipo, :fec1, :fec2, :tiporeporte)'
-      'group'#9'by Fecha, ncf_fijo1'
+      'group'#9'by NCF_Secuencia, Fecha, ncf_fijo1'
       'order'#9'by 1'
       '')
     Left = 224
@@ -454,6 +468,12 @@ object frmConsComprobantes: TfrmConsComprobantes
     object QComprobantesCANT: TIntegerField
       FieldName = 'CANT'
     end
+    object QComprobantesotras: TCurrencyField
+      FieldName = 'otras'
+    end
+    object QComprobantesPropina: TCurrencyField
+      FieldName = 'Propina'
+    end
   end
   object QListado: TADOQuery
     Connection = DM.ADOSigma
@@ -490,15 +510,14 @@ object frmConsComprobantes: TfrmConsComprobantes
         Value = Null
       end>
     SQL.Strings = (
-      'SET DATEFORMAT YMD'
       
         'select '#9'Fecha, ncf_fijo1+replicate('#39'0'#39',8-len(cast(sec1 as varcha' +
         'r(8))))+cast(sec1 as varchar(8)) as Desde,'
       #39'A'#39' as Hasta,'
-      'Total, Itbis, Grabado, Exento, rnc, Descuento, 1 CANT,'
+      'Total, Itbis, Grabado, Exento,Propina, rnc, Descuento, 1 CANT,'
       
         '0.00 Itbis0, monto_8 Itbis8, monto_11 Itbis11, monto_13 Itbis13,' +
-        ' monto_16 Itbis16, monto_18 Itbis18,'
+        ' monto_16 Itbis16, monto_18 Itbis18, otrasformpag otras,'
       
         'efectivo, cheqtransfdep ckdep, ventacredito credito, tarjetadebc' +
         'red  tarjetas, replace(ncf_fijo1,'#39'00000000'#39','#39#39')TIPO,'
@@ -508,11 +527,13 @@ object frmConsComprobantes: TfrmConsComprobantes
       'from'#9'pr_comprobantes (:emp, :tipo, :fec1, :fec2, :tiporeporte)'
       
         'group'#9'by Fecha, ncf_fijo1, sec1, total, itbis, grabado, exento, ' +
-        'rnc, descuento, monto_8, monto_11, monto_13,'
+        'rnc, descuento, monto_8, monto_11, monto_13,  PROPINA,'
       
         'monto_16, monto_18, efectivo, cheqtransfdep, ventacredito, tarje' +
-        'tadebcred'
-      'order'#9'by 1')
+        'tadebcred, otrasformpag'
+      'order'#9'by 1'
+      ''
+      '')
     Left = 224
     Top = 248
     object QListadornc: TStringField
@@ -582,5 +603,25 @@ object frmConsComprobantes: TfrmConsComprobantes
     object QListadoCANT: TIntegerField
       FieldName = 'CANT'
     end
+    object QListadootras: TCurrencyField
+      FieldName = 'otras'
+    end
+    object QListadoPropina: TCurrencyField
+      FieldName = 'Propina'
+    end
+  end
+  object QUpdNC: TADOQuery
+    Connection = DM.ADOSigma
+    Parameters = <>
+    SQL.Strings = (
+      'UPDATE NotasCredito'
+      'SET NCF =  D.NCF'
+      'from NotasCredito NC'
+      
+        'inner join Devolucion D on NC.emp_codigo = d.emp_codigo and nc.s' +
+        'uc_codigo = d.suc_codigo and nc.ncr_devolucion = d.dev_numero'
+      'where nc.NCF IS NULL')
+    Left = 312
+    Top = 288
   end
 end

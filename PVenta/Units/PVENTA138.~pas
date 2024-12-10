@@ -111,6 +111,7 @@ type
     edDepto: TEdit;
     btnDepto: TSpeedButton;
     tDepto: TEdit;
+    raerpantallaReporte1: TMenuItem;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btCloseClick(Sender: TObject);
     procedure FormActivate(Sender: TObject);
@@ -155,6 +156,7 @@ type
     procedure edDeptoChange(Sender: TObject);
     procedure edDeptoKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure raerpantallaReporte1Click(Sender: TObject);
   private
       vl_consulta : String;
     { Private declarations }
@@ -168,7 +170,7 @@ var
 
 implementation
 
-uses SIGMA01, PVENTA33, SIGMA00, PVENTA15;
+uses SIGMA01, PVENTA33, SIGMA00, PVENTA15, PVENTA77, Math;
 
 {$R *.dfm}
 
@@ -555,10 +557,11 @@ begin
   if Trim(edbusqueda.Text) <> '' then
      QProductos.SQL.Add('and P.pro_nombre like '+QuotedStr(Trim(edbusqueda.Text)));
 
-  if ckgerente.Checked then QProductos.SQL.Add('and P.ger_codigo is null');
-  if ckfamilia.Checked then QProductos.SQL.Add('and P.fam_codigo is null');
-  if ckdepto.Checked   then QProductos.SQL.Add('and P.dep_codigo is null');
-  if cksup.Checked     then QProductos.SQL.Add('and P.sup_codigo is null');
+  if ckgerente.Checked then QProductos.SQL.Add('and isnull(P.ger_codigo,0) = 0');
+  if ckfamilia.Checked then QProductos.SQL.Add('and isnull(P.fam_codigo,0) = 0');
+  if ckdepto.Checked   then QProductos.SQL.Add('and isnull(P.dep_codigo,0) = 0');
+  if cksup.Checked     then
+  QProductos.SQL.Add('and P.pro_codigo not in (select pro_codigo from prodproveedores)');
 
   case cbexistencia.ItemIndex of
   1: QProductos.SQL.Add('and (pro_existencia > 0 or pro_existempaque > 0)');
@@ -945,6 +948,7 @@ end;
 
 procedure TfrmAjusteInventario.FormCreate(Sender: TObject);
 begin
+ //DM.qRevisarAlmDupliExist.ExecSQL;
 vl_consulta := QProductos.SQL.Text;
 end;
 
@@ -960,6 +964,7 @@ end;
 
 procedure TfrmAjusteInventario.QProductosBeforeOpen(DataSet: TDataSet);
 begin
+
   QProductos.SQL.Add('group by p.emp_codigo, p.pro_codigo, p.pro_roriginal, p.pro_rfabric,');
   QProductos.SQL.Add('p.pro_nombre, p.pro_precio1, p.pro_precio2, p.pro_precio3, p.pro_precio4,');
   QProductos.SQL.Add('p.mar_codigo, m.mar_nombre, f.fam_nombre, c.col_nombre, d.dep_nombre, p.pro_beneficio,');
@@ -1029,6 +1034,37 @@ begin
     else
       tDepto.text := '';
   end;
+end;
+
+procedure TfrmAjusteInventario.raerpantallaReporte1Click(Sender: TObject);
+begin
+frmMain.ActivaForma(tfrmExistProducto, Tform(frmExistProducto));
+frmExistProducto.edProd.Text := QProductospro_roriginal.Text;
+frmExistProducto.tProd.Text := QProductospro_nombre.Text;
+if frmExistProducto.edProd.Text <> '' then begin
+      dm.Query1.close;
+      dm.Query1.sql.clear;
+      dm.Query1.sql.add('select pro_nombre, pro_codigo from productos');
+      dm.Query1.sql.add('where emp_codigo = :emp');
+      if dm.QParametrosPAR_CODIGOPRODUCTO.value = 'I' then
+         dm.Query1.sql.add('and pro_codigo = '+frmExistProducto.edProd.text)
+      else if dm.QParametrosPAR_CODIGOPRODUCTO.value = 'F' then
+         dm.Query1.sql.add('and pro_rfabric = '+#39+frmExistProducto.edProd.text+#39)
+      else if dm.QParametrosPAR_CODIGOPRODUCTO.value = 'O' then
+         dm.Query1.sql.add('and pro_roriginal = '+#39+frmExistProducto.edProd.text+#39);
+      dm.Query1.Parameters.parambyname('emp').Value := dm.QParametrosPAR_INVEMPRESA.Value;
+      dm.Query1.open;
+      if dm.Query1.recordcount = 0 then
+      begin
+        messagedlg('ESTE PRODUCTO NO EXISTE',mterror,[mbok],0);
+        frmExistProducto.edProd.setfocus;
+      end
+      else
+      begin
+        frmExistProducto.tProd.text := dm.Query1.FieldByName('pro_nombre').AsString;
+        frmExistProducto.prod := dm.Query1.FieldByName('pro_codigo').asinteger;
+      end;
+    end;
 end;
 
 end.

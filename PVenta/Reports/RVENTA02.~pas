@@ -256,6 +256,7 @@ type
     QDetalleSubTotal: TCurrencyField;
     QRDBText8: TQRDBText;
     QFacturaSUBTOTAL: TCurrencyField;
+    QFacturaFAC_TOTAL_DOLAR: TFloatField;
     procedure QRBand3BeforePrint(Sender: TQRCustomBand;
       var PrintBand: Boolean);
     procedure Qnotasf(Sender: TCustomQuickRep;
@@ -520,14 +521,14 @@ var
 begin
   QRRichText1.Lines.Text := QDetalleDET_NOTA.Value;
   if dm.QParametrospar_inv_imprime_comentario.AsString <> 'True' then
-    PrintBand := (trim(QDetalleDET_NOTA.Value) <> '') or (QSerie.RecordCount > 0) or (QDetallepro_utilizamedidor.Value = 'True')
+    PrintBand := (QDetalleDET_NOTA.Value <> '') or (QSerie.RecordCount > 0) or (QDetallepro_utilizamedidor.Value = 'True')
   else
-    PrintBand := (trim(QDetalleDET_NOTA.Value) <> '') or (QSerie.RecordCount > 0) or (QDetallepro_utilizamedidor.Value = 'True')
-    or (trim(QDetallepro_comentario.Value) <> '') ;
+    PrintBand := (QDetalleDET_NOTA.Value <> '') or (QSerie.RecordCount > 0) or (QDetallepro_utilizamedidor.Value = 'True')
+    or (QDetallepro_comentario.Value<> '') ;
 
   if dm.QParametrospar_inv_imprime_comentario.AsString = 'True' then
   begin
-    if trim(QDetallepro_comentario.Value) <> '' then
+    if QDetallepro_comentario.Value <> '' then
     begin
       QRRichText1.Lines.Text := QDetallepro_comentario.Value;
     end;
@@ -570,14 +571,14 @@ end;
 procedure TRFactura.QFacturaCalcFields(DataSet: TDataSet);
 begin
   if not QFacturaNCF_Fijo.isnull then
-    QFacturaNumeroCF.Value := QFacturaNCF_Fijo.Value+formatfloat('00000000',QFacturaNCF_Secuencia.Value)
-  else
+    QFacturaNumeroCF.Value :=  Trim(QFacturaNCF_Fijo.Value)+Trim(formatfloat('00000000',QFacturaNCF_Secuencia.Value))
+   else
     QFacturaNumeroCF.Value := ' ';
 
   QFacturaNumero.Value := inttostr(QFacturaFAC_NUMERO.Value);
   if not QFacturaNCF_Fijo.isnull then BEGIN
     QFacturaNumeroCF.Value := Trim(QFacturaNCF_Fijo.Text)+formatfloat('00000000',QFacturaNCF_Secuencia.Value);
-      //buscar vencimiento
+       //buscar vencimiento
       with QDatos do begin
       Close;
       sql.Clear;
@@ -752,16 +753,16 @@ end;
 
 procedure TRFactura.QFacturaAfterOpen(DataSet: TDataSet);
 begin
-{WITH qEjecutar DO BEGIN
+WITH DM.Query1 DO BEGIN
   Close;
   SQL.Clear;
-  SQL.Add('SELECT TRIM(TFA_MENSAJE1) MENSAJE FROM TIPOSFACTURA'+
+  SQL.Add('SELECT isnull(TFA_MENSAJE1,'+QuotedStr('')+') MENSAJE FROM TIPOSFACTURA'+
   ' WHERE TFA_CODIGO = '+QFacturaTFA_CODIGO.Text+' AND EMP_CODIGO = '+QFacturaEMP_CODIGO.Text);
   Open;
-  if not qEjecutar.RecordCount > 0 then
-  qrMemoMsg.Lines.Add(qEjecutar.FieldByName('MENSAJE').Value);
+  if not DM.Query1.RecordCount > 0 then
+  qrMemoMsg.Lines.Add(DM.Query1.FieldByName('MENSAJE').Value);
 
-  end;}
+  end;
 
 
 end;
@@ -891,7 +892,6 @@ begin
   dm.Query1.Parameters.ParamByName('tfa').Value := QFacturaTFA_CODIGO.Value;
   dm.Query1.Open;
 
-  ImprimeEncaqbezado := dm.Query1.fieldbyname('tfa_imprimie_encabezado').AsString;
 
   if dm.QParametrospar_inv_unidad_medida.AsString <> 'True' then
   begin
@@ -971,9 +971,19 @@ begin
     QRDBText10.Width := 305;
   end;
 
-  if (Trim(dm.QParametrospar_imprime_logo.Value) = 'True') and (ImprimeEncaqbezado = 'True') then begin
-  QRDBImage1.Enabled := Trim(dm.QParametrospar_imprime_logo.Value) = 'True';
+   ImprimeEncaqbezado := dm.Query1.fieldbyname('tfa_imprimie_encabezado').AsString;
+
+
+  if (dm.QParametrospar_imprime_logo.Value = 'True') and (ImprimeEncaqbezado = 'True') then begin
+  IF DM.QEmpresasEMP_LOGO.IsNull THEN begin
+  QRDBText1.Enabled := True;
+  QRDBImage1.Enabled := False;
+  END
+  ELSE
+  BEGIN
   QRDBText1.Enabled := False;
+  QRDBImage1.Enabled := True;
+  end;
   QRDBText2.Enabled := True;
   QRDBText3.Enabled := QRDBText2.Enabled;
   QRDBText4.Enabled := QRDBText2.Enabled;
@@ -998,9 +1008,16 @@ begin
   QRDBImage1.Width  := 271;
   end
   else
-  if (Trim(dm.QParametrospar_imprime_logo.Value) = 'True') and (ImprimeEncaqbezado = 'false') then begin
-  QRDBImage1.Enabled := Trim(dm.QParametrospar_imprime_logo.Value) = 'True';
+  if (dm.QParametrospar_imprime_logo.Value = 'True') and (ImprimeEncaqbezado = 'false') then begin
+  IF DM.QEmpresasEMP_LOGO.IsNull THEN begin
+  QRDBText1.Enabled := True;
+  QRDBImage1.Enabled := False;
+  END
+  ELSE
+  BEGIN
   QRDBText1.Enabled := False;
+  QRDBImage1.Enabled := True;
+  end;
   QRDBText2.Enabled := False;
   QRDBText3.Enabled := QRDBText2.Enabled;
   QRDBText4.Enabled := QRDBText2.Enabled;
@@ -1017,8 +1034,8 @@ begin
   QRDBImage1.Width  := 423;
   end
   else
-  if (Trim(dm.QParametrospar_imprime_logo.Value) = 'False') and (ImprimeEncaqbezado = 'True') then begin
-  QRDBImage1.Enabled := Trim(dm.QParametrospar_imprime_logo.Value) = 'False';
+  if (dm.QParametrospar_imprime_logo.Value = 'False') and (ImprimeEncaqbezado = 'True') then begin
+  QRDBImage1.Enabled := False;
   QRDBText1.Enabled := True;
   QRDBText2.Enabled := True;
   QRDBText3.Enabled := QRDBText2.Enabled;
@@ -1042,8 +1059,8 @@ begin
   QRDBText2.Top     := 32;
   end
   else
-  if (Trim(dm.QParametrospar_imprime_logo.Value) = 'False') and (ImprimeEncaqbezado = 'false') then begin
-  QRDBImage1.Enabled := Trim(dm.QParametrospar_imprime_logo.Value) = 'True';
+  if (dm.QParametrospar_imprime_logo.Value = 'False') and (ImprimeEncaqbezado = 'false') then begin
+  QRDBImage1.Enabled := dm.QParametrospar_imprime_logo.Value = 'True';
   QRDBText1.Enabled := False;
   QRDBText2.Enabled := False;
   QRDBText3.Enabled := QRDBText2.Enabled;
@@ -1157,9 +1174,9 @@ begin
   dm.Query1.Parameters.parambyname('vend').Value := QFacturaVEN_CODIGO.value;
   dm.Query1.open;
   if dm.Query1.fieldbyname('ven_telefono').asstring <> '' then
-  lbVendedor.caption := Trim(dm.Query1.fieldbyname('ven_nombre').asstring)+' / '+
-                        Trim(dm.Query1.fieldbyname('ven_telefono').asstring) else
-  lbVendedor.caption := Trim(dm.Query1.fieldbyname('ven_nombre').asstring);
+  lbVendedor.caption := dm.Query1.fieldbyname('ven_nombre').asstring+' / '+
+                        dm.Query1.fieldbyname('ven_telefono').asstring else
+  lbVendedor.caption := dm.Query1.fieldbyname('ven_nombre').asstring ;
 
   lbForma.Caption := '';
   if not QFormasPago.active then QFormasPago.Open;
@@ -1168,7 +1185,7 @@ begin
   while not QFormasPago.Eof do
   begin
     QForma.Locate('fpa_codigo',inttostr(QFormasPagoFPA_CODIGO.Value),[]);
-    lbForma.Caption := lbForma.Caption + ' '+copy(trim(QFormaFPA_NOMBRE.Value),1,1)+': '+
+    lbForma.Caption := lbForma.Caption + ' '+copy(QFormaFPA_NOMBRE.Value,1,1)+': '+
                         format('%n',[(QFormasPagoFOR_MONTO.value/QFacturafac_tasa.AsFloat)]);
     QFormasPago.next;
   end;

@@ -98,10 +98,12 @@ begin
       Fecha := dm.Query1.FieldByName('ncr_fecha').AsDateTime;
       dm.Query1.Close;
       dm.Query1.SQL.Clear;
-      dm.Query1.SQL.Add('select ncr_numero from facnotascredito');
-      dm.Query1.SQL.Add('where emp_codigo = :emp');
-      dm.Query1.SQL.Add('and ncr_numero = :num');
-      dm.Query1.SQL.Add('and suc_codigo = :suc');
+      dm.Query1.SQL.Add('select f.ncr_numero from facnotascredito f inner join NotasCredito c ');
+      dm.Query1.SQL.Add(' on f.ncr_numero= c.ncr_numero and f.emp_codigo = c.emp_codigo ');
+      dm.Query1.SQL.Add(' and f.suc_codigo= c.suc_codigo and f.fac_numero = c.fac_numero ');
+      dm.Query1.SQL.Add('where c.ncr_montousado>0 and f.emp_codigo = :emp');
+      dm.Query1.SQL.Add('and f.ncr_numero = :num');
+      dm.Query1.SQL.Add('and f.suc_codigo = :suc');
       dm.Query1.Parameters.ParamByName('emp').Value  := dm.vp_cia;
       dm.Query1.Parameters.ParamByName('num').Value  := StrToInt(Trim(edNumero.Text));
       dm.Query1.Parameters.ParamByName('suc').Value  := DBLookupComboBox2.KeyValue;

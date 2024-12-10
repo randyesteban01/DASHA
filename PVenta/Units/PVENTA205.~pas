@@ -35,6 +35,14 @@ type
     QIngresosValor: TFloatField;
     QIngresosOtros: TCurrencyField;
     QIngresosNC: TCurrencyField;
+    dsSuc: TDataSource;
+    QSucursal: TADOQuery;
+    QSucursalsuc_codigo: TIntegerField;
+    QSucursalsuc_nombre: TStringField;
+    QSucursalalm_codigo: TIntegerField;
+    QSucursalemp_codigo: TIntegerField;
+    Label8: TLabel;
+    DBLookupComboBox2: TDBLookupComboBox;
     procedure FormPaint(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -42,6 +50,7 @@ type
     procedure btRefreshClick(Sender: TObject);
     procedure QIngresosCalcFields(DataSet: TDataSet);
     procedure BitBtn1Click(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -54,7 +63,7 @@ var
 
 implementation
 
-uses SIGMA00, RVENTA110;
+uses SIGMA00, RVENTA110, SIGMA01;
 
 {$R *.dfm}
 
@@ -90,8 +99,10 @@ procedure TfrmRepIngresos.btRefreshClick(Sender: TObject);
 begin
   Screen.Cursor := crHourGlass;
   QIngresos.Close;
+  QIngresos.Parameters.ParamByName('suc_codigo').DataType := ftInteger;
   QIngresos.Parameters.ParamByName('fec1').DataType := ftDate;
   QIngresos.Parameters.ParamByName('fec2').DataType := ftDate;
+  QIngresos.Parameters.ParamByName('suc_codigo').Value := DBLookupComboBox2.KeyValue;
   QIngresos.Parameters.ParamByName('fec1').Value := Fecha1.Date;
   QIngresos.Parameters.ParamByName('fec2').Value := Fecha2.Date;
   QIngresos.Open;
@@ -113,6 +124,8 @@ begin
   RepIngresos.QIngresos.Close;
   RepIngresos.QIngresos.Parameters.ParamByName('fec1').DataType := ftDate;
   RepIngresos.QIngresos.Parameters.ParamByName('fec2').DataType := ftDate;
+  RepIngresos.QIngresos.Parameters.ParamByName('suc_codigo').DataType := ftInteger;
+  RepIngresos.QIngresos.Parameters.ParamByName('suc_codigo').Value := DBLookupComboBox2.KeyValue;
   RepIngresos.QIngresos.Parameters.ParamByName('fec1').Value := Fecha1.Date;
   RepIngresos.QIngresos.Parameters.ParamByName('fec2').Value := Fecha2.Date;
   RepIngresos.QIngresos.Open;
@@ -121,6 +134,16 @@ begin
   RepIngresos.PrinterSetup;
   RepIngresos.Preview;
   RepIngresos.Destroy;
+end;
+
+procedure TfrmRepIngresos.FormActivate(Sender: TObject);
+begin
+if not QSucursal.Active then
+  begin
+    QSucursal.Parameters.ParamByName('usu').Value := dm.Usuario;
+    QSucursal.Open;
+    DBLookupComboBox2.KeyValue := QSucursalsuc_codigo.Value;
+  end;
 end;
 
 end.

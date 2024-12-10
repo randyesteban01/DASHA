@@ -617,9 +617,9 @@ uses
   RVENTA73 in 'PVenta\Reports\RVENTA73.pas' {RepListaTickets: TQuickRep},
   RVENTA02 in 'PVenta\Reports\RVENTA02.pas' {RFactura: TQuickRep},
   RVENTA36 in 'PVenta\Reports\RVENTA36.pas' {RCotizacion: TQuickRep},
+  prueba in 'PVenta\Units\prueba.pas' {frmprueba},
   PVENTA249 in 'PVenta\Units\PVENTA249.pas' {frmDigitarClave},
-  Unit1 in 'PVenta\Units\Unit1.pas' {Form1},
-  PVENTA250 in 'PVenta\Units\PVENTA250.pas' {frmRepCxcGeneralSucursal};
+  PVENTA250 in 'PVenta\Units\PVENTA250.pas' {FormAnularBoleto};
 
 {$R *.res}
 
@@ -630,7 +630,7 @@ begin
   Application.CreateForm(TDM, DM);
   Application.CreateForm(TfrmMain, frmMain);
   Application.CreateForm(TDM_Update, DM_Update);
-  Application.CreateForm(TForm1, Form1);
+  Application.CreateForm(TfrmDigitarClave, frmDigitarClave);
   Application.Run;
 
 

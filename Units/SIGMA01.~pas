@@ -392,6 +392,18 @@ type
     QContabpar_ctadevventas: TStringField;
     DBCia: TfrxDBDataset;
     QParametrospar_digitos_banderita: TIntegerField;
+    QUsuariosusu_solo_conduce: TBooleanField;
+    qRevisarAlmDupliExist: TADOQuery;
+    QUsuariosusu_modifica_nombreprod: TBooleanField;
+    QParametrosRestBar_FactConItbis: TBooleanField;
+    QParametrospar_mostrarfacturadolares: TBooleanField;
+    QParametrosPAR_UnidadMedida_Producto: TBooleanField;
+    QParametrospar_totalizardolaresPOS: TBooleanField;
+    QParametrospar_codigobarrasdolares: TBooleanField;
+    QParametrospar_vouchercardnet: TBooleanField;
+    QParametrosPAR_MESERO: TBooleanField;
+    QUsuariosusu_suc_default: TIntegerField;
+    QParametrosPAR_cantidadRecibosImprimir: TIntegerField;
     procedure IBDatabaseAfterConnect(Sender: TObject);
     procedure QEmpresasCalcFields(DataSet: TDataSet);
     procedure DataModuleCreate(Sender: TObject);
@@ -404,10 +416,10 @@ type
   public
     { Public declarations }
     vCantArt : double;
-    Usuario, vl_tipocons, vp_cia: integer;
+    Usuario,suc_default, vl_tipocons, vp_cia: integer;
     NomUsu, NombreEmp, UltBusqueda, UltProducto, lcnombre, lcrnc, lccorreo, lcurl,
     lctelefono, bolImpresora, vp_formactivo, vp_seriallicencia, vp_usuario, vl_exportar  : String;
-    vp_usermailok : Boolean;
+    vp_usermailok, vp_solo_conduce : Boolean;
     procedure Imp40Columnas(const vARCH: TextFile);
     function GeneraLicencia(): string;
     function numero2Letras(paNumero: DOUBLE): string;
@@ -437,7 +449,6 @@ type
     function Redondear(const Numero: Double; const Digitos: Integer): Double;
     Function GetIPAddress():String;
     function GetProductoAjustado(emp, alm, prod :Integer; fecha:TDateTime):Boolean;
-
 
 
 
@@ -1211,13 +1222,26 @@ end;
 procedure TDM.GenerarArchivoBalanza;
 var
 vCodigo,vNombre,vPrecio, vMarca: String;
+BanderitaACT, TipoLEcto : Integer;
 F:TextFile;
 begin
 dm.Query1.Close;
 dm.Query1.SQL.Clear;
+DM.Query1.SQL.Add('SELECT isnull(par_digitos_banderita,0)banderita, ISNULL(PAR_TLECTOR_BALANZA,0)TipoLector from parametros where emp_codigo ='+IntToStr(dm.vp_cia));
+DM.Query1.Open;
+BanderitaACT := dm.Query1.fieldbyname('banderita').Value;
+TipoLEcto := dm.Query1.fieldbyname('TipoLector').Value;
+
+
+if TipoLEcto = 1 then
+DM.ADOSigma.Execute('UPDATE PARAMETROS SET par_digitos_banderita = 1 WHERE EMP_CODIGO = '+IntToStr(dm.vp_cia));
+
+
+dm.Query1.Close;
+dm.Query1.SQL.Clear;
 DM.Query1.SQL.Add('select isnull(mar_codigo,0) marca, substring(pro_roriginal,p2.par_digitos_banderita+1,p2.par_digitos_precio_pesar-p2.par_digitos_banderita)  Codigo, RTRIM(pro_nombre) Nombre,');
 DM.Query1.SQL.Add('case when par_treporte_peso = 0 then cast(p.pro_precio1 as int)*100 else p.pro_precio1 end Precio');
-DM.Query1.SQL.Add('from productos p');   
+DM.Query1.SQL.Add('from productos p');
 DM.Query1.SQL.Add('inner join Parametros p2 on p.emp_codigo = p2.emp_codigo');
 DM.Query1.SQL.Add('where dep_codigo = p2.depa_codigo_peso');
 dm.Query1.SQL.Add('and pro_codigo in');
@@ -1247,6 +1271,9 @@ dm.Query1.next;
 end;
 CloseFile(F);
 end;
+
+if TipoLEcto = 1 then
+DM.ADOSigma.Execute('UPDATE PARAMETROS SET par_digitos_banderita = '+IntToStr(BanderitaACT)+' WHERE EMP_CODIGO = '+IntToStr(dm.vp_cia));
 
 //ShowMessage('Archivo creado correctamente');
 end;
@@ -1464,16 +1491,17 @@ with adoMultiUso do begin
   Parameters.ParamByName('emp').DataType   := ftInteger;
   Parameters.ParamByName('alm').DataType   := ftInteger;
   Parameters.ParamByName('prod').DataType  := ftInteger;
-  Parameters.ParamByName('fecha').DataType := ftDate;
+  Parameters.ParamByName('fec').DataType := ftDate;
   Parameters.ParamByName('emp').Value      := emp;
   Parameters.ParamByName('alm').Value      := alm;
   Parameters.ParamByName('prod').Value     := prod;
-  Parameters.ParamByName('fecha').Value    := fecha;
+  Parameters.ParamByName('fec').Value    := fecha;
   Open;
   if adoMultiUso.RecordCount = 0 then
   Result := False else
   Result := True;
   end;
 end;
+
 
 end.

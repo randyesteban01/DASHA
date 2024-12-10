@@ -1,6 +1,6 @@
 object frmCategorias: TfrmCategorias
-  Left = 522
-  Top = 408
+  Left = 443
+  Top = 247
   BorderIcons = [biSystemMenu, biMinimize, biHelp]
   BorderStyle = bsSingle
   Caption = 'Categorias'

@@ -19,12 +19,8 @@ type
     QRLabel25: TQRLabel;
     QRLabel26: TQRLabel;
     QRLabel27: TQRLabel;
-    QRDBText19: TQRDBText;
-    QRDBText20: TQRDBText;
-    QRDBText21: TQRDBText;
     QRDBText22: TQRDBText;
     QRLabel28: TQRLabel;
-    QRDBText23: TQRDBText;
     QRLabel29: TQRLabel;
     QRDBText24: TQRDBText;
     QRLabel7: TQRLabel;
@@ -172,6 +168,10 @@ type
     QDevolucionDEV_TASA: TCurrencyField;
     QRDBText28: TQRDBText;
     QDetalleDEV_TASA: TCurrencyField;
+    QRDBText19: TQRDBText;
+    QRDBText20: TQRDBText;
+    QRDBText21: TQRDBText;
+    QRDBText23: TQRDBText;
     procedure QDetalleCalcFields(DataSet: TDataSet);
     procedure QuickRepBeforePrint(Sender: TCustomQuickRep;
       var PrintReport: Boolean);
@@ -294,6 +294,7 @@ begin
   QRDBText25.Enabled := True;
   QRDBText18.Top := 76;
   end;
+
 end;
 
 procedure TRDevolucion.QRBand1BeforePrint(Sender: TQRCustomBand;

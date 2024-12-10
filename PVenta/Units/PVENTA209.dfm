@@ -1,12 +1,12 @@
 object frmPideClave: TfrmPideClave
-  Left = 767
-  Top = 396
+  Left = 766
+  Top = 395
   ActiveControl = edclave
   BorderIcons = []
   BorderStyle = bsSingle
   Caption = 'Clave de acceso'
-  ClientHeight = 208
-  ClientWidth = 323
+  ClientHeight = 224
+  ClientWidth = 348
   Color = clWhite
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -19,25 +19,25 @@ object frmPideClave: TfrmPideClave
   OnCreate = FormCreate
   OnKeyPress = FormKeyPress
   PixelsPerInch = 96
-  TextHeight = 13
+  TextHeight = 14
   object lbtitulo: TLabel
-    Left = 8
-    Top = 8
-    Width = 305
-    Height = 25
+    Left = 9
+    Top = 9
+    Width = 328
+    Height = 27
     Alignment = taCenter
     AutoSize = False
     Caption = 'Digite la clave del Acceso'
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
-    Font.Height = -21
+    Font.Height = -23
     Font.Name = 'Tahoma'
     Font.Style = [fsBold]
     ParentFont = False
   end
   object Image1: TImage
-    Left = 112
-    Top = 56
+    Left = 121
+    Top = 60
     Width = 96
     Height = 96
     AutoSize = True
@@ -129,16 +129,16 @@ object frmPideClave: TfrmPideClave
       7FB87F951E7C3FF3D53FEFA14C9A688C1201221254F1B87A5007FFD9}
   end
   object edclave: TEdit
-    Left = 24
-    Top = 160
-    Width = 273
-    Height = 33
+    Left = 26
+    Top = 172
+    Width = 294
+    Height = 36
     BevelKind = bkFlat
     BorderStyle = bsNone
     CharCase = ecUpperCase
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
-    Font.Height = -21
+    Font.Height = -23
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False

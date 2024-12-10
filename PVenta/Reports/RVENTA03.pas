@@ -169,10 +169,9 @@ type
     QRDBText28: TQRDBText;
     QDetalleDEV_TASA: TCurrencyField;
     QRDBText19: TQRDBText;
-    QRDBText20: TQRDBText;
+    qrdbtxtdev_nombre: TQRDBText;
     QRDBText21: TQRDBText;
     QRDBText23: TQRDBText;
-    QDetallecalpreciocantidad: TCurrencyField;
     procedure QDetalleCalcFields(DataSet: TDataSet);
     procedure QuickRepBeforePrint(Sender: TCustomQuickRep;
       var PrintReport: Boolean);
@@ -212,10 +211,6 @@ begin
       QDetalleValor.value       := (((Venta-QDetalleCalcDesc.value)+QDetalledet_selectivo_ad.Value+
                                    QDetalledet_selectivo_con.Value+QDetalleCalcItbis.value))*
                                    qdetalledev_cantidad.Value;
-
-    QDetalleCalpreciocantidad.value := QDetalleDEV_PRECIO.value *qdetalledev_cantidad.Value -  QDetalleCalcItbis.value* qdetalledev_cantidad.Value;
-
-
     end
     else
     begin
@@ -228,9 +223,6 @@ begin
       QDetalleValor.value       := (((VENTA-QDetalleCalcDesc.value)+
                                    QDetalledet_selectivo_ad.Value+QDetalledet_selectivo_con.Value)+
                                    QDetalleCalcItbis.value)*qdetalledev_cantidad.Value;
-
-      QDetalleCalpreciocantidad.value := QDetalleDEV_PRECIO.value *qdetalledev_cantidad.Value -  QDetalleCalcItbis.value* qdetalledev_cantidad.Value;
-
     end;
   end
   else
@@ -240,11 +232,7 @@ begin
     QDetallePrecioItbis.value := Venta*QDetalleDEV_CANTIDAD.value;;
     QDetalleCalcItbis.value   := 0;
     QDetalleValor.value       := (Venta-QDetalleCalcDesc.value)*QDetalleDEV_CANTIDAD.value;
-    QDetalleCalpreciocantidad.value := QDetalleDEV_PRECIO.value *qdetalledev_cantidad.Value;
-
   end;
-
-
 end;
 
 procedure TRDevolucion.QuickRepBeforePrint(Sender: TCustomQuickRep;

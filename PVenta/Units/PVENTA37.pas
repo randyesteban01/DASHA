@@ -5,6 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, Buttons;
+
 type
   TfrmPideCajero = class(TForm)
     Label1: TLabel;
@@ -26,7 +27,7 @@ var
 
 implementation
 
-uses SIGMA01, SIGMA04,  Printers;
+uses SIGMA01;
 
 
 {$R *.dfm}
@@ -66,7 +67,7 @@ if vl_autorizacion = 'Sarita' then begin
   dm.Query1.open;
   if ((dm.Query1.Recordcount = 0) OR (DM.Query1.FieldByName('exede_limite').Value = 'False')) then
   begin
-    showmessage('ESTE CAJERO NO ESTA AUTORIZADO');
+    showmessage('ESTE USUARIO NO ESTA AUTORIZADO');
     edClave.SetFocus;
   end
   else

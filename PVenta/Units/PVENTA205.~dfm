@@ -1,11 +1,11 @@
 object frmRepIngresos: TfrmRepIngresos
-  Left = 302
-  Top = 194
+  Left = 400
+  Top = 335
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Reporte de Ingresos'
   ClientHeight = 413
-  ClientWidth = 831
+  ClientWidth = 976
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -17,6 +17,7 @@ object frmRepIngresos: TfrmRepIngresos
   Position = poScreenCenter
   Scaled = False
   Visible = True
+  OnActivate = FormActivate
   OnClose = FormClose
   OnCreate = FormCreate
   OnPaint = FormPaint
@@ -25,17 +26,17 @@ object frmRepIngresos: TfrmRepIngresos
   object Panel2: TPanel
     Left = 0
     Top = 373
-    Width = 831
+    Width = 976
     Height = 40
     Align = alBottom
     BevelInner = bvRaised
     BevelOuter = bvLowered
     TabOrder = 0
     DesignSize = (
-      831
+      976
       40)
     object btRefresh: TBitBtn
-      Left = 590
+      Left = 735
       Top = 8
       Width = 75
       Height = 25
@@ -45,7 +46,7 @@ object frmRepIngresos: TfrmRepIngresos
       OnClick = btRefreshClick
     end
     object btClose: TBitBtn
-      Left = 750
+      Left = 895
       Top = 8
       Width = 75
       Height = 25
@@ -69,7 +70,7 @@ object frmRepIngresos: TfrmRepIngresos
       NumGlyphs = 2
     end
     object BitBtn1: TBitBtn
-      Left = 670
+      Left = 815
       Top = 8
       Width = 75
       Height = 25
@@ -91,7 +92,7 @@ object frmRepIngresos: TfrmRepIngresos
   object DBGrid1: TDBGrid
     Left = 0
     Top = 33
-    Width = 831
+    Width = 976
     Height = 340
     Align = alClient
     Color = clInfoBk
@@ -125,7 +126,15 @@ object frmRepIngresos: TfrmRepIngresos
         FieldName = 'NombreCaja'
         Title.Alignment = taCenter
         Title.Caption = 'Caja'
-        Width = 33
+        Width = 78
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'total'
+        Title.Alignment = taCenter
+        Title.Caption = 'Total'
+        Width = 82
         Visible = True
       end
       item
@@ -171,19 +180,15 @@ object frmRepIngresos: TfrmRepIngresos
       item
         Expanded = False
         FieldName = 'Otros'
+        Title.Caption = 'Otros Bonos'
+        Width = 89
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'NC'
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'total'
-        Title.Alignment = taCenter
-        Title.Caption = 'Valor'
-        Width = 82
+        Title.Caption = 'Notas CR'
+        Width = 91
         Visible = True
       end>
   end
@@ -200,21 +205,28 @@ object frmRepIngresos: TfrmRepIngresos
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 831
+    Width = 976
     Height = 33
     Align = alTop
     BevelInner = bvRaised
     BevelOuter = bvLowered
     TabOrder = 3
     object Label6: TLabel
-      Left = 8
-      Top = 8
+      Left = 310
+      Top = 12
       Width = 30
       Height = 13
       Caption = 'Fecha'
     end
+    object Label8: TLabel
+      Left = 1
+      Top = 16
+      Width = 41
+      Height = 13
+      Caption = 'Sucursal'
+    end
     object Fecha1: TDateTimePicker
-      Left = 48
+      Left = 350
       Top = 8
       Width = 89
       Height = 21
@@ -229,7 +241,7 @@ object frmRepIngresos: TfrmRepIngresos
       TabOrder = 0
     end
     object Fecha2: TDateTimePicker
-      Left = 144
+      Left = 446
       Top = 8
       Width = 89
       Height = 21
@@ -243,6 +255,23 @@ object frmRepIngresos: TfrmRepIngresos
       ParentFont = False
       TabOrder = 1
     end
+    object DBLookupComboBox2: TDBLookupComboBox
+      Left = 43
+      Top = 8
+      Width = 247
+      Height = 21
+      DropDownRows = 20
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      KeyField = 'suc_codigo'
+      ListField = 'suc_nombre'
+      ListSource = dsSuc
+      ParentFont = False
+      TabOrder = 2
+    end
   end
   object QIngresos: TADOQuery
     Connection = DM.ADOSigma
@@ -255,6 +284,12 @@ object frmRepIngresos: TfrmRepIngresos
         DataType = ftInteger
         Precision = 10
         Size = 4
+        Value = Null
+      end
+      item
+        Name = 'suc_codigo'
+        DataType = ftInteger
+        Size = -1
         Value = Null
       end
       item
@@ -287,7 +322,7 @@ object frmRepIngresos: TfrmRepIngresos
       'sum(otros) as Otros,'
       'sum(nc) as nc'
       'from'
-      'fn_resumen_ingresos (:emp_codigo, :fec1, :fec2)'
+      'fn_resumen_ingresos (:emp_codigo, :suc_codigo, :fec1, :fec2)'
       'group by'
       'codcajero, cajero, caja, nombrecaja'
       'order by'
@@ -367,5 +402,58 @@ object frmRepIngresos: TfrmRepIngresos
     DataSet = QIngresos
     Left = 216
     Top = 120
+  end
+  object dsSuc: TDataSource
+    DataSet = QSucursal
+    Left = 432
+    Top = 72
+  end
+  object QSucursal: TADOQuery
+    Connection = DM.ADOSigma
+    LockType = ltReadOnly
+    DataSource = DM.dsEmpresas
+    Parameters = <
+      item
+        Name = 'emp_codigo'
+        Attributes = [paSigned]
+        DataType = ftInteger
+        Precision = 10
+        Size = 4
+        Value = Null
+      end
+      item
+        Name = 'usu'
+        Attributes = [paSigned]
+        DataType = ftInteger
+        Precision = 10
+        Size = 4
+        Value = Null
+      end>
+    SQL.Strings = (
+      'select'
+      's.suc_codigo, s.suc_nombre, s.alm_codigo, s.emp_codigo'
+      'from'
+      'sucursales s, sucursal_acceso a'
+      'where'
+      's.emp_codigo = a.emp_codigo'
+      'and s.suc_codigo = a.suc_codigo'
+      'and a.emp_codigo = :emp_codigo'
+      'and a.usu_codigo = :usu'
+      'order by s.suc_codigo')
+    Left = 400
+    Top = 72
+    object QSucursalsuc_codigo: TIntegerField
+      FieldName = 'suc_codigo'
+    end
+    object QSucursalsuc_nombre: TStringField
+      FieldName = 'suc_nombre'
+      Size = 60
+    end
+    object QSucursalalm_codigo: TIntegerField
+      FieldName = 'alm_codigo'
+    end
+    object QSucursalemp_codigo: TIntegerField
+      FieldName = 'emp_codigo'
+    end
   end
 end

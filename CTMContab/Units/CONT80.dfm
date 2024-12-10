@@ -271,6 +271,7 @@ object frmActNumeroRNC: TfrmActNumeroRNC
     Connection = DM.ADOSigma
     LockType = ltBatchOptimistic
     OnNewRecord = QRNCNewRecord
+    DataSource = DM.dsEmpresas
     Parameters = <
       item
         Name = 'rnc'

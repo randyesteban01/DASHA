@@ -1,10 +1,10 @@
 object frmDevolucionCxpProductos: TfrmDevolucionCxpProductos
-  Left = 228
-  Top = 252
+  Left = 198
+  Top = 309
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Devolucion de Productos a Proveedores sin Factura'
-  ClientHeight = 444
+  ClientHeight = 409
   ClientWidth = 685
   Color = clBtnFace
   Font.Charset = ANSI_CHARSET
@@ -311,7 +311,7 @@ object frmDevolucionCxpProductos: TfrmDevolucionCxpProductos
   end
   object Panel5: TPanel
     Left = 0
-    Top = 372
+    Top = 337
     Width = 685
     Height = 72
     Align = alBottom
@@ -469,7 +469,7 @@ object frmDevolucionCxpProductos: TfrmDevolucionCxpProductos
     Left = 0
     Top = 105
     Width = 685
-    Height = 267
+    Height = 232
     Align = alClient
     Ctl3D = False
     DataSource = dsDetalle

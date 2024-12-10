@@ -1,6 +1,6 @@
 object frmConsVentasMarca: TfrmConsVentasMarca
-  Left = 895
-  Top = 168
+  Left = 688
+  Top = 173
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Consulta de Ventas por Marca'

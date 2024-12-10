@@ -71,6 +71,7 @@ type
     QPedidosCLI_REFERENCIA: TIBStringField;
     QPedidosCPA_CODIGO: TIntegerField;
     QPedidosEMP_CODIGO: TIntegerField;
+    QPedidosPED_COTIZACION: TIntegerField;
     QPedidosPED_DESCUENTO: TFloatField;
     QPedidosPED_DIRECCION: TIBStringField;
     QPedidosPED_FAX: TIBStringField;
@@ -112,7 +113,6 @@ type
     QSucursalalm_codigo: TIntegerField;
     QSucursalemp_codigo: TIntegerField;
     QDetalledet_despachado: TBCDField;
-    QPedidosPED_COTIZACION: TStringField;
     procedure QDetalleCalcFields(DataSet: TDataSet);
     procedure FormCreate(Sender: TObject);
     procedure btCloseClick(Sender: TObject);

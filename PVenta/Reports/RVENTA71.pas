@@ -2018,7 +2018,7 @@ begin
 
 
   if not QFacturaNCF_Fijo.isnull then
-    qlncf.caption :=  Trim(QFacturaNCF_Fijo.Value)+formatfloat('00000000',QFacturaNCF_Secuencia.Value)
+    qlncf.caption := QFacturaNCF_Fijo.Value+formatfloat('00000000',QFacturaNCF_Secuencia.Value)
   else
     qlncf.caption := '';
 

@@ -878,7 +878,7 @@ begin
   dm.Query1.Parameters.ParamByName('emp').Value := dm.vp_cia;
   dm.Query1.Parameters.ParamByName('fec').Value    := QDevolucionDEV_FECHA.Value;
   dm.Query1.Open;
-  if dm.Query1.RecordCount > 0 then
+  if dm.Query1.RecordCount > 0 then                            
   begin
     MessageDlg('LA DEVOLUCION NO PUEDE REALIZARSE, DEBIDO A QUE ESTE'+#13+
                'DIA FUE CERRADO.',mtError,[mbok],0);
@@ -1126,7 +1126,7 @@ begin
           dm.Query1.SQL.Add('SET @DEVID = '+QDevolucionDEV_NUMERO.Text);
           dm.Query1.SQL.Add('SET @EMP = '+QDevolucionEMP_CODIGO.Text);
           dm.Query1.SQL.Add('SET @SUC = '+QDevolucionsuc_codigo.Text);
-          dm.Query1.SQL.Add('SET @NCID = (SELECT ncr_numero FROM NotasCredito WHERE emp_codigo = @EMP AND suc_codigo = @SUC AND NCR_DEVOLUCION = @DEVID)');
+          dm.Query1.SQL.Add('SET @NCID = (SELECT TOP 1 ncr_numero FROM NotasCredito WHERE emp_codigo = @EMP AND suc_codigo = @SUC AND NCR_DEVOLUCION = @DEVID)');
           dm.Query1.SQL.Add('UPDATE NotasCredito');
           dm.Query1.SQL.Add('SET NCR_MONTOUSADO = 0,');
           dm.Query1.SQL.Add('FAC_NUMERO = NULL');

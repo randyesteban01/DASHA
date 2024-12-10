@@ -84,6 +84,10 @@ type
     QTranssuc_codigo: TIntegerField;
     QDetallesuc_codigo: TIntegerField;
     QTransTRA_FECHA_HORA: TDateTimeField;
+    Label6: TLabel;
+    DBEdit4: TDBEdit;
+    QTransUbicacion: TStringField;
+    QDetalleppro_ubicacion: TStringField;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btCloseClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
@@ -236,6 +240,7 @@ begin
   QTransTRA_STATUS.value := 'EMI';
   QTransUSU_CODIGO.value := dm.Usuario;
   QTranssuc_codigo.Value := QSucursalsuc_codigo.Value;
+  QTransTRA_FECHA_HORA.Value := DM.getFechaBDA;
 
 
 end;
@@ -434,7 +439,7 @@ begin
     dm.Query1.open;
     QTransTRA_NUMERO.value := dm.Query1.fieldbyname('maximo').asinteger + 1;
   end;}
-QTransTRA_FECHA_HORA.Value := DM.getFechaBDA;
+
 end;
 
 procedure TfrmTransferencia.GridColEnter(Sender: TObject);
@@ -758,6 +763,11 @@ end;
     vl_trans := dm.Query1.fieldbyname('maximo').asinteger + 1;
     dm.Query1.Close;
 
+    QTransTRA_NUMERO.Value := vl_trans;
+    QTrans.post;
+    QTrans.UpdateBatch;
+
+
     QDetalle.disablecontrols;
     QDetalle.first;
     a := 0;
@@ -773,21 +783,6 @@ end;
     end;
     QDetalle.EnableControls;
     QDetalle.UpdateBatch;
-
-    dm.Query1.close;
-    dm.Query1.sql.clear;
-    dm.Query1.sql.add('delete from det_transfer');
-    dm.Query1.sql.add('where emp_Codigo = :emp');
-    dm.Query1.sql.add('and tra_numero = :num');
-    dm.Query1.sql.add('and pro_codigo is null');
-    dm.Query1.Parameters.parambyname('emp').Value := dm.vp_cia;
-    dm.Query1.Parameters.parambyname('num').Value := QTransTRA_NUMERO.value;
-    dm.Query1.ExecSQL;
-
-    QTransTRA_NUMERO.Value := vl_trans;
-    QTrans.post;
-    QTrans.UpdateBatch;
-    QDetalle.EnableControls; 
 
     if dm.QParametrospar_inv_transferencia_auto.Value = 'True' then
     begin

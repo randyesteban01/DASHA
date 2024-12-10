@@ -1,6 +1,6 @@
 object frmRepSituacionAnual: TfrmRepSituacionAnual
-  Left = 604
-  Top = 213
+  Left = 558
+  Top = 212
   ActiveControl = spAno
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
@@ -183,6 +183,7 @@ object frmRepSituacionAnual: TfrmRepSituacionAnual
     Connection = DM.ADOSigma
     CursorType = ctStatic
     LockType = ltBatchOptimistic
+    DataSource = DM.dsEmpresas
     ProcedureName = 'contpr_estado_situacion_total;1'
     Parameters = <
       item

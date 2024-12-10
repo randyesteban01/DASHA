@@ -1,6 +1,6 @@
 object frmRepIngresos: TfrmRepIngresos
-  Left = 400
-  Top = 335
+  Left = 381
+  Top = 283
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Reporte de Ingresos'

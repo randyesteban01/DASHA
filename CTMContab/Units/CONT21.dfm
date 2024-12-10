@@ -1,6 +1,6 @@
 object frmRepBalComprobacion: TfrmRepBalComprobacion
-  Left = 674
-  Top = 233
+  Left = 944
+  Top = 325
   ActiveControl = cbMes
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle

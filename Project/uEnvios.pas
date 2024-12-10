@@ -48,6 +48,9 @@ type
     StringField3: TStringField;
     StringField4: TStringField;
     StringField5: TStringField;
+    Label24: TLabel;
+    Label1: TLabel;
+    edCantidad: TEdit;
     procedure btCloseClick(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure edoTelefonoKeyDown(Sender: TObject; var Key: Word;
@@ -60,15 +63,16 @@ type
     procedure FormShow(Sender: TObject);
     procedure QSucOrigenBeforeOpen(DataSet: TDataSet);
     procedure qSucDestinoBeforeOpen(DataSet: TDataSet);
+    procedure edCantidadKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
 
     { Public d1eclarations }
-      procedure fillDatos(var oCiudad:String;var oNombre:String; var oTelefono:String;
+      procedure fillDatos(var dCantidad:String;var oCiudad:String;var oNombre:String; var oTelefono:String;
       										    var dCiudad:String;var dNombre:String; var dTelefono:String;
                               var dDescripcion:String;var dDescripcion2:String;
-                              var dPagarDestino:Boolean;accion:boolean =false);
+                              var dPagarDestino:Boolean;accion:boolean =false );
   end;
 
 
@@ -86,7 +90,7 @@ begin
   CLOSE();
 end;
 
-procedure TfrmEnvio.fillDatos(var oCiudad:String;var oNombre:String; var oTelefono:String;
+procedure TfrmEnvio.fillDatos(var dCantidad:String;var oCiudad:String;var oNombre:String; var oTelefono:String;
       										    var dCiudad:String;var dNombre:String; var dTelefono:String;
                               var dDescripcion:String;var dDescripcion2:String;
                               var dPagarDestino:Boolean;accion:boolean =false);
@@ -103,6 +107,7 @@ begin
   		cbbConceptos.Text := dDescripcion;
       edDescripcion.Text := dDescripcion2;
       chkPagoDestino.Checked := dPagarDestino;
+      edCantidad.Text :=  dCantidad;
     end
   else
     begin
@@ -115,6 +120,7 @@ begin
   		cbbConceptos.Text := dDescripcion;
       edDescripcion.Text := dDescripcion2;
       chkPagoDestino.Checked := dPagarDestino;
+      edCantidad.Text :=  dCantidad;
   end;
 end;
 
@@ -182,16 +188,35 @@ end;
 
 procedure TfrmEnvio.FormShow(Sender: TObject);
 begin
+
 QSucOrigen.Close;
+QSucOrigen.Parameters[0].Value := frmFactura.QFacturaEMP_CODIGO.Value;
+QSucOrigen.Parameters[1].Value := frmFactura.QFacturaUSU_CODIGO.Value;
+QSucOrigen.Parameters[2].Value := frmFactura.QFacturaSUC_CODIGO.Value;
 QSucOrigen.Open;
+if (not QSucOrigen.IsEmpty) then
+begin
+  QSucOrigen.First;
+  SucursalDestino.KeyValue:=QSucOrigen.Fields[0].Value;
+end;
+
+
+QSucOrigen.Close;
+QSucOrigen.Parameters[0].Value := frmFactura.QFacturaEMP_CODIGO.Value;
+QSucOrigen.Parameters[1].Value := frmFactura.QFacturaUSU_CODIGO.Value;
+QSucOrigen.Parameters[2].Value := frmFactura.QFacturaSUC_CODIGO.Value;
+QSucOrigen.Open;
+
+
 qSucDestino.Close;
 qSucDestino.Open;
 end;
 
 procedure TfrmEnvio.QSucOrigenBeforeOpen(DataSet: TDataSet);
 begin
-QSucOrigen.Parameters[0].Value := frmFactura.QFacturaEMP_CODIGO.Value;
+{QSucOrigen.Parameters[0].Value := frmFactura.QFacturaEMP_CODIGO.Value;
 QSucOrigen.Parameters[1].Value := frmFactura.QFacturaUSU_CODIGO.Value;
+QSucOrigen.Parameters[2].Value := frmFactura.QFacturaSUC_CODIGO.Value;  }
 end;
 
 procedure TfrmEnvio.qSucDestinoBeforeOpen(DataSet: TDataSet);
@@ -199,6 +224,12 @@ begin
 qSucDestino.Parameters[0].Value := frmFactura.QFacturaEMP_CODIGO.Value;
 qSucDestino.Parameters[1].Value := frmFactura.QFacturaUSU_CODIGO.Value;
 
+end;
+
+procedure TfrmEnvio.edCantidadKeyPress(Sender: TObject; var Key: Char);
+begin
+ if not (Key in ['0'..'9', #8]) then  // Acepta solo números y la tecla de retroceso (Backspace)
+    Key := #0;  // Anula cualquier otro carácter
 end;
 
 end.

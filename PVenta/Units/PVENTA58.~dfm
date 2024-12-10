@@ -1106,7 +1106,7 @@ object frmConsCxP: TfrmConsCxP
         ')'
       ''
       'SET @EMPRESA = :EMP'
-      'SET @SUP           = :SUP'
+      'SET @SUP     = :SUP'
       ''
       ''
       ''
@@ -1131,8 +1131,9 @@ object frmConsCxP: TfrmConsCxP
       ''
       'set @pago = @pago + '
       
-        'isnull((select isnull(sum(pago),0) from contpr_detalle_pago_cxp(' +
-        '@empresa, @SUC, @sup,@FACSUP, getdate())),0)'
+        'isnull((select isnull(sum(pago),0) from contpr_detalle_pago_cxp ' +
+        '(@EMPRESA, @SUC, @SUP, @FACSUP, getdate())),0)'
+      ''
       ''
       ''
       'UPDATE PROVFACTURAS'
@@ -1161,8 +1162,8 @@ object frmConsCxP: TfrmConsCxP
     Top = 192
   end
   object PopupMenu2: TPopupMenu
-    Left = 392
-    Top = 129
+    Left = 400
+    Top = 137
     object MenuItem2: TMenuItem
       Caption = 'Reparar Facturas'
       OnClick = MenuItem2Click

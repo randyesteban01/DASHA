@@ -2445,7 +2445,6 @@ begin
   writeln(arch, '----------------------------------------');
   writeln(arch, 'Doc Grp Tipo Numero  Fecha      Aplicado');
   writeln(arch, '----------------------------------------');
-  RRecibo.QDoc.First;
   while not RRecibo.QDoc.eof do
   begin
     s := '';

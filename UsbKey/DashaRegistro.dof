@@ -90,7 +90,7 @@ MaxStackSize=1048576
 ImageBase=4194304
 ExeDescription=
 [Directories]
-OutputDir=C:\Users\randy\Desktop\Ejecutables
+OutputDir=E:\Ejecutables
 UnitOutputDir=
 PackageDLLOutputDir=
 PackageDCPOutputDir=
@@ -134,19 +134,9 @@ OriginalFilename=
 ProductName=
 ProductVersion=1.0.0.0
 Comments=
-[Excluded Packages]
-C:\Program Files (x86)\Borland\Delphi7\Projects\Bpl\dclcxLibraryD7.bpl=Express Cross Platform Library by Developer Express Inc.
-C:\Program Files (x86)\Borland\Delphi7\Projects\Bpl\dxSkinscxPCPainterD7.bpl=ExpressSkins Library Painter for PageControl by Developer Express Inc.
-C:\Program Files (x86)\Borland\Delphi7\Projects\Bpl\dxSkinscxSchedulerPainterD7.bpl=ExpressSkins Library Painter for Scheduler by Developer Express Inc.
-C:\Program Files (x86)\Borland\Delphi7\Projects\Bpl\dxSkinsdxDLPainterD7.bpl=ExpressSkins Library Painter for Docking Library by Developer Express Inc.
-C:\Program Files (x86)\Borland\Delphi7\Projects\Bpl\dxSkinsdxBarPainterD7.bpl=ExpressSkins Library Painter for Bars by Developer Express Inc.
-C:\Program Files (x86)\Borland\Delphi7\Projects\Bpl\dxSkinsdxNavBarPainterD7.bpl=ExpressSkins Library Painter for NavBar by Developer Express Inc.
-C:\Program Files (x86)\Borland\Delphi7\Projects\Bpl\dxSkinsdxRibbonPainterD7.bpl=ExpressSkins Library Painter for Ribbon by Developer Express Inc.
-C:\Program Files (x86)\Borland\Delphi7\Projects\Bpl\dcldxPSdxLCLnkD7.bpl=ExpressPrinting System ReportLink for ExpressLayoutControl by Developer Express Inc.
 [HistoryLists\hlUnitAliases]
 Count=1
 Item0=WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;
 [HistoryLists\hlOutputDirectorry]
-Count=2
-Item0=C:\Users\randy\Desktop\Ejecutables
-Item1=E:\Ejecutables
+Count=1
+Item0=E:\Ejecutables

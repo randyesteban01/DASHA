@@ -29,7 +29,7 @@ object frmEmpresas: TfrmEmpresas
     Top = 48
     Width = 545
     Height = 257
-    ActivePage = TabSheet2
+    ActivePage = TabSheet1
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = 'Datos generales'

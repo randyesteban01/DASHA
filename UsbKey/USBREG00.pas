@@ -81,8 +81,7 @@ begin
   end;
   ADOSigma.Connected := False;
   db := CB_Conexion.Text;
-  //db := db + ';User ID=randy;password=dayelcris';
-  db := db + ';User ID=admindasha;password=Admin2023$.';
+  db := db + ';User ID=randy;password=dayelcris';
   ADOSigma.ConnectionString := db;
   ADOSigma.Connected := True;
   NomFile := 'LIC'+ADOSigma.DefaultDatabase;

@@ -25,6 +25,14 @@ object frmEnvio: TfrmEnvio
     Height = 13
     Caption = 'Label4'
   end
+  object Label24: TLabel
+    Left = 200
+    Top = 32
+    Width = 48
+    Height = 26
+    Caption = 'Inv. Inicial Unidad'
+    WordWrap = True
+  end
   object GroupBox1: TGroupBox
     Left = 8
     Top = 16
@@ -57,10 +65,17 @@ object frmEnvio: TfrmEnvio
       Height = 13
       Caption = 'Terminal:'
     end
+    object Label1: TLabel
+      Left = 182
+      Top = 27
+      Width = 76
+      Height = 13
+      Caption = 'Cant. Paquetes:'
+    end
     object edoNombre: TEdit
       Left = 64
       Top = 48
-      Width = 209
+      Width = 249
       Height = 19
       CharCase = ecUpperCase
       MaxLength = 50
@@ -106,7 +121,7 @@ object frmEnvio: TfrmEnvio
     Ctl3D = False
     ParentColor = False
     ParentCtl3D = False
-    TabOrder = 1
+    TabOrder = 2
     object Label6: TLabel
       Left = 8
       Top = 48
@@ -189,7 +204,7 @@ object frmEnvio: TfrmEnvio
     Caption = '[ Descripci'#243'n ]'
     Ctl3D = False
     ParentCtl3D = False
-    TabOrder = 2
+    TabOrder = 3
     object edDescripcion: TEdit
       Left = 322
       Top = 20
@@ -214,7 +229,7 @@ object frmEnvio: TfrmEnvio
     Width = 90
     Height = 48
     Caption = '&Salir'
-    TabOrder = 3
+    TabOrder = 4
     TabStop = False
     OnClick = btCloseClick
     Glyph.Data = {
@@ -232,10 +247,19 @@ object frmEnvio: TfrmEnvio
       0333337F777FFFFF7F3333000000000003333377777777777333}
     NumGlyphs = 2
   end
+  object edCantidad: TEdit
+    Left = 268
+    Top = 40
+    Width = 53
+    Height = 21
+    TabOrder = 1
+    Text = '1'
+    OnKeyPress = edCantidadKeyPress
+  end
   object dsSucOrigen: TDataSource
     DataSet = QSucOrigen
-    Left = 170
-    Top = 179
+    Left = 410
+    Top = 187
   end
   object QSucOrigen: TADOQuery
     Connection = DM.ADOSigma
@@ -256,6 +280,11 @@ object frmEnvio: TfrmEnvio
         Precision = 10
         Size = 4
         Value = Null
+      end
+      item
+        Name = 'suc'
+        Size = -1
+        Value = Null
       end>
     SQL.Strings = (
       
@@ -269,9 +298,10 @@ object frmEnvio: TfrmEnvio
       'and s.suc_codigo = a.suc_codigo'
       'and a.emp_codigo = :emp_codigo'
       'and a.usu_codigo = :usu'
+      'and a.suc_codigo= :suc'
       'order by s.suc_codigo')
-    Left = 114
-    Top = 179
+    Left = 354
+    Top = 187
     object QSucOrigensuc_codigo: TIntegerField
       FieldName = 'suc_codigo'
     end
@@ -304,8 +334,8 @@ object frmEnvio: TfrmEnvio
   end
   object dsSucDestino: TDataSource
     DataSet = qSucDestino
-    Left = 290
-    Top = 178
+    Left = 530
+    Top = 186
   end
   object qSucDestino: TADOQuery
     Connection = DM.ADOSigma
@@ -340,8 +370,8 @@ object frmEnvio: TfrmEnvio
       'and a.emp_codigo = :emp_codigo'
       'and a.usu_codigo = :usu'
       'order by s.suc_codigo')
-    Left = 234
-    Top = 178
+    Left = 474
+    Top = 186
     object IntegerField1: TIntegerField
       FieldName = 'suc_codigo'
     end

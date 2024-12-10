@@ -89,6 +89,7 @@ type
     QFormaCAT_CUENTA: TStringField;
     QFormaCAT_NOMBRE: TStringField;
     QFormasPagoCAT_NOMBRE: TStringField;
+    queryMU: TADOQuery;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormActivate(Sender: TObject);
@@ -100,6 +101,8 @@ type
     procedure QRecibosREC_MONTOChange(Sender: TField);
     procedure btCloseClick(Sender: TObject);
     procedure QRecibosAfterPost(DataSet: TDataSet);
+    procedure ImprimirRecibo();
+    procedure Imp40ColumnasRec();
   private
     { Private declarations }
     vl_cliente, vl_suc, vl_ticket, vl_MovSec :  Integer;
@@ -111,8 +114,8 @@ type
     Deuda, TotalDetalle, Balance, Pendiente, Aplicar, Comision,
     Creditos, Debitos, AFavor, totalpositivo, totalnegativo, vl_mora, vl_mora2 : double;
     Cajero, FormatoImp, caja : integer;
-    PuertoImp, CtaCliente : string;
-
+    PuertoImp,puerto, CtaCliente : string;
+   
   end;
 
 var
@@ -120,7 +123,7 @@ var
 
 implementation
 
-uses SIGMA00, PVENTA37, SIGMA01, PVENTA230;
+uses SIGMA00, PVENTA37, SIGMA01, PVENTA230, RVENTA32, PVENTA83;
 
 {$R *.dfm}
 
@@ -129,6 +132,196 @@ procedure TFrmRecibosPagoDestino.FormClose(Sender: TObject;
 begin
 action := cafree;
 end;
+
+
+procedure TFrmRecibosPagoDestino.Imp40ColumnasRec;
+var
+  arch : textfile;
+  s, s1, s2, s3, s4, s5, s6 : array [0..20] of char;
+begin
+  AssignFile(arch, '.\imp.bat');
+  rewrite(arch);
+  writeln(arch, 'type .\t.txt > '+puerto);
+  closefile(arch);
+
+  AssignFile(arch, '.\t.txt');
+  rewrite(arch);
+  writeln(arch, dm.Centro(trim(dm.QEmpresasEMP_NOMBRE.value)));
+  writeln(arch, dm.Centro(trim(DM.QEmpresasEMP_DIRECCION.value)));
+  writeln(arch, dm.Centro(trim(DM.QEmpresasEMP_LOCALIDAD.value)));
+  writeln(arch, dm.Centro('Telefono : '+trim(dm.QEmpresasEMP_TELEFONO.value)));
+  writeln(arch, dm.Centro('RNC: '+dm.QEmpresasEMP_RNC.value));
+  writeln(arch, ' ');
+  if RRecibo.QRecibosREC_TIPO.Value = 'C' then
+    writeln(arch, dm.Centro('R E C I B O   D E   C O B R O'))
+  else
+    writeln(arch, dm.Centro('R E C I B O   D E   I N G R E S O'));
+  writeln(arch, ' ');
+  writeln(arch, 'Numero   : '+inttostr(RRecibo.QRecibosREC_NUMERO.value));
+  writeln(arch, 'Fecha    : '+DateToStr(RRecibo.QRecibosREC_FECHA.value));
+  writeln(arch, 'Cliente  : '+RRecibo.QRecibosREC_NOMBRE.value);
+  writeln(arch, 'Concepto : '+copy(trim(RRecibo.QRecibosREC_CONCEPTO.value),1,40));
+  writeln(arch, 'Monto    : '+Format('%n',[RRecibo.QRecibosREC_MONTO.value]));
+  writeln(arch, 'Descuento: '+Format('%n',[RRecibo.QRecibosREC_DESCUENTO.value]));
+
+  writeln(arch, '----------------------------------------');
+  writeln(arch, 'Doc Grp Tipo Numero  Fecha      Aplicado');
+  writeln(arch, '----------------------------------------');
+  while not RRecibo.QDoc.eof do
+  begin
+    s := '';
+    fillchar(S, 5-length(RRecibo.QDocDET_TIPO.value),' ');
+    s1 := '';
+    fillchar(S1, 4-length(trim(RRecibo.QDocFAC_FORMA.value)),' ');
+    s2 := '';
+    fillchar(S2, 4-length(inttostr(RRecibo.QDocTFA_CODIGO.value)),' ');
+    s3:= '';
+    fillchar(s3, 5-length(inttostr(RRecibo.QDocDET_NUMERO.value)),'0');
+    s4 := '';
+    fillchar(s4, 12-length(datetostr(RRecibo.QDocDET_FECHA.value)),' ');
+    s5 := '';
+    fillchar(s5, 5-length(Inttostr(RRecibo.QDocCuota.value)),'0');
+    s6 := '';
+    fillchar(s6, 10-length(format('%n',[RRecibo.QDocDET_MONTO.value])),' ');
+    writeln(arch, RRecibo.QDocDET_TIPO.value+s+
+                  RRecibo.QDocFAC_FORMA.value+s1+
+                  inttostr(RRecibo.QDocTFA_CODIGO.value)+'  '+
+                  s3+inttostr(RRecibo.QDocDET_NUMERO.value)+s4+
+//                  s5+Inttostr(RRecibo.QDocCuota.value)+s4+
+                  datetostr(RRecibo.QDocDET_FECHA.value)+s6+
+                  format('%n',[RRecibo.QDocDET_MONTO.value]));
+
+    RRecibo.QDoc.next;
+  end;
+  writeln(arch, ' ');
+  dm.Query1.Close;
+  dm.Query1.SQL.Clear;
+  dm.Query1.SQL.Add('select cli_balance, cli_limite from clientes');
+  dm.Query1.SQL.Add('where emp_codigo = :emp');
+  dm.Query1.SQL.Add('and cli_codigo = :cli');
+  dm.Query1.Parameters.ParamByName('emp').Value := dm.vp_cia;
+  dm.Query1.Parameters.ParamByName('cli').Value := RRecibo.QRecibosCLI_CODIGO.Value;
+  dm.Query1.Open;
+
+  writeln(arch, ' ');
+  writeln(arch, dm.Centro('SU CUENTA REFLEJA UN BALANCE'));
+  writeln(arch, dm.Centro('A LA FECHA DE '+Format('%n',[dm.Query1.FieldByName('cli_balance').AsFloat])));
+  writeln(arch, dm.Centro('UN DISPONIBLE DE '+Format('%n',[dm.Query1.FieldByName('cli_limite').AsFloat-
+                                                             dm.Query1.FieldByName('cli_balance').AsFloat])));
+
+  dm.Query1.Close;
+  dm.Query1.SQL.Clear;
+  dm.Query1.SQL.Add('select * from pr_Estadistica_cli (:emp, :cli, :fec)');
+  dm.Query1.Parameters.ParamByName('emp').Value := dm.vp_cia;
+  dm.Query1.Parameters.ParamByName('cli').Value := RRecibo.QRecibosCLI_CODIGO.Value;
+  dm.Query1.Parameters.ParamByName('fec').Value    := Date;
+  dm.Query1.Open;
+  writeln(arch, dm.Centro('Y UN MONTO VENCIDO DE '+Format('%n',[dm.Query1.FieldByName('mtovencido').AsFloat])));
+
+  dm.Query1.Close;
+  dm.Query1.SQL.Clear;
+  dm.Query1.SQL.Add('select f.fpa_nombre, sum(p.for_monto) as monto');
+  dm.Query1.SQL.Add('from formaspago f, recformapago p');
+  dm.Query1.SQL.Add('where f.emp_codigo = p.emp_codigo');
+  dm.Query1.SQL.Add('and f.fpa_codigo = p.fpa_codigo');
+  dm.Query1.SQL.Add('and p.emp_codigo = :emp');
+  dm.Query1.SQL.Add('and p.rec_numero = :num');
+  dm.Query1.SQL.Add('and p.for_monto > 0');
+  dm.Query1.SQL.Add('group by f.fpa_nombre');
+  dm.Query1.Parameters.ParamByName('emp').Value := dm.vp_cia;
+  dm.Query1.Parameters.ParamByName('num').Value := RRecibo.QRecibosREC_NUMERO.Value;
+  dm.Query1.Open;
+
+  writeln(arch, ' ');
+  dm.Query1.DisableControls;
+  dm.Query1.First;
+  while not dm.Query1.Eof do
+  begin
+    s:= '';
+    fillchar(s, 14-length(dm.Query1.FieldByName('fpa_nombre').asstring),' ');
+    s1 := '';
+    fillchar(s1, 10-length(format('%n',[dm.Query1.FieldByName('monto').asfloat])),' ');
+    writeln(arch,copy(dm.Query1.FieldByName('fpa_nombre').asstring,1,14)+s+s1+format('%n',[dm.Query1.FieldByName('monto').asfloat]));
+    dm.Query1.Next;
+  end;
+  dm.Query1.EnableControls;
+
+  writeln(arch, ' ');
+  writeln(arch, ' ');
+  writeln(arch, ' ');
+  writeln(arch, dm.Centro('_______________________'));
+  writeln(arch, dm.Centro('Recibido por'));
+  writeln(arch, ' ');
+  writeln(arch, ' ');
+  writeln(arch, ' ');
+  writeln(arch, dm.Centro('Gracias por su pago...'));
+  writeln(arch, ' ');
+  writeln(arch, ' ');
+  writeln(arch, ' ');
+  writeln(arch, ' ');
+  writeln(arch, ' ');
+  writeln(arch, ' ');
+  CloseFile(arch);
+
+  WinExec(PAnsiChar('.\imp.bat'), 0);
+  RRecibo.Destroy;
+
+  {Application.CreateForm(tfrmImpPantalla, frmImpPantalla);
+  frmImpPantalla.Memo1.Lines.LoadFromFile('t.txt');
+  frmImpPantalla.ShowModal;
+  frmImpPantalla.Release;
+  RRecibo.Destroy;  }
+  {
+  if cbDestino.ItemIndex = 1 then
+  begin
+    winexec('imp.bat',0);
+    RRecibo.Destroy;
+  end
+  else
+  begin
+    Application.CreateForm(tfrmImpPantalla, frmImpPantalla);
+    frmImpPantalla.Memo1.Lines.LoadFromFile('t.txt');
+    frmImpPantalla.ShowModal;
+    frmImpPantalla.Release;
+    RRecibo.Destroy;
+  end;
+  }
+end;
+
+procedure TFrmRecibosPagoDestino.ImprimirRecibo();
+Begin       
+//Recibo
+        dm.Query1.Close;
+        dm.Query1.SQL.Clear;
+        dm.Query1.SQL.Add('select rec_tipo from recibos');
+        dm.Query1.SQL.Add('where emp_Codigo = :emp');
+        dm.Query1.SQL.Add('and rec_numero = :num');
+        dm.Query1.SQL.Add('and suc_codigo = :suc');
+        dm.Query1.Parameters.ParamByName('emp').Value := dm.vp_cia;
+        dm.Query1.Parameters.ParamByName('num').Value := (QRecibosREC_NUMERO.Value);
+        dm.Query1.Parameters.ParamByName('suc').Value := DBLookupComboBox2.KeyValue;
+        dm.Query1.Open;
+
+        application.createform(tRRecibo, RRecibo);
+        RRecibo.QRecibos.Parameters.ParamByName('numero').Value := (QRecibosREC_NUMERO.Value);
+        RRecibo.QRecibos.Parameters.ParamByName('suc').Value := DBLookupComboBox2.KeyValue;
+
+        RRecibo.QRecibos.open;
+        RRecibo.QDoc.Open;
+        RRecibo.QFormasPago.Open;
+        RRecibo.lbReimpresion.Enabled := True;
+
+        Imp40ColumnasRec();
+
+       // RRecibo.Preview;
+       // RRecibo.Destroy;
+
+       { RRecibo.PrinterSetup;
+        RRecibo.Print;
+        RRecibo.Destroy;          }
+ 
+end;
+
 
 procedure TFrmRecibosPagoDestino.FormCreate(Sender: TObject);
 var
@@ -263,19 +456,19 @@ begin
 
   //Buscar Formas de Pagos
     QFormasPago.disablecontrols;
-    dm.adoMultiUso.Close;
-    dm.adoMultiUso.SQL.Clear;
-    dm.adoMultiUso.SQL.Add('select distinct fpa_codigo from formaspago');
-    dm.adoMultiUso.SQL.Add('where emp_codigo = :emp');
-    dm.adoMultiUso.SQL.Add('order by fpa_codigo');
-    dm.adoMultiUso.Parameters.ParamByName('emp').Value := dm.vp_cia;
-    dm.adoMultiUso.Open;
-    while not dm.adoMultiUso.Eof do begin
+    queryMU.Close;
+    queryMU.SQL.Clear;
+    queryMU.SQL.Add('select distinct fpa_codigo from formaspago');
+    queryMU.SQL.Add('where emp_codigo = :emp');
+    queryMU.SQL.Add('order by fpa_codigo');
+    queryMU.Parameters.ParamByName('emp').Value := dm.vp_cia;
+    queryMU.Open;
+    while not queryMU.Eof do begin
       QFormasPago.append;
       QFormasPagoEMP_CODIGO.value := dm.vp_cia;
-      QFormasPagoFPA_CODIGO.value := dm.adoMultiUso.fieldbyname('fpa_codigo').asinteger;
+      QFormasPagoFPA_CODIGO.value := queryMU.fieldbyname('fpa_codigo').asinteger;
       QFormasPago.post;
-    dm.adoMultiUso.Next;
+    queryMU.Next;
     end;
     QFormasPago.First;
     QFormasPago.enablecontrols;
@@ -303,6 +496,7 @@ begin
 end;
 
 procedure TFrmRecibosPagoDestino.btGrabarClick(Sender: TObject);
+var i, cantidad : Integer;
 begin
 if totalpositivo = frmConsFTEnvios.QEnviosmonto.Value then begin
 ins := False;
@@ -311,6 +505,13 @@ QRecibos.UpdateBatch;
 DM.ADOSigma.Execute('UPDATE ENVIO SET facpagodestino = 0 WHERE EMP_CODIGO ='+frmConsFTEnvios.QEnviosemp_codigo.Text+
 ' AND SUC_CODIGO ='+frmConsFTEnvios.QEnviossuc_codigo.Text + ' AND FAC_NUMERO ='+frmConsFTEnvios.QEnviosfac_numero.Text+
 ' AND TFA_CODIGO ='+frmConsFTEnvios.QEnviosTFA_CODIGO.Text + ' AND IDENVIO ='+frmConsFTEnvios.QEnviosIDEnvio.Text);
+
+cantidad := dm.QParametrosPAR_cantidadRecibosImprimir.value ;
+ for i := 1 to cantidad do
+  begin
+    ImprimirRecibo(); // Llama al procedimiento que imprime el recibo
+  end;
+
 frmConsFTEnvios.btRefreshClick(Sender);
 Close;
 end

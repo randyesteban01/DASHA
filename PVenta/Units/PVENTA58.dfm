@@ -1,11 +1,11 @@
 object frmConsCxP: TfrmConsCxP
-  Left = 304
-  Top = 141
+  Left = 221
+  Top = 135
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Consulta general de cuentas por pagar'
-  ClientHeight = 553
-  ClientWidth = 1067
+  ClientHeight = 561
+  ClientWidth = 1136
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -25,8 +25,8 @@ object frmConsCxP: TfrmConsCxP
   object DBGrid1: TDBGrid
     Left = 0
     Top = 57
-    Width = 1067
-    Height = 250
+    Width = 1136
+    Height = 258
     Align = alTop
     Anchors = [akLeft, akTop, akRight, akBottom]
     Color = clInfoBk
@@ -126,18 +126,18 @@ object frmConsCxP: TfrmConsCxP
   end
   object Panel1: TPanel
     Left = 0
-    Top = 512
-    Width = 1067
+    Top = 520
+    Width = 1136
     Height = 41
     Align = alBottom
     BevelInner = bvRaised
     BevelOuter = bvLowered
     TabOrder = 1
     DesignSize = (
-      1067
+      1136
       41)
     object BitBtn2: TBitBtn
-      Left = 754
+      Left = 823
       Top = 8
       Width = 97
       Height = 25
@@ -156,7 +156,7 @@ object frmConsCxP: TfrmConsCxP
         03333333333333333333}
     end
     object btClose: TBitBtn
-      Left = 986
+      Left = 1055
       Top = 8
       Width = 75
       Height = 25
@@ -180,7 +180,7 @@ object frmConsCxP: TfrmConsCxP
       NumGlyphs = 2
     end
     object BitBtn1: TBitBtn
-      Left = 858
+      Left = 927
       Top = 8
       Width = 121
       Height = 25
@@ -199,7 +199,7 @@ object frmConsCxP: TfrmConsCxP
         03333333333333333333}
     end
     object btRefresh: TBitBtn
-      Left = 674
+      Left = 743
       Top = 8
       Width = 75
       Height = 25
@@ -209,7 +209,7 @@ object frmConsCxP: TfrmConsCxP
       OnClick = btRefreshClick
     end
     object btFind: TBitBtn
-      Left = 593
+      Left = 662
       Top = 8
       Width = 75
       Height = 25
@@ -234,8 +234,8 @@ object frmConsCxP: TfrmConsCxP
   end
   object Panel2: TPanel
     Left = 0
-    Top = 307
-    Width = 1067
+    Top = 315
+    Width = 1136
     Height = 205
     Align = alClient
     BevelInner = bvRaised
@@ -244,7 +244,7 @@ object frmConsCxP: TfrmConsCxP
     object DBGrid3: TDBGrid
       Left = 2
       Top = 2
-      Width = 1063
+      Width = 1132
       Height = 154
       Align = alClient
       Color = clInfoBk
@@ -289,11 +289,6 @@ object frmConsCxP: TfrmConsCxP
           FieldName = 'fac_concepto'
           Title.Caption = 'Concepto'
           Width = 316
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'NCF'
           Visible = True
         end
         item
@@ -366,7 +361,7 @@ object frmConsCxP: TfrmConsCxP
     object Panel3: TPanel
       Left = 2
       Top = 156
-      Width = 1063
+      Width = 1132
       Height = 47
       Align = alBottom
       BevelInner = bvRaised
@@ -561,7 +556,7 @@ object frmConsCxP: TfrmConsCxP
   object Panel4: TPanel
     Left = 0
     Top = 0
-    Width = 1067
+    Width = 1136
     Height = 57
     Align = alTop
     BevelInner = bvRaised
@@ -852,7 +847,7 @@ object frmConsCxP: TfrmConsCxP
       'select'
       'FAC_NUMERO, FAC_FECHA, FAC_VENCE, FAC_TOTAL,'
       'FAC_ABONO, EMP_CODIGO, sup_codigo, fac_concepto,'
-      'fac_itbis, fac_exento, fac_grabado, NCF'
+      'fac_itbis, fac_exento, fac_grabado'
       'from'
       'PROVFACTURAS'
       'where'
@@ -924,10 +919,6 @@ object frmConsCxP: TfrmConsCxP
       currency = True
       Precision = 15
       Size = 2
-    end
-    object QFacNCF: TStringField
-      FieldName = 'NCF'
-      Size = 30
     end
   end
   object dsFac: TDataSource

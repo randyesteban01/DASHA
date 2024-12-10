@@ -28,7 +28,6 @@ type
     lbCodigo: TQRDBText;
     QRDBText7: TQRDBText;
     dsClientes: TDataSource;
-    QRDBText8: TQRDBText;
     QDocsFAC_FORMA: TIBStringField;
     QDocsMOV_ABONO: TFloatField;
     QDocsMOV_FECHA: TDateTimeField;
@@ -49,7 +48,6 @@ type
     QRecibosREC_NUMEROMANUAL: TIBStringField;
     QRecibosDET_MONTO: TFloatField;
     QRecibosTipo: TStringField;
-    QRDBText6: TQRDBText;
     QRDBText17: TQRDBText;
     QRDBText18: TQRDBText;
     QRDBText19: TQRDBText;
@@ -58,7 +56,6 @@ type
     QNCNCR_MONTO: TFloatField;
     QNCNCR_NUMERO: TIntegerField;
     QNCTipo: TStringField;
-    QRDBText15: TQRDBText;
     QRDBText16: TQRDBText;
     QRDBText20: TQRDBText;
     QDocsEMP_CODIGO: TIntegerField;
@@ -71,7 +68,6 @@ type
     lbBalance2: TQRLabel;
     lbBalance3: TQRLabel;
     QCredito: TADOQuery;
-    QRDBText23: TQRDBText;
     QRDBText24: TQRDBText;
     QRDBText25: TQRDBText;
     lbBAlance4: TQRLabel;
@@ -95,7 +91,6 @@ type
     QDepositosDEP_NUMERO: TIntegerField;
     QDepositosTipo: TStringField;
     lbDescrip5: TQRLabel;
-    QRDBText28: TQRDBText;
     QRDBText29: TQRDBText;
     QRDBText30: TQRDBText;
     lbBalance5: TQRLabel;
@@ -174,6 +169,59 @@ type
     QClientescli_email: TStringField;
     QRPDFFilter1: TQRPDFFilter;
     QRDBText1: TQRDBText;
+    QRecibosdet_monto_OMON: TCurrencyField;
+    QRecibosREC_TASA: TCurrencyField;
+    QRLabel18: TQRLabel;
+    QRDBText21: TQRDBText;
+    QRDBText26: TQRDBText;
+    QRLTasaNC: TQRLabel;
+    QNCncr_tasa: TCurrencyField;
+    QNCNCR_MONTO_OMON: TCurrencyField;
+    QRLTotalMoraOMonto: TQRLabel;
+    QRLTotalClienteOMonto: TQRLabel;
+    QRLTotalOMon: TQRLabel;
+    QRLTasaDep: TQRLabel;
+    QRLTasaCred: TQRLabel;
+    QRLabel19: TQRLabel;
+    lbOBalance1: TQRLabel;
+    lbOBalance2: TQRLabel;
+    lbOBalance3: TQRLabel;
+    lbOBalance4: TQRLabel;
+    lbOBalance5: TQRLabel;
+    QRLabel24: TQRLabel;
+    QRLabel25: TQRLabel;
+    QRDBText31: TQRDBText;
+    QRDBText36: TQRDBText;
+    QRDBText37: TQRDBText;
+    QRDBText38: TQRDBText;
+    QAntigBALANCEUS: TCurrencyField;
+    QAntigDIAUS1: TCurrencyField;
+    QAntigDIAUS2: TCurrencyField;
+    QAntigDIAUS3: TCurrencyField;
+    QAntigDIAUS4: TCurrencyField;
+    QDocsMOV_MONTOUS: TCurrencyField;
+    QDocsABONOUS: TCurrencyField;
+    QRDBText39: TQRDBText;
+    QRDBText40: TQRDBText;
+    QRDBText41: TQRDBText;
+    QDepositosMONTOUS: TCurrencyField;
+    QRDBText42: TQRDBText;
+    QRDBText43: TQRDBText;
+    QCreditoMONTOUS: TCurrencyField;
+    QRLabel20: TQRLabel;
+    lbTotalUS: TQRLabel;
+    QRLabel21: TQRLabel;
+    QRLabel22: TQRLabel;
+    QDocsMONTO: TCurrencyField;
+    qMoraUS: TADOQuery;
+    qMoraUScli_codigo: TIntegerField;
+    qMoraUSTOTALMORA: TCurrencyField;
+    qUptNC: TADOQuery;
+    IntegerField1: TIntegerField;
+    CurrencyField1: TCurrencyField;
+    QNCBalance: TCurrencyField;
+    qActBalNC: TADOQuery;
+    QDepositosDEP_TASA: TCurrencyField;
     procedure QDocsCalcFields(DataSet: TDataSet);
     procedure QuickRepBeforePrint(Sender: TCustomQuickRep;
       var PrintReport: Boolean);
@@ -200,7 +248,7 @@ type
   private
 
   public
-    Balance, Total: Double;
+    Balance, BalanceUS, Total, TotalUS: Double;
     Fecha : TDateTime;
     ImprimeSub : Boolean;
     tasa :Double;
@@ -221,7 +269,11 @@ uses SIGMA01, DateUtils;
 
 procedure TREstadoCtaCli.QDocsCalcFields(DataSet: TDataSet);
 begin
+  IF QDocsmov_tasa.Value = 1 THEN
   QDocsSaldo.Value := (QDocsMOV_MONTO.Value - QDocsMOV_ABONO.Value);
+
+
+
   if Date >= QDocsmov_fechavence.Value then
   begin
     QDocsTotalInteres.Value := ((QDocsSaldo.Value  * QDocsmov_interes.Value)/100);
@@ -260,15 +312,18 @@ begin
 
   Balance := 0;
   Total := 0;
-  
-  
+  BalanceUS := 0;
+  TotalUS := 0;
+
+
+
   if dm.QParametrosPAR_CODIGOCLIENTE.Value = 'I' then
     lbCodigo.DataField := 'CLI_CODIGO'
   else
     lbCodigo.DataField := 'CLI_REFERENCIA';
 
-    if tasa > 1 then
-      qrlBalanceen.Caption := 'Balance';
+   { if tasa > 1 then
+      qrlBalanceen.Caption := 'Balance';}
  qrlUsuario.Caption :='Impreso por :'+ dm.getNombreUsuario(DM.Usuario) +
                        ' Fecha/Hora ' + FormatDateTime('dd/mm/yyyy hh:mm:ss AM/PM',now);
 end;
@@ -281,12 +336,17 @@ end;
 procedure TREstadoCtaCli.QNCCalcFields(DataSet: TDataSet);
 begin
   QNCTipo.Value := 'NCR';
+
+
+
+
 end;
 
 procedure TREstadoCtaCli.QRBand3BeforePrint(Sender: TQRCustomBand;
   var PrintBand: Boolean);
 begin
   Balance := 0;
+  BalanceUS := 0;
   if (QClientescli_rnc.IsNull) or (QClientescli_rnc.Value = '') then
     QRDBText22.DataField := 'cli_cedula'
   else
@@ -319,8 +379,13 @@ end;
 procedure TREstadoCtaCli.QRsdDocsBeforePrint(Sender: TQRCustomBand;
   var PrintBand: Boolean);
 begin
-  Balance := Balance + QDocsMOV_MONTO.Value + QDocsTotalInteres.Value;
+  if QDocsmov_tasa.Value = 1 THEN
+  Balance := Balance + QDocsMONTO.Value + QDocsTotalInteres.Value;
   lbBalance1.Caption := format('%n',[Balance]);
+
+  if QDocsmov_tasa.Value > 1 then
+  BalanceUS := BalanceUS + (QDocsMOV_MONTOUS.Value)+(QDocsTotalInteres.Value/QDocsmov_tasa.Value);
+  lbOBalance1.Caption := format('%n',[BalanceUS]);
   dm.Query1.Close;
   dm.Query1.SQL.Clear;
   dm.Query1.SQL.Add('select tmo_codigo, tmo_nombre from tiposmov');
@@ -359,31 +424,62 @@ end;
 procedure TREstadoCtaCli.QRSDRecibosBeforePrint(Sender: TQRCustomBand;
   var PrintBand: Boolean);
 begin
+  if QDocsmov_tasa.Value = 1 then
   Balance :=( Balance - QRecibosDET_MONTO.Value);
+
+  if QDocsmov_tasa.Value > 1 then
+  BalanceUS := (BalanceUS - QRecibosdet_monto_OMON.Value);
+
+  if QDocsmov_tasa.Value = 1 then
   lbBalance2.Caption := format('%n',[Balance]);
+
+  if QDocsmov_tasa.Value > 1 then
+  lbOBalance2.Caption := format('%n',[BalanceUS]);
+
   lbDescrip2.Caption := 'Recibo';
-  
+
+  if QDocsmov_tasa.Value > 1 then
+  QRDBText19.Enabled := False ELSE
+  QRDBText19.Enabled := True;
+
 end;
 
 procedure TREstadoCtaCli.QRsdNCBeforePrint(Sender: TQRCustomBand;
   var PrintBand: Boolean);
 begin
-  if dm.Query1.FieldByName('status').AsString = 'PAG' then
+  if QNC.RecordCount = 0 then
      PrintBand := False
   else
      PrintBand := true;
 
  //Titin para imprimir monto en dolares.
    qrlNCR_MONTO.Caption := format('%n',[QNCNCR_MONTO.Value]);
+
+   if QDocsmov_tasa.Value = 1 then
    Balance := (Balance - QNCNCR_MONTO.Value);
 
+   if QDocsmov_tasa.Value > 1 then
+   BalanceUS := (BalanceUS - QNCNCR_MONTO_OMON.Value);
 
+
+   QRLTasaNC.Caption := format('%n',[QNCncr_tasa.Value]);
+
+   if QNCncr_tasa.Value > 1 THEN
+   qrlNCR_MONTO.Enabled := False ELSE
+   qrlNCR_MONTO.Enabled := True;
+
+  if QDocsmov_tasa.Value = 1 then
   lbBalance3.Caption := format('%n',[Balance]);
+
+  if QDocsmov_tasa.Value = 1 then
+  lbOBalance3.Caption := format('%n',[BalanceUS]);
+
+
   if (QNCncr_devolucion.Value = 0) or (QNCncr_devolucion.IsNull) then
     lbDescrip3.Caption := 'Nota de Credito'
   else
     lbDescrip3.Caption := 'NCR/Devolucion';
-end;
+  end;
 
 procedure TREstadoCtaCli.QCreditoCalcFields(DataSet: TDataSet);
 begin
@@ -392,16 +488,54 @@ end;
 
 procedure TREstadoCtaCli.QRsdCreditoBeforePrint(Sender: TQRCustomBand;
   var PrintBand: Boolean);
+var bal_nc:Currency;
 begin
   if format('%n',[QCreditoNCR_MONTO.Value]) = '0.00' then
     PrintBand := False
   else begin {20170809 solo el else para evitar la division en 0}
+    //Actualiza Balance NC
+  with qActBalNC do begin
+  Close;
+  Parameters.ParamByName('EMP').Value := QDocsEMP_CODIGO.Value;
+  Parameters.ParamByName('SUC').Value := QDocssuc_codigo.Value;
+  Parameters.ParamByName('NC').Value  := QNCNCR_NUMERO.Value;
+  ExecSQL;
+  end;
+
+  with dm.Query1 do begin
+  Close;
+  SQL.Clear;
+  SQL.Add('SELECT ISNULL(NCR_MONTOUSADO,0) USADO FROM NOTASCREDITO');
+  SQL.Add('WHERE EMP_CODIGO = :EMP AND SUC_CODIGO = :SUC AND NCR_NUMERO = :NC');
+  Parameters.ParamByName('EMP').Value := QDocsEMP_CODIGO.Value;
+  Parameters.ParamByName('SUC').Value := QDocssuc_codigo.Value;
+  Parameters.ParamByName('NC').Value  := QNCNCR_NUMERO.Value;
+  Open;
+  if not IsEmpty THEN
+  bal_nc := DM.Query1.FieldByName('USADO').Value;
+  Close;
+  end;
+
+  IF (QCreditoMONTOUS.Value+bal_nc) = 0 THEN
+  QRsdCredito.Enabled := False ELSE
+  BEGIN
+
   //Titin para imprimir monto en dolares.
-  qrlNCRMonto2.Caption := format('%n',[QCreditoNCR_MONTO.Value]);
-  Balance := Balance - QCreditoNCR_MONTO.Value ;
+  qrlNCRMonto2.Caption := format('%n',[(QCreditoMONTOUS.Value+bal_nc)]);
+
+  if QRecibosREC_TASA.Value = 1 then
+  Balance := Balance - (QCreditoMONTOUS.Value+bal_nc) ;
+  if QRecibosREC_TASA.Value > 1 then
+  BalanceUS := BalanceUS - (QCreditoMONTOUS.Value+bal_nc) ;
+
+  if QRecibosREC_TASA.Value = 1 then
   lbBalance4.Caption := format('%n',[Balance]);
+  if QRecibosREC_TASA.Value > 1 then
+  lbOBalance5.Caption := format('%n',[BalanceUS]);
+
   lbDescrip4.Caption := 'Nota de Credito';
-  
+
+  end;
   end;
 end;
 
@@ -415,9 +549,24 @@ begin
     //Titin para imprimir monto en dolares
 
   qrlMontoDeposito.Caption := format('%n',[QDepositosMONTO.Value]);
+  QRLTasaDep.Caption := format('%n',[QDepositosDEP_TASA.Value]);
+
+  if QDocsmov_tasa.Value = 1 then
   Balance := (Balance - QDepositosMONTO.Value);
-  
+
+  if QDocsmov_tasa.Value > 1 then
+  BalanceUS := (BalanceUS - QDepositosMONTOUS.Value);
+
+  if QDocsmov_tasa.Value > 1 then
   lbBalance5.Caption := format('%n',[Balance]);
+
+  if QDocsmov_tasa.Value > 1 then
+  lbOBalance4.Caption := format('%n',[BalanceUS]);
+
+  if QDocsmov_tasa.Value > 1 then
+  qrlMontoDeposito.Enabled := False ELSE
+  qrlMontoDeposito.Enabled := True;
+
   lbDescrip5.Caption := 'Deposito';
   if Balance = 0 then begin
   QRBand3.Visible := False;
@@ -432,12 +581,14 @@ end;
 procedure TREstadoCtaCli.QDepositosCalcFields(DataSet: TDataSet);
 begin
   QdepositosTIPO.value := 'DEP';
+  QDepositosDEP_TASA.Value := QDocsmov_tasa.Value;
 end;
 
 procedure TREstadoCtaCli.QRBand5BeforePrint(Sender: TQRCustomBand;
   var PrintBand: Boolean);
 begin
   lbTotal.Caption := format('%n',[Total]);
+  lbTotalUS.Caption := format('%n',[TotalUS]);
 end;
 
 procedure TREstadoCtaCli.QRSubDetail6BeforePrint(Sender: TQRCustomBand;
@@ -445,6 +596,7 @@ procedure TREstadoCtaCli.QRSubDetail6BeforePrint(Sender: TQRCustomBand;
 begin
   PrintBand := ImprimeSub;
   lbMora.Caption := format('%n',[qMoraTOTALMORA.Value]);
+  QRLTotalMoraOMonto.Caption := format('%n',[qMoraUSTOTALMORA.Value]);
   dm.Query1.Close;
   dm.Query1.SQL.Clear;
   dm.Query1.SQL.Add('select par_dia1label, par_dia2label,');
@@ -460,8 +612,13 @@ begin
   lbTotalCliente.Caption := format('%n',[QAntigDIA1.Value+QAntigDIA2.Value+
                                          QAntigDIA3.Value+QAntigDIA4.Value+
                                          qMoraTOTALMORA.Value]);
+  QRLTotalClienteOMonto.Caption := format('%n',[QAntigDIAUS1.Value+QAntigDIAUS2.Value+
+                                         QAntigDIAUS3.Value+QAntigDIAUS4.Value+
+                                         qMoraUSTOTALMORA.Value]);
   Balance := Balance + qMoraTOTALMORA.Value;
+  BalanceUS := BalanceUS + qMoraUSTOTALMORA.Value;
   Total  := Total + Balance;
+  TotalUS  := TotalUS + BalanceUS;
 end;
 
 end.

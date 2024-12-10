@@ -13,7 +13,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, Buttons, OleServer, ExcelXP, DB, ADODB, ComCtrls,
-  ExtCtrls, Excel2000;
+  ExtCtrls, Excel2000, Spin;
 
 type
   TfrmGenera607 = class(TForm)
@@ -21,7 +21,6 @@ type
     ExcelApplication1: TExcelApplication;
     Label1: TLabel;
     Label2: TLabel;
-    cbano: TComboBox;
     cbmes: TComboBox;
     OpenDialog1: TOpenDialog;
     ProgressBar1: TProgressBar;
@@ -36,6 +35,7 @@ type
     fecha1: TDateTimePicker;
     fecha2: TDateTimePicker;
     rgOrden: TRadioGroup;
+    cbAno: TSpinEdit;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure BitBtn1Click(Sender: TObject);
@@ -72,7 +72,7 @@ var
   ano, mes, dia : word;
 begin
   decodedate(date, ano, mes, dia);
-  cbano.ItemIndex := cbano.Items.IndexOf(inttostr(ano));
+  cbano.Value := StrToInt(FormatDateTime('YYYY',Date));// cbano.Items.IndexOf(inttostr(ano));
   cbmes.ItemIndex := mes-1;
   fecha1.date := StartOfTheMonth(date);
   fecha2.Date := EndOfTheMonth(date);

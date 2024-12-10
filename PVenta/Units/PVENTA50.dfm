@@ -1,5 +1,5 @@
 object frmConsDev: TfrmConsDev
-  Left = 202
+  Left = 336
   Top = 180
   ActiveControl = edTipo
   BorderIcons = [biSystemMenu, biMinimize]

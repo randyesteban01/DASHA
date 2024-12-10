@@ -1879,19 +1879,6 @@ object frmAcerca: TfrmAcerca
       Font.Style = []
       ParentFont = False
     end
-    object Label5: TLabel
-      Left = 28
-      Top = 136
-      Width = 138
-      Height = 15
-      Caption = 'Release: 25 Febrero 2023'
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Calibri'
-      Font.Style = []
-      ParentFont = False
-    end
     object BitBtn1: TBitBtn
       Left = 424
       Top = 112

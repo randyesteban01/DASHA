@@ -1,11 +1,11 @@
 object frmConsConduce: TfrmConsConduce
-  Left = 327
-  Top = 148
+  Left = 176
+  Top = 57
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Consulta de conduces/Salida del Almacen'
-  ClientHeight = 727
-  ClientWidth = 1227
+  ClientHeight = 675
+  ClientWidth = 1139
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -25,12 +25,12 @@ object frmConsConduce: TfrmConsConduce
   OnPaint = FormPaint
   OnShow = FormShow
   PixelsPerInch = 96
-  TextHeight = 14
+  TextHeight = 13
   object Splitter1: TSplitter
     Left = 0
-    Top = 631
-    Width = 1227
-    Height = 7
+    Top = 586
+    Width = 1139
+    Height = 6
     Cursor = crVSplit
     Align = alTop
     Beveled = True
@@ -38,30 +38,30 @@ object frmConsConduce: TfrmConsConduce
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 1227
-    Height = 171
+    Width = 1139
+    Height = 159
     Align = alTop
     BevelInner = bvRaised
     BevelOuter = bvLowered
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
-    Font.Height = -12
+    Font.Height = -11
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
     TabOrder = 0
     object Label2: TLabel
-      Left = 9
-      Top = 60
-      Width = 37
-      Height = 14
+      Left = 8
+      Top = 56
+      Width = 33
+      Height = 13
       Caption = 'Cliente'
     end
     object SpeedButton2: TSpeedButton
-      Left = 103
-      Top = 60
-      Width = 25
-      Height = 24
+      Left = 96
+      Top = 56
+      Width = 23
+      Height = 22
       Flat = True
       Glyph.Data = {
         42010000424D4201000000000000760000002800000011000000110000000100
@@ -78,38 +78,38 @@ object frmConsConduce: TfrmConsConduce
       OnClick = SpeedButton2Click
     end
     object Label4: TLabel
-      Left = 9
-      Top = 112
-      Width = 43
-      Height = 14
+      Left = 8
+      Top = 104
+      Width = 37
+      Height = 13
       Caption = 'Nombre'
     end
     object Label5: TLabel
-      Left = 336
-      Top = 86
-      Width = 44
-      Height = 14
+      Left = 312
+      Top = 80
+      Width = 40
+      Height = 13
       Caption = 'Ordenar'
     end
     object Label6: TLabel
-      Left = 9
-      Top = 34
-      Width = 32
-      Height = 14
+      Left = 8
+      Top = 32
+      Width = 29
+      Height = 13
       Caption = 'Fecha'
     end
     object Label7: TLabel
-      Left = 9
-      Top = 86
-      Width = 39
-      Height = 14
+      Left = 8
+      Top = 80
+      Width = 36
+      Height = 13
       Caption = 'Usuario'
     end
     object SpeedButton3: TSpeedButton
-      Left = 103
-      Top = 86
-      Width = 25
-      Height = 24
+      Left = 96
+      Top = 80
+      Width = 23
+      Height = 22
       Flat = True
       Glyph.Data = {
         42010000424D4201000000000000760000002800000011000000110000000100
@@ -126,17 +126,17 @@ object frmConsConduce: TfrmConsConduce
       OnClick = SpeedButton3Click
     end
     object Label8: TLabel
-      Left = 9
-      Top = 9
-      Width = 44
-      Height = 14
+      Left = 8
+      Top = 8
+      Width = 40
+      Height = 13
       Caption = 'Sucursal'
     end
     object btDepto: TSpeedButton
-      Left = 446
-      Top = 9
-      Width = 25
-      Height = 23
+      Left = 414
+      Top = 8
+      Width = 23
+      Height = 22
       Flat = True
       Glyph.Data = {
         42010000424D4201000000000000760000002800000011000000110000000100
@@ -153,17 +153,17 @@ object frmConsConduce: TfrmConsConduce
       OnClick = btDeptoClick
     end
     object Label1: TLabel
-      Left = 336
-      Top = 9
-      Width = 38
-      Height = 14
+      Left = 312
+      Top = 8
+      Width = 33
+      Height = 13
       Caption = 'Depto.'
     end
     object btAlm: TSpeedButton
-      Left = 446
-      Top = 34
-      Width = 25
-      Height = 24
+      Left = 414
+      Top = 32
+      Width = 23
+      Height = 22
       Flat = True
       Glyph.Data = {
         42010000424D4201000000000000760000002800000011000000110000000100
@@ -180,31 +180,31 @@ object frmConsConduce: TfrmConsConduce
       OnClick = btAlmClick
     end
     object Label3: TLabel
-      Left = 336
-      Top = 34
-      Width = 46
-      Height = 14
+      Left = 312
+      Top = 32
+      Width = 40
+      Height = 13
       Caption = 'Almac'#233'n'
     end
     object Label9: TLabel
-      Left = 233
-      Top = 34
-      Width = 49
-      Height = 14
+      Left = 216
+      Top = 32
+      Width = 45
+      Height = 13
       Caption = '#Factura'
     end
     object Label10: TLabel
-      Left = 336
-      Top = 60
-      Width = 56
-      Height = 14
+      Left = 312
+      Top = 56
+      Width = 50
+      Height = 13
       Caption = 'Proveedor'
     end
     object SpeedButton1: TSpeedButton
-      Left = 446
-      Top = 60
-      Width = 25
-      Height = 24
+      Left = 414
+      Top = 56
+      Width = 23
+      Height = 22
       Flat = True
       Glyph.Data = {
         42010000424D4201000000000000760000002800000011000000110000000100
@@ -221,31 +221,31 @@ object frmConsConduce: TfrmConsConduce
       OnClick = SpeedButton1Click
     end
     object Label11: TLabel
-      Left = 336
-      Top = 112
-      Width = 27
-      Height = 14
+      Left = 312
+      Top = 104
+      Width = 25
+      Height = 13
       Caption = 'Placa'
     end
     object Label12: TLabel
-      Left = 517
-      Top = 112
-      Width = 36
-      Height = 14
+      Left = 480
+      Top = 104
+      Width = 33
+      Height = 13
       Caption = 'Chofer'
     end
     object lbLocSuc: TLabel
-      Left = 9
-      Top = 142
-      Width = 49
-      Height = 14
+      Left = 8
+      Top = 132
+      Width = 44
+      Height = 13
       Caption = 'Localidad'
     end
     object btLocalidad: TSpeedButton
-      Left = 116
-      Top = 138
-      Width = 25
-      Height = 24
+      Left = 108
+      Top = 128
+      Width = 23
+      Height = 22
       Flat = True
       Glyph.Data = {
         42010000424D4201000000000000760000002800000011000000110000000100
@@ -262,16 +262,16 @@ object frmConsConduce: TfrmConsConduce
       OnClick = btLocalidadClick
     end
     object edCliente: TEdit
-      Left = 60
-      Top = 60
-      Width = 36
-      Height = 23
+      Left = 56
+      Top = 56
+      Width = 33
+      Height = 21
       BevelKind = bkFlat
       BorderStyle = bsNone
       CharCase = ecUpperCase
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
@@ -280,43 +280,43 @@ object frmConsConduce: TfrmConsConduce
       OnKeyDown = edClienteKeyDown
     end
     object tCliente: TEdit
-      Left = 129
-      Top = 60
-      Width = 199
-      Height = 23
+      Left = 120
+      Top = 56
+      Width = 185
+      Height = 21
       BevelKind = bkFlat
       BorderStyle = bsNone
       Color = clInfoBk
       Enabled = False
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
       TabOrder = 13
     end
     object edNombre: TEdit
-      Left = 60
-      Top = 112
-      Width = 268
-      Height = 23
+      Left = 56
+      Top = 104
+      Width = 249
+      Height = 21
       BevelKind = bkFlat
       BorderStyle = bsNone
       CharCase = ecUpperCase
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
       TabOrder = 6
     end
     object cbStatus: TRadioGroup
-      Left = 650
+      Left = 604
       Top = 2
-      Width = 109
-      Height = 134
+      Width = 101
+      Height = 124
       Caption = 'Status'
       ItemIndex = 0
       Items.Strings = (
@@ -329,18 +329,18 @@ object frmConsConduce: TfrmConsConduce
       OnClick = cbStatusClick
     end
     object cbOrden: TComboBox
-      Left = 405
-      Top = 86
-      Width = 242
-      Height = 22
+      Left = 376
+      Top = 80
+      Width = 225
+      Height = 21
       BevelKind = bkFlat
       Style = csDropDownList
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = []
-      ItemHeight = 14
+      ItemHeight = 13
       ParentFont = False
       TabOrder = 10
       OnClick = cbOrdenClick
@@ -351,63 +351,63 @@ object frmConsConduce: TfrmConsConduce
         'Factura')
     end
     object Fecha1: TDateTimePicker
-      Left = 60
-      Top = 34
-      Width = 85
-      Height = 22
+      Left = 56
+      Top = 32
+      Width = 79
+      Height = 21
       Date = 37506.000000000000000000
       Time = 37506.000000000000000000
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
       TabOrder = 1
     end
     object Fecha2: TDateTimePicker
-      Left = 146
-      Top = 34
-      Width = 86
-      Height = 22
+      Left = 136
+      Top = 32
+      Width = 79
+      Height = 21
       Date = 37506.000000000000000000
       Time = 37506.000000000000000000
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
       TabOrder = 2
     end
     object tUsuario: TEdit
-      Left = 129
-      Top = 86
-      Width = 199
-      Height = 23
+      Left = 120
+      Top = 80
+      Width = 185
+      Height = 21
       BevelKind = bkFlat
       BorderStyle = bsNone
       Color = clInfoBk
       Enabled = False
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
       TabOrder = 15
     end
     object edUsuario: TEdit
-      Left = 60
-      Top = 86
-      Width = 36
-      Height = 23
+      Left = 56
+      Top = 80
+      Width = 33
+      Height = 21
       BevelKind = bkFlat
       BorderStyle = bsNone
       CharCase = ecUpperCase
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
@@ -416,14 +416,14 @@ object frmConsConduce: TfrmConsConduce
       OnKeyDown = edUsuarioKeyDown
     end
     object DBLookupComboBox2: TDBLookupComboBox
-      Left = 59
-      Top = 9
-      Width = 269
-      Height = 22
+      Left = 55
+      Top = 8
+      Width = 250
+      Height = 21
       DropDownRows = 20
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = []
       KeyField = 'suc_codigo'
@@ -434,33 +434,33 @@ object frmConsConduce: TfrmConsConduce
       OnClick = BitBtn2Click
     end
     object tDepto: TEdit
-      Left = 474
-      Top = 9
-      Width = 173
-      Height = 22
+      Left = 440
+      Top = 8
+      Width = 161
+      Height = 21
       BevelKind = bkFlat
       BorderStyle = bsNone
       Color = clInfoBk
       Enabled = False
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
       TabOrder = 16
     end
     object edDepto: TEdit
-      Left = 405
-      Top = 9
-      Width = 35
-      Height = 22
+      Left = 376
+      Top = 8
+      Width = 33
+      Height = 21
       BevelKind = bkFlat
       BorderStyle = bsNone
       CharCase = ecUpperCase
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
@@ -469,33 +469,33 @@ object frmConsConduce: TfrmConsConduce
       OnKeyDown = edDeptoKeyDown
     end
     object tAlm: TEdit
-      Left = 474
-      Top = 34
-      Width = 173
-      Height = 23
+      Left = 440
+      Top = 32
+      Width = 161
+      Height = 21
       BevelKind = bkFlat
       BorderStyle = bsNone
       Color = clInfoBk
       Enabled = False
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
       TabOrder = 17
     end
     object edAlma: TEdit
-      Left = 405
-      Top = 34
-      Width = 35
-      Height = 23
+      Left = 376
+      Top = 32
+      Width = 33
+      Height = 21
       BevelKind = bkFlat
       BorderStyle = bsNone
       CharCase = ecUpperCase
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
@@ -504,32 +504,32 @@ object frmConsConduce: TfrmConsConduce
       OnKeyDown = edAlmaKeyDown
     end
     object edFactura: TEdit
-      Left = 284
-      Top = 34
-      Width = 44
-      Height = 23
+      Left = 264
+      Top = 32
+      Width = 41
+      Height = 21
       BevelKind = bkFlat
       BorderStyle = bsNone
       CharCase = ecUpperCase
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
       TabOrder = 3
     end
     object edProveedor: TEdit
-      Left = 405
-      Top = 60
-      Width = 35
-      Height = 23
+      Left = 376
+      Top = 56
+      Width = 33
+      Height = 21
       BevelKind = bkFlat
       BorderStyle = bsNone
       CharCase = ecUpperCase
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
@@ -538,65 +538,65 @@ object frmConsConduce: TfrmConsConduce
       OnKeyDown = edProveedorKeyDown
     end
     object tProv: TEdit
-      Left = 474
-      Top = 60
-      Width = 173
-      Height = 23
+      Left = 440
+      Top = 56
+      Width = 161
+      Height = 21
       BevelKind = bkFlat
       BorderStyle = bsNone
       Color = clInfoBk
       Enabled = False
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
       TabOrder = 18
     end
     object edplaca: TEdit
-      Left = 405
-      Top = 112
-      Width = 87
-      Height = 23
+      Left = 376
+      Top = 104
+      Width = 81
+      Height = 21
       BevelKind = bkFlat
       BorderStyle = bsNone
       CharCase = ecUpperCase
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
       TabOrder = 11
     end
     object edchofer: TEdit
-      Left = 560
-      Top = 112
-      Width = 87
-      Height = 23
+      Left = 520
+      Top = 104
+      Width = 81
+      Height = 21
       BevelKind = bkFlat
       BorderStyle = bsNone
       CharCase = ecUpperCase
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
       TabOrder = 12
     end
     object edtSucLoc: TEdit
-      Left = 60
-      Top = 139
-      Width = 53
-      Height = 23
+      Left = 56
+      Top = 129
+      Width = 49
+      Height = 21
       BevelKind = bkFlat
       BorderStyle = bsNone
       CharCase = ecUpperCase
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
@@ -605,17 +605,17 @@ object frmConsConduce: TfrmConsConduce
       OnKeyDown = edtSucLocKeyDown
     end
     object TSucLoc: TEdit
-      Left = 143
-      Top = 139
-      Width = 185
-      Height = 23
+      Left = 133
+      Top = 129
+      Width = 172
+      Height = 21
       BevelKind = bkFlat
       BorderStyle = bsNone
       Color = clInfoBk
       Enabled = False
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
@@ -624,34 +624,34 @@ object frmConsConduce: TfrmConsConduce
   end
   object Panel2: TPanel
     Left = 0
-    Top = 684
-    Width = 1227
-    Height = 43
+    Top = 635
+    Width = 1139
+    Height = 40
     Align = alBottom
     BevelInner = bvRaised
     BevelOuter = bvLowered
     TabOrder = 1
     DesignSize = (
-      1227
-      43)
+      1139
+      40)
     object lbCantidad: TLabel
-      Left = 9
-      Top = 14
-      Width = 67
-      Height = 15
+      Left = 8
+      Top = 13
+      Width = 68
+      Height = 13
       Caption = '0 Conduces'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'MS Sans Serif'
       Font.Style = [fsBold]
       ParentFont = False
     end
     object BitBtn2: TBitBtn
-      Left = 1044
-      Top = 9
-      Width = 81
-      Height = 27
+      Left = 969
+      Top = 8
+      Width = 76
+      Height = 25
       Anchors = [akTop, akRight]
       Caption = 'Imprimir'
       TabOrder = 0
@@ -667,20 +667,20 @@ object frmConsConduce: TfrmConsConduce
         03333333333333333333}
     end
     object btRefresh: TBitBtn
-      Left = 958
-      Top = 9
-      Width = 81
-      Height = 27
+      Left = 890
+      Top = 8
+      Width = 75
+      Height = 25
       Anchors = [akTop, akRight]
       Caption = 'Refrescar >>'
       TabOrder = 1
       OnClick = btRefreshClick
     end
     object btClose: TBitBtn
-      Left = 1130
-      Top = 9
-      Width = 81
-      Height = 27
+      Left = 1049
+      Top = 8
+      Width = 76
+      Height = 25
       Anchors = [akTop, akRight]
       Caption = '&Salir'
       TabOrder = 2
@@ -701,10 +701,10 @@ object frmConsConduce: TfrmConsConduce
       NumGlyphs = 2
     end
     object bttickets: TBitBtn
-      Left = 786
-      Top = 9
-      Width = 167
-      Height = 27
+      Left = 730
+      Top = 8
+      Width = 155
+      Height = 25
       Anchors = [akTop, akRight]
       Caption = 'Imprimir listado de tickets'
       TabOrder = 3
@@ -720,10 +720,10 @@ object frmConsConduce: TfrmConsConduce
         03333333333333333333}
     end
     object btdespachados: TBitBtn
-      Left = 622
-      Top = 9
-      Width = 158
-      Height = 27
+      Left = 578
+      Top = 8
+      Width = 146
+      Height = 25
       Anchors = [akTop, akRight]
       Caption = 'Productos despachados'
       TabOrder = 4
@@ -741,9 +741,9 @@ object frmConsConduce: TfrmConsConduce
   end
   object DBGrid1: TDBGrid
     Left = 0
-    Top = 171
-    Width = 1227
-    Height = 460
+    Top = 159
+    Width = 1139
+    Height = 427
     Align = alTop
     Anchors = [akLeft, akTop, akRight, akBottom]
     Color = clInfoBk
@@ -751,7 +751,7 @@ object frmConsConduce: TfrmConsConduce
     DataSource = dsConduce
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
-    Font.Height = -12
+    Font.Height = -11
     Font.Name = 'Tahoma'
     Font.Style = []
     Options = [dgTitles, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit]
@@ -873,10 +873,10 @@ object frmConsConduce: TfrmConsConduce
       end>
   end
   object Memo1: TMemo
-    Left = 26
-    Top = 181
-    Width = 544
-    Height = 44
+    Left = 24
+    Top = 168
+    Width = 505
+    Height = 41
     Lines.Strings = (
       'Memo1')
     TabOrder = 3
@@ -884,15 +884,15 @@ object frmConsConduce: TfrmConsConduce
   end
   object Grid: TDBGrid
     Left = 0
-    Top = 638
-    Width = 1227
-    Height = 46
+    Top = 592
+    Width = 1139
+    Height = 43
     Align = alClient
     Ctl3D = False
     DataSource = dsDetalle
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
-    Font.Height = -12
+    Font.Height = -11
     Font.Name = 'Arial'
     Font.Style = []
     Options = [dgTitles, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit]

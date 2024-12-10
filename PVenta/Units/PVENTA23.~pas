@@ -217,9 +217,10 @@ type
     DBEdit14: TDBEdit;
     QDevolucionDEV_TASA: TCurrencyField;
     QDetalleCalcItbis2: TCurrencyField;
+    QDevolucionDEV_HORA: TStringField;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormPaint(Sender: TObject);
-    procedure FormKeyDown(Sender: TObject; var Key: Word;
+    procedure RG(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure ckAEnter(Sender: TObject);
@@ -268,7 +269,7 @@ type
     { Public declarations }
     SelCajero, SelCondi, Totaliza, ActBalance, Insertar, ConItbis : boolean;
     descuento, total, Itbis, Itbis2, recargo, Pendiente, Anterior, Comision, MontoDesem, TDescGral : double;
-    FormatoImp, almacen, cajero : integer;
+    FormatoImp, cajero, almacen : integer;
     PuertoImp : string;
     procedure totalizar;
     procedure Imp40Columnas;
@@ -308,7 +309,7 @@ begin
   frmDevolucion.left := 2;
 end;
 
-procedure TfrmDevolucion.FormKeyDown(Sender: TObject; var Key: Word;
+procedure TfrmDevolucion.RG(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
   if key = vk_f10 then close;
@@ -432,7 +433,6 @@ begin
       QDevolucion.Parameters.parambyname('suc').Value := -1;
       QDevolucion.open;
       QDevolucion.insert;
-      dm.getParametrosPrinterFiscal();
     end;
   end;
 end;
@@ -442,7 +442,7 @@ begin
    tPendiente.text := '';
   Insertar := True;
   Totaliza := True;
-
+  DBLookupComboBox2.Enabled := True;
   vl_subtotal := 0;
 
   rgtipo.ItemIndex := 0;
@@ -481,8 +481,8 @@ begin
     begin
       dm.Query1.close;
       dm.Query1.sql.clear;
-      dm.Query1.sql.add('select f.fac_nombre, f.ven_codigo, f.cpa_codigo, f.cli_codigo,');
-      dm.Query1.sql.add('f.alm_codigo, f.fac_status, f.fac_total, f.fac_abono, f.alm_codigo,');
+      dm.Query1.sql.add('select f.suc_codigo, f.fac_nombre, f.ven_codigo, f.cpa_codigo, f.cli_codigo,');
+      dm.Query1.sql.add('f.alm_codigo, f.fac_status, f.fac_total, f.fac_abono, ');
       dm.Query1.sql.add('f.caj_codigo, t.tfa_actbalance, f.fac_porccomision, f.fac_fecha,');
       dm.Query1.sql.add('f.fac_cuotas, f.fac_conitbis, f.ncf_fijo, f.ncf_secuencia, recargo, porc_desc_gral, FAC_TASA');
       dm.Query1.sql.add('from facturas f, tiposfactura t');
@@ -536,6 +536,7 @@ begin
         Cajero    := dm.Query1.fieldbyname('caj_codigo').asinteger;
         tCliente.text := dm.Query1.fieldbyname('fac_nombre').asstring;
         QdevolucionDEV_NOMBRE.Value := dm.Query1.fieldbyname('fac_nombre').asstring;
+        almacen := DM.Query1.FieldByName('alm_codigo').AsInteger;
         QDevoluciondev_fecha_factura.Value := dm.Query1.fieldbyname('fac_fecha').Value;
         QDevolucionCLI_CODIGO.value := dm.Query1.fieldbyname('cli_codigo').asinteger;
         QDevolucionVEN_CODIGO.value := dm.Query1.fieldbyname('ven_codigo').asinteger;
@@ -547,6 +548,7 @@ begin
         tPendiente.text := format('%n',[Pendiente]);
         QDevolucionDEV_RECARGO.value := dm.Query1.fieldbyname('recargo').asinteger;
         vl_status_reg := dm.Query1.fieldbyname('fac_status').asstring;
+        DBLookupComboBox2.Enabled := False;
 
         //buscando vendedor
         dm.Query1.close;
@@ -876,7 +878,7 @@ begin
   dm.Query1.Parameters.ParamByName('emp').Value := dm.vp_cia;
   dm.Query1.Parameters.ParamByName('fec').Value    := QDevolucionDEV_FECHA.Value;
   dm.Query1.Open;
-  if dm.Query1.RecordCount > 0 then
+  if dm.Query1.RecordCount > 0 then                            
   begin
     MessageDlg('LA DEVOLUCION NO PUEDE REALIZARSE, DEBIDO A QUE ESTE'+#13+
                'DIA FUE CERRADO.',mtError,[mbok],0);
@@ -892,16 +894,18 @@ begin
   begin
     if messagedlg('TODOS LOS DATOS ESTAN CORRECTOS?',mtconfirmation,[mbyes,mbno],0) = mryes then
     begin
-      if not dm.QParametrospar_almacendevolucion.IsNull then
+     { if not dm.QParametrospar_almacendevolucion.IsNull then
         almacen := dm.QParametrospar_almacendevolucion.Value
       else
         begin   //si el codigo almacen esa vacio busca el codigo del alamcen de la sucursal ///TITIN
-          if (almacen = 0) and (not QSucursalalm_codigo.IsNull) then
+          if (almacen = 0) then begin
+          if  (not QSucursalalm_codigo.IsNull) then
             almacen:= QSucursalalm_codigo.Value
           else almacen := 1;
         end;
-
-
+        end;
+      }
+      
       if rgtipo.ItemIndex = 0 then
       begin
         if ActBalance = false then
@@ -971,6 +975,7 @@ begin
           QDetalle.enablecontrols;
           QDetalle.UpdateBatch;
 
+          
           dm.Query1.close;
           dm.Query1.sql.clear;
           dm.Query1.sql.add('execute pr_graba_dev :emp, :suc, :num, :act, :alm');
@@ -1004,7 +1009,7 @@ begin
 
                 dm.Query1.close;
                 dm.Query1.sql.clear;
-                dm.Query1.sql.add('select des_numero from desembolsos');
+                dm.Query1.sql.add('select top 1 des_numero from desembolsos');
                 dm.Query1.sql.add('where emp_codigo = :emp');
                 dm.Query1.sql.add('and dev_numero = :num');
                 dm.Query1.sql.add('and suc_codigo = :suc');
@@ -1015,6 +1020,10 @@ begin
 
                 Application.CreateForm(tfrmDevDinero, frmDevDinero);
                 frmDevDinero.Ins := True;
+                frmDevDinero.QFormasPago.Close;
+                frmDevDinero.QFormasPago.Parameters.ParamByName('emp').Value := QDevolucionEMP_CODIGO.Value;
+                frmDevDinero.QFormasPago.Parameters.ParamByName('numero').Value := DM.Query1.FieldByName('des_numero').AsInteger;
+                frmDevDinero.QFormasPago.Parameters.ParamByName('suc').Value := QDevolucionEMP_CODIGO.Value;
                 frmDevDinero.QFormasPago.Open;
                 frmDevDinero.QForma.Open;
                 frmDevDinero.QFormasPago.Edit;
@@ -1085,24 +1094,26 @@ begin
             end;
           end;
 
+          if devdinero = 'N' then begin
           //Actualizar NCF Devoluciones (Hecho por Jhonattan Gomez) Sep-2018
           with QUpdDev do begin
-          Close;
+          {Close;
           Parameters.ParamByName('emp').Value := QDevolucionEMP_CODIGO.Value;
           Parameters.ParamByName('suc').Value := QDevolucionsuc_codigo.Value;
           Parameters.ParamByName('num').Value := QDevolucionDEV_NUMERO.Value;
           Parameters.ParamByName('NCF').Value := DBEdit6.Text;
-          ExecSQL;
+          ExecSQL;}
           end;
 
           //Actualizar NCF Notas de Credito (Hecho por Jhonattan Gomez) Sep-2018
-          with QUpdNC do begin
-          Close;
+          with QUpdDev do begin
+          {Close;
           Parameters.ParamByName('emp').Value := QDevolucionEMP_CODIGO.Value;
           Parameters.ParamByName('suc').Value := QDevolucionsuc_codigo.Value;
           Parameters.ParamByName('num').Value := QDevolucionDEV_NUMERO.Value;
           Parameters.ParamByName('NCF').Value := DBEdit6.Text;
-          ExecSQL;
+
+          ExecSQL;}
           end;
 
           if vl_status_reg = 'PAG' THEN BEGIN
@@ -1161,8 +1172,9 @@ begin
           end;
 
           end;
+          end;
 
-          
+          QUpdNC.ExecSQL;
 
           if messagedlg('SE HA GENERADO LA DEVOLUCION NUMERO '+inttostr(QDevolucionDEV_NUMERO.value)+
                         ', DESEA IMPRIMIR ESTA DEVOLUCION?',mtconfirmation,[mbyes,mbno],0) = mryes then
@@ -1236,7 +1248,7 @@ begin
           QDetalle.next;
         end;
         QDetalle.enablecontrols;
-        QDetalle.UpdateBatch;
+        QDetalle.UpdateBatch;      
 
         dm.Query1.close;
         dm.Query1.sql.clear;
@@ -1339,6 +1351,8 @@ begin
     QDevolucionFAC_FORMA.Clear;
     QDevolucionFAC_NUMERO.Clear;
   end;
+
+   QDevolucionDEV_HORA.Value := TimeToStr(Time);
   
 end;
 
@@ -1397,6 +1411,8 @@ begin
     Grid.Columns[2].Width := Grid.Columns[2].Width + 15;
     Grid.Columns[1].Destroy;
   end;
+
+  dm.getParametrosPrinterFiscal;
 end;
 
 procedure TfrmDevolucion.rbFormaClick(Sender: TObject);
@@ -1650,7 +1666,7 @@ begin
       begin
         ConItbis  := True;
         QDevolucionDEV_CONITBIS.Value := 'S';
-        Almacen   := 1;
+        //Almacen   := 1;
         tCliente.text := dm.Query1.fieldbyname('nombre').asstring;
         QdevolucionDEV_NOMBRE.Value := dm.Query1.fieldbyname('nombre').asstring;
         vl_status_reg := dm.Query1.fieldbyname('status').asstring;

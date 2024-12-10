@@ -278,7 +278,7 @@ end;
 procedure TfrmRepResultado.EnvioMail(Rep: TQuickRep);
 var
    MailMsg : TIdMessage;
-   Archivo : TIdAttachment;
+   //Archivo : TIdAttachment;
    nArchivo : string;
 begin
    nArchivo := InputBox('Envio de Mail','Correo : ','');
@@ -294,7 +294,9 @@ begin
      MailMsg.ReplyTo.EMailAddresses :=  dm.QParametrospar_mailcorreo.Value;
      MailMsg.Recipients.Add;
      MailMsg.Recipients.Items[0].Address := nArchivo;
-     //TIdAttachment.Create(MailMsg.MessageParts, 'c:\EstadoResultado.pdf');
+
+     //TIdAttachmentFile.Create(MailMsg.MessageParts, 'c:\EstadoResultado.pdf');
+
      frmMain.IdSMTP1.Host := dm.QParametrospar_mailservidor.Value;
      frmMain.IdSMTP1.Port := dm.QParametrospar_mailpuerto.AsInteger;
      frmMain.IdSMTP1.Username := dm.QParametrospar_mailusuario.Value;

@@ -231,15 +231,33 @@ begin
   if search.execute then
   begin
      QCatalogo.Close;
-     QCatalogo.Parameters.ParamByName('CTA').Value := search.valuefield;
-     QCatalogo.Open;
-     for a := 1 to sgCatalogo.RowCount -1 do
-       if sgCatalogo.Cells[0,a] = QCatalogoCAT_CUENTA.Value then
-         break;
-     sgCatalogo.Row := a;
+     QCatalogo.Parameters.ParamByName('emp_codigo').Value := search.valuefield;
+     QCatalogo.Parameters.ParamByName('CTA').Value := inttostr(dm.QEmpresasEMP_CODIGO.value);
+     QCatalogo.Open; 
+       // Verificar que QCatalogo se haya abierto correctamente y tenga registros
+  if QCatalogo.RecordCount>0 then
+  begin
+    // Iterar a través de las filas del StringGrid
+    for a := 1 to sgCatalogo.RowCount - 1 do
+    begin
+      // Verificar que la celda no esté vacía antes de compararla
+      if sgCatalogo.Cells[0, a] = QCatalogo.FieldByName('CAT_CUENTA').AsString then
+      begin
+        sgCatalogo.Row := a;  // Seleccionar la fila encontrada
+        Break;  // Salir del bucle una vez encontrada la fila
+      end;
+    end;
+  end
+  else
+  begin
+    ShowMessage('No se encontraron resultados en el catálogo.');
   end;
+end
+else
+begin
+  ShowMessage('Búsqueda cancelada o sin resultados.');
 end;
-
+ end;
 procedure TfrmCatalogo.dsCatalogoStateChange(Sender: TObject);
 begin
   btInsert.enabled  := dsCatalogo.State = dsbrowse;
@@ -712,7 +730,7 @@ end;
 procedure TfrmCatalogo.EnvioMail;
 var
    MailMsg : TIdMessage;
-   Archivo : TIdAttachment;
+   //Archivo : TIdAttachment;
    nArchivo : string;
 begin
    nArchivo := InputBox('Envio de Mail','Correo : ','');
@@ -732,7 +750,7 @@ begin
      MailMsg.ReplyTo.EMailAddresses :=  dm.QParametrospar_mailcorreo.Value;
      MailMsg.Recipients.Add;
      MailMsg.Recipients.Items[0].Address := nArchivo;
-     //TIdAttachment.Create(MailMsg.MessageParts, 'c:\catalogo.pdf');
+     //TIdAttachmentFile.Create(MailMsg.MessageParts, 'c:\catalogo.pdf');
      frmMain.IdSMTP1.Host := dm.QParametrospar_mailservidor.Value;
      frmMain.IdSMTP1.Port := dm.QParametrospar_mailpuerto.AsInteger;
      frmMain.IdSMTP1.Username := dm.QParametrospar_mailusuario.Value;

@@ -125,7 +125,7 @@ object frmRepVencimiento: TfrmRepVencimiento
     Top = 40
   end
   object Rpt_Vencimiento: TfrxReport
-    Version = '4.10.2'
+    Version = '4.13.1'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -501,6 +501,7 @@ object frmRepVencimiento: TfrmRepVencimiento
   object QReportes: TADOQuery
     Connection = DM.ADOSigma
     CursorType = ctStatic
+    DataSource = DM.dsEmpresas
     Parameters = <
       item
         Name = 'RANGO'

@@ -1,12 +1,12 @@
 object frmConsDepositos: TfrmConsDepositos
-  Left = 524
-  Top = 310
+  Left = 468
+  Top = 262
   ActiveControl = DBGrid1
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Consulta General de Dep'#243'sitos'
-  ClientHeight = 448
-  ClientWidth = 746
+  ClientHeight = 416
+  ClientWidth = 693
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -25,45 +25,45 @@ object frmConsDepositos: TfrmConsDepositos
   OnPaint = FormPaint
   OnShow = FormShow
   PixelsPerInch = 96
-  TextHeight = 14
+  TextHeight = 13
   object Splitter1: TSplitter
     Left = 0
-    Top = 266
-    Width = 746
+    Top = 247
+    Width = 693
     Height = 4
     Cursor = crVSplit
     Align = alTop
   end
   object Panel1: TPanel
     Left = 0
-    Top = 402
-    Width = 746
-    Height = 46
+    Top = 373
+    Width = 693
+    Height = 43
     Align = alBottom
     BevelInner = bvRaised
     BevelOuter = bvLowered
     TabOrder = 0
     DesignSize = (
-      746
-      46)
+      693
+      43)
     object lbCantidad: TLabel
-      Left = 9
-      Top = 16
-      Width = 67
-      Height = 15
+      Left = 8
+      Top = 15
+      Width = 68
+      Height = 13
       Caption = '0 Dep'#243'sitos'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'MS Sans Serif'
       Font.Style = [fsBold]
       ParentFont = False
     end
     object btClose: TBitBtn
-      Left = 655
-      Top = 9
-      Width = 81
-      Height = 27
+      Left = 608
+      Top = 8
+      Width = 75
+      Height = 25
       Anchors = [akTop, akRight]
       Caption = '&Salir'
       TabOrder = 0
@@ -84,10 +84,10 @@ object frmConsDepositos: TfrmConsDepositos
       NumGlyphs = 2
     end
     object BitBtn2: TBitBtn
-      Left = 526
-      Top = 9
-      Width = 123
-      Height = 27
+      Left = 488
+      Top = 8
+      Width = 115
+      Height = 25
       Anchors = [akTop, akRight]
       Caption = 'Imprimir el Listado'
       TabOrder = 1
@@ -103,25 +103,25 @@ object frmConsDepositos: TfrmConsDepositos
         03333333333333333333}
     end
     object btRefresh: TBitBtn
-      Left = 439
-      Top = 9
-      Width = 81
-      Height = 27
+      Left = 408
+      Top = 8
+      Width = 75
+      Height = 25
       Anchors = [akTop, akRight]
       Caption = 'Refrescar >>'
       TabOrder = 2
       OnClick = btRefreshClick
     end
     object ckDetalle: TCheckBox
-      Left = 198
-      Top = 14
-      Width = 234
-      Height = 18
+      Left = 184
+      Top = 13
+      Width = 217
+      Height = 17
       Anchors = [akTop, akRight]
       Caption = 'Imprimir detalle del Dep'#243'sito'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'Verdana'
       Font.Style = [fsBold]
       ParentFont = False
@@ -131,31 +131,31 @@ object frmConsDepositos: TfrmConsDepositos
   object Panel2: TPanel
     Left = 0
     Top = 0
-    Width = 746
-    Height = 188
+    Width = 693
+    Height = 175
     Align = alTop
     BevelInner = bvRaised
     BevelOuter = bvLowered
     TabOrder = 1
     object Label6: TLabel
-      Left = 14
-      Top = 34
+      Left = 13
+      Top = 32
       Width = 30
-      Height = 14
+      Height = 13
       Caption = 'Fecha'
     end
     object Label7: TLabel
-      Left = 327
-      Top = 86
-      Width = 37
-      Height = 14
+      Left = 304
+      Top = 80
+      Width = 36
+      Height = 13
       Caption = 'Usuario'
     end
     object btUsu: TSpeedButton
-      Left = 426
-      Top = 86
-      Width = 25
-      Height = 24
+      Left = 396
+      Top = 80
+      Width = 23
+      Height = 22
       Flat = True
       Glyph.Data = {
         42010000424D4201000000000000760000002800000011000000110000000100
@@ -172,17 +172,17 @@ object frmConsDepositos: TfrmConsDepositos
       OnClick = btUsuClick
     end
     object Label2: TLabel
-      Left = 14
-      Top = 112
+      Left = 13
+      Top = 104
       Width = 32
-      Height = 14
+      Height = 13
       Caption = 'Cliente'
     end
     object btCliente: TSpeedButton
-      Left = 125
-      Top = 112
-      Width = 25
-      Height = 24
+      Left = 116
+      Top = 104
+      Width = 23
+      Height = 22
       Flat = True
       Glyph.Data = {
         42010000424D4201000000000000760000002800000011000000110000000100
@@ -199,24 +199,24 @@ object frmConsDepositos: TfrmConsDepositos
       OnClick = btClienteClick
     end
     object Label5: TLabel
-      Left = 327
-      Top = 112
-      Width = 40
-      Height = 14
+      Left = 304
+      Top = 104
+      Width = 38
+      Height = 13
       Caption = 'Ordenar'
     end
     object Label1: TLabel
-      Left = 327
-      Top = 60
-      Width = 50
-      Height = 14
+      Left = 304
+      Top = 56
+      Width = 49
+      Height = 13
       Caption = 'Proveedor'
     end
     object btProv: TSpeedButton
-      Left = 426
-      Top = 60
-      Width = 25
-      Height = 24
+      Left = 396
+      Top = 56
+      Width = 23
+      Height = 22
       Flat = True
       Glyph.Data = {
         42010000424D4201000000000000760000002800000011000000110000000100
@@ -233,54 +233,54 @@ object frmConsDepositos: TfrmConsDepositos
       OnClick = btProvClick
     end
     object Label4: TLabel
-      Left = 14
-      Top = 86
+      Left = 13
+      Top = 80
       Width = 46
-      Height = 14
+      Height = 13
       Caption = 'Concepto'
     end
     object btAnula: TSpeedButton
-      Left = 250
-      Top = 34
-      Width = 78
-      Height = 24
+      Left = 232
+      Top = 32
+      Width = 73
+      Height = 22
       AllowAllUp = True
       GroupIndex = 1
       Caption = 'Anulados'
       OnClick = btRefreshClick
     end
     object btTransito: TSpeedButton
-      Left = 336
-      Top = 34
-      Width = 79
-      Height = 24
+      Left = 312
+      Top = 32
+      Width = 73
+      Height = 22
       AllowAllUp = True
       GroupIndex = 1
       Caption = 'En Transito'
       OnClick = btRefreshClick
     end
     object btPagados: TSpeedButton
-      Left = 422
-      Top = 34
-      Width = 79
-      Height = 24
+      Left = 392
+      Top = 32
+      Width = 73
+      Height = 22
       AllowAllUp = True
       GroupIndex = 1
       Caption = 'Aplicados'
       OnClick = btRefreshClick
     end
     object Label3: TLabel
-      Left = 14
-      Top = 60
+      Left = 13
+      Top = 56
       Width = 31
-      Height = 14
+      Height = 13
       Caption = 'Banco'
     end
     object btBanco: TSpeedButton
-      Left = 125
-      Top = 60
-      Width = 25
-      Height = 24
+      Left = 116
+      Top = 56
+      Width = 23
+      Height = 22
       Flat = True
       Glyph.Data = {
         42010000424D4201000000000000760000002800000011000000110000000100
@@ -297,38 +297,38 @@ object frmConsDepositos: TfrmConsDepositos
       OnClick = btBancoClick
     end
     object Label14: TLabel
-      Left = 14
-      Top = 9
-      Width = 43
-      Height = 14
+      Left = 13
+      Top = 8
+      Width = 41
+      Height = 13
       Caption = 'Sucursal'
     end
     object Label12: TLabel
-      Left = 14
-      Top = 138
+      Left = 13
+      Top = 128
       Width = 37
-      Height = 14
+      Height = 13
       Caption = 'N'#250'mero'
     end
     object Label15: TLabel
-      Left = 327
-      Top = 138
-      Width = 29
-      Height = 14
+      Left = 304
+      Top = 128
+      Width = 30
+      Height = 13
       Caption = 'Monto'
     end
     object lbLocSuc: TLabel
-      Left = 17
-      Top = 167
+      Left = 16
+      Top = 155
       Width = 46
-      Height = 14
+      Height = 13
       Caption = 'Localidad'
     end
     object btLocalidad: TSpeedButton
-      Left = 108
-      Top = 163
-      Width = 24
-      Height = 23
+      Left = 100
+      Top = 151
+      Width = 23
+      Height = 22
       Flat = True
       Glyph.Data = {
         42010000424D4201000000000000760000002800000011000000110000000100
@@ -345,40 +345,40 @@ object frmConsDepositos: TfrmConsDepositos
       OnClick = btLocalidadClick
     end
     object Fecha1: TDateTimePicker
-      Left = 69
-      Top = 34
-      Width = 85
-      Height = 22
+      Left = 64
+      Top = 32
+      Width = 79
+      Height = 21
       Date = 37506.000000000000000000
       Time = 37506.000000000000000000
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
       TabOrder = 1
     end
     object Fecha2: TDateTimePicker
-      Left = 155
-      Top = 34
-      Width = 85
-      Height = 22
+      Left = 144
+      Top = 32
+      Width = 79
+      Height = 21
       Date = 37506.000000000000000000
       Time = 37506.000000000000000000
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
       TabOrder = 2
     end
     object cbStatus: TRadioGroup
-      Left = 621
+      Left = 577
       Top = 2
-      Width = 123
-      Height = 135
+      Width = 114
+      Height = 125
       Caption = 'Tipo'
       ItemIndex = 0
       Items.Strings = (
@@ -390,33 +390,33 @@ object frmConsDepositos: TfrmConsDepositos
       OnClick = btRefreshClick
     end
     object tUsu: TEdit
-      Left = 457
-      Top = 86
-      Width = 156
-      Height = 23
+      Left = 424
+      Top = 80
+      Width = 145
+      Height = 21
       BevelKind = bkFlat
       BorderStyle = bsNone
       Color = clInfoBk
       Enabled = False
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
       TabOrder = 13
     end
     object edUsuario: TEdit
-      Left = 388
-      Top = 86
-      Width = 35
-      Height = 23
+      Left = 360
+      Top = 80
+      Width = 33
+      Height = 21
       BevelKind = bkFlat
       BorderStyle = bsNone
       CharCase = ecUpperCase
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
@@ -425,16 +425,16 @@ object frmConsDepositos: TfrmConsDepositos
       OnKeyDown = edUsuarioKeyDown
     end
     object edCliente: TEdit
-      Left = 69
-      Top = 112
-      Width = 53
-      Height = 23
+      Left = 64
+      Top = 104
+      Width = 49
+      Height = 21
       BevelKind = bkFlat
       BorderStyle = bsNone
       CharCase = ecUpperCase
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
@@ -443,35 +443,35 @@ object frmConsDepositos: TfrmConsDepositos
       OnKeyDown = edClienteKeyDown
     end
     object tCliente: TEdit
-      Left = 152
-      Top = 112
-      Width = 168
-      Height = 23
+      Left = 141
+      Top = 104
+      Width = 156
+      Height = 21
       BevelKind = bkFlat
       BorderStyle = bsNone
       Color = clInfoBk
       Enabled = False
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
       TabOrder = 14
     end
     object cbOrden: TComboBox
-      Left = 388
-      Top = 112
-      Width = 225
-      Height = 22
+      Left = 360
+      Top = 104
+      Width = 209
+      Height = 21
       BevelKind = bkFlat
       Style = csDropDownList
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = []
-      ItemHeight = 14
+      ItemHeight = 13
       ParentFont = False
       TabOrder = 9
       OnClick = btRefreshClick
@@ -481,15 +481,15 @@ object frmConsDepositos: TfrmConsDepositos
         'Concepto')
     end
     object edProveedor: TEdit
-      Left = 388
-      Top = 60
-      Width = 35
-      Height = 23
+      Left = 360
+      Top = 56
+      Width = 33
+      Height = 21
       BevelKind = bkFlat
       BorderStyle = bsNone
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
@@ -498,49 +498,49 @@ object frmConsDepositos: TfrmConsDepositos
       OnKeyDown = edProveedorKeyDown
     end
     object tProv: TEdit
-      Left = 457
-      Top = 60
-      Width = 156
-      Height = 23
+      Left = 424
+      Top = 56
+      Width = 145
+      Height = 21
       BevelKind = bkFlat
       BorderStyle = bsNone
       Color = clInfoBk
       Enabled = False
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
       TabOrder = 15
     end
     object edConc: TEdit
-      Left = 69
-      Top = 86
-      Width = 251
-      Height = 23
+      Left = 64
+      Top = 80
+      Width = 233
+      Height = 21
       BevelKind = bkFlat
       BorderStyle = bsNone
       CharCase = ecUpperCase
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
       TabOrder = 6
     end
     object edBanco: TEdit
-      Left = 69
-      Top = 60
-      Width = 53
-      Height = 23
+      Left = 64
+      Top = 56
+      Width = 49
+      Height = 21
       BevelKind = bkFlat
       BorderStyle = bsNone
       CharCase = ecUpperCase
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
@@ -549,31 +549,31 @@ object frmConsDepositos: TfrmConsDepositos
       OnKeyDown = edBancoKeyDown
     end
     object tBanco: TEdit
-      Left = 152
-      Top = 60
-      Width = 168
-      Height = 23
+      Left = 141
+      Top = 56
+      Width = 156
+      Height = 21
       BevelKind = bkFlat
       BorderStyle = bsNone
       Color = clInfoBk
       Enabled = False
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
       TabOrder = 17
     end
     object DBLookupComboBox2: TDBLookupComboBox
-      Left = 69
-      Top = 9
-      Width = 552
-      Height = 22
+      Left = 64
+      Top = 8
+      Width = 513
+      Height = 21
       DropDownRows = 20
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = []
       KeyField = 'suc_codigo'
@@ -583,80 +583,80 @@ object frmConsDepositos: TfrmConsDepositos
       TabOrder = 0
     end
     object edDesde: TEdit
-      Left = 69
-      Top = 138
-      Width = 53
-      Height = 22
+      Left = 64
+      Top = 128
+      Width = 49
+      Height = 21
       BevelKind = bkFlat
       BorderStyle = bsNone
       CharCase = ecUpperCase
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
       TabOrder = 4
     end
     object edHasta: TEdit
-      Left = 121
-      Top = 138
-      Width = 52
-      Height = 22
+      Left = 112
+      Top = 128
+      Width = 49
+      Height = 21
       BevelKind = bkFlat
       BorderStyle = bsNone
       CharCase = ecUpperCase
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
       TabOrder = 5
     end
     object edMonto1: TEdit
-      Left = 388
-      Top = 138
-      Width = 78
-      Height = 22
+      Left = 360
+      Top = 128
+      Width = 73
+      Height = 21
       BevelKind = bkFlat
       BorderStyle = bsNone
       CharCase = ecUpperCase
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
       TabOrder = 10
     end
     object edMonto2: TEdit
-      Left = 474
-      Top = 138
-      Width = 70
-      Height = 22
+      Left = 440
+      Top = 128
+      Width = 65
+      Height = 21
       BevelKind = bkFlat
       BorderStyle = bsNone
       CharCase = ecUpperCase
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
       TabOrder = 11
     end
     object edtSucLoc: TEdit
-      Left = 69
-      Top = 163
-      Width = 35
-      Height = 22
+      Left = 64
+      Top = 151
+      Width = 33
+      Height = 21
       BevelKind = bkFlat
       BorderStyle = bsNone
       CharCase = ecUpperCase
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
@@ -665,27 +665,27 @@ object frmConsDepositos: TfrmConsDepositos
       OnKeyDown = edtSucLocKeyDown
     end
     object TSucLoc: TEdit
-      Left = 135
-      Top = 163
-      Width = 185
-      Height = 22
+      Left = 125
+      Top = 151
+      Width = 172
+      Height = 21
       BevelKind = bkFlat
       BorderStyle = bsNone
       Color = clInfoBk
       Enabled = False
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
       TabOrder = 19
     end
     object rgTipoDebCre: TRadioGroup
-      Left = 551
-      Top = 140
-      Width = 191
-      Height = 43
+      Left = 512
+      Top = 130
+      Width = 177
+      Height = 40
       Columns = 3
       ItemIndex = 0
       Items.Strings = (
@@ -698,9 +698,9 @@ object frmConsDepositos: TfrmConsDepositos
   end
   object DBGrid1: TDBGrid
     Left = 0
-    Top = 188
-    Width = 746
-    Height = 78
+    Top = 175
+    Width = 693
+    Height = 72
     Align = alTop
     Anchors = [akLeft, akTop, akRight, akBottom]
     Color = clInfoBk
@@ -708,7 +708,7 @@ object frmConsDepositos: TfrmConsDepositos
     DataSource = dsDepositos
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
-    Font.Height = -12
+    Font.Height = -11
     Font.Name = 'Tahoma'
     Font.Style = []
     Options = [dgTitles, dgColumnResize, dgColLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit]
@@ -800,10 +800,10 @@ object frmConsDepositos: TfrmConsDepositos
       end>
   end
   object Memo1: TMemo
-    Left = 17
-    Top = 172
-    Width = 243
-    Height = 44
+    Left = 16
+    Top = 160
+    Width = 225
+    Height = 41
     Lines.Strings = (
       'Memo1')
     TabOrder = 3
@@ -811,14 +811,14 @@ object frmConsDepositos: TfrmConsDepositos
   end
   object PageControl1: TPageControl
     Left = 0
-    Top = 270
-    Width = 746
-    Height = 132
+    Top = 251
+    Width = 693
+    Height = 122
     ActivePage = tsCentroCostos
     Align = alClient
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
-    Font.Height = -12
+    Font.Height = -11
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
@@ -826,75 +826,75 @@ object frmConsDepositos: TfrmConsDepositos
     object TabSheet1: TTabSheet
       Caption = 'Cuentas contables'
       DesignSize = (
-        738
-        103)
+        685
+        94)
       object Label9: TLabel
-        Left = 560
+        Left = 520
         Top = 0
-        Width = 53
-        Height = 14
+        Width = 48
+        Height = 13
         Anchors = [akTop, akRight]
         Caption = 'Cr'#233'ditos'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
-        Font.Height = -12
+        Font.Height = -11
         Font.Name = 'Verdana'
         Font.Style = []
         ParentFont = False
       end
       object Label10: TLabel
-        Left = 560
-        Top = 17
-        Width = 48
-        Height = 14
+        Left = 520
+        Top = 16
+        Width = 43
+        Height = 13
         Anchors = [akTop, akRight]
         Caption = 'D'#233'bitos'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
-        Font.Height = -12
+        Font.Height = -11
         Font.Name = 'Verdana'
         Font.Style = []
         ParentFont = False
       end
       object Label11: TLabel
-        Left = 560
-        Top = 34
-        Width = 49
-        Height = 14
+        Left = 520
+        Top = 32
+        Width = 45
+        Height = 13
         Anchors = [akTop, akRight]
         Caption = 'Balance'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
-        Font.Height = -12
+        Font.Height = -11
         Font.Name = 'Verdana'
         Font.Style = []
         ParentFont = False
       end
       object btBuscaCta: TSpeedButton
-        Left = 560
-        Top = 85
-        Width = 165
-        Height = 27
+        Left = 520
+        Top = 79
+        Width = 153
+        Height = 25
         Anchors = [akTop, akRight]
         Caption = '[ F5 ] - Buscar Cuenta   '
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -12
+        Font.Height = -11
         Font.Name = 'MS Sans Serif'
         Font.Style = [fsBold]
         ParentFont = False
         OnClick = btBuscaCtaClick
       end
       object btElimina: TSpeedButton
-        Left = 560
-        Top = 58
-        Width = 165
-        Height = 27
+        Left = 520
+        Top = 54
+        Width = 153
+        Height = 25
         Anchors = [akTop, akRight]
         Caption = '[ F4 ] - Eliminar Cuenta'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -12
+        Font.Height = -11
         Font.Name = 'MS Sans Serif'
         Font.Style = [fsBold]
         ParentFont = False
@@ -903,15 +903,15 @@ object frmConsDepositos: TfrmConsDepositos
       object GridCuentas: TDBGrid
         Left = 0
         Top = 0
-        Width = 555
-        Height = 103
+        Width = 515
+        Height = 94
         Align = alLeft
         Anchors = [akLeft, akTop, akRight, akBottom]
         Ctl3D = False
         DataSource = dsDetalle
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
-        Font.Height = -12
+        Font.Height = -11
         Font.Name = 'Tahoma'
         Font.Style = []
         Options = [dgEditing, dgTitles, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgCancelOnExit]
@@ -962,10 +962,10 @@ object frmConsDepositos: TfrmConsDepositos
           end>
       end
       object lbCR: TStaticText
-        Left = 620
+        Left = 576
         Top = 0
-        Width = 111
-        Height = 18
+        Width = 103
+        Height = 17
         Alignment = taRightJustify
         Anchors = [akTop, akRight]
         AutoSize = False
@@ -973,17 +973,17 @@ object frmConsDepositos: TfrmConsDepositos
         Caption = '0.00'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
-        Font.Height = -12
+        Font.Height = -11
         Font.Name = 'Verdana'
         Font.Style = []
         ParentFont = False
         TabOrder = 3
       end
       object lbDB: TStaticText
-        Left = 620
-        Top = 17
-        Width = 111
-        Height = 19
+        Left = 576
+        Top = 16
+        Width = 103
+        Height = 17
         Alignment = taRightJustify
         Anchors = [akTop, akRight]
         AutoSize = False
@@ -991,17 +991,17 @@ object frmConsDepositos: TfrmConsDepositos
         Caption = '0.00'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
-        Font.Height = -12
+        Font.Height = -11
         Font.Name = 'Verdana'
         Font.Style = []
         ParentFont = False
         TabOrder = 1
       end
       object lbBAL: TStaticText
-        Left = 620
-        Top = 34
-        Width = 111
-        Height = 19
+        Left = 576
+        Top = 32
+        Width = 103
+        Height = 17
         Alignment = taRightJustify
         Anchors = [akTop, akRight]
         AutoSize = False
@@ -1009,7 +1009,7 @@ object frmConsDepositos: TfrmConsDepositos
         Caption = '0.00'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
-        Font.Height = -12
+        Font.Height = -11
         Font.Name = 'Verdana'
         Font.Style = []
         ParentFont = False
@@ -1022,15 +1022,15 @@ object frmConsDepositos: TfrmConsDepositos
       object GriFacturas: TDBGrid
         Left = 0
         Top = 0
-        Width = 738
-        Height = 101
+        Width = 685
+        Height = 94
         Align = alClient
         Color = clInfoBk
         Ctl3D = False
         DataSource = dsFacturas
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
-        Font.Height = -12
+        Font.Height = -11
         Font.Name = 'Tahoma'
         Font.Style = []
         Options = [dgTitles, dgColumnResize, dgColLines, dgTabs, dgAlwaysShowSelection, dgCancelOnExit]
@@ -1118,17 +1118,17 @@ object frmConsDepositos: TfrmConsDepositos
       Caption = 'Cento de Costos'
       ImageIndex = 2
       object GridCentro: TDBGrid
-        Left = 32
+        Left = 30
         Top = 0
-        Width = 706
-        Height = 103
+        Width = 655
+        Height = 94
         Hint = 'F2 SELECCIONA CENTROS'#13#10'F3 SELECCIONA SUB-CENTROS'
         Align = alClient
         Ctl3D = False
         DataSource = dsCentro
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
-        Font.Height = -12
+        Font.Height = -11
         Font.Name = 'Tahoma'
         Font.Style = []
         Options = [dgEditing, dgTitles, dgColLines, dgRowLines, dgTabs, dgCancelOnExit]
@@ -1179,8 +1179,8 @@ object frmConsDepositos: TfrmConsDepositos
       object Panel4: TPanel
         Left = 0
         Top = 0
-        Width = 32
-        Height = 103
+        Width = 30
+        Height = 94
         Align = alLeft
         BevelInner = bvRaised
         BevelOuter = bvLowered
@@ -1188,8 +1188,8 @@ object frmConsDepositos: TfrmConsDepositos
         object SpeedButton1: TSpeedButton
           Left = 4
           Top = 4
-          Width = 25
-          Height = 24
+          Width = 23
+          Height = 22
           Hint = 'Eliminar centro de costo'
           Flat = True
           Glyph.Data = {
@@ -1210,9 +1210,9 @@ object frmConsDepositos: TfrmConsDepositos
         end
         object SpeedButton4: TSpeedButton
           Left = 4
-          Top = 28
-          Width = 25
-          Height = 29
+          Top = 26
+          Width = 23
+          Height = 27
           Hint = 'Buscar centro de costo'
           Flat = True
           Glyph.Data = {
@@ -1233,9 +1233,9 @@ object frmConsDepositos: TfrmConsDepositos
         end
         object btnSubCentro: TSpeedButton
           Left = 4
-          Top = 53
-          Width = 25
-          Height = 23
+          Top = 49
+          Width = 23
+          Height = 22
           Hint = 'Buscar Sub Centro de Costo'
           Flat = True
           Glyph.Data = {
@@ -1258,10 +1258,10 @@ object frmConsDepositos: TfrmConsDepositos
     end
   end
   object Memo2: TMemo
-    Left = 26
-    Top = 233
-    Width = 242
-    Height = 44
+    Left = 24
+    Top = 216
+    Width = 225
+    Height = 41
     Lines.Strings = (
       'Memo2')
     TabOrder = 5

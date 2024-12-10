@@ -1,6 +1,6 @@
 object frmDevolucion: TfrmDevolucion
-  Left = 463
-  Top = 181
+  Left = 413
+  Top = 170
   ActiveControl = PageControl1
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle

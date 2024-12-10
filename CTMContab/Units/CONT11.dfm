@@ -27,9 +27,9 @@ object frmCatalogo: TfrmCatalogo
   TextHeight = 13
   object Panel2: TPanel
     Left = 0
-    Top = 42
+    Top = 27
     Width = 669
-    Height = 352
+    Height = 367
     Align = alClient
     Ctl3D = True
     ParentCtl3D = False
@@ -38,7 +38,7 @@ object frmCatalogo: TfrmCatalogo
       Left = 1
       Top = 1
       Width = 667
-      Height = 240
+      Height = 255
       TabStop = False
       Align = alClient
       DefaultColWidth = 100
@@ -60,7 +60,7 @@ object frmCatalogo: TfrmCatalogo
     end
     object Panel1: TPanel
       Left = 1
-      Top = 241
+      Top = 256
       Width = 667
       Height = 110
       Align = alBottom
@@ -301,26 +301,25 @@ object frmCatalogo: TfrmCatalogo
     Left = 0
     Top = 0
     Width = 669
-    Height = 42
+    Height = 27
     AutoSize = True
     Bands = <
       item
         Control = ToolBar1
         ImageIndex = -1
-        MinHeight = 38
+        MinHeight = 23
         Width = 665
       end>
     object ToolBar1: TToolBar
       Left = 9
       Top = 0
       Width = 652
-      Height = 38
+      Height = 23
       AutoSize = True
-      ButtonHeight = 36
+      ButtonHeight = 21
       ButtonWidth = 50
       Caption = 'ToolBar1'
       Flat = True
-      Images = DM.ImgMant
       ShowCaptions = True
       TabOrder = 0
       object ToolButton1: TToolButton
@@ -404,7 +403,6 @@ object frmCatalogo: TfrmCatalogo
     AfterCancel = QCatalogoAfterCancel
     AfterDelete = QCatalogoAfterDelete
     OnNewRecord = QCatalogoNewRecord
-    DataSource = DM.dsEmpresas
     Parameters = <
       item
         Name = 'emp_codigo'
@@ -523,7 +521,6 @@ object frmCatalogo: TfrmCatalogo
     Top = 120
   end
   object ActionList2: TActionList
-    Images = DM.ImgMant
     Left = 536
     Top = 152
     object btPrior: TAction

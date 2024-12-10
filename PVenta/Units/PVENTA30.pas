@@ -84,6 +84,9 @@ type
     QTranssuc_codigo: TIntegerField;
     QDetallesuc_codigo: TIntegerField;
     QTransTRA_FECHA_HORA: TDateTimeField;
+    Label6: TLabel;
+    DBEdit4: TDBEdit;
+    QTransUbicacion: TStringField;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btCloseClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word;

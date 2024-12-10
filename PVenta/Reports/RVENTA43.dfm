@@ -130,6 +130,7 @@ object frmAbono: TfrmAbono
     AfterPost = QFormasPagoAfterPost
     BeforeDelete = QFormasPagoBeforeDelete
     OnNewRecord = QFormasPagoNewRecord
+    DataSource = DM.dsEmpresas
     Parameters = <
       item
         Name = 'emp'
@@ -206,7 +207,6 @@ object frmAbono: TfrmAbono
     Top = 64
   end
   object QForma: TADOQuery
-    Active = True
     Connection = DM.ADOSigma
     CursorType = ctStatic
     DataSource = DM.dsEmpresas
@@ -243,6 +243,7 @@ object frmAbono: TfrmAbono
   end
   object Query1: TADOQuery
     Connection = DM.ADOSigma
+    DataSource = DM.dsEmpresas
     Parameters = <>
     Left = 152
     Top = 32
@@ -250,6 +251,7 @@ object frmAbono: TfrmAbono
   object QDetalle: TADOQuery
     Connection = DM.ADOSigma
     LockType = ltBatchOptimistic
+    DataSource = DM.dsEmpresas
     Parameters = <
       item
         Name = 'EMP'

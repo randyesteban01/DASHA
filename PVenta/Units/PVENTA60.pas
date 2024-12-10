@@ -146,6 +146,18 @@ type
     pm1: TPopupMenu;
     RepararFacturas1: TMenuItem;
     qVerificarNCMontoUsados: TADOQuery;
+    QQClientesPrueba: TADOQuery;
+    IntegerField1: TIntegerField;
+    IntegerField2: TIntegerField;
+    IBStringField1: TIBStringField;
+    FloatField1: TFloatField;
+    IBStringField2: TIBStringField;
+    QClienteid: TAutoIncField;
+    BCDField1: TBCDField;
+    StringField1: TStringField;
+    BCDField2: TBCDField;
+    QClienteSUC_CODIGO: TIntegerField;
+    dsCliente1: TDataSource;
     procedure btCloseClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure QMovimientosCalcFields(DataSet: TDataSet);
@@ -219,6 +231,7 @@ begin
 end;
 
 procedure TfrmConsCxC.BitBtn2Click(Sender: TObject);
+var cantidad : integer;
 begin
   if MessageDlg('Imprimir Detallado?',mtConfirmation,[mbyes,mbno],0) = mryes then
   begin
@@ -226,9 +239,11 @@ begin
 
     Application.CreateForm(tRConsCxC, RConsCxC);
     RConsCxC.QCliente.Close;
-    RConsCxC.QCliente.Parameters.ParamByName('emp').Value := dm.vp_cia;
-    RConsCxC.QCliente.Parameters.ParamByName('fec').Value    := Date;
+    RConsCxC.QCliente.Parameters.ParamByName('emp').Value := dm.vp_cia;    
     RConsCxC.QCliente.Parameters.parambyname('tip').Value := StrToInt(edTipo.Text);
+    RConsCxC.QCliente.Parameters.ParamByName('fec').DataType    := ftDate;
+    RConsCxC.QCliente.Parameters.ParamByName('fec').Value    := Date;         
+
     if cbtipo.ItemIndex = 0 then
       RConsCxC.QCliente.Parameters.parambyname('st').Value  := 'T'
     else if cbtipo.ItemIndex = 1 then
@@ -236,9 +251,16 @@ begin
     else if cbtipo.ItemIndex = 2 then
       RConsCxC.QCliente.Parameters.parambyname('st').Value  := 'I';
     IF ChkB_cksucursal.Checked THEN
+    begin
       RConsCxC.QCliente.Parameters.parambyname('suc').Value  := dblkcbb1.KeyValue;
+      RConsCxC.QCliente.Parameters.parambyname('suci').Value  := dblkcbb1.KeyValue;
+    end;
     IF not ChkB_cksucursal.Checked THEN
+    begin
       RConsCxC.QCliente.Parameters.parambyname('suc').Value  := 0;
+      RConsCxC.QCliente.Parameters.parambyname('suci').Value :=0;
+    end;
+
     if ckVence.Checked then
     begin
     RConsCxC.QCliente.Filter := 'VENCIDO > 0';
@@ -249,7 +271,9 @@ begin
     RConsCxC.QCliente.Filter := '';
     RConsCxC.QCliente.Filtered := False;
     end;
+
     RConsCxC.QCliente.Open;
+
     RConsCxC.vl_sucA := ChkB_cksucursal.Checked;
     if ChkB_cksucursal.Checked = True then
     RConsCxC.vl_suc := dblkcbb1.KeyValue else
@@ -1176,18 +1200,6 @@ end;
 
 procedure TfrmConsCxC.ChkB_cksucursalClick(Sender: TObject);
 begin
-
-IF ChkB_cksucursal.Checked THEN
-begin
-dblkcbb1.Enabled := true;
- end
-else
-begin
-  dblkcbb1.Enabled :=false;
-  dblkcbb1.KeyValue :=0;
-end;
-
-
 WITH DM.QParametros do BEGIN
   Close;
   Parameters.ParamByName('EMP_CODIGO').Value := dm.vp_cia;

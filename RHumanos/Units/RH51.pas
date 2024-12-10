@@ -4,10 +4,10 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, Buttons, ComCtrls, Mask, DBCtrls, Grids, DB, ADODB,
+  Dialogs, StdCtrls, Buttons, ComCtrls, Mask, DBCtrls, ComObj , Grids, DB, ADODB,
   DateUtils, QuerySearchDlgADO, Menus, IdMessageClient,
   IdSMTP, idMessage, QRPDFFilt, IBCustomDataSet, QExport, QExportXLS;
-
+  
 type
   TfrmNomina = class(TForm)
     GroupBox1: TGroupBox;
@@ -44,9 +44,6 @@ type
     QNominaemp_codigo: TIntegerField;
     QNominatno_codigo: TIntegerField;
     QNominanom_codigo: TIntegerField;
-    QNominanom_fecha_desde: TDateTimeField;
-    QNominanom_fecha_hasta: TDateTimeField;
-    QNominanom_fecha_acreditar: TDateTimeField;
     QNominanom_status: TStringField;
     dsNomina: TDataSource;
     QDetalle: TADOQuery;
@@ -110,6 +107,9 @@ type
     btLocalidad: TSpeedButton;
     TSucLoc: TEdit;
     lbLocSuc: TLabel;
+    QNominanom_fecha_desde: TDateField;
+    QNominanom_fecha_hasta: TDateField;
+    QNominanom_fecha_acreditar: TDateField;
     procedure btCloseClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormPaint(Sender: TObject);
@@ -159,6 +159,7 @@ type
     sfs_tope_sueldo, sfs_pago_padres, afp_salario_tope : Double;
     flag : Bool;
     procedure Volantes_Email (Cod : string);
+     procedure ExportarStringGridAExcel(StringGrid: TStringGrid; Worksheet: Variant);
   end;
 
 var
@@ -197,6 +198,7 @@ procedure TfrmNomina.FormActivate(Sender: TObject);
 begin
   if not QTipoNomina.Active then
   begin
+    QTipoNomina.Parameters.ParamByName('emp_codigo').Value := dm.QEmpresasEMP_CODIGO.Value;
     QTipoNomina.Open;
 
     QNomina.Parameters.ParamByName('nom').Value := -1;
@@ -246,6 +248,7 @@ var
   TotalDesc, TotalIng, TotalDepto, Sueldo, MontoSFS, MontoAFP, SueldoImponible, MontoSeguro, MontoDep, TarifaDep : double;
   col, row, semanas, ColTotalIng, a, coldesc : integer;
   v2000, v1000, v500, v100, v50, v20, v25, v10, v5, v1, v050, v025, v01 : integer;
+  empCedula: string;
 begin
   // Verificando si existe una nomina generada para esta fecha
   dm.Query1.Close;
@@ -314,7 +317,7 @@ begin
 
     sgnomina.Cells[0, 0] := 'CODIGO';
     sgnomina.Cells[1, 0] := 'NOMBRE DEL EMPLEADO';
-    sgnomina.Cells[2, 0] := 'CEDULA';
+    sgnomina.Cells[2, 0] := 'CEDULA/PASAPORTE';
 
     //Denominaciones
     sgdenominacion.RowCount := 2;
@@ -409,7 +412,7 @@ begin
       dm.Query1.Close;
       dm.Query1.SQL.Clear;
       dm.Query1.SQL.Add('select e.emp_numero, (e.emp_salario/t.tno_cant_mensual) as emp_salario,');
-      dm.Query1.SQL.Add('e.emp_salario as salario_total, t.tno_cant_mensual, e.emp_cedula, emp_sfs_padres, ');
+      dm.Query1.SQL.Add('e.emp_salario as salario_total, t.tno_cant_mensual, case when len(RTRIM(LTRIM(e.emp_cedula))) =9  then e.emp_pasaporte else e.emp_cedula end as emp_cedula , emp_sfs_padres, ');
       dm.Query1.SQL.Add('(e.emp_nombres+'+QuotedStr(' ')+'+e.emp_apellido_paterno+'+QuotedStr(' ')+'+e.emp_apellido_materno) as Nombre');
       dm.Query1.SQL.Add('from empleados e, Empleados_Tipo_Nomina n, Tipo_Nomina t');
       dm.Query1.SQL.Add('where n.emp_codigo = t.emp_codigo');
@@ -1386,7 +1389,7 @@ begin
 
       sgdenominacion.Cells[col, sgdenominacion.RowCount -1] := IntToStr(a);
     end;
-    
+
     btexportar.Enabled := True;
     btpostear.Enabled  := True;
 
@@ -1497,21 +1500,82 @@ begin
   end;
 end;
 
-procedure TfrmNomina.btexportarClick(Sender: TObject);
+procedure TfrmNomina.ExportarStringGridAExcel(StringGrid: TStringGrid; Worksheet: Variant);
+var
+  Row, Col: Integer;
 begin
-  ExportXLS.Sheets[0].Header.Clear;
-  ExportXLS.Sheets[0].Header.Add(dm.QEmpresasEMP_NOMBRE.Value);
-  ExportXLS.Sheets[0].Header.Add('Reporte de Nómina');
-  ExportXLS.Sheets[0].Header.Add('Correspondiente al período '+DateToStr(fdesde.Date)+' Al '+DateToStr(fhasta.Date));
+  // Exportar encabezados
+  for Col := 0 to StringGrid.ColCount - 1 do
+    Worksheet.Cells[1, Col + 1].Value := StringGrid.Cells[Col, 0];
 
-  ExportXLS.Sheets[1].Header.Clear;
-  ExportXLS.Sheets[1].Header.Add(dm.QEmpresasEMP_NOMBRE.Value);
-  ExportXLS.Sheets[1].Header.Add('Denominaciones');
-  ExportXLS.Sheets[1].Header.Add('Correspondiente al período '+DateToStr(fdesde.Date)+' Al '+DateToStr(fhasta.Date));
+  // Exportar datos
+  for Row := 1 to StringGrid.RowCount - 1 do
+  begin
+    for Col := 0 to StringGrid.ColCount - 1 do
+    begin
+      Worksheet.Cells[Row + 1, Col + 1].Value := StringGrid.Cells[Col, Row];
+    end;
+  end;
+end;
+procedure TfrmNomina.btexportarClick(Sender: TObject);
+{var
+  ExcelApp: Variant;
+  Workbook: Variant;
+  NominaSheet: Variant;
+  DenominacionSheet: Variant;
+begin
+  try
+    ExcelApp := CreateOleObject('Excel.Application');
+    ExcelApp.Visible := False;
+    Workbook := ExcelApp.Workbooks.Add;
+
+    // Crear hojas para Nomina y Denominaciones
+    NominaSheet := Workbook.Worksheets[1];
+    DenominacionSheet := Workbook.Worksheets.Add(EmptyParam, EmptyParam, 1, EmptyParam);
+
+    // Asignar nombres a las hojas
+    NominaSheet.Name := 'Nomina';
+    DenominacionSheet.Name := 'Denominaciones';
+
+    // Exportar StringGrids a las hojas correspondientes
+    ExportarStringGridAExcel(sgnomina, NominaSheet);
+    ExportarStringGridAExcel(sgdenominacion, DenominacionSheet);
+
+    // Guardar el archivo
+    if frmMain.GrabaXLS.Execute then
+    begin
+      Workbook.SaveAs(frmMain.GrabaXLS.FileName);
+    end;
+
+    Workbook.Close(False, EmptyParam, EmptyParam);
+  finally
+    ExcelApp.Quit;
+  end;
+end;  }
+
+begin
+
+
+  ExportXLS.Sheets[0].StringGrid := sgnomina;
+  ExportXLS.Sheets[0].Exported := True;
+  ExportXLS.Sheets[1].StringGrid := sgdenominacion;
+  ExportXLS.Sheets[1].Exported := True;
 
   if frmMain.GrabaXLS.Execute then
   begin
     ExportXLS.FileName := frmMain.GrabaXLS.FileName;
+
+    ExportXLS.Sheets[0].Header.Clear;
+    ExportXLS.Sheets[0].Header.Add(dm.QEmpresasEMP_NOMBRE.Value);
+    ExportXLS.Sheets[0].Header.Add('Reporte de Nómina');
+    ExportXLS.Sheets[0].Header.Add('Correspondiente al período '+DateToStr(fdesde.Date)+' Al '+DateToStr(fhasta.Date));
+
+    ExportXLS.Sheets[1].Header.Clear;
+    ExportXLS.Sheets[1].Header.Add(dm.QEmpresasEMP_NOMBRE.Value);
+    ExportXLS.Sheets[1].Header.Add('Denominaciones');
+    ExportXLS.Sheets[1].Header.Add('Correspondiente al período '+DateToStr(fdesde.Date)+' Al '+DateToStr(fhasta.Date));
+
+   //  ExportXLS.Sheets[0].StringGrid := sgnomina;
     ExportXLS.Execute;
   end;
 end;
@@ -1536,7 +1600,7 @@ begin
   QLibro.Parameters.ParamByName('sucloc').Value    := edtSucLoc.Text;
   QLibro.Open;
   QLibro.Last;
-  if QLibroBALANCE.AsFloat = 0  then
+  if QLibroBALANCE.AsFloat = 0 then
     MessageDlg('NO HAY DISPONIBILIDAD EN EL BANCO PARA REALIZAR LA NOMINA', mtError, [mbok], 0)
   else
   begin
@@ -1882,11 +1946,15 @@ begin
 
     QNomina.Close;
     QNomina.Parameters.ParamByName('nom').Value := StrToInt(Search.ValueField);
+    QNomina.Parameters.ParamByName('emp_codigo').Value := dm.QEmpresasEMP_CODIGO.Value;
+
     QNomina.Open;
 
     QDetalle.Close;
     QDetalle.Parameters.ParamByName('nom').Value := StrToInt(Search.ValueField);
     QDetalle.Open;
+
+  //  QDetalle.RecordCount;
 
     QNovedades.Close;
     QNovedades.Parameters.ParamByName('nom').Value := StrToInt(Search.ValueField);
@@ -1933,7 +2001,7 @@ begin
     sgnomina.ColCount := 3;
     sgnomina.Cells[0, 0] := 'CODIGO';
     sgnomina.Cells[1, 0] := 'NOMBRE DEL EMPLEADO';
-    sgnomina.Cells[2, 0] := 'CEDULA';
+    sgnomina.Cells[2, 0] := 'CEDULA/PASAPORTE';
 
     //Denominaciones
     for col := 0 to sgdenominacion.ColCount -1 do
@@ -2020,7 +2088,7 @@ begin
       dm.Query1.Close;
       dm.Query1.SQL.Clear;
       dm.Query1.SQL.Add('select e.emp_numero, e.emp_cuenta_bancaria, n.det_monto as emp_salario,');
-      dm.Query1.SQL.Add('n.det_monto as salario_total, t.tno_cant_mensual, e.emp_cedula,');
+      dm.Query1.SQL.Add('n.det_monto as salario_total, t.tno_cant_mensual, case when len(RTRIM(LTRIM(e.emp_cedula))) =9  then e.emp_pasaporte else e.emp_cedula end as emp_cedula ,');
       dm.Query1.SQL.Add('(e.emp_nombres+'+QuotedStr(' ')+'+e.emp_apellido_paterno+'+QuotedStr(' ')+'+e.emp_apellido_materno) as Nombre');
       dm.Query1.SQL.Add('from empleados e, nomina_detalle_novedades n, Tipo_Nomina t');
       dm.Query1.SQL.Add('where n.emp_codigo = t.emp_codigo');
@@ -2513,7 +2581,7 @@ begin
 
   sgnomina.Cells[0, 0] := 'CODIGO';
   sgnomina.Cells[1, 0] := 'NOMBRE DEL EMPLEADO';
-  sgnomina.Cells[2, 0] := 'CEDULA';
+  sgnomina.Cells[2, 0] := 'CEDULA/PASAPORTE';
 
   //Denominaciones
   sgdenominacion.Cells[0, 0]  := 'Nombre del Empleado';
@@ -2635,7 +2703,7 @@ end;
 procedure TfrmNomina.Volantes_Email (Cod : string);
 var
    MailMsg : TIdMessage;
-   Archivo : TIdAttachment;
+   //Archivo : TIdAttachment;
    eMail : string;
 begin
   dm.Query1.Close;
@@ -2670,7 +2738,7 @@ begin
     MailMsg.ReplyTo.EMailAddresses := dm.QParametrospar_mailcorreo.Value;
     MailMsg.Recipients.Add;
     MailMsg.Recipients.Items[0].Address := eMail;
-    //TIdAttachment.Create(MailMsg.MessageParts, 'volante.pdf');
+   // TIdAttachmentFile.Create(MailMsg.MessageParts, 'volante.pdf');
     frmMain.IdSMTP1.Host := dm.QParametrospar_mailservidor.Value;
     frmMain.IdSMTP1.Port := dm.QParametrospar_mailpuerto.AsInteger;
     frmMain.IdSMTP1.Username := dm.QParametrospar_mailusuario.Value;

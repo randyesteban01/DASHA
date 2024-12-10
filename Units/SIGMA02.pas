@@ -9,7 +9,6 @@ uses
 type
   Tfrmadhoc = class(TForm)
     QREditor1: TQREditor;
-    btClose: TBitBtn;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btCloseClick(Sender: TObject);
   private

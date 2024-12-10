@@ -388,7 +388,6 @@ type
     QParametrospar_puerto_Printer: TStringField;
     QParametrospar_velocidad_Printer: TIntegerField;
     QUsuariosusu_vendedor: TBooleanField;
-  
     QParametrospar_puerto_envios: TStringField;
     QContabpar_ctadevventas: TStringField;
     DBCia: TfrxDBDataset;
@@ -396,9 +395,15 @@ type
     QUsuariosusu_solo_conduce: TBooleanField;
     qRevisarAlmDupliExist: TADOQuery;
     QUsuariosusu_modifica_nombreprod: TBooleanField;
-    QUsuariosusu_elimina_factura_temporal: TBooleanField;
+    QParametrosRestBar_FactConItbis: TBooleanField;
     QParametrospar_mostrarfacturadolares: TBooleanField;
     QParametrosPAR_UnidadMedida_Producto: TBooleanField;
+    QParametrospar_totalizardolaresPOS: TBooleanField;
+    QParametrospar_codigobarrasdolares: TBooleanField;
+    QParametrospar_vouchercardnet: TBooleanField;
+    QParametrosPAR_MESERO: TBooleanField;
+    QUsuariosusu_suc_default: TIntegerField;
+    QParametrosPAR_cantidadRecibosImprimir: TIntegerField;
     procedure IBDatabaseAfterConnect(Sender: TObject);
     procedure QEmpresasCalcFields(DataSet: TDataSet);
     procedure DataModuleCreate(Sender: TObject);
@@ -411,7 +416,7 @@ type
   public
     { Public declarations }
     vCantArt : double;
-    Usuario, vl_tipocons, vp_cia: integer;
+    Usuario,suc_default, vl_tipocons, vp_cia: integer;
     NomUsu, NombreEmp, UltBusqueda, UltProducto, lcnombre, lcrnc, lccorreo, lcurl,
     lctelefono, bolImpresora, vp_formactivo, vp_seriallicencia, vp_usuario, vl_exportar  : String;
     vp_usermailok, vp_solo_conduce : Boolean;

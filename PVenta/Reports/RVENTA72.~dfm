@@ -2710,7 +2710,7 @@ object RDevolucionPreImpresa: TRDevolucionPreImpresa
     SQL.Strings = (
       'SELECT'#9'D.*, C.CLI_NOMBRE, C.CLI_DIRECCION, C.CLI_LOCALIDAD,'
       'C.CLI_TELEFONO,'
-      'C.CLI_FAX, u.usu_nombre, nc.ncr_numero, CLI_REFERENCIA'
+      'C.CLI_FAX, u.usu_nombre, nc.ncr_numero, C.CLI_REFERENCIA'
       'FROM'
       'DEVOLUCION D'
       'left outer join CLIENTES C on (D.EMP_CODIGO = C.EMP_CODIGO'
@@ -2853,10 +2853,6 @@ object RDevolucionPreImpresa: TRDevolucionPreImpresa
       FieldName = 'dev_conitbis'
       Size = 5
     end
-    object QDevolucionCLI_REFERENCIA: TStringField
-      FieldName = 'CLI_REFERENCIA'
-      Size = 10
-    end
     object QDevoluciondev_nota: TMemoField
       FieldName = 'dev_nota'
       BlobType = ftMemo
@@ -2884,6 +2880,9 @@ object RDevolucionPreImpresa: TRDevolucionPreImpresa
     end
     object QDevolucionncr_numero: TIntegerField
       FieldName = 'ncr_numero'
+    end
+    object QDevolucionCLI_REFERENCIA: TStringField
+      FieldName = 'CLI_REFERENCIA'
     end
   end
   object dsDevol: TDataSource

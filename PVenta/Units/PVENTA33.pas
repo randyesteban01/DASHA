@@ -154,8 +154,8 @@ type
     procedure ExistenciaxAlmacen1Click(Sender: TObject);
     procedure CargarProductosDolares();
     procedure CargarProductos();
-  private
 
+  private
     { Private declarations }
   public
     { Public declarations }
@@ -176,6 +176,7 @@ uses SIGMA01, PVENTA129, PVENTA161, PVENTAPRODUCTOSXALMACEN, PVENTA18;
 
 
 {$R *.DFM}
+
 
 procedure TfrmBuscaProducto.CargarProductos;
 begin
@@ -542,6 +543,7 @@ begin
    QProductos.Parameters.ParamByName('tasamenor').Value := TasaCambio;
    QProductos.Parameters.ParamByName('tasacostoempaque').Value := TasaCambio;
 end;
+
 procedure TfrmBuscaProducto.btSalirClick(Sender: TObject);
 begin
   //actuliza producto
@@ -591,9 +593,8 @@ begin
    Parameters.ParamByName('EMP').Value  := DM.QParametrosPAR_INVEMPRESA.value;
    ExecSQL;
    end;
-  //ckactiva.Checked := true;
+   //ckactiva.Checked := true;
   seleccion := 1;
-
   //CAMBIO REALIZADO POR JHONATTAN GOMEZ 16/02/2018
   IF DM.FormActivo('frmFactura') THEN BEGIN
   case frmFactura.RG_BuscaDet.ItemIndex of
@@ -633,8 +634,7 @@ begin
 
   if facturando = True then
   begin
-
-  //si el parametro es multimoneda se procede a realizar el calculo en precio
+   //si el parametro es multimoneda se procede a realizar el calculo en precio
      if (dm.QParametrospar_mostrarfacturadolares.Value = true) and  (codigomoneda = 2) then
       BEGIN
               IF TasaCambio>0 THEN
@@ -807,10 +807,219 @@ begin
 
   QProductos.close;
   QProductos.sql.clear;
+
    if (dm.QParametrospar_mostrarfacturadolares.Value = true) and  (codigomoneda = 2) then
       CargarProductosDolares()
     ELSE CargarProductos();
 
+ { if facturando = True then
+  begin
+    QProductos.SQL.add('select');
+    IF edProveedor.Text <> '' THEN
+    QProductos.sql.add(Trim(edProveedor.Text)+' SUP_CODIGO,') ELSE
+    QProductos.sql.add('0 SUP_CODIGO,');
+    QProductos.SQL.add('P.EMP_CODIGO, P.PRO_CODIGO, P.PRO_RORIGINAL, P.PRO_RFABRIC,');
+    QProductos.SQL.add('P.PRO_NOMBRE, P.PRO_PRECIO1, P.PRO_PRECIO2, P.PRO_COSTO,');
+    QProductos.SQL.add('P.PRO_PRECIO3, P.PRO_PRECIO4, SUM(ISNULL(E.EXI_CANTIDAD,0)) AS EXISTUND,');
+    QProductos.SQL.add('P.PRO_UBICACION, P.PRO_NUEVOUSADO, P.PRO_PRECIOMENOR,');
+    QProductos.SQL.add('F.FAM_NOMBRE, M.MAR_NOMBRE, C.COL_NOMBRE, P.PRO_FOTO,pro_costoempaque,');
+    QProductos.SQL.add('E.EXI_EMPAQUE AS EXISTEMP, D.DEP_NOMBRE, P.PRO_ITBIS, substring(P.PRO_COMENTARIO,1,255) PRO_COMENTARIO,');
+    QProductos.SQL.add('p.pro_cantempaque, p.pro_montoitbis,P.PRO_serializado, um.nombre as UnidadMedida');
+     QProductos.SQL.Add(',cast(p.pro_costo*(1+(p.pro_montoitbis/100)) as numeric(18,4)) costoitbis');
+    {IF edProveedor.Text <> '' THEN
+    QProductos.sql.add(',(SELECT SUP_NOMBRE FROM PROVEEDORES WHERE EMP_CODIGO = '+IntToStr(DM.vp_cia)+' AND SUP_CODIGO = '+edProveedor.Text+') SUP_NOMBRE') ELSE
+    QProductos.sql.add(',''N/A'' SUP_NOMBRE');}
+  //   IF edProveedor.Text <> '' THEN
+ //   QProductos.sql.add(',(SELECT SUP_NOMBRE FROM PROVEEDORES WHERE EMP_CODIGO = '+IntToStr(DM.vp_cia)+' AND SUP_CODIGO = '+edProveedor.Text+') SUP_NOMBRE') ELSE
+ //   QProductos.sql.add(',(SELECT TOP 1 SUP_NOMBRE FROM PROVEEDORES WHERE SUP_CODIGO = (SELECT TOP 1 SUP_CODIGO FROM PRODPROVEEDORES WHERE PRO_CODIGO = P.PRO_CODIGO AND EMP_CODIGO = P.EMP_CODIGO))SUP_NOMBRE ');
+
+  //  QProductos.SQL.add('FROM');
+  //  QProductos.SQL.add('PRODUCTOS P');
+//    QProductos.SQL.add('LEFT OUTER JOIN PRODUCTOS_SERIE Z ON');
+//    QProductos.SQL.add('(Z.PRO_CODIGO = P.PRO_CODIGO AND Z.EMP_CODIGO = P.EMP_CODIGO)');
+//    QProductos.SQL.add('LEFT JOIN DEPARTAMENTOS D ON');
+ //   QProductos.SQL.add('(D.DEP_CODIGO = P.DEP_CODIGO AND D.EMP_CODIGO = P.EMP_CODIGO)');
+ //   QProductos.SQL.add('LEFT JOIN FAMILIAS F ON');
+ //   QProductos.SQL.add('(F.FAM_CODIGO = P.FAM_CODIGO');
+ {   QProductos.SQL.add('AND F.EMP_CODIGO = P.EMP_CODIGO)');
+    QProductos.SQL.add('LEFT JOIN MARCAS M ON');
+    QProductos.SQL.add('(M.MAR_CODIGO = P.MAR_CODIGO');
+    QProductos.SQL.add('AND M.EMP_CODIGO = P.EMP_CODIGO)');
+    QProductos.SQL.add('LEFT JOIN COLORES C ON');
+    QProductos.SQL.add('(C.COL_CODIGO = P.COL_CODIGO)');
+    QProductos.SQL.add('LEFT JOIN UnidadMedida UM ON');
+    QProductos.SQL.add('(p.UnidadID =um.UnidadID)');
+    QProductos.SQL.add('');
+    QProductos.SQL.add('');
+    QProductos.SQL.add('');
+    if almacen <> 0 then begin
+    QProductos.SQL.add('INNER JOIN EXISTENCIAS E ON');
+    QProductos.SQL.add('(e.emp_codigo = '+QuotedStr(IntToStr(DM.vp_cia)));
+    QProductos.SQL.add('and p.pro_codigo = e.pro_codigo) ');
+    QProductos.SQL.add('and p.emp_codigo = '+inttostr(dm.QParametrosPAR_INVEMPRESA.Value));
+    if almacen = 0 then
+    QProductos.SQL.add('and e.alm_codigo = (select top 1 (alm_codigo) from sucursales where suc_codigo = '+IntToStr(vp_suc)+ ' and emp_codigo = '+IntToStr(dm.vp_cia)+')') else
+    QProductos.SQL.add('and e.alm_codigo = '+QuotedStr(IntToStr(almacen)));
+    end;
+    QProductos.SQL.add('and p.pro_status = '+#39+'ACT'+#39);
+    IF almacen = 0 THEN
+    QProductos.SQL.add('and e.alm_codigo > 0 ') ELSE
+    QProductos.SQL.add('and e.alm_codigo = '+inttostr(almacen));
+    if Trim(edFamilia.Text) <> '' then
+      QProductos.SQL.add('and p.fam_codigo = '+Trim(edFamilia.text));
+    if Trim(edMarca.Text) <> '' then
+      QProductos.SQL.add('and p.mar_codigo = '+Trim(edMarca.text));
+    if Trim(edColor.Text) <> '' then
+      QProductos.SQL.add('and p.col_codigo = '+Trim(edColor.text));
+    if Trim(edProveedor.Text) <> '' then
+      QProductos.SQL.add('and p.pro_codigo in (select pro_codigo from ProdProveedores where emp_codigo = '+IntToStr(DM.vp_cia)+' and sup_codigo = '+Trim(edProveedor.text)+')');
+
+    if Trim(edSerie.Text) <> '' then
+      QProductos.SQL.add('and p.pro_codigo in (select pro_codigo FROM PRODUCTOS_SERIE z where z.ser_numero= '+Trim(edSerie.text)+')');
+//      QProductos.SQL.add('and z.ser_numero = '+Trim(edSerie.text));
+
+    if rgTipo.ItemIndex = 1 then
+      QProductos.SQL.add('and p.pro_nuevousado = '+#39+'N'+#39)
+    else if rgTipo.ItemIndex = 2 then
+      QProductos.SQL.add('and p.pro_nuevousado = '+#39+'U'+#39);
+
+    if cbOpcion.itemindex = 0 then
+      QProductos.sql.add('and p.pro_codigo like '+#39+trim(edOpcion.text)+#39)
+    else if cbOpcion.itemindex = 1 then
+      QProductos.sql.add('and p.pro_roriginal like '+#39+trim(edOpcion.text)+#39)
+    else if cbOpcion.itemindex = 2 then
+      QProductos.sql.add('and p.pro_rfabric like '+#39+trim(edOpcion.text)+#39)
+    else if cbOpcion.itemindex = 3 then
+      QProductos.sql.add('and p.pro_nombre like '+#39+edOpcion.text+#39)
+    else if cbOpcion.itemindex = 4 then
+      QProductos.sql.add('and p.pro_uso like '+#39+trim(edOpcion.text)+#39)
+    else if cbOpcion.itemindex = 5 then
+      QProductos.sql.add('and p.pro_costo like '+#39+trim(edOpcion.text)+#39);
+    QProductos.sql.add('group by P.EMP_CODIGO, P.PRO_CODIGO,');
+    QProductos.sql.add('P.PRO_RORIGINAL, P.PRO_RFABRIC, P.PRO_NOMBRE, P.PRO_PRECIO1,');
+    QProductos.sql.add('P.PRO_PRECIO2, P.PRO_COSTO, P.PRO_PRECIO3, P.PRO_PRECIO4,');
+    QProductos.sql.add('P.PRO_UBICACION, P.PRO_NUEVOUSADO, P.PRO_PRECIOMENOR, F.FAM_NOMBRE,');
+    QProductos.sql.add('M.MAR_NOMBRE, C.COL_NOMBRE, P.PRO_FOTO,pro_costoempaque,E.EXI_EMPAQUE,');
+    QProductos.sql.add('D.DEP_NOMBRE, P.PRO_ITBIS, substring(P.PRO_COMENTARIO,1,255),');
+    QProductos.sql.add('p.pro_cantempaque, p.pro_montoitbis,P.PRO_serializado, um.nombre');
+  end
+  else
+  begin
+    QProductos.SQL.add('select');
+    IF edProveedor.Text <> '' THEN
+    QProductos.sql.add(Trim(edProveedor.Text)+' SUP_CODIGO,') ELSE
+    QProductos.sql.add('0 SUP_CODIGO,');
+    QProductos.SQL.add('P.EMP_CODIGO, P.PRO_CODIGO, P.PRO_RORIGINAL, P.PRO_RFABRIC,');
+    QProductos.SQL.add('P.PRO_NOMBRE, P.PRO_PRECIO1, P.PRO_PRECIO2, P.PRO_COSTO,');
+    QProductos.SQL.add('P.PRO_PRECIO3, P.PRO_PRECIO4,');
+    if almacen > 0 then
+    QProductos.SQL.add('SUM(ISNULL(E.EXI_CANTIDAD,0)) AS EXISTUND,') else
+    QProductos.SQL.add('(SELECT ISNULL(SUM(ISNULL(EXI_CANTIDAD,0)),0) FROM EXISTENCIAS WHERE PRO_CODIGO = P.PRO_CODIGO) AS EXISTUND,');
+    QProductos.SQL.add('P.PRO_UBICACION, P.PRO_NUEVOUSADO,P.PRO_PRECIOMENOR,');
+    QProductos.SQL.add('F.FAM_NOMBRE, M.MAR_NOMBRE, C.COL_NOMBRE, P.PRO_FOTO,pro_costoempaque,');
+    QProductos.SQL.add('(SELECT ISNULL(SUM(ISNULL(EXI_EMPAQUE,0)),0) FROM EXISTENCIAS WHERE PRO_CODIGO = P.PRO_CODIGO) AS EXISTEMP, D.DEP_NOMBRE, P.PRO_ITBIS, substring(P.PRO_COMENTARIO,1,255) PRO_COMENTARIO,');
+    QProductos.SQL.add('p.pro_cantempaque, p.pro_montoitbis,P.PRO_serializado, um.nombre as UnidadMedida');
+    QProductos.SQL.Add(',cast(p.pro_costo*(1+(p.pro_montoitbis/100)) as numeric(18,4)) costoitbis');
+    IF edProveedor.Text <> '' THEN
+    QProductos.sql.add(',(SELECT SUP_NOMBRE FROM PROVEEDORES WHERE EMP_CODIGO = '+IntToStr(DM.vp_cia)+' AND SUP_CODIGO = '+edProveedor.Text+') SUP_NOMBRE') ELSE
+    QProductos.sql.add(',(SELECT TOP 1 SUP_NOMBRE FROM PROVEEDORES WHERE SUP_CODIGO = (SELECT TOP 1 SUP_CODIGO FROM PRODPROVEEDORES WHERE PRO_CODIGO = P.PRO_CODIGO AND EMP_CODIGO = P.EMP_CODIGO))SUP_NOMBRE ');
+    QProductos.SQL.add('FROM');
+    QProductos.SQL.add('PRODUCTOS P');
+   {QProductos.SQL.add('INNER JOIN EXISTENCIAS E ON');
+    QProductos.SQL.add('(e.emp_codigo = '+QuotedStr(IntToStr(DM.vp_cia)));
+    QProductos.SQL.add('and p.pro_codigo = e.pro_codigo) ');
+    QProductos.SQL.add('and p.emp_codigo = '+inttostr(dm.QParametrosPAR_INVEMPRESA.Value));
+    if almacen = 0 then
+    QProductos.SQL.add('and e.alm_codigo = (select top 1 (alm_codigo) from sucursales where suc_codigo = '+IntToStr(vp_suc)+ ' and emp_codigo = '+IntToStr(dm.vp_cia)+')') else
+    QProductos.SQL.add('and e.alm_codigo = '+QuotedStr(IntToStr(almacen)));
+    QProductos.SQL.add('and p.pro_status = '+#39+'ACT'+#39);
+    IF almacen = 0 THEN
+    QProductos.SQL.add('and e.alm_codigo > 0 ') ELSE
+    QProductos.SQL.add('and e.alm_codigo = '+inttostr(almacen));  }
+
+//    QProductos.SQL.add('LEFT OUTER JOIN PRODUCTOS_SERIE Z ON');
+//    QProductos.SQL.add('(Z.PRO_CODIGO = P.PRO_CODIGO AND Z.EMP_CODIGO = P.EMP_CODIGO)');
+
+   { QProductos.SQL.add('LEFT OUTER JOIN DEPARTAMENTOS D ON');
+    QProductos.SQL.add('(D.DEP_CODIGO = P.DEP_CODIGO AND D.EMP_CODIGO = P.EMP_CODIGO)');
+    QProductos.SQL.add('LEFT  JOIN FAMILIAS F ON');
+    QProductos.SQL.add('(F.FAM_CODIGO = P.FAM_CODIGO');
+    QProductos.SQL.add('AND F.EMP_CODIGO = P.EMP_CODIGO)');
+    QProductos.SQL.add('LEFT  JOIN MARCAS M ON');
+    QProductos.SQL.add('(M.MAR_CODIGO = P.MAR_CODIGO');
+    QProductos.SQL.add('AND M.EMP_CODIGO = P.EMP_CODIGO)');
+    QProductos.SQL.add('LEFT  JOIN COLORES C ON');
+    QProductos.SQL.add('(C.COL_CODIGO = P.COL_CODIGO)');
+
+    QProductos.SQL.add('LEFT  JOIN UnidadMedida UM ON');
+    QProductos.SQL.add('(p.UnidadID =um.UnidadID)');
+    QProductos.SQL.add('');
+    QProductos.SQL.add('');
+    QProductos.SQL.add('');
+    if almacen <> 0 then begin
+    QProductos.SQL.add('INNER JOIN EXISTENCIAS E ON');
+    QProductos.SQL.add('(e.emp_codigo = '+QuotedStr(IntToStr(DM.vp_cia)));
+    QProductos.SQL.add('and p.pro_codigo = e.pro_codigo) ');
+    QProductos.SQL.add('and p.emp_codigo = '+inttostr(dm.QParametrosPAR_INVEMPRESA.Value));
+    if almacen = 0 then
+    QProductos.SQL.add('and e.alm_codigo = (select top 1 (alm_codigo) from sucursales where suc_codigo = '+IntToStr(vp_suc)+ ' and emp_codigo = '+IntToStr(dm.vp_cia)+')') else
+    QProductos.SQL.add('and e.alm_codigo = '+QuotedStr(IntToStr(almacen)));
+    end;
+    {QProductos.SQL.add('INNER JOIN EXISTENCIAS E ON');
+    QProductos.SQL.add('(e.emp_codigo = '+QuotedStr(IntToStr(DM.vp_cia)));
+    QProductos.SQL.add('and p.pro_codigo = e.pro_codigo) ');
+    QProductos.SQL.add('and p.emp_codigo = '+inttostr(dm.QParametrosPAR_INVEMPRESA.Value));
+    if almacen = 0 then
+    QProductos.SQL.add('and e.alm_codigo = (select top 1 (alm_codigo) from sucursales where suc_codigo = '+IntToStr(vp_suc)+ ' and emp_codigo = '+IntToStr(dm.vp_cia)+')') else
+    QProductos.SQL.add('and e.alm_codigo = '+QuotedStr(IntToStr(almacen)));
+    QProductos.SQL.add('and p.pro_status = '+#39+'ACT'+#39);
+    IF almacen = 0 THEN
+    QProductos.SQL.add('and e.alm_codigo > 0 ') ELSE
+    QProductos.SQL.add('and e.alm_codigo = '+inttostr(almacen));
+     }
+    {QProductos.sql.add('where p.emp_codigo = '+inttostr(dm.QParametrosPAR_INVEMPRESA.Value));
+
+    if Trim(st) = '' then
+      QProductos.sql.add('and p.pro_status = '+#39+'ACT'+#39);
+
+    if Trim(edDepto.Text) <> '' then
+      QProductos.SQL.add('and p.dep_codigo = '+Trim(edDepto.text));
+    if Trim(edFamilia.Text) <> '' then
+      QProductos.SQL.add('and p.fam_codigo = '+Trim(edFamilia.text));
+    if Trim(edMarca.Text) <> '' then
+      QProductos.SQL.add('and p.mar_codigo = '+Trim(edMarca.text));
+    if Trim(edColor.Text) <> '' then
+      QProductos.SQL.add('and p.col_codigo = '+Trim(edColor.text));
+    if Trim(edProveedor.Text) <> '' then
+      QProductos.SQL.add('and p.pro_codigo in (select pro_codigo from ProdProveedores where emp_codigo = '+IntToStr(DM.vp_cia)+' and sup_codigo = '+Trim(edProveedor.text)+')');
+    if Trim(edSerie.Text) <> '' then
+      QProductos.SQL.add('and p.pro_codigo in (select pro_codigo FROM PRODUCTOS_SERIE z where z.ser_numero= '+Trim(edSerie.text)+')');
+//      QProductos.SQL.add('and z.ser_numero = '+Trim(edSerie.text));
+
+    if rgTipo.ItemIndex = 1 then
+      QProductos.SQL.add('and p.pro_nuevousado = '+#39+'N'+#39)
+    else if rgTipo.ItemIndex = 2 then
+      QProductos.SQL.add('and p.pro_nuevousado = '+#39+'U'+#39);
+
+    if cbOpcion.itemindex = 0 then
+      QProductos.sql.add('and p.pro_codigo like '+#39+trim(edOpcion.text)+#39)
+    else if cbOpcion.itemindex = 1 then
+      QProductos.sql.add('and p.pro_roriginal like '+#39+trim(edOpcion.text)+#39)
+    else if cbOpcion.itemindex = 2 then
+      QProductos.sql.add('and p.pro_rfabric like '+#39+trim(edOpcion.text)+#39)
+    else if cbOpcion.itemindex = 3 then
+      QProductos.sql.add('and p.pro_nombre like '+#39+edOpcion.text+#39)
+    else if cbOpcion.itemindex = 4 then
+      QProductos.sql.add('and p.pro_uso like '+#39+trim(edOpcion.text)+#39);
+     QProductos.sql.add('group by P.EMP_CODIGO, P.PRO_CODIGO,');
+    QProductos.sql.add('P.PRO_RORIGINAL, P.PRO_RFABRIC, P.PRO_NOMBRE, P.PRO_PRECIO1,');
+    QProductos.sql.add('P.PRO_PRECIO2, P.PRO_COSTO, P.PRO_PRECIO3, P.PRO_PRECIO4,');
+    QProductos.sql.add('P.PRO_UBICACION, P.PRO_NUEVOUSADO, P.PRO_PRECIOMENOR, F.FAM_NOMBRE,');
+    QProductos.sql.add('M.MAR_NOMBRE, C.COL_NOMBRE, P.PRO_FOTO,pro_costoempaque,');
+    QProductos.sql.add('D.DEP_NOMBRE, P.PRO_ITBIS, substring(P.PRO_COMENTARIO,1,255),');
+    QProductos.sql.add('p.pro_cantempaque, p.pro_montoitbis,P.PRO_serializado, um.nombre');
+  end;
+      }
   case cborden.ItemIndex of
     0 : QProductos.SQL.add('order by p.pro_codigo');
     1 : QProductos.SQL.add('order by p.pro_roriginal');

@@ -1,6 +1,6 @@
 object frmRepBalComprobacion: TfrmRepBalComprobacion
-  Left = 743
-  Top = 185
+  Left = 944
+  Top = 325
   ActiveControl = cbMes
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
@@ -146,7 +146,7 @@ object frmRepBalComprobacion: TfrmRepBalComprobacion
     ItemIndex = 0
     Items.Strings = (
       'Normal'
-      'Comparativo')
+      'Anual')
     TabOrder = 5
   end
   object ckDetallado: TCheckBox
@@ -205,7 +205,7 @@ object frmRepBalComprobacion: TfrmRepBalComprobacion
   object QSucursal: TADOQuery
     Connection = DM.ADOSigma
     LockType = ltReadOnly
-    DataSource = DM.dsEmpresas
+    CommandTimeout = 0
     Parameters = <
       item
         Name = 'emp_codigo'

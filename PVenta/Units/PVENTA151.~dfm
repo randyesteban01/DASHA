@@ -1,11 +1,9 @@
 object frmConsTicket: TfrmConsTicket
-  Left = 247
-  Top = 146
-  BorderIcons = [biSystemMenu, biMinimize]
-  BorderStyle = bsSingle
+  Left = 153
+  Top = 72
+  Width = 1620
+  Height = 853
   Caption = 'Consulta de tickets de caja'
-  ClientHeight = 614
-  ClientWidth = 827
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -15,7 +13,7 @@ object frmConsTicket: TfrmConsTicket
   FormStyle = fsMDIChild
   KeyPreview = True
   OldCreateOrder = False
-  Position = poScreenCenter
+  Position = poMainFormCenter
   Scaled = False
   Visible = True
   OnActivate = FormActivate
@@ -28,7 +26,7 @@ object frmConsTicket: TfrmConsTicket
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 827
+    Width = 1604
     Height = 106
     Align = alTop
     BevelInner = bvRaised
@@ -452,22 +450,62 @@ object frmConsTicket: TfrmConsTicket
       TabOrder = 19
       OnClick = ckexentoClick
     end
+    object cbempresa: TDBLookupComboBox
+      Left = 646
+      Top = 12
+      Width = 286
+      Height = 21
+      KeyField = 'emp_codigo'
+      ListField = 'emp_nombre'
+      ListSource = dsEmpresas
+      TabOrder = 20
+      OnClick = btRefreshClick
+    end
+    object cbSucursal: TDBLookupComboBox
+      Left = 646
+      Top = 36
+      Width = 286
+      Height = 21
+      KeyField = 'suc_codigo'
+      ListField = 'suc_nombre'
+      ListSource = DS_Sucursal
+      TabOrder = 21
+      OnClick = btRefreshClick
+    end
+    object chkEmpresa: TCheckBox
+      Left = 937
+      Top = 16
+      Width = 97
+      Height = 17
+      Caption = 'Empresa'
+      TabOrder = 22
+      OnClick = btRefreshClick
+    end
+    object chkSucursal: TCheckBox
+      Left = 937
+      Top = 40
+      Width = 97
+      Height = 17
+      Caption = 'Sucursal'
+      TabOrder = 23
+      OnClick = btRefreshClick
+    end
   end
   object Panel2: TPanel
     Left = 0
-    Top = 558
-    Width = 827
-    Height = 56
+    Top = 753
+    Width = 1604
+    Height = 61
     Align = alBottom
     BevelInner = bvRaised
     BevelOuter = bvLowered
     TabOrder = 1
     DesignSize = (
-      827
-      56)
+      1604
+      61)
     object lbcant: TLabel
       Left = 8
-      Top = 32
+      Top = 8
       Width = 51
       Height = 13
       Caption = '0 Tickets'
@@ -479,7 +517,7 @@ object frmConsTicket: TfrmConsTicket
       ParentFont = False
     end
     object btRefresh: TBitBtn
-      Left = 397
+      Left = 576
       Top = 28
       Width = 81
       Height = 24
@@ -489,7 +527,7 @@ object frmConsTicket: TfrmConsTicket
       OnClick = btRefreshClick
     end
     object btClose: TBitBtn
-      Left = 741
+      Left = 920
       Top = 28
       Width = 81
       Height = 24
@@ -513,7 +551,7 @@ object frmConsTicket: TfrmConsTicket
       NumGlyphs = 2
     end
     object BitBtn2: TBitBtn
-      Left = 493
+      Left = 672
       Top = 3
       Width = 72
       Height = 24
@@ -532,7 +570,7 @@ object frmConsTicket: TfrmConsTicket
         03333333333333333333}
     end
     object BitBtn1: TBitBtn
-      Left = 677
+      Left = 856
       Top = 3
       Width = 140
       Height = 24
@@ -551,7 +589,7 @@ object frmConsTicket: TfrmConsTicket
         03333333333333333333}
     end
     object BitBtn3: TBitBtn
-      Left = 565
+      Left = 744
       Top = 3
       Width = 112
       Height = 24
@@ -570,7 +608,7 @@ object frmConsTicket: TfrmConsTicket
         03333333333333333333}
     end
     object btAnula: TBitBtn
-      Left = 316
+      Left = 495
       Top = 28
       Width = 81
       Height = 24
@@ -593,7 +631,7 @@ object frmConsTicket: TfrmConsTicket
         77777777779977770000}
     end
     object BitBtn4: TBitBtn
-      Left = 645
+      Left = 824
       Top = 28
       Width = 96
       Height = 24
@@ -603,7 +641,7 @@ object frmConsTicket: TfrmConsTicket
       OnClick = BitBtn4Click
     end
     object BitBtn5: TBitBtn
-      Left = 565
+      Left = 744
       Top = 28
       Width = 79
       Height = 24
@@ -622,7 +660,7 @@ object frmConsTicket: TfrmConsTicket
         03333333333333333333}
     end
     object BitBtn6: TBitBtn
-      Left = 477
+      Left = 656
       Top = 28
       Width = 85
       Height = 24
@@ -640,43 +678,32 @@ object frmConsTicket: TfrmConsTicket
         03333330FFFFFFFF03333330FCCCCCCF03333330FFFFFFFF0333333000000000
         03333333333333333333}
     end
-    object cbempresa: TDBLookupComboBox
-      Left = 6
-      Top = 4
-      Width = 195
-      Height = 21
-      KeyField = 'emp_codigo'
-      ListField = 'emp_nombre'
-      ListSource = dsEmpresas
-      TabOrder = 9
-      OnClick = cbempresaClick
-    end
     object btcambiar: TBitBtn
-      Left = 377
+      Left = 556
       Top = 3
       Width = 116
       Height = 24
       Anchors = [akTop, akRight]
       Caption = 'Cambiar comprobante'
-      TabOrder = 10
+      TabOrder = 9
       OnClick = btcambiarClick
     end
     object btcambiarnc: TBitBtn
-      Left = 239
+      Left = 418
       Top = 28
       Width = 75
       Height = 25
       Anchors = [akTop, akRight]
       Caption = 'Cambiar RNC'
-      TabOrder = 11
+      TabOrder = 10
       OnClick = btcambiarncClick
     end
   end
   object PageControl1: TPageControl
     Left = 0
     Top = 106
-    Width = 827
-    Height = 452
+    Width = 1604
+    Height = 647
     ActivePage = TabSheet1
     Align = alClient
     TabOrder = 2
@@ -685,19 +712,18 @@ object frmConsTicket: TfrmConsTicket
       Caption = 'Tickets en general'
       object Splitter1: TSplitter
         Left = 0
-        Top = 311
-        Width = 819
+        Top = 0
+        Width = 1596
         Height = 4
         Cursor = crVSplit
         Align = alTop
       end
       object DBGrid1: TDBGrid
         Left = 0
-        Top = 0
-        Width = 819
-        Height = 311
-        Align = alTop
-        Anchors = [akLeft, akTop, akRight, akBottom]
+        Top = 4
+        Width = 1596
+        Height = 453
+        Align = alClient
         Color = clInfoBk
         Ctl3D = False
         DataSource = dsTickets
@@ -853,19 +879,19 @@ object frmConsTicket: TfrmConsTicket
       end
       object PageControl2: TPageControl
         Left = 0
-        Top = 315
-        Width = 819
-        Height = 109
-        ActivePage = TabSheet4
-        Align = alClient
+        Top = 457
+        Width = 1596
+        Height = 162
+        ActivePage = TabSheet3
+        Align = alBottom
         TabOrder = 1
         object TabSheet3: TTabSheet
           Caption = 'Detalle'
           object Grid: TDBGrid
             Left = 0
             Top = 0
-            Width = 811
-            Height = 81
+            Width = 1588
+            Height = 134
             Align = alClient
             Color = clInfoBk
             Ctl3D = False
@@ -956,8 +982,8 @@ object frmConsTicket: TfrmConsTicket
           object DBGrid3: TDBGrid
             Left = 0
             Top = 0
-            Width = 811
-            Height = 81
+            Width = 1588
+            Height = 133
             Align = alClient
             Color = clInfoBk
             Ctl3D = False
@@ -1013,6 +1039,20 @@ object frmConsTicket: TfrmConsTicket
                 Title.Caption = '# Documento'
                 Width = 69
                 Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'for_veriphone_desc'
+                Title.Caption = 'Respuesta Veriphone'
+                Width = 270
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'for_veriphone_devolucion'
+                Title.Caption = 'Respuesta Veriphone Anulacion'
+                Width = 336
+                Visible = True
               end>
           end
         end
@@ -1024,8 +1064,8 @@ object frmConsTicket: TfrmConsTicket
       object DBGrid2: TDBGrid
         Left = 0
         Top = 0
-        Width = 819
-        Height = 424
+        Width = 1596
+        Height = 619
         Align = alClient
         Color = clInfoBk
         Ctl3D = False
@@ -1118,8 +1158,8 @@ object frmConsTicket: TfrmConsTicket
       object DBGrid4: TDBGrid
         Left = 0
         Top = 0
-        Width = 819
-        Height = 424
+        Width = 1596
+        Height = 618
         Align = alClient
         Color = clInfoBk
         Ctl3D = False
@@ -1251,14 +1291,6 @@ object frmConsTicket: TfrmConsTicket
         Precision = 23
         Size = 16
         Value = Null
-      end
-      item
-        Name = 'emp'
-        Attributes = [paSigned, paNullable]
-        DataType = ftInteger
-        Precision = 10
-        Size = 4
-        Value = Null
       end>
     SQL.Strings = (
       'select '
@@ -1272,21 +1304,19 @@ object frmConsTicket: TfrmConsTicket
         'm.nombre_domicilio, m.telefono_domicilio, m.Domicilio, u.usu_nom' +
         'bre,'
       's.usu_nombre as Supervisor, m.ncf_tipo, c.Nombre as NombreCaja,'
-      'm.emp_codigo, m.grabado, m.exento'
+      'm.emp_codigo, m.suc_codigo,  m.grabado, m.exento'
       'from'
       'montos_ticket m'
+      'left join usuarios s on (m.supervisor = s.usu_codigo)'
+      'inner join usuarios u on m.usu_codigo = u.usu_codigo '
       
-        'left outer join usuarios s on (m.supervisor = s.usu_codigo), usu' +
-        'arios u, cajas_ip c'
-      'where'
-      'm.usu_codigo = u.usu_codigo'
+        'inner join cajas_ip c on m.caja=c.caja and m.emp_codigo = c.emp_' +
+        'codigo and m.suc_codigo = c.suc_codigo'
+      'where m.ticket > 0'
+      'and m.status <> '#39'ABI'#39
       
         'and m.fecha between convert(datetime, :fec1, 105) and convert(da' +
-        'tetime, :fec2, 105)'
-      'and m.caja = c.caja'
-      'and m.emp_codigo = :emp'
-      'and m.ticket > 0'
-      'and m.status <> '#39'ABI'#39)
+        'tetime, :fec2, 105)')
     Left = 552
     Top = 168
     object QTicketsNCF: TStringField
@@ -1397,6 +1427,9 @@ object frmConsTicket: TfrmConsTicket
       currency = True
       Precision = 18
       Size = 2
+    end
+    object QTicketssuc_codigo: TIntegerField
+      FieldName = 'suc_codigo'
     end
   end
   object dsTickets: TDataSource
@@ -1682,7 +1715,8 @@ object frmConsTicket: TfrmConsTicket
       '  when '#39'BOC'#39' then '#39'Bono Club'#39
       '  when '#39'OBO'#39' then '#39'Otros Bonos'#39
       'end as forma_pago,'
-      'pagado, devuelta, documento, cliente, credito'
+      'pagado, devuelta, documento, cliente, credito, '
+      'for_veriphone_desc, for_veriphone_devolucion'
       'from'
       'formas_pago_ticket'
       'where'
@@ -1726,6 +1760,14 @@ object frmConsTicket: TfrmConsTicket
       FieldKind = fkCalculated
       FieldName = 'PagoTicket'
       Calculated = True
+    end
+    object QFormapagofor_veriphone_desc: TStringField
+      FieldName = 'for_veriphone_desc'
+      Size = 2500
+    end
+    object QFormapagofor_veriphone_devolucion: TStringField
+      FieldName = 'for_veriphone_devolucion'
+      Size = 255
     end
   end
   object dsForma: TDataSource
@@ -1828,6 +1870,7 @@ object frmConsTicket: TfrmConsTicket
   end
   object QEmpresas: TADOQuery
     Connection = DM.ADOSigma
+    AfterOpen = QEmpresasAfterOpen
     CommandTimeout = 0
     Parameters = <
       item
@@ -1840,7 +1883,7 @@ object frmConsTicket: TfrmConsTicket
       end>
     SQL.Strings = (
       'select'
-      'e.emp_codigo, e.emp_nombre'
+      'e.emp_codigo, e.emp_nombre, a.usu_codigo'
       'from'
       'empresas e, empaccesos a'
       'where'
@@ -1857,6 +1900,9 @@ object frmConsTicket: TfrmConsTicket
     object QEmpresasemp_nombre: TStringField
       FieldName = 'emp_nombre'
       Size = 60
+    end
+    object QEmpresasusu_codigo: TIntegerField
+      FieldName = 'usu_codigo'
     end
   end
   object dsEmpresas: TDataSource
@@ -1908,9 +1954,9 @@ object frmConsTicket: TfrmConsTicket
       item
         Name = '@ncf_sec'
         Attributes = [paNullable]
-        DataType = ftBCD
+        DataType = ftInteger
         Direction = pdInputOutput
-        Precision = 18
+        Precision = 10
         Value = Null
       end>
     Left = 256
@@ -1931,5 +1977,50 @@ object frmConsTicket: TfrmConsTicket
       Caption = 'Cambiar empresa'
       OnClick = Cambiarempresa1Click
     end
+  end
+  object qSucursal: TADOQuery
+    Connection = DM.ADOSigma
+    CommandTimeout = 0
+    DataSource = dsEmpresas
+    Parameters = <
+      item
+        Name = 'usu_codigo'
+        DataType = ftInteger
+        Size = -1
+        Value = Null
+      end
+      item
+        Name = 'emp_codigo'
+        DataType = ftInteger
+        Size = -1
+        Value = Null
+      end>
+    SQL.Strings = (
+      'select'
+      'e.suc_codigo, e.suc_nombre'
+      'from'
+      'sucursales e, Sucursal_Acceso a'
+      'where'
+      'e.emp_codigo = a.emp_codigo'
+      'and e.suc_codigo = a.suc_codigo'
+      'and a.usu_codigo = :usu_codigo'
+      'and e.emp_codigo = :emp_codigo'
+      'and e.suc_status = '#39'ACT'#39
+      'order by'
+      '1')
+    Left = 288
+    Top = 208
+    object qSucursalsuc_codigo: TIntegerField
+      FieldName = 'suc_codigo'
+    end
+    object qSucursalsuc_nombre: TStringField
+      FieldName = 'suc_nombre'
+      Size = 255
+    end
+  end
+  object DS_Sucursal: TDataSource
+    DataSet = qSucursal
+    Left = 320
+    Top = 208
   end
 end

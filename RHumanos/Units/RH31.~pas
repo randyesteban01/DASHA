@@ -601,7 +601,7 @@ begin
      (trim(QEmpleadosemp_apellido_paterno.value) = '') then
   begin
     showmessage('EL APELLIDO MATERNO / PATERNO NO PUEDE ESTAR EN BLANCO');
-    DBEdit4.setfocus;
+    DBEdit3.setfocus;
     abort;
   end;
 

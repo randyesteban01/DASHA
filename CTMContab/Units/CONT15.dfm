@@ -1,6 +1,6 @@
 object frmEntradasDiario: TfrmEntradasDiario
-  Left = 432
-  Top = 181
+  Left = 465
+  Top = 189
   ActiveControl = DBEdit1
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
@@ -755,9 +755,8 @@ object frmEntradasDiario: TfrmEntradasDiario
     object QTransSUC_CODIGO: TIntegerField
       FieldName = 'SUC_CODIGO'
     end
-    object QTranscont_numeroSucursal: TStringField
+    object QTranscont_numeroSucursal: TIntegerField
       FieldName = 'cont_numeroSucursal'
-      Size = 5
     end
   end
   object QDetalle: TADOQuery

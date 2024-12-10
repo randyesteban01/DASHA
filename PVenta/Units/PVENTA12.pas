@@ -568,8 +568,13 @@ type
     QUsuariosusu_solo_conduce: TBooleanField;
     dbchkusu_modifica_nombreprod: TDBCheckBox;
     QUsuariosusu_modifica_nombreprod: TBooleanField;
-    DBCheckBox16: TDBCheckBox;
-    QUsuariosusu_elimina_factura_temporal: TBooleanField;
+    Label8: TLabel;
+    DBLookupComboBox2: TDBLookupComboBox;
+    QSucursalesDefault: TADOQuery;
+    IntegerField1: TIntegerField;
+    StringField1: TStringField;
+    dsSucursalDefault: TDataSource;
+    QUsuariosusu_suc_default: TIntegerField;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btCloseClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
@@ -789,6 +794,12 @@ begin
 
     QEmpresas.Open;
     QSucursales.Open;
+    
+    QSucursalesDefault.Close;
+    QSucursalesDefault.Parameters.ParamByName('emp_codigo').Value := QEmpresasEMP_CODIGO.Value;
+    QSucursalesDefault.Parameters.ParamByName('usu_codigo').Value := QUsuariosUSU_CODIGO.Value;
+    QSucursalesDefault.Open;
+
   end;
   Lista1.refresh;
   frmMain.ExportXLS.Sheets[2].DataSet := QUsuarios;
@@ -821,7 +832,6 @@ begin
   QUsuariosusu_supervisor.Value       := False;
   QUsuariosusu_camarero.Value         := False;
   QUsuariosusu_vendedor.Value         := False;
-  QUsuariosusu_modifica_nombreprod.Value  := False;
 
 end;
 
@@ -915,6 +925,7 @@ begin
    //   Lista4.items.savetofile(ExtractFilePath(Application.ExeName)+'usuopc4.txt');
   Lista1.Refresh;
   lockwindowupdate(0);
+
 end;
 
 procedure TfrmUsuarios.Lista1DblClick(Sender: TObject);
@@ -1116,42 +1127,18 @@ end;
 
 procedure TfrmUsuarios.ckInsertClick(Sender: TObject);
 begin
-
- if (Lista1.Selected.Index=-1)  then
-  begin
-    MessageDlg('DEBE SELECCIONAR UN ITEMS DE LA LISTA.', mtWarning, [mbOk], 0);
-
-  end   ;
-
-  if (Lista1.Selected.Index>0)  then
-  begin
   if ckInsert.Checked then
-        Ins.Items[Lista1.Selected.AbsoluteIndex] := 'True' 
-   else
-       Ins.Items[Lista1.Selected.AbsoluteIndex] := 'False';
-  end
-  { else
-   begin
-    MessageDlg('DEBE SELECCIONAR UN ITEMS DE LA LSITA.', mtWarning, [mbOk], 0);
-    ckInsert.Checked :=false;
-    end     }
-    
-   
- // if ckInsert.Checked then
-   //  Ins.Items[Lista1.Selected.AbsoluteIndex] := 'True'
-  //else
-    // Ins.Items[Lista1.Selected.AbsoluteIndex] := 'False';
+     Ins.Items[Lista1.Selected.AbsoluteIndex] := 'True'
+  else
+     Ins.Items[Lista1.Selected.AbsoluteIndex] := 'False';
 end;
 
 procedure TfrmUsuarios.ckEditClick(Sender: TObject);
 begin
-if (Lista1.Selected.Index>0)  then
-  begin
   if ckEdit.Checked then
      Modi.Items[Lista1.Selected.AbsoluteIndex] := 'True'
   else
      Modi.Items[Lista1.Selected.AbsoluteIndex] := 'False';
-     end;
 end;
 
 procedure TfrmUsuarios.ckDeleteClick(Sender: TObject);
@@ -1443,6 +1430,5 @@ begin
 if QUsuariosusu_vendedor.Value = True then
 QUsuariosusu_Cajero.Value := False;
 end;
-
 
 end.

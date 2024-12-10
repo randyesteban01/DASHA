@@ -442,9 +442,11 @@ type
     tAseguradora: TEdit;
     LB_2: TLabel;
     LB_3: TLabel;
+    DBDEdtFECHA_VENC_SEG: TDBDateEdit;
     grp2: TGroupBox;
     LB_5: TLabel;
     LB_6: TLabel;
+    DBDEdtFECHA_VENC_lic: TDBDateEdit;
     CB_TIPO_SEG: TComboBox;
     CB_TIPO_CAT_LIC: TComboBox;
     LB_4: TLabel;
@@ -814,14 +816,29 @@ begin
   Search.AliasFields.Add('Cédula');
   Search.AliasFields.Add('Código');
   Search.query.clear;
-  Search.query.add('select cli_nombre, cli_referencia, cli_telefono, cli_cedula, cli_codigo');
+  Search.query.add('select ');
+  Search.query.add('COALESCE(cli_nombre, '''') as cli_nombre, ');
+  Search.query.add('COALESCE(cli_referencia, '''') as cli_referencia, ');
+  Search.query.add('COALESCE(cli_telefono, '''') as cli_telefono, ');
+  Search.query.add('COALESCE(cli_cedula, '''') as cli_cedula, ');
+  Search.query.add('COALESCE(cli_codigo, '''') as cli_codigo ');
+
+  //Search.query.add('select cli_nombre, cli_referencia, cli_telefono, cli_cedula, cli_codigo');
   Search.query.add('from clientes');
   Search.query.add('where emp_codigo = '+inttostr(dm.vp_cia));
   if search.execute then
-     begin
-      QClientes.locate('cli_codigo',search.valuefield,[]);
+  begin
+    if not VarIsNull(search.valuefield) and not VarIsEmpty(search.valuefield) then
+    begin
+      QClientes.locate('cli_codigo', search.valuefield, []);
       totalizacxc;
-     end;
+    end
+    else
+    begin
+      ShowMessage('El valor de búsqueda es nulo o vacío.');
+    end;
+  end;
+
 {  if search.execute then
   begin
     QClientes.Close;
@@ -1471,14 +1488,18 @@ procedure TfrmClientes.dsClientesDataChange(Sender: TObject;
 begin
   if not QClientesusu_codigo.IsNull then
   begin
-    Query1.Close;
-    Query1.SQL.Clear;
-    Query1.SQL.Add('select usu_nombre from usuarios');
-    Query1.SQL.Add('where usu_codigo = :usu');
-    Query1.Parameters.ParamByName('usu').Value := QClientesusu_codigo.Value;
-    Query1.Open;
-    tusuario.Text := Query1.FieldByName('usu_nombre').Value;
-  end
+   Query1.Close;
+Query1.SQL.Clear;
+Query1.SQL.Add('select usu_nombre from usuarios');
+Query1.SQL.Add('where usu_codigo = :usu');
+Query1.Parameters.ParamByName('usu').Value := QClientesusu_codigo.Value;
+Query1.Open;
+
+if Query1.FieldByName('usu_nombre').IsNull then
+  tusuario.Text := ''
+else
+  tusuario.Text := Query1.FieldByName('usu_nombre').AsString;
+end
   else
     tusuario.Text := '';
 

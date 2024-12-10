@@ -1,6 +1,6 @@
 object FrmRecibosPagoDestino: TFrmRecibosPagoDestino
-  Left = 576
-  Top = 348
+  Left = 315
+  Top = 296
   Width = 805
   Height = 220
   ActiveControl = GridForma
@@ -738,5 +738,11 @@ object FrmRecibosPagoDestino: TFrmRecibosPagoDestino
     DataSet = QForma
     Left = 616
     Top = 146
+  end
+  object queryMU: TADOQuery
+    Connection = DM.ADOSigma
+    Parameters = <>
+    Left = 344
+    Top = 96
   end
 end

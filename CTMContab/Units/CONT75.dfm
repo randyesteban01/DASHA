@@ -1,6 +1,6 @@
 object frmConsComprobantes: TfrmConsComprobantes
-  Left = 349
-  Top = 300
+  Left = 308
+  Top = 228
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Comprobantes fiscales'
@@ -383,7 +383,7 @@ object frmConsComprobantes: TfrmConsComprobantes
         'to)credito, sum(tarjetadebcred) tarjetas, sum(otrasformpag) otra' +
         's'
       'from'#9'pr_comprobantes (:emp, :tipo, :fec1, :fec2, :tiporeporte)'
-      'group'#9'by Fecha, ncf_fijo1'
+      'group'#9'by sec1,  Fecha, ncf_fijo1'
       'order'#9'by 1'
       '')
     Left = 224

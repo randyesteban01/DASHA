@@ -1,6 +1,6 @@
 object frmFacProvee: TfrmFacProvee
-  Left = 395
-  Top = 89
+  Left = 542
+  Top = 81
   ActiveControl = edProveedor
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
@@ -1307,15 +1307,6 @@ object frmFacProvee: TfrmFacProvee
             Visible = True
           end
           item
-            Expanded = False
-            FieldName = 'cod_UnidadMedida'
-            ReadOnly = True
-            Title.Alignment = taCenter
-            Title.Caption = 'Unidad Medida'
-            Width = 80
-            Visible = True
-          end
-          item
             Alignment = taCenter
             Expanded = False
             FieldName = 'DET_MEDIDA'
@@ -2563,7 +2554,7 @@ object frmFacProvee: TfrmFacProvee
       'det_cambiarprecio, det_Descuento,'
       'pro_unidad_medida, UnidadID, Medida_Precio1, Medida_Precio2,'
       'Medida_Precio3, Medida_Precio4, det_cant_unidad_medida,'
-      'det_cant_pendiente, cod_UnidadMedida'
+      'det_cant_pendiente'
       'From '
       'DET_PROVFACTURAS'
       'where '
@@ -2878,9 +2869,6 @@ object frmFacProvee: TfrmFacProvee
       FieldName = 'det_cant_pendiente'
       Precision = 10
       Size = 2
-    end
-    object QDetallecod_UnidadMedida: TStringField
-      FieldName = 'cod_UnidadMedida'
     end
   end
   object dsDetalle: TDataSource

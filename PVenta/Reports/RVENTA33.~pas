@@ -86,7 +86,27 @@ type
     QRShape11: TQRShape;
     QNotaMONEDA: TStringField;
     QRDBText9: TQRDBText;
+    qSucursal: TADOQuery;
+    IntegerField1: TIntegerField;
+    StringField1: TStringField;
+    StringField2: TStringField;
+    StringField3: TStringField;
+    StringField4: TStringField;
+    StringField5: TStringField;
+    StringField6: TStringField;
+    StringField7: TStringField;
+    StringField8: TStringField;
+    StringField9: TStringField;
+    StringField10: TStringField;
+    StringField11: TStringField;
+    StringField12: TStringField;
+    BlobField1: TBlobField;
+    dsSucursal: TDataSource;
+    QNotasuc_codigo: TIntegerField;
+    dsNota: TDataSource;
+    QNotaNCR_MONTO2: TFloatField;
     procedure QNotaCalcFields(DataSet: TDataSet);
+    procedure QNotaAfterOpen(DataSet: TDataSet);
   private
 
   public
@@ -110,6 +130,11 @@ begin
     QNotaNumeroCF.Value := 'NCF:'+ QNotaNCF_Fijo.Value+FormatFloat('00000000',QNotaNCF_Secuencia.Value)
   else
     QNotaNumeroCF.Value := ' ';
+end;
+
+procedure TRNotaCredito.QNotaAfterOpen(DataSet: TDataSet);
+begin
+qSucursal.Open;
 end;
 
 end.

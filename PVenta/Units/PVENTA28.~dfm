@@ -1,6 +1,6 @@
 object frmConduce: TfrmConduce
-  Left = 563
-  Top = 216
+  Left = 426
+  Top = 26
   ActiveControl = DBEdit5
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
@@ -210,9 +210,9 @@ object frmConduce: TfrmConduce
       ParentFont = False
     end
     object btfactura: TSpeedButton
-      Left = 278
+      Left = 280
       Top = 128
-      Width = 73
+      Width = 71
       Height = 21
       Caption = 'Factura'
       Enabled = False
@@ -453,7 +453,7 @@ object frmConduce: TfrmConduce
       Top = 4
       Width = 409
       Height = 117
-      ActivePage = TabSheet1
+      ActivePage = TabSheet2
       TabOrder = 9
       object TabSheet2: TTabSheet
         Caption = 'Proveedor'
@@ -1705,6 +1705,7 @@ object frmConduce: TfrmConduce
     Connection = DM.ADOSigma
     CursorType = ctStatic
     LockType = ltBatchOptimistic
+    AfterOpen = QConduceAfterOpen
     AfterEdit = QConduceAfterEdit
     BeforePost = QConduceBeforePost
     OnCalcFields = QConduceCalcFields

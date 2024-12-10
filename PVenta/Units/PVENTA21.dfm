@@ -5,8 +5,8 @@ object frmNotasCR: TfrmNotasCR
   BorderIcons = [biSystemMenu, biMinimize, biHelp]
   BorderStyle = bsSingle
   Caption = 'Notas de cr'#233'dito'
-  ClientHeight = 439
-  ClientWidth = 760
+  ClientHeight = 408
+  ClientWidth = 706
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -25,12 +25,12 @@ object frmNotasCR: TfrmNotasCR
   OnKeyPress = FormKeyPress
   OnPaint = FormPaint
   PixelsPerInch = 96
-  TextHeight = 14
+  TextHeight = 13
   object spcentros: TSpeedButton
-    Left = 520
-    Top = 407
-    Width = 71
-    Height = 24
+    Left = 483
+    Top = 378
+    Width = 66
+    Height = 22
     Caption = 'Centros'
     Glyph.Data = {
       36030000424D3603000000000000360000002800000010000000100000000100
@@ -62,30 +62,30 @@ object frmNotasCR: TfrmNotasCR
     OnClick = spcentrosClick
   end
   object Panel1: TPanel
-    Left = 9
-    Top = 8
-    Width = 742
-    Height = 44
+    Left = 8
+    Top = 7
+    Width = 689
+    Height = 41
     TabOrder = 0
     object Label1: TLabel
-      Left = 22
-      Top = 14
+      Left = 20
+      Top = 13
       Width = 37
-      Height = 14
+      Height = 13
       Caption = 'N'#250'mero'
     end
     object Label14: TLabel
-      Left = 163
-      Top = 14
-      Width = 43
-      Height = 14
+      Left = 151
+      Top = 13
+      Width = 41
+      Height = 13
       Caption = 'Sucursal'
     end
     object DBEdit1: TDBEdit
-      Left = 69
-      Top = 11
-      Width = 79
-      Height = 22
+      Left = 64
+      Top = 10
+      Width = 73
+      Height = 21
       BevelKind = bkFlat
       BorderStyle = bsNone
       Color = clInfoBk
@@ -94,23 +94,23 @@ object frmNotasCR: TfrmNotasCR
       Enabled = False
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
       TabOrder = 0
     end
     object DBLookupComboBox2: TDBLookupComboBox
-      Left = 215
-      Top = 11
-      Width = 518
-      Height = 22
+      Left = 200
+      Top = 10
+      Width = 481
+      Height = 21
       DataField = 'SUC_CODIGO'
       DataSource = dsNota
       DropDownRows = 20
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = []
       KeyField = 'suc_codigo'
@@ -121,25 +121,25 @@ object frmNotasCR: TfrmNotasCR
     end
   end
   object Panel2: TPanel
-    Left = 9
-    Top = 60
-    Width = 742
-    Height = 337
+    Left = 8
+    Top = 56
+    Width = 689
+    Height = 313
     Ctl3D = True
     ParentCtl3D = False
     TabOrder = 1
     object Label2: TLabel
-      Left = 181
-      Top = 9
+      Left = 168
+      Top = 8
       Width = 32
-      Height = 14
+      Height = 13
       Caption = 'Cliente'
     end
     object btCliente: TSpeedButton
-      Left = 297
-      Top = 9
-      Width = 25
-      Height = 23
+      Left = 276
+      Top = 8
+      Width = 23
+      Height = 22
       Flat = True
       Glyph.Data = {
         42010000424D4201000000000000760000002800000011000000110000000100
@@ -156,44 +156,44 @@ object frmNotasCR: TfrmNotasCR
       OnClick = btClienteClick
     end
     object Label3: TLabel
-      Left = 181
-      Top = 60
+      Left = 168
+      Top = 56
       Width = 30
-      Height = 14
+      Height = 13
       Caption = 'Fecha'
     end
     object Label4: TLabel
-      Left = 181
-      Top = 34
+      Left = 168
+      Top = 32
       Width = 46
-      Height = 14
+      Height = 13
       Caption = 'Concepto'
     end
     object Label6: TLabel
-      Left = 338
-      Top = 60
-      Width = 29
-      Height = 14
+      Left = 314
+      Top = 56
+      Width = 30
+      Height = 13
       Caption = 'Monto'
     end
     object Label5: TLabel
-      Left = 490
-      Top = 60
+      Left = 455
+      Top = 56
       Width = 19
-      Height = 14
+      Height = 13
       Caption = 'Itbis'
     end
     object edCliente: TEdit
-      Left = 241
-      Top = 9
-      Width = 53
-      Height = 22
+      Left = 224
+      Top = 8
+      Width = 49
+      Height = 21
       BevelKind = bkFlat
       BorderStyle = bsNone
       CharCase = ecUpperCase
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
@@ -201,27 +201,27 @@ object frmNotasCR: TfrmNotasCR
       OnKeyDown = edClienteKeyDown
     end
     object tCliente: TEdit
-      Left = 324
-      Top = 9
-      Width = 409
-      Height = 22
+      Left = 301
+      Top = 8
+      Width = 380
+      Height = 21
       BevelKind = bkFlat
       BorderStyle = bsNone
       Color = clInfoBk
       Enabled = False
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
       TabOrder = 1
     end
     object DBEdit2: TDBEdit
-      Left = 241
-      Top = 34
-      Width = 492
-      Height = 23
+      Left = 224
+      Top = 32
+      Width = 457
+      Height = 21
       BevelKind = bkFlat
       BorderStyle = bsNone
       CharCase = ecUpperCase
@@ -229,41 +229,41 @@ object frmNotasCR: TfrmNotasCR
       DataSource = dsNota
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
       TabOrder = 2
     end
     object DBEdit3: TDBEdit
-      Left = 241
-      Top = 60
-      Width = 79
-      Height = 23
+      Left = 224
+      Top = 56
+      Width = 73
+      Height = 21
       BevelKind = bkFlat
       BorderStyle = bsNone
       DataField = 'NCR_FECHA'
       DataSource = dsNota
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
       TabOrder = 3
     end
     object DBEdit5: TDBEdit
-      Left = 379
-      Top = 60
-      Width = 96
-      Height = 23
+      Left = 352
+      Top = 56
+      Width = 89
+      Height = 21
       BevelKind = bkFlat
       BorderStyle = bsNone
       DataField = 'NCR_MONTO'
       DataSource = dsNota
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
@@ -272,8 +272,8 @@ object frmNotasCR: TfrmNotasCR
     object rbTipoNota: TRadioGroup
       Left = 1
       Top = 1
-      Width = 172
-      Height = 78
+      Width = 160
+      Height = 72
       Items.Strings = (
         'A un Cliente'
         'A un movimiento pendiente')
@@ -282,23 +282,23 @@ object frmNotasCR: TfrmNotasCR
     end
     object PageControl1: TPageControl
       Left = 1
-      Top = 86
-      Width = 740
-      Height = 250
+      Top = 80
+      Width = 687
+      Height = 232
       ActivePage = TabSheet1
       Align = alBottom
       TabOrder = 6
       object TabSheet1: TTabSheet
         Caption = 'Documentos adeudados'
         object Label15: TLabel
-          Left = 353
-          Top = 198
-          Width = 103
-          Height = 15
+          Left = 328
+          Top = 184
+          Width = 116
+          Height = 13
           Caption = 'TOTAL PENDIENTE'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
-          Font.Height = -12
+          Font.Height = -11
           Font.Name = 'MS Sans Serif'
           Font.Style = [fsBold]
           ParentFont = False
@@ -306,15 +306,15 @@ object frmNotasCR: TfrmNotasCR
         object GridMov: TDBGrid
           Left = 0
           Top = 0
-          Width = 732
-          Height = 191
+          Width = 679
+          Height = 177
           Align = alTop
           Color = clInfoBk
           Ctl3D = False
           DataSource = dsMov
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
-          Font.Height = -12
+          Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
           Options = [dgTitles, dgColumnResize, dgColLines, dgTabs, dgRowSelect, dgAlwaysShowSelection]
@@ -402,17 +402,17 @@ object frmNotasCR: TfrmNotasCR
             end>
         end
         object lbSaldo: TStaticText
-          Left = 482
-          Top = 197
-          Width = 144
-          Height = 18
+          Left = 448
+          Top = 183
+          Width = 133
+          Height = 17
           Alignment = taRightJustify
           AutoSize = False
           BorderStyle = sbsSunken
           Caption = '0.00'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clRed
-          Font.Height = -12
+          Font.Height = -11
           Font.Name = 'MS Sans Serif'
           Font.Style = [fsBold]
           ParentFont = False
@@ -423,53 +423,53 @@ object frmNotasCR: TfrmNotasCR
         Caption = 'Cuentas contables'
         ImageIndex = 1
         object Label8: TLabel
-          Left = 457
-          Top = 169
-          Width = 55
-          Height = 14
+          Left = 424
+          Top = 157
+          Width = 54
+          Height = 13
           Caption = 'Cr'#233'ditos'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
-          Font.Height = -12
+          Font.Height = -11
           Font.Name = 'Verdana'
           Font.Style = [fsBold]
           ParentFont = False
         end
         object Label10: TLabel
-          Left = 457
-          Top = 186
-          Width = 50
-          Height = 14
+          Left = 424
+          Top = 173
+          Width = 49
+          Height = 13
           Caption = 'D'#233'bitos'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
-          Font.Height = -12
+          Font.Height = -11
           Font.Name = 'Verdana'
           Font.Style = [fsBold]
           ParentFont = False
         end
         object Label11: TLabel
-          Left = 457
-          Top = 204
-          Width = 52
-          Height = 14
+          Left = 424
+          Top = 189
+          Width = 51
+          Height = 13
           Caption = 'Balance'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
-          Font.Height = -12
+          Font.Height = -11
           Font.Name = 'Verdana'
           Font.Style = [fsBold]
           ParentFont = False
         end
         object btBuscaCta: TBitBtn
-          Left = 9
-          Top = 191
-          Width = 164
-          Height = 27
+          Left = 8
+          Top = 177
+          Width = 153
+          Height = 25
           Caption = '[ F4 ] - Buscar Cuenta   '
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
-          Font.Height = -12
+          Font.Height = -11
           Font.Name = 'MS Sans Serif'
           Font.Style = [fsBold]
           ParentFont = False
@@ -477,14 +477,14 @@ object frmNotasCR: TfrmNotasCR
           OnClick = btBuscaCtaClick
         end
         object btElimina: TBitBtn
-          Left = 181
-          Top = 191
-          Width = 165
-          Height = 27
+          Left = 168
+          Top = 177
+          Width = 153
+          Height = 25
           Caption = '[ F6 ] - Eliminar Cuenta'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
-          Font.Height = -12
+          Font.Height = -11
           Font.Name = 'MS Sans Serif'
           Font.Style = [fsBold]
           ParentFont = False
@@ -492,51 +492,51 @@ object frmNotasCR: TfrmNotasCR
           OnClick = btEliminaClick
         end
         object lbCR: TStaticText
-          Left = 517
-          Top = 167
-          Width = 111
-          Height = 18
+          Left = 480
+          Top = 155
+          Width = 103
+          Height = 17
           Alignment = taRightJustify
           AutoSize = False
           BorderStyle = sbsSunken
           Caption = '0.00'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
-          Font.Height = -12
+          Font.Height = -11
           Font.Name = 'Verdana'
           Font.Style = [fsBold]
           ParentFont = False
           TabOrder = 2
         end
         object lbBAL: TStaticText
-          Left = 517
-          Top = 201
-          Width = 111
-          Height = 19
+          Left = 480
+          Top = 187
+          Width = 103
+          Height = 17
           Alignment = taRightJustify
           AutoSize = False
           BorderStyle = sbsSunken
           Caption = '0.00'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
-          Font.Height = -12
+          Font.Height = -11
           Font.Name = 'Verdana'
           Font.Style = [fsBold]
           ParentFont = False
           TabOrder = 3
         end
         object lbDB: TStaticText
-          Left = 517
-          Top = 184
-          Width = 111
-          Height = 18
+          Left = 480
+          Top = 171
+          Width = 103
+          Height = 17
           Alignment = taRightJustify
           AutoSize = False
           BorderStyle = sbsSunken
           Caption = '0.00'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
-          Font.Height = -12
+          Font.Height = -11
           Font.Name = 'Verdana'
           Font.Style = [fsBold]
           ParentFont = False
@@ -545,8 +545,8 @@ object frmNotasCR: TfrmNotasCR
         object GridCuentas: TDBGridObj
           Left = 0
           Top = 0
-          Width = 731
-          Height = 165
+          Width = 679
+          Height = 153
           Align = alTop
           DataSource = dsDetalle
           Options = [dgEditing, dgTitles, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
@@ -603,10 +603,10 @@ object frmNotasCR: TfrmNotasCR
       end
     end
     object DBCheckBox1: TDBCheckBox
-      Left = 638
-      Top = 60
-      Width = 95
-      Height = 19
+      Left = 592
+      Top = 56
+      Width = 89
+      Height = 17
       Caption = 'Genera NCF'
       DataField = 'ncr_genera_ncf'
       DataSource = dsNota
@@ -615,17 +615,17 @@ object frmNotasCR: TfrmNotasCR
       ValueUnchecked = 'False'
     end
     object DBEdit4: TDBEdit
-      Left = 515
-      Top = 60
-      Width = 96
-      Height = 23
+      Left = 478
+      Top = 56
+      Width = 89
+      Height = 21
       BevelKind = bkFlat
       BorderStyle = bsNone
       DataField = 'ncr_itbis'
       DataSource = dsNota
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -12
+      Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
@@ -633,14 +633,14 @@ object frmNotasCR: TfrmNotasCR
     end
   end
   object btLimpiar: TBitBtn
-    Left = 181
-    Top = 405
-    Width = 158
-    Height = 27
+    Left = 168
+    Top = 376
+    Width = 147
+    Height = 25
     Caption = '[ F3 ] - Limpiar / Nueva'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -12
+    Font.Height = -11
     Font.Name = 'MS Sans Serif'
     Font.Style = [fsBold]
     ParentFont = False
@@ -648,14 +648,14 @@ object frmNotasCR: TfrmNotasCR
     OnClick = btLimpiarClick
   end
   object BitBtn2: TBitBtn
-    Left = 345
-    Top = 405
-    Width = 167
-    Height = 27
+    Left = 320
+    Top = 376
+    Width = 155
+    Height = 25
     Caption = '[ F10 ] - Salir / Cancelar'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -12
+    Font.Height = -11
     Font.Name = 'MS Sans Serif'
     Font.Style = [fsBold]
     ParentFont = False
@@ -664,14 +664,14 @@ object frmNotasCR: TfrmNotasCR
     NumGlyphs = 2
   end
   object btPost: TBitBtn
-    Left = 17
-    Top = 404
-    Width = 159
-    Height = 27
+    Left = 16
+    Top = 375
+    Width = 147
+    Height = 25
     Caption = '[ F2 ] - Grabar Nota'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -12
+    Font.Height = -11
     Font.Name = 'MS Sans Serif'
     Font.Style = [fsBold]
     ParentFont = False

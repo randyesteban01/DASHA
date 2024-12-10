@@ -1,12 +1,12 @@
 object frmEstadoCtaCli: TfrmEstadoCtaCli
-  Left = 350
-  Top = 194
+  Left = 491
+  Top = 271
   ActiveControl = edTipo
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Estado de cuentas de clientes'
-  ClientHeight = 290
-  ClientWidth = 501
+  ClientHeight = 312
+  ClientWidth = 540
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -24,36 +24,36 @@ object frmEstadoCtaCli: TfrmEstadoCtaCli
   OnKeyDown = FormKeyDown
   OnKeyPress = FormKeyPress
   DesignSize = (
-    501
-    290)
+    540
+    312)
   PixelsPerInch = 96
-  TextHeight = 13
+  TextHeight = 14
   object Label1: TLabel
-    Left = 104
-    Top = 32
-    Width = 46
-    Height = 13
+    Left = 112
+    Top = 34
+    Width = 47
+    Height = 14
     Caption = 'Vendedor'
   end
   object Label2: TLabel
-    Left = 104
-    Top = 56
-    Width = 64
-    Height = 13
+    Left = 112
+    Top = 60
+    Width = 65
+    Height = 14
     Caption = 'Cliente desde'
   end
   object Label3: TLabel
-    Left = 104
-    Top = 80
-    Width = 61
-    Height = 13
+    Left = 112
+    Top = 86
+    Width = 62
+    Height = 14
     Caption = 'Cliente hasta'
   end
   object btVendedor: TSpeedButton
-    Left = 236
-    Top = 32
-    Width = 23
-    Height = 22
+    Left = 254
+    Top = 34
+    Width = 25
+    Height = 24
     Flat = True
     Glyph.Data = {
       42010000424D4201000000000000760000002800000011000000110000000100
@@ -70,10 +70,10 @@ object frmEstadoCtaCli: TfrmEstadoCtaCli
     OnClick = btVendedorClick
   end
   object SpeedButton2: TSpeedButton
-    Left = 236
-    Top = 56
-    Width = 23
-    Height = 22
+    Left = 254
+    Top = 60
+    Width = 25
+    Height = 24
     Flat = True
     Glyph.Data = {
       42010000424D4201000000000000760000002800000011000000110000000100
@@ -90,10 +90,10 @@ object frmEstadoCtaCli: TfrmEstadoCtaCli
     OnClick = SpeedButton2Click
   end
   object SpeedButton1: TSpeedButton
-    Left = 236
-    Top = 80
-    Width = 23
-    Height = 22
+    Left = 254
+    Top = 86
+    Width = 25
+    Height = 24
     Flat = True
     Glyph.Data = {
       42010000424D4201000000000000760000002800000011000000110000000100
@@ -110,31 +110,31 @@ object frmEstadoCtaCli: TfrmEstadoCtaCli
     OnClick = SpeedButton1Click
   end
   object Label4: TLabel
-    Left = 104
-    Top = 160
-    Width = 56
-    Height = 13
+    Left = 112
+    Top = 172
+    Width = 59
+    Height = 14
     Caption = 'Ordenar por'
   end
   object Label5: TLabel
-    Left = 344
-    Top = 160
+    Left = 370
+    Top = 172
     Width = 30
-    Height = 13
+    Height = 14
     Caption = 'Fecha'
   end
   object Label12: TLabel
-    Left = 104
-    Top = 8
-    Width = 21
-    Height = 13
+    Left = 112
+    Top = 9
+    Width = 20
+    Height = 14
     Caption = 'Tipo'
   end
   object btTipo: TSpeedButton
-    Left = 236
-    Top = 8
-    Width = 23
-    Height = 22
+    Left = 254
+    Top = 9
+    Width = 25
+    Height = 23
     Flat = True
     Glyph.Data = {
       42010000424D4201000000000000760000002800000011000000110000000100
@@ -151,17 +151,17 @@ object frmEstadoCtaCli: TfrmEstadoCtaCli
     OnClick = btTipoClick
   end
   object Label14: TLabel
-    Left = 104
-    Top = 104
-    Width = 39
-    Height = 13
+    Left = 112
+    Top = 112
+    Width = 38
+    Height = 14
     Caption = 'Moneda'
   end
   object btmoneda: TSpeedButton
-    Left = 236
-    Top = 104
-    Width = 23
-    Height = 22
+    Left = 254
+    Top = 112
+    Width = 25
+    Height = 24
     Flat = True
     Glyph.Data = {
       42010000424D4201000000000000760000002800000011000000110000000100
@@ -178,16 +178,16 @@ object frmEstadoCtaCli: TfrmEstadoCtaCli
     OnClick = btmonedaClick
   end
   object edVendedor: TEdit
-    Left = 176
-    Top = 32
-    Width = 57
-    Height = 21
+    Left = 190
+    Top = 34
+    Width = 61
+    Height = 23
     BevelKind = bkFlat
     BorderStyle = bsNone
     CharCase = ecUpperCase
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
-    Font.Height = -11
+    Font.Height = -12
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
@@ -196,33 +196,33 @@ object frmEstadoCtaCli: TfrmEstadoCtaCli
     OnKeyDown = edVendedorKeyDown
   end
   object tVendedor: TEdit
-    Left = 261
-    Top = 32
-    Width = 229
-    Height = 21
+    Left = 281
+    Top = 34
+    Width = 247
+    Height = 23
     BevelKind = bkFlat
     BorderStyle = bsNone
     Color = clInfoBk
     Enabled = False
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
-    Font.Height = -11
+    Font.Height = -12
     Font.Name = 'Tahoma'
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 2
   end
   object edDesde: TEdit
-    Left = 176
-    Top = 56
-    Width = 57
-    Height = 21
+    Left = 190
+    Top = 60
+    Width = 61
+    Height = 23
     BevelKind = bkFlat
     BorderStyle = bsNone
     CharCase = ecUpperCase
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
-    Font.Height = -11
+    Font.Height = -12
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
@@ -231,33 +231,33 @@ object frmEstadoCtaCli: TfrmEstadoCtaCli
     OnKeyDown = edDesdeKeyDown
   end
   object tDesde: TEdit
-    Left = 261
-    Top = 56
-    Width = 229
-    Height = 21
+    Left = 281
+    Top = 60
+    Width = 247
+    Height = 23
     BevelKind = bkFlat
     BorderStyle = bsNone
     Color = clInfoBk
     Enabled = False
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
-    Font.Height = -11
+    Font.Height = -12
     Font.Name = 'Tahoma'
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 4
   end
   object edHasta: TEdit
-    Left = 176
-    Top = 80
-    Width = 57
-    Height = 21
+    Left = 190
+    Top = 86
+    Width = 61
+    Height = 23
     BevelKind = bkFlat
     BorderStyle = bsNone
     CharCase = ecUpperCase
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
-    Font.Height = -11
+    Font.Height = -12
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
@@ -266,27 +266,27 @@ object frmEstadoCtaCli: TfrmEstadoCtaCli
     OnKeyDown = edHastaKeyDown
   end
   object tHasta: TEdit
-    Left = 261
-    Top = 80
-    Width = 229
-    Height = 21
+    Left = 281
+    Top = 86
+    Width = 247
+    Height = 23
     BevelKind = bkFlat
     BorderStyle = bsNone
     Color = clInfoBk
     Enabled = False
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
-    Font.Height = -11
+    Font.Height = -12
     Font.Name = 'Tahoma'
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 7
   end
   object btClose: TBitBtn
-    Left = 384
-    Top = 256
-    Width = 105
-    Height = 25
+    Left = 414
+    Top = 276
+    Width = 113
+    Height = 27
     Caption = '&Salir'
     TabOrder = 11
     OnClick = btCloseClick
@@ -306,10 +306,10 @@ object frmEstadoCtaCli: TfrmEstadoCtaCli
     NumGlyphs = 2
   end
   object btPrint: TBitBtn
-    Left = 384
-    Top = 192
-    Width = 105
-    Height = 25
+    Left = 414
+    Top = 207
+    Width = 113
+    Height = 27
     Caption = 'Imprimir'
     TabOrder = 10
     OnClick = btPrintClick
@@ -328,10 +328,10 @@ object frmEstadoCtaCli: TfrmEstadoCtaCli
       DDDDDDDDDDDDDDDD0000}
   end
   object cbStatus: TRadioGroup
-    Left = 8
-    Top = 8
-    Width = 89
-    Height = 65
+    Left = 9
+    Top = 9
+    Width = 95
+    Height = 70
     Caption = 'Status'
     ItemIndex = 0
     Items.Strings = (
@@ -341,10 +341,10 @@ object frmEstadoCtaCli: TfrmEstadoCtaCli
     TabOrder = 12
   end
   object cbBalance: TRadioGroup
-    Left = 8
-    Top = 80
-    Width = 89
-    Height = 81
+    Left = 9
+    Top = 86
+    Width = 95
+    Height = 87
     Caption = 'Balance'
     ItemIndex = 0
     Items.Strings = (
@@ -355,17 +355,17 @@ object frmEstadoCtaCli: TfrmEstadoCtaCli
     TabOrder = 13
   end
   object cbOrden: TComboBox
-    Left = 176
-    Top = 160
-    Width = 105
-    Height = 21
+    Left = 190
+    Top = 172
+    Width = 113
+    Height = 22
     Style = csDropDownList
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
-    Font.Height = -11
+    Font.Height = -12
     Font.Name = 'Tahoma'
     Font.Style = []
-    ItemHeight = 13
+    ItemHeight = 14
     ItemIndex = 0
     ParentFont = False
     TabOrder = 8
@@ -378,44 +378,44 @@ object frmEstadoCtaCli: TfrmEstadoCtaCli
       'RNC')
   end
   object Fecha: TDateTimePicker
-    Left = 384
-    Top = 160
-    Width = 105
-    Height = 21
+    Left = 414
+    Top = 172
+    Width = 113
+    Height = 22
     Date = 37607.000000000000000000
     Time = 37607.000000000000000000
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
-    Font.Height = -11
+    Font.Height = -12
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
     TabOrder = 9
   end
   object ckPagina: TCheckBox
-    Left = 112
-    Top = 200
-    Width = 201
-    Height = 17
+    Left = 121
+    Top = 215
+    Width = 216
+    Height = 19
     Caption = 'Imprimir una p'#225'gina por cliente'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -11
+    Font.Height = -12
     Font.Name = 'MS Sans Serif'
     Font.Style = []
     ParentFont = False
     TabOrder = 14
   end
   object ckMov: TCheckBox
-    Left = 112
-    Top = 216
-    Width = 201
-    Height = 17
+    Left = 121
+    Top = 233
+    Width = 216
+    Height = 18
     Caption = 'Solo movimientos pendientes'
     Checked = True
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -11
+    Font.Height = -12
     Font.Name = 'MS Sans Serif'
     Font.Style = []
     ParentFont = False
@@ -424,40 +424,40 @@ object frmEstadoCtaCli: TfrmEstadoCtaCli
     OnClick = ckMovClick
   end
   object ckmail: TCheckBox
-    Left = 112
-    Top = 232
-    Width = 97
-    Height = 17
+    Left = 121
+    Top = 250
+    Width = 104
+    Height = 18
     Caption = 'Enviar por email'
     TabOrder = 16
   end
   object tTipo: TEdit
-    Left = 261
-    Top = 8
-    Width = 229
-    Height = 21
+    Left = 281
+    Top = 9
+    Width = 247
+    Height = 22
     BevelKind = bkFlat
     BorderStyle = bsNone
     Color = clInfoBk
     Enabled = False
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
-    Font.Height = -11
+    Font.Height = -12
     Font.Name = 'Tahoma'
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 17
   end
   object edTipo: TEdit
-    Left = 176
-    Top = 8
-    Width = 57
-    Height = 21
+    Left = 190
+    Top = 9
+    Width = 61
+    Height = 22
     BevelKind = bkFlat
     BorderStyle = bsNone
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
-    Font.Height = -11
+    Font.Height = -12
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
@@ -466,43 +466,43 @@ object frmEstadoCtaCli: TfrmEstadoCtaCli
     OnKeyDown = edTipoKeyDown
   end
   object edmoneda: TEdit
-    Left = 176
-    Top = 104
-    Width = 57
-    Height = 21
+    Left = 190
+    Top = 112
+    Width = 61
+    Height = 23
     TabStop = False
     BevelKind = bkFlat
     BorderStyle = bsNone
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
-    Font.Height = -11
+    Font.Height = -12
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
     TabOrder = 6
   end
   object tmoneda: TEdit
-    Left = 261
-    Top = 104
-    Width = 229
-    Height = 21
+    Left = 281
+    Top = 112
+    Width = 247
+    Height = 23
     BevelKind = bkFlat
     BorderStyle = bsNone
     Color = clInfoBk
     Enabled = False
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
-    Font.Height = -11
+    Font.Height = -12
     Font.Name = 'Tahoma'
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 18
   end
   object btConsolidado: TBitBtn
-    Left = 384
-    Top = 224
-    Width = 105
-    Height = 25
+    Left = 414
+    Top = 241
+    Width = 113
+    Height = 27
     Anchors = [akTop, akRight]
     Caption = 'Consolidado'
     TabOrder = 19
@@ -518,24 +518,22 @@ object frmEstadoCtaCli: TfrmEstadoCtaCli
       03333333333333333333}
   end
   object ChkB_cksucursal: TCheckBox
-    Left = 105
-    Top = 130
-    Width = 64
-    Height = 17
+    Left = 113
+    Top = 140
+    Width = 69
+    Height = 18
     Caption = 'Sucursal'
     TabOrder = 20
-    OnClick = ChkB_cksucursalClick
   end
   object dblkcbb1: TDBLookupComboBox
-    Left = 176
-    Top = 129
-    Width = 313
-    Height = 21
+    Left = 182
+    Top = 139
+    Width = 345
+    Height = 22
     DropDownRows = 20
-    Enabled = False
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
-    Font.Height = -11
+    Font.Height = -12
     Font.Name = 'Tahoma'
     Font.Style = []
     KeyField = 'suc_codigo'
@@ -545,20 +543,20 @@ object frmEstadoCtaCli: TfrmEstadoCtaCli
     TabOrder = 21
   end
   object mmo1: TMemo
-    Left = 136
-    Top = 290
-    Width = 185
-    Height = 89
+    Left = 146
+    Top = 312
+    Width = 200
+    Height = 96
     Lines.Strings = (
       'mmo1')
     TabOrder = 22
     Visible = False
   end
   object mmoCliente0: TMemo
-    Left = 48
-    Top = 408
-    Width = 185
-    Height = 89
+    Left = 52
+    Top = 439
+    Width = 199
+    Height = 96
     Lines.Strings = (
       '  AND CLI_CODIGO IN '
       '(select DISTINCT M.cli_codigo from '
@@ -611,10 +609,10 @@ object frmEstadoCtaCli: TfrmEstadoCtaCli
     Visible = False
   end
   object mmoClientemas0: TMemo
-    Left = 104
-    Top = 458
-    Width = 185
-    Height = 89
+    Left = 112
+    Top = 493
+    Width = 199
+    Height = 96
     Lines.Strings = (
       '  AND CLI_CODIGO IN '
       '(select DISTINCT M.cli_codigo from '
@@ -667,10 +665,10 @@ object frmEstadoCtaCli: TfrmEstadoCtaCli
     Visible = False
   end
   object mmoClientemenos0: TMemo
-    Left = 296
-    Top = 450
-    Width = 185
-    Height = 89
+    Left = 319
+    Top = 485
+    Width = 199
+    Height = 95
     Lines.Strings = (
       '  AND CLI_CODIGO IN '
       '(select DISTINCT M.cli_codigo from '

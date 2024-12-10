@@ -111,6 +111,39 @@ type
     edUsuario: TEdit;
     SpeedButton3: TSpeedButton;
     tUsuario: TEdit;
+    btnReimpresionBoleto: TBitBtn;
+    qry: TADOQuery;
+    qryemp_nombre: TStringField;
+    qrysuc_telefono: TStringField;
+    qrysuc_direccion: TStringField;
+    qryTerminal_origen: TStringField;
+    qryTerminal_destino: TStringField;
+    qryemp_codigo: TIntegerField;
+    qryusu_codigo: TIntegerField;
+    qryfecha: TDateTimeField;
+    qryboleto: TAutoIncField;
+    qrycaja: TIntegerField;
+    qrysuc_cod_origen: TIntegerField;
+    qrysuc_cod_destino: TIntegerField;
+    qryproducto: TIntegerField;
+    qrydescripcion: TStringField;
+    qryprecio: TBCDField;
+    qrycobrado: TBCDField;
+    qrydevuelto: TBCDField;
+    qryficha_pagado: TStringField;
+    qryfecha_pagado: TDateTimeField;
+    qrysecuencia_rando: TWideStringField;
+    qryusu_nombre: TStringField;
+    qrycodbarra: TStringField;
+    qryCONTEO: TIntegerField;
+    frxDBDataset1: TfrxDBDataset;
+    Rpt_Ticket: TfrxReport;
+    Hora1: TDateTimePicker;
+    Hora2: TDateTimePicker;
+    btnAnular: TBitBtn;
+    QBoletosanulado: TBooleanField;
+    QBoletoscomentario_anulado: TStringField;
+    QBoletosEstado: TStringField;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
@@ -128,6 +161,9 @@ type
     procedure edUsuarioChange(Sender: TObject);
     procedure edUsuarioKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure btnReimpresionBoletoClick(Sender: TObject);
+    procedure btnAnularClick(Sender: TObject);
+    procedure DBGrid1Enter(Sender: TObject);
   private
     { Private declarations }
   public
@@ -139,7 +175,7 @@ var
 
 implementation
 
-uses SIGMA01, SIGMA00, PTIKET004, PTIKET005, PVENTA44, Math;
+uses SIGMA01, SIGMA00, PTIKET004, PTIKET005, PVENTA44, Math, PVENTA250;
 
 {$R *.dfm}
 
@@ -191,6 +227,13 @@ begin
     QSucursal.Parameters.ParamByName('usu').Value := dm.Usuario;
     QSucursal.Open;
     DBLookupComboBox2.KeyValue := QSucursalsuc_codigo.Value;
+
+    //Verificar si el usuario tiene sucursal por defecto
+    if not VarIsNull(dm.suc_default) and (dm.suc_default > 0) then
+    begin
+      DBLookupComboBox2.KeyValue := dm.suc_default;
+    end;
+
   end;
   frmMain.ExportXLS.Sheets[0].DBGrid   := DBGrid1;
   frmMain.ExportXLS.Sheets[1].Exported := False;
@@ -227,12 +270,24 @@ begin
 
   if ckrango.Checked then
   begin
-    QBoletos.SQL.Add('and fecha between convert(datetime,:fecha1,105) and convert(datetime,:fecha2,105)');
+    QBoletos.SQL.Add('and fecha between :fecha1 and :fecha2');
+    QBoletos.Parameters.ParamByName('fecha1').DataType := ftDateTime;
+    QBoletos.Parameters.ParamByName('fecha2').DataType := ftDateTime;
+
+    // Concatenar fecha y hora con formato de 12 horas y AM/PM
+    QBoletos.Parameters.ParamByName('fecha1').Value := fecha1.Date + TimeOf(hora1.Time);
+    QBoletos.Parameters.ParamByName('fecha2').Value := fecha2.Date + TimeOf(hora2.Time);
+  end;
+
+
+ { if ckrango.Checked then
+  begin
+  QBoletos.SQL.Add('and fecha between convert(datetime,:fecha1,105) and convert(datetime,:fecha2,105)');
     QBoletos.Parameters.parambyname('fecha1').DataType := ftDateTime;
     QBoletos.Parameters.parambyname('fecha2').DataType := ftDateTime;
     QBoletos.Parameters.parambyname('fecha1').Value := fecha1.DateTime;
-    QBoletos.Parameters.parambyname('fecha2').Value := fecha2.DateTime+fecha2.Time;
-  end;
+    QBoletos.Parameters.parambyname('fecha2').Value := fecha2.DateTime+fecha2.Time;   
+  end;  }
 
   case cbOrden.ItemIndex of
    0 : QBoletos.sql.add('order by boleto desc, fecha desc, ficha_pagado');
@@ -312,7 +367,16 @@ WITH qBalance DO BEGIN
 Close;
 Parameters.ParamByName('emp').Value := dm.vp_cia;
 Parameters.ParamByName('suc').Value := DBLookupComboBox2.KeyValue;
-Parameters.ParamByName('fecha').Value := Fecha1.Date;
+
+Parameters.ParamByName('FECHA_INICIO').DataType := ftDateTime;
+Parameters.ParamByName('FECHA_FIN').DataType := ftDateTime;
+
+Parameters.ParamByName('FECHA_INICIO').Value := fecha1.Date + TimeOf(hora1.Time);
+Parameters.ParamByName('FECHA_FIN').Value := fecha2.Date + TimeOf(hora2.Time);
+{
+Parameters.ParamByName('fechaInicio ').Value := Fecha1.Date;
+Parameters.ParamByName('fechaFin').Value := Fecha1.Date;
+}
 IF Trim(edUsuario.Text)<> '' THEN BEGIN
 Filter := 'USU_CODIGO ='+Trim(edUsuario.Text);
 Filtered :=  True;
@@ -387,6 +451,34 @@ begin
       btRefreshClick(Self);
     end;
   end;
+end;
+
+procedure TfrmConsBoletos.btnReimpresionBoletoClick(Sender: TObject);
+begin
+  qry.close;
+  qry.Parameters.ParamByName('boleto').Value := QBoletosboleto.Value;
+  qry.Open;
+
+if not qry.IsEmpty then begin
+Rpt_Ticket.PrintOptions.Printer := DM.QParametrospar_impresora_boleto.Value;
+Rpt_Ticket.PrintOptions.Copies := 1;
+Rpt_Ticket.PrepareReport(True);
+Rpt_Ticket.Print;
+end;
+end;
+
+procedure TfrmConsBoletos.btnAnularClick(Sender: TObject);
+begin
+  Application.createform(TFormAnularBoleto, FormAnularBoleto);
+  FormAnularBoleto.numboleto := QBoletosboleto.Value;
+  FormAnularBoleto.motivo_anular :=QBoletoscomentario_anulado.Value;
+  FormAnularBoleto.Show;
+ 
+end;
+
+procedure TfrmConsBoletos.DBGrid1Enter(Sender: TObject);
+begin
+btRefreshClick(self);
 end;
 
 end.

@@ -1,11 +1,11 @@
 object frmCierreDia: TfrmCierreDia
-  Left = 323
-  Top = 165
+  Left = 345
+  Top = 280
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Cierre del D'#237'a'
   ClientHeight = 683
-  ClientWidth = 1370
+  ClientWidth = 1484
   Color = clBtnFace
   Font.Charset = ANSI_CHARSET
   Font.Color = clWindowText
@@ -19,7 +19,7 @@ object frmCierreDia: TfrmCierreDia
   OnClose = FormClose
   OnCreate = FormCreate
   DesignSize = (
-    1370
+    1484
     683)
   PixelsPerInch = 96
   TextHeight = 13

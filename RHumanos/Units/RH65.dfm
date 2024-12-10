@@ -1,6 +1,6 @@
 object frmNominaBanco: TfrmNominaBanco
-  Left = 564
-  Top = 400
+  Left = 468
+  Top = 347
   BorderStyle = bsSingle
   Caption = 'Nomina Banco'
   ClientHeight = 141

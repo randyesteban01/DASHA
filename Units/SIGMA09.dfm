@@ -49,6 +49,7 @@ object FrmActScripts: TFrmActScripts
   end
   object qActScript: TADOQuery
     Connection = DM.ADOSigma
+    DataSource = DM.dsEmpresas
     Parameters = <>
     SQL.Strings = (
       'select * from uptimedb order by fecha desc')

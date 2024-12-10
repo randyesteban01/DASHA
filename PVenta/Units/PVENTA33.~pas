@@ -218,7 +218,7 @@ begin
    with qActulizaProd do begin
    Close;
    Parameters.ParamByName('PROD').Value := QProductospro_codigo.Value;
-   Parameters.ParamByName('EMP').Value  := DM.vp_cia;
+   Parameters.ParamByName('EMP').Value  := DM.QParametrosPAR_INVEMPRESA.value;
    ExecSQL;
    end;
    
@@ -423,17 +423,17 @@ begin
     QProductos.SQL.add('PRODUCTOS P');
 //    QProductos.SQL.add('LEFT OUTER JOIN PRODUCTOS_SERIE Z ON');
 //    QProductos.SQL.add('(Z.PRO_CODIGO = P.PRO_CODIGO AND Z.EMP_CODIGO = P.EMP_CODIGO)');
-    QProductos.SQL.add('LEFT OUTER JOIN DEPARTAMENTOS D ON');
+    QProductos.SQL.add('LEFT JOIN DEPARTAMENTOS D ON');
     QProductos.SQL.add('(D.DEP_CODIGO = P.DEP_CODIGO AND D.EMP_CODIGO = P.EMP_CODIGO)');
-    QProductos.SQL.add('LEFT OUTER JOIN FAMILIAS F ON');
+    QProductos.SQL.add('LEFT JOIN FAMILIAS F ON');
     QProductos.SQL.add('(F.FAM_CODIGO = P.FAM_CODIGO');
     QProductos.SQL.add('AND F.EMP_CODIGO = P.EMP_CODIGO)');
-    QProductos.SQL.add('LEFT OUTER JOIN MARCAS M ON');
+    QProductos.SQL.add('LEFT JOIN MARCAS M ON');
     QProductos.SQL.add('(M.MAR_CODIGO = P.MAR_CODIGO');
     QProductos.SQL.add('AND M.EMP_CODIGO = P.EMP_CODIGO)');
-    QProductos.SQL.add('LEFT OUTER JOIN COLORES C ON');
+    QProductos.SQL.add('LEFT JOIN COLORES C ON');
     QProductos.SQL.add('(C.COL_CODIGO = P.COL_CODIGO)');
-    QProductos.SQL.add('LEFT OUTER JOIN UnidadMedida UM ON');
+    QProductos.SQL.add('LEFT JOIN UnidadMedida UM ON');
     QProductos.SQL.add('(p.UnidadID =um.UnidadID)');
     QProductos.SQL.add('');
     QProductos.SQL.add('');
@@ -528,16 +528,16 @@ begin
 
     QProductos.SQL.add('LEFT OUTER JOIN DEPARTAMENTOS D ON');
     QProductos.SQL.add('(D.DEP_CODIGO = P.DEP_CODIGO AND D.EMP_CODIGO = P.EMP_CODIGO)');
-    QProductos.SQL.add('LEFT OUTER JOIN FAMILIAS F ON');
+    QProductos.SQL.add('LEFT  JOIN FAMILIAS F ON');
     QProductos.SQL.add('(F.FAM_CODIGO = P.FAM_CODIGO');
     QProductos.SQL.add('AND F.EMP_CODIGO = P.EMP_CODIGO)');
-    QProductos.SQL.add('LEFT OUTER JOIN MARCAS M ON');
+    QProductos.SQL.add('LEFT  JOIN MARCAS M ON');
     QProductos.SQL.add('(M.MAR_CODIGO = P.MAR_CODIGO');
     QProductos.SQL.add('AND M.EMP_CODIGO = P.EMP_CODIGO)');
-    QProductos.SQL.add('LEFT OUTER JOIN COLORES C ON');
+    QProductos.SQL.add('LEFT  JOIN COLORES C ON');
     QProductos.SQL.add('(C.COL_CODIGO = P.COL_CODIGO)');
 
-    QProductos.SQL.add('LEFT OUTER JOIN UnidadMedida UM ON');
+    QProductos.SQL.add('LEFT  JOIN UnidadMedida UM ON');
     QProductos.SQL.add('(p.UnidadID =um.UnidadID)');
     QProductos.SQL.add('');
     QProductos.SQL.add('');
@@ -785,10 +785,14 @@ end;
       DBGrid1.Columns[a].FieldName := 'PRO_CODIGO';
     if dm.Query1.FieldByName('bus_campo').AsString = 'REF. ORIGINAL' then
       DBGrid1.Columns[a].FieldName := 'PRO_RORIGINAL';
-    if dm.Query1.FieldByName('bus_campo').AsString = 'REF. FABRICANTE' then
+    if dm.Query1.FieldByName('bus_campo').AsString = 'REF. FABRICANTE' then begin
       DBGrid1.Columns[a].FieldName := 'PRO_RFABRIC';
-    if dm.Query1.FieldByName('bus_campo').AsString = 'NOMBRE DEL PRODUCTO' then
+      DBGrid1.Columns[a].Width := DBGrid1.Columns[a].Width + 40;
+      end;
+    if dm.Query1.FieldByName('bus_campo').AsString = 'NOMBRE DEL PRODUCTO' then begin
       DBGrid1.Columns[a].FieldName := 'PRO_NOMBRE';
+      DBGrid1.Columns[a].Width := DBGrid1.Columns[a].Width + 80;
+    end;
     if dm.Query1.FieldByName('bus_campo').AsString = 'PRECIO1' then
       DBGrid1.Columns[a].FieldName := 'pro_precio1';
     if dm.Query1.FieldByName('bus_campo').AsString = 'PRECIO2' then

@@ -121,6 +121,7 @@ end;
 procedure TfrmResumenVentaProducto.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
+  frmMain.btExcel.Enabled := True;
   action := cafree;
 end;
 
@@ -314,6 +315,7 @@ begin
   spAno.Value  := YearOf(Date);
   Fecha1.Date := Date;
   Fecha2.Date := Date;
+  frmMain.btExcel.Enabled := False;
 
   if dm.QParametrosPAR_CODIGOPRODUCTO.Value = 'I' then
     sgreporte.Cells[00,0] := 'Código'
